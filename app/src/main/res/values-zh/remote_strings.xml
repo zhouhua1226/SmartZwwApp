@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+    <string name="app_name">SmartPlayerSDKDemo</string>
+    <string name="video_loading_text">正在加载!</string>
+    <string name="money_temp">%d次</string>
+    <string name="free_text">空闲中</string>
+    <string name="busy_text">游戏中</string>
+    <string name="preserve_text">维护中</string>
+    <string name="player_counter_text">%d人在线</string>
+    <string name="room_default_name">抓娃娃</string>
+
+    <string name="none_record">暂无抓取成功记录！</string>
+    <string name="service_phone">400-821-5561</string>
+    <string name="company_name">上海炎亿网络科技有限公司</string>
+    <string name="company_web">http://www.111WAWA.com</string>
+
+</resources>

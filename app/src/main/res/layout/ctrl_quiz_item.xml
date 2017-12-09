@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:id="@+id/ctrl_buttom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/crtl_bottom_height"
+        >
+
+        <LinearLayout
+            android:id="@+id/ctrl_betting_number_layout"
+            android:layout_width="89dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/ctrl_betting"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/ctrl_betting_number_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="30人"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/ctrl_betting_number_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="30人"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/ctrl_betting_winning"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="35dp"
+            android:layout_toRightOf="@+id/ctrl_betting_number_layout"
+            android:background="@drawable/ctrl_betting_item_win"
+            android:text="中"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/ctrl_betting_fail"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/ctrl_betting_winning"
+            android:background="@drawable/ctrl_betting_item"
+            android:text="不中"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+        <!--开始按钮-->
+        <LinearLayout
+            android:id="@+id/ctrl_confirm_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/ctrl_betting_determine"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/ctrl_dollgold_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50币/次"
+                android:textColor="#ffe41f"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+        <RelativeLayout
+            android:layout_centerHorizontal="true"
+            android:layout_margin="16dp"
+            android:id="@+id/ll_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dl"
+            >
+
+            <TextView
+                android:id="@+id/login_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="街机抓娃娃"
+                android:gravity="center"
+                android:layout_marginTop="45dp"
+                android:textColor="@color/white"
+                android:background="#f16081"
+                android:textSize="20sp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/login_usethree_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="使用第三方登录"
+                android:textColor="@color/login_lolor_bg"
+                android:textSize="15sp"
+                android:layout_below="@+id/login_title_tv"
+                />
+
+            <ImageButton
+                android:id="@+id/login_qq_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/login_qq"
+                android:background="@color/white"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:layout_below="@+id/login_usethree_tv"
+                />
+
+            <ImageButton
+                android:id="@+id/login_wx_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/login_wx"
+                android:background="@color/white"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:layout_below="@+id/login_usethree_tv"
+                />
+
+            <TextView
+                android:id="@+id/login_other_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="其它方式"
+                android:textColor="@color/login_lolor_bg"
+                android:textSize="15sp"
+                android:layout_below="@+id/login_wx_btn"
+                android:padding="10dp"
+                />
+
+
+            <Button
+                android:id="@+id/login_visitor_btn"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/login_other_tv"
+                android:background="@drawable/login"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="游客登录"
+                android:textSize="16sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_visitor_btn"
+                android:text="*游客登陆仅可观屏"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:textSize="12sp"
+                android:textColor="@color/gray"
+                android:layout_marginBottom="5dp"
+                />
+
+        </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/login_cancle_imag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gb"
+        android:layout_toStartOf="@+id/ll_login"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        />
+
+</RelativeLayout>

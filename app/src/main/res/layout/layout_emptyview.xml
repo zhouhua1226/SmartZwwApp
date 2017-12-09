@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--空页面-->
+    <ImageView
+        android:id="@+id/iv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:src="@drawable/zww_load_failure"
+        android:scaleType="fitXY"
+        android:visibility="gone"/>
+
+    <!--加载页面-->
+    <ImageView
+        android:id="@+id/iv_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:src="@drawable/zww_loading"
+        android:scaleType="fitXY"
+        android:visibility="gone"/>
+
+    <!--错误页面-->
+    <ImageView
+        android:id="@+id/iv_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:src="@drawable/zww_load_failure"
+        android:scaleType="fitXY"
+        android:visibility="gone"/>
+
+</RelativeLayout>

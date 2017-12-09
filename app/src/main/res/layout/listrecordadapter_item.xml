@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_picture"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/user_tv_id"
+            android:layout_toRightOf="@+id/image_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="名字越长越吊"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/times_tv"
+            android:layout_below="@+id/user_tv_id"
+            android:layout_toRightOf="@+id/image_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2分钟前"
+            android:text="2分钟前"
+            android:textSize="11sp"
+            android:textColor="#ffd7e7"/>
+
+
+        
+        <TextView
+            android:id="@+id/playback_tv"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:background="@drawable/center_item"
+            android:text="回放"
+            android:textColor="#fb7299"
+            android:textSize="14sp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"/>
+
+        <ImageView
+            android:id="@+id/wawa_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/wawa"
+            android:background="@drawable/center_item"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/playback_tv"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

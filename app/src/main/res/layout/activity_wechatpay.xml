@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 在线充值 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:Tools="http://schemas.android.com/tools"
+    android:background="#f6f6f6"
+    android:orientation="vertical">
+    <!-- 标题 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg03" >
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="微信充值"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp" >
+
+
+        <TextView
+            android:id="@+id/tv_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="充值金额(元)"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            />
+
+        <EditText
+            android:id="@+id/amount_tv"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/et_bg"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/tv_test"
+            android:textSize="14sp"
+            android:inputType="number"
+            android:textColor="@color/black"
+            Tools:text="10"
+            android:gravity="center|left"
+            />
+
+
+        <TextView
+            android:id="@+id/hint_tv"
+            android:layout_below="@+id/amount_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="提示：充值无手续费,如遇支付较慢请耐心等待"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+        <Button
+            android:layout_below="@+id/hint_tv"
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg03"
+            android:text="立即充值"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_ok"
+            android:layout_marginTop="8dp"
+            android:text="温馨提示：如遇到充值问题，请点击在线客服为您服务。(微信请下载APP并绑定银行卡)"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    </RelativeLayout>
+    <!-- 按钮 -->
+
+    <RelativeLayout
+        android:id="@+id/idcard_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+         >
+
+        <TextView
+            android:id="@+id/wx_ye_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            />
+
+        <Button
+            android:id="@+id/wx_play_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:text="开始消费"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

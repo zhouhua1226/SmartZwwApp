@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/update_bg"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="版本更新"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:lineSpacingExtra="8dp"
+            android:id="@+id/scdialog_title"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/scdialog_title"
+            android:layout_marginTop="10dp"
+            android:background="@color/select_pop_gv_bg"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/scdialog_title"
+            >
+            <Button
+                android:id="@+id/scdialog_cancel_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="取消"
+                android:textColor="@color/gray"
+                android:textSize="15sp"
+                android:background="@drawable/update_left_bg"
+                android:layout_weight="1"
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/select_pop_gv_bg"/>
+
+            <Button
+                android:id="@+id/scdialog_sure_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="确定"
+                android:textColor="@color/update_sure_color"
+                android:background="@drawable/update_right_bg"
+                android:textSize="15sp"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

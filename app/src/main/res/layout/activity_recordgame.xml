@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg03">
+
+        <ImageButton
+            android:id="@+id/image_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/back"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的娃娃"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/image_service"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/kf1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/title_img"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:padding="2dp"
+            android:background="@drawable/recordgame"
+            android:src="@drawable/wawa"/>
+
+        <TextView
+
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/title_img"
+            android:textSize="14sp"
+            android:textColor="#5b5b5b"
+            tools:text="可爱熊"/>
+        <TextView
+            android:id="@+id/times_tv"
+            android:layout_below="@+id/name_tv"
+            android:layout_toRightOf="@+id/title_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="#848484"
+            android:text="2017/10/17 14:12"/>
+
+        <TextView
+            android:id="@+id/results_tv"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#fb7299"
+            android:layout_marginRight="15dp"
+            android:text="顺利抓取"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数量"
+            android:textSize="14sp"
+            android:textColor="#353535"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/mydoll_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:textColor="#353535"
+            android:textSize="14sp"/>
+
+
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="编号"
+            android:textSize="14sp"
+            android:textColor="#353535"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/mydoll_id_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="665522"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:textColor="#353535"
+            android:textSize="14sp"/>
+
+
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="娃娃状态"
+            android:textSize="14sp"
+            android:textColor="#353535"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/mydoll_state_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="寄存中"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/pink"
+            android:textSize="14sp"/>
+
+
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可换游戏币"
+            android:textSize="14sp"
+            android:textColor="#353535"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/mydoll_exchangenum_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:textColor="#353535"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+
+    <RelativeLayout
+        android:id="@+id/nonesend_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:visibility="visible"
+        >
+        <TextView
+            android:id="@+id/text_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="您可以进行以下操作"
+            android:textSize="14sp"
+            android:textColor="#353535"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"/>
+        
+        
+        <Button
+            android:id="@+id/gamemoney_button"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/text_tv"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:background="@drawable/fillingcurrency_dialog"
+            android:text="兑换游戏币"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            />
+
+        <Button
+            android:id="@+id/shipments_button"
+            android:layout_marginStart="100dp"
+            android:layout_toRightOf="@+id/gamemoney_button"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/text_tv"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:background="@drawable/fillingcurrency_dialog"
+            android:text="申请发货"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/send_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/text_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dingwei"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:textSize="14sp"
+            android:textColor="#5b5b5b"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/text_image"
+            android:id="@+id/sendname_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收货人:花花"/>
+
+        <TextView
+            android:textSize="14sp"
+            android:textColor="#5b5b5b"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/text_image"
+            android:layout_below="@+id/sendname_tv"
+            android:id="@+id/sendaddress_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址:上海市虹口区吴淞路218号"/>
+
+        <TextView
+            android:textSize="14sp"
+            android:textColor="#5b5b5b"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/text_image"
+            android:layout_below="@+id/sendaddress_tv"
+            android:id="@+id/sendremark_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备注:魏黎是最帅的"/>
+
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:id="@+id/sendphoto_tv"
+            android:textSize="14sp"
+            android:textColor="#5b5b5b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15335756655"/>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/exchanged_tv"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="已兑换游戏币！"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:background="@color/white"
+        android:textColor="@color/gray"
+        android:visibility="gone"
+        />
+
+
+    <TextView
+        android:textColor="#848484"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:text="*选择后无法在请求发货"/>
+    <TextView
+        android:textColor="#848484"
+        android:layout_marginLeft="15dp"
+        android:textSize="11sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="*娃娃抓取成功后可在APP中寄存15天，15天后如未申请发货则自动兑换成相应的游戏币"/>
+
+    <TextView
+        android:textColor="#848484"
+        android:textSize="11sp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="*邮寄范围仅支持中国大陆地区"/>
+
+
+</LinearLayout>

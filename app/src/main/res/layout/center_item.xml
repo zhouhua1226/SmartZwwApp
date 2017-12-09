@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="167dp"
+    android:layout_height="140dp"
+    android:background="@drawable/center_item">
+
+        <ImageView
+            android:id="@+id/moppet_image"
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:src="@drawable/wawa"
+            android:layout_centerHorizontal="true"/>
+        <ImageView
+            android:layout_below="@+id/moppet_image"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#e3e3e3" />
+
+        <TextView
+            android:id="@+id/moppet_name_tv"
+            android:layout_below="@+id/moppet_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/gray"
+            android:text="粉红兔"/>
+
+        <TextView
+            android:id="@+id/mopper_time"
+            android:layout_below="@+id/moppet_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#fb7299"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:text="2017/09/25 13:44"/>
+
+    </RelativeLayout>

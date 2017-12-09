@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
+
+    defaultConfig {
+        applicationId "com.tencent.tmgp.jjzww"
+        minSdkVersion 17
+        targetSdkVersion 22  //后期完善加入6.0
+        versionCode 2
+        versionName "1.1.2"
+        multiDexEnabled true
+    }
+    splits {
+
+        // Configures screen ABI split settings
+        abi {
+
+            // Enable ABI APK splits
+            enable true
+
+            // By default all ABIs are included, so use reset() and include to specify that we only
+            // want APKs for x86, armeabi-v7a, and mips
+
+            // Resets the list of ABIs that Gradle should create APKs for to none
+            reset()
+
+            // Specifies a list of ABIs that Gradle should create APKs for
+            //include "armeabi"
+            include 'armeabi-v7a, arm64-v8a' //select ABIs to build APKs for
+
+            // Specify that we do not want to also generate a universal APK that includes all ABIs
+            universalApk true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+    dexOptions{
+        incremental false
+        javaMaxHeapSize "2G"
+        preDexLibraries = false
+    }
+}
+
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    compile 'com.hwangjr.rxbus:rxbus:1.0.3'
+    compile 'com.android.support:design:25.3.1'
+    //    compile 'com.jph.takephoto:takephoto_library:4.0.3'
+    compile 'com.jph.takephoto:takephoto_library:2.0.4'
+    //Glide
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'io.netty:netty-all:4.0.36.Final'
+    compile 'org.codehaus.jackson:jackson-core-asl:1.9.5'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.5'
+    compile 'commons-beanutils:commons-beanutils:1.8.3'
+    compile 'org.apache.commons:commons-lang3:3.1'
+    compile 'org.slf4j:slf4j-api:1.7.2'
+    compile 'com.google.guava:guava:14.0.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile project(':PushSDK')
+    compile 'com.bartoszlipinski:recyclerviewheader2:2.0.1'
+    compile 'com.makeramen:roundedimageview:2.2.1'
+    compile files('libs/smartavengine.jar')
+}

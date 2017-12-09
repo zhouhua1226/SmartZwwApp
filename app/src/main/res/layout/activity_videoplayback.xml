@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:zhouh="http://schemas.android.com/apk/res-auto"
+    android:background="#ffcad3"
+    android:orientation="vertical"
+    tools:context=".activity.ctrl.view.CtrlActivity">
+
+    <RelativeLayout
+        android:id="@+id/layout_top_select"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg03">
+
+        <ImageButton
+            android:id="@+id/image_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/back"
+            android:visibility="visible" />
+
+        <TextView
+            android:text="@string/room_default_name"
+            android:id="@+id/doll_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/image_service"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/kf1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/realplay_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_top_select"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="@dimen/crtl_bottom_height"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <VideoView
+                android:id="@+id/realplay_vv"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent" />
+
+            <RelativeLayout
+                android:id="@+id/player_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#B3000000"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:id="@+id/player_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="14dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/player_name_tv"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/ctrl_status_iv"
+                    android:background="@drawable/point_green"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/player2_iv"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ctrl_default_user_bg"
+                    app:riv_border_color="@color/red"
+                    app:riv_border_width="4dp"
+                    app:riv_oval="true" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/main_player_iv"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/player2_iv"
+                    android:src="@drawable/ctrl_default_user_bg"
+                    app:riv_border_color="@color/red"
+                    app:riv_border_width="4dp"
+                    app:riv_oval="true" />
+
+                <TextView
+                    android:text="@string/player_counter_text"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@+id/main_player_iv"
+                    android:layout_centerVertical="true"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/player_counter_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <com.tencent.tmgp.jjzww.view.GifView
+            android:id="@+id/ctrl_gif_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ctrl_fail_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ctrl_video_load_failed"
+            android:clickable="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/ctrl_buttom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/crtl_bottom_height"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/ctrl_money_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/money_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/money" />
+
+            <TextView
+                android:id="@+id/game_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/money_image"
+                android:text="游戏币"
+                android:textColor="#353535"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/coin_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/game_tv"
+                android:layout_toRightOf="@+id/money_image"
+                android:text="9999"
+                android:textColor="#fb7299"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <!--开始按钮-->
+        <LinearLayout
+            android:id="@+id/startgame_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ctrl_startgame_bg_n"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始游戏"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50/次"
+                android:textColor="#ffe41f"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!--充值按钮和弹幕发送按钮-->
+        <LinearLayout
+            android:id="@+id/recharge_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            >
+
+            <ImageButton
+                android:id="@+id/recharge_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ffcad3"
+                android:src="@drawable/recharge" />
+
+            <ImageButton
+                android:id="@+id/message_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="#ffcad3"
+                android:src="@drawable/message" />
+        </LinearLayout>
+
+        <!--下爪子按钮-->
+        <RelativeLayout
+            android:id="@+id/catch_ll"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:visibility="visible"
+            android:layout_width="70dp"
+            android:layout_height="70dp">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/ctrl_bg"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <!--爪子-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@drawable/catch1" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!--操作按钮-->
+        <RelativeLayout
+            android:visibility="visible"
+            android:id="@+id/operation_rl"
+            android:background="@drawable/ctrl_bg"
+            android:layout_centerInParent="true"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+            <ImageView
+                android:id="@+id/front_image"
+                android:layout_width="@dimen/direction_widght"
+                android:layout_height="@dimen/direction_height"
+                android:background="@drawable/ctrl_action_down_top_n"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:id="@+id/back_image"
+                android:layout_width="@dimen/direction_widght"
+                android:layout_height="@dimen/direction_widght"
+                android:background="@drawable/ctrl_action_down_below_n"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:id="@+id/left_image"
+                android:layout_width="@dimen/direction_widght"
+                android:layout_height="@dimen/direction_widght"
+                android:background="@drawable/ctrl_action_down_left_n"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageView
+                android:id="@+id/right_image"
+                android:layout_width="@dimen/direction_widght"
+                android:layout_height="@dimen/direction_widght"
+                android:background="@drawable/ctrl_action_down_right_n"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

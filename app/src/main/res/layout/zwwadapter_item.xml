@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/center_item">
+
+    <ImageView
+        android:id="@+id/moppet_image"
+        android:background="@drawable/loading"
+        android:layout_width="167dp"
+        android:layout_height="90dp" />
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="167dp"
+        android:layout_height="1px"
+        android:layout_below="@+id/moppet_image"
+        android:background="@color/gray" />
+
+    <TextView
+        android:id="@+id/moppet_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/moppet_image"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="4dp"
+        android:text="未知"
+        android:textColor="@color/gray"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/monet_image"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/moppet_image"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="14dp"
+        android:layout_toEndOf="@+id/moppet_name_tv"
+        android:src="@drawable/money2" />
+
+    <TextView
+        android:id="@+id/moppet_money_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/moppet_image"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="5dp"
+        android:paddingBottom="4dp"
+        android:layout_toEndOf="@+id/monet_image"
+        android:text="@string/money_temp"
+        android:textColor="#fb7299"
+        android:textSize="12sp" />
+
+    <RelativeLayout
+        android:layout_width="167dp"
+        android:layout_height="24dp"
+        android:layout_above="@+id/line"
+        android:background="#09000000">
+
+        <ImageView
+            android:id="@+id/moppet_connect_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/red_point" />
+
+        <TextView
+            android:id="@+id/moppet_connect_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/moppet_connect_iv"
+            android:text="@string/busy_text"
+            android:textColor="@color/redx"
+            android:textSize="12sp" />
+    </RelativeLayout>
+</RelativeLayout>
+

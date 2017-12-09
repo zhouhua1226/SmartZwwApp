@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="backcolor">#efefef</color>
+    <color name="pink">#fe719b</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#c20202</color>
+    <color name="gray">#808080</color>
+    <color name="black">#000000</color>
+    <color name="main_red">#e3393c</color>
+    <color name="main_gray">#57515d</color>
+    <color name="select_pop_gv_bg">#e4e4e4</color>
+    <color name="update_sure_color">#007aff</color>
+    <color name="green">#6dc9b8</color>
+    <color name="redx">#ea6387</color>
+    <color name="update_dialog_bg">#ffffff</color>
+    <color name="zww_broadcast_text">#ff9700</color>
+    <color name="login_lolor_bg">#f16081</color>
+    <color name="run_text_bg">#efefef</color>
+
+</resources>

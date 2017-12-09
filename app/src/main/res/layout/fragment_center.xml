@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg03">
+
+        <ImageButton
+            android:id="@+id/image_kefu"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/kf1"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的账号"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/image_setting"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/setting" />
+    </RelativeLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swiperefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mycenter_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    />
+
+
+            <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal|top">
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical">-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bj01">
+
+                    <ImageView
+                        android:id="@+id/user_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/round"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="25dp"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/user_image"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:id="@+id/user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        tools:text="云梦一霸"
+                        android:textSize="13sp"
+                        android:textColor="@color/white"
+                        />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/user_name"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/user_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="累积抓中0次"
+                            android:textColor="@color/white"
+                            android:layout_marginRight="20dp"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/user_filling"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="充值+"
+                            android:textColor="@color/white"
+                            android:layout_toRightOf="@+id/user_number"
+                            android:textSize="15sp"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+
+            <!--</LinearLayout>-->
+
+            </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
+
+            <TextView
+                android:id="@+id/mycenter_none_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="暂无抓取成功记录！"
+                android:textColor="@color/gray"
+                android:layout_marginTop="200dp"
+                android:paddingTop="30dp"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                />
+
+
+            </FrameLayout>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>

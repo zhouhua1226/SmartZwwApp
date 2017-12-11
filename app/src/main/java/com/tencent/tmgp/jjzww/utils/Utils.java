@@ -46,6 +46,8 @@ public class Utils {
     public static final String TAG_DEVICE_FREE = "TAG_DEVICE_FREE";
     public static final String TAG_DEVICE_ERR = "TAG_DEVICE_ERR";
 
+    public static final String TAG_LOTTERY_DRAW = "TAG_LOTTERY_DRAW";
+
     public static final String FREE  = "free";
     public static final String BUSY= "using";
     public static final String OK = "正常";

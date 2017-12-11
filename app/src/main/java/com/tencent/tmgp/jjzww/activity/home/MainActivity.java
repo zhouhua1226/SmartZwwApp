@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
-        RxBus.get().register(this);
+        //RxBus.get().register(this);
         loginDialog = new LoginDialog(this, R.style.easy_dialog_style);
         loginDialog.setDialogClickListener(idialogClick);
         doServcerConnect();
@@ -152,7 +152,7 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         Utils.isExit = true;
         stopTimer();
-        RxBus.get().unregister(this);
+        //RxBus.get().unregister(this);
     }
 
     private void logIn(String phone, boolean isShow) {

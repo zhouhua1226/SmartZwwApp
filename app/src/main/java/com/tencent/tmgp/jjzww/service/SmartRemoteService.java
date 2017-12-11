@@ -8,6 +8,7 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 
 
+import com.iot.game.pooh.server.entity.json.announce.LotteryDrawAnnounceMessage;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.gatz.netty.global.ConnectResultEvent;
 import com.gatz.netty.observer.HandlerObserver;
@@ -127,6 +128,9 @@ public class SmartRemoteService extends Service {
             } else if (tag.equals(ConnectResultEvent.DEVICE_ERR)) {
                 PoohAbnormalStatus abnormalStatus = (PoohAbnormalStatus) objs[0];
                 RxBus.get().post(Utils.TAG_DEVICE_ERR, abnormalStatus);
+            } else if (tag.equals(ConnectResultEvent.LOTTERY_DRAW_ANNOUNCE)) {
+                LotteryDrawAnnounceMessage message = (LotteryDrawAnnounceMessage) objs[0];
+                RxBus.get().post(Utils.TAG_LOTTERY_DRAW, message);
             }
         }
 

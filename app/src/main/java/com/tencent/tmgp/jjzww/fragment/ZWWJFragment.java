@@ -1,11 +1,9 @@
 package com.tencent.tmgp.jjzww.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
@@ -144,18 +142,18 @@ public class ZWWJFragment extends BaseFragment {
                 @Override
                 public void onItemClick(int position) {
                     if ((roomBeens.size() > 0) && (!Utils.isEmpty(sessionId))) {
-                        String room_id = roomBeens.get(position).getDOLL_ID();
+                        String doll_id = roomBeens.get(position).getDOLL_ID();
                         boolean room_status = false;
-                        UserUtils.setNettyInfo(sessionId, UserUtils.NickName, room_id);
+                        UserUtils.setNettyInfo(sessionId, UserUtils.NickName, doll_id);
                         if (roomBeens.get(position).getDOLL_STATE().equals("0")) {
                             room_status = true;
                         } else if (roomBeens.get(position).getDOLL_STATE().equals("1")) {
                             room_status = false;
                         }
                         enterNext(roomBeens.get(position).getDOLL_NAME(),
-                                roomBeens.get(position).getCAMERA_NAME_01(),
-                                room_status, String.valueOf(roomBeens.get(position).getDOLL_GOLD()),
-                                roomBeens.get(position).getDOLL_ID());
+                                    roomBeens.get(position).getCAMERA_NAME_01(),
+                                    room_status, String.valueOf(roomBeens.get(position).getDOLL_GOLD()),
+                                    roomBeens.get(position).getDOLL_ID());
                     }
                 }
             };
@@ -170,12 +168,10 @@ public class ZWWJFragment extends BaseFragment {
         startActivity(intent);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
         getUserList();
     }
-
 
 }

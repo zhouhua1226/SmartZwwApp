@@ -1,6 +1,5 @@
 package com.tencent.tmgp.jjzww.activity.ctrl.view;
 
-
 import java.util.List;
 
 /**

@@ -1,10 +1,8 @@
 package com.tencent.tmgp.jjzww.model.http;
 
 import com.tencent.tmgp.jjzww.bean.AppUserBean;
-import com.tencent.tmgp.jjzww.bean.ConsigneeBean;
 import com.tencent.tmgp.jjzww.bean.ListRankBean;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
-import com.tencent.tmgp.jjzww.bean.PlayBackBean;
 import com.tencent.tmgp.jjzww.bean.PondResponseBean;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.Token;
@@ -218,6 +216,5 @@ public interface SmartService {
     Observable<Result<LoginInfo>>getExchangeList(
             @Field(UrlUtils.USERID) String userID
     );
-
 
 }

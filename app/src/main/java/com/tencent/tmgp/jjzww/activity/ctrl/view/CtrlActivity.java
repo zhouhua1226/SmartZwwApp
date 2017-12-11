@@ -163,8 +163,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     private String zt = "";
     private Boolean isOpenSucess = false; //以第一个摄像头为标准
     //播放地址流
-    private String playUrl1 = "rtmp://106.14.171.182/user/user";  //主摄像头
-    private String playUrl2 = "rtmp://106.14.171.182/live/livestream";//次摄像头
+    private String playUrl1 = "rtmp://rtmp.open.ys7.com/openlive/784efe98624241eb8923bde2d7530c38";//"rtmp://106.14.171.182/user/user";  //主摄像头
+    private String playUrl2 = "rtmp://rtmp.open.ys7.com/openlive/784efe98624241eb8923bde2d7530c38";//"rtmp://106.14.171.182/live/livestream";//次摄像头
     private String currentUrl;
 
     static {

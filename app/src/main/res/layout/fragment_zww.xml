@@ -47,8 +47,8 @@
                 android:id="@+id/marqueeview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mvAnimDuration="6000"
-                app:mvInterval="6000"
+                app:mvAnimDuration="500"
+                app:mvInterval="2000"
                 app:mvTextSize="14sp"/>
 
 

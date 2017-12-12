@@ -37,25 +37,26 @@ public class RankFragmentTwo extends BaseFragment {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        initlist();
         initData();
+        initlist();
         OnClick();
 
     }
 
     private void initData() {
         listRankAdapter=new ListRankAdapter(getContext(),list);
-        Utils.showLogE(TAG+"看看？？",list.size()+"");
         ranktwoRecyclerbiew.setAdapter(listRankAdapter);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         ranktwoRecyclerbiew.setLayoutManager(linearLayoutManager);
         ranktwoRecyclerbiew.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
     }
+
     private void initlist(){
         HttpManager.getInstance().getListRank(new RequestSubscriber<Result<ListRankBean>>() {
             @Override
             public void _onSuccess(Result<ListRankBean> listRankBeanResult) {
                 list =listRankBeanResult.getData().getAppUser();
+                Utils.showLogE(TAG, "=====" + list.size());
                 listRankAdapter.notify(list);
             }
 

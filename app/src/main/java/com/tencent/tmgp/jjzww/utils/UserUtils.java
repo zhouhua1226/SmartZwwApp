@@ -41,6 +41,7 @@ public class UserUtils {
         userInfo.setUserName(phone);
         userInfo.setRoomid(roomId);
         userInfo.setUnitId("UNI1611090002765");
+        Utils.showLogE("setNettyInfo", "change room::::" + sessionId + "====" + phone + "=====" + roomId);
         AppGlobal.getInstance().setUserInfo(userInfo);
     }
 

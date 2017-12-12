@@ -48,7 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     }
 
-    //监控网关区
+    //监控开奖信息
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = {
             @Tag(Utils.TAG_LOTTERY_DRAW)})
     public void getConnectStates(LotteryDrawAnnounceMessage message) {

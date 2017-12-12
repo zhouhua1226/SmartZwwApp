@@ -204,8 +204,6 @@ public class RecordGameActivty extends BaseActivity {
         if (requestCode == 0) {
             getViewChange();
         }
-
-
     }
 
     private void getExChangeWWB(String id,String dollName,String number,String userId){

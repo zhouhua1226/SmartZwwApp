@@ -47,22 +47,22 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
     public void onBindViewHolder(ZWWViewHolder holder, final int position) {
         ZwwRoomBean bean = mDatas.get(position);
         //holder.money.setText(String.format(mContext.getString(R.string.money_temp), bean.getDOLL_GOLD()));
-        holder.money.setText(bean.getDOLL_GOLD()+"/次");
+        holder.money.setText(bean.getDOLL_GOLD()+"");
         holder.name.setText(bean.getDOLL_NAME());
         Glide.with(mContext).load(UrlUtils.PICTUREURL + bean.getDOLL_URL()).error(R.drawable.loading).into(holder.imageView);
         holder.itemView.setEnabled(true);
         if (bean.getDOLL_STATE().equals("10")) {
-            holder.connectIv.setImageResource(R.drawable.green_point);
-            holder.connectTv.setTextColor(mContext.getResources().getColor(R.color.green));
-            holder.connectTv.setText(mContext.getString(R.string.free_text));
+            holder.connectIv.setImageResource(R.drawable.ctrl_work_icon);
+//            holder.connectTv.setTextColor(mContext.getResources().getColor(R.color.green));
+//            holder.connectTv.setText(mContext.getString(R.string.free_text));
         } else if (bean.getDOLL_STATE().equals("11")) {
-            holder.connectIv.setImageResource(R.drawable.red_point);
-            holder.connectTv.setTextColor(mContext.getResources().getColor(R.color.redx));
-            holder.connectTv.setText(mContext.getString(R.string.busy_text));
+            holder.connectIv.setImageResource(R.drawable.ctrl_idling_icon);
+//            holder.connectTv.setTextColor(mContext.getResources().getColor(R.color.redx));
+//           holder.connectTv.setText(mContext.getString(R.string.busy_text));
         } else {
-            holder.connectIv.setImageResource(R.drawable.red_point);
-            holder.connectTv.setTextColor(mContext.getResources().getColor(R.color.redx));
-            holder.connectTv.setText(mContext.getString(R.string.preserve_text));
+            holder.connectIv.setImageResource(R.drawable.ctrl_repair_icon);
+//            holder.connectTv.setTextColor(mContext.getResources().getColor(R.color.redx));
+//            holder.connectTv.setText(mContext.getString(R.string.preserve_text));
             holder.itemView.setEnabled(false);
         }
         if (mOnItemClickListener != null) {
@@ -84,7 +84,7 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
         private ImageView imageView;
         private TextView name;
         private TextView money;
-        private TextView connectTv;
+        //        private TextView connectTv;
         private ImageView connectIv;
 
         public ZWWViewHolder(View itemView) {
@@ -92,7 +92,7 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
             imageView = (ImageView) itemView.findViewById(R.id.moppet_image);
             name = (TextView) itemView.findViewById(R.id.moppet_name_tv);
             money = (TextView) itemView.findViewById(R.id.moppet_money_tv);
-            connectTv = (TextView) itemView.findViewById(R.id.moppet_connect_tv);
+//            connectTv = (TextView) itemView.findViewById(R.id.moppet_connect_tv);
             connectIv = (ImageView) itemView.findViewById(R.id.moppet_connect_iv);
         }
     }

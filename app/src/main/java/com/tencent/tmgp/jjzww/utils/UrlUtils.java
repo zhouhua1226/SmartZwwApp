@@ -51,7 +51,7 @@ public class UrlUtils {
     //login without code
     public static final String LOGINWITHOUTCODE = "http://47.100.15.18:8080/pooh-web/sms/getDoll";
     //完整的URL：http://106.75.142.42:8080/pooh-web/uploadFiles/DollImage/A002201710310002.jpg
-    public static final String PICTUREURL = "http://47.100.15.18:8080/pooh-web/uploadFiles/DollImage";
+    public static final String PICTUREURL = "http://47.100.15.18:8080/pooh-web/uploadFiles/DollImage/";
 
     //头像上传http://47.100.15.18:8080/pooh-web/api/updateUser
     public static final String FACEIMAGEURL = "http://47.100.15.18:8080/pooh-web/api/updateUser";

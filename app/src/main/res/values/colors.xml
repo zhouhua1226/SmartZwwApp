@@ -21,5 +21,6 @@
     <color name="zww_broadcast_text">#ff9700</color>
     <color name="login_lolor_bg">#f16081</color>
     <color name="run_text_bg">#efefef</color>
+    <color name="apptheme_bg">#fed201</color>
 
 </resources>

@@ -2,123 +2,98 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffcad3"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="166.6dp"
-        android:background="@drawable/zww_top_png1" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#efefef"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/apptheme_bg"
+        >
 
         <ImageView
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:background="@drawable/zww_broadcast_image1"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"/>
-
-        <com.tencent.tmgp.jjzww.view.MyTextSwitcher
-            android:id="@+id/rolling_tv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_gravity="center_vertical"
-            android:background="#efefef"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:singleLine="true"
-            android:clickable="true"
+            android:src="@drawable/app_text_logo"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
             />
-        <!--android:layout_gravity="center"-->
-        <!--android:background="#efefef"-->
 
-        <!--<RelativeLayout-->
-            <!--android:id="@+id/refresh_rl"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1">-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="-10dp"
+            android:background="@drawable/zww_top_png1" />
 
-            <!--<ImageView-->
-                <!--android:id="@+id/sx_image"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginStart="65dp"-->
-                <!--android:src="@drawable/sx2" />-->
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginStart="11dp"-->
-                <!--android:layout_toEndOf="@+id/sx_image"-->
-                <!--android:text="换一批"-->
-                <!--android:textColor="#353535"-->
-                <!--android:textSize="14sp" />-->
-        <!--</RelativeLayout>-->
-
-        <!--<View-->
-            <!--android:layout_width="0.5dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginBottom="5dp"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:background="#dcdcdc" />-->
-
-        <!--<RelativeLayout-->
-            <!--android:id="@+id/service_rl"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1">-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/sx_image1"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginStart="65dp"-->
-                <!--android:src="@drawable/kf2" />-->
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginStart="11dp"-->
-                <!--android:layout_toEndOf="@+id/sx_image1"-->
-                <!--android:text="客服"-->
-                <!--android:textColor="#353535"-->
-                <!--android:textSize="14sp" />-->
-        <!--</RelativeLayout>-->
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dcdcdc" />
-
-    <com.tencent.tmgp.jjzww.view.EmptyLayout
-        android:id="@+id/zww_emptylayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/zww_recyclerview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            android:scrollbars="none">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="40dp"
+            android:background="@color/apptheme_bg"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-    </com.tencent.tmgp.jjzww.view.EmptyLayout>
+            <!--<ImageView-->
+            <!--android:layout_width="21dp"-->
+            <!--android:layout_height="21dp"-->
+            <!--android:background="@drawable/zww_broadcast_image1"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginLeft="15dp"/>-->
+
+            <com.tencent.tmgp.jjzww.view.MarqueeView
+                android:id="@+id/marqueeview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:mvAnimDuration="6000"
+                app:mvInterval="6000"
+                app:mvTextSize="14sp"/>
 
 
+            <!--<com.tencent.tmgp.jjzww.view.MyTextSwitcher-->
+            <!--android:id="@+id/rolling_tv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:background="@color/apptheme_bg"-->
+            <!--android:focusable="true"-->
+            <!--android:focusableInTouchMode="true"-->
+            <!--android:singleLine="true"-->
+            <!--android:clickable="true"-->
+            <!--/>-->
+            <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="#efefef"&ndash;&gt;-->
+
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dcdcdc" />
+
+        <com.tencent.tmgp.jjzww.view.EmptyLayout
+            android:id="@+id/zww_emptylayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/zww_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:background="#eceaea"
+                android:scrollbars="none">
+            </android.support.v7.widget.RecyclerView>
+
+        </com.tencent.tmgp.jjzww.view.EmptyLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

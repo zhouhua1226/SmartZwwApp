@@ -10,14 +10,17 @@ import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.Marquee;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.bean.ZwwRoomBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
+import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.view.EmptyLayout;
+import com.tencent.tmgp.jjzww.view.MarqueeView;
 import com.tencent.tmgp.jjzww.view.MyTextSwitcher;
 import com.tencent.tmgp.jjzww.view.SpaceItemDecoration;
 
@@ -38,17 +41,17 @@ public class ZWWJFragment extends BaseFragment {
     @BindView(R.id.zww_emptylayout)
     EmptyLayout zwwEmptylayout;
     Unbinder unbinder;
-    @BindView(R.id.rolling_tv)
-    MyTextSwitcher rollingTv;
-    Unbinder unbinder1;
+    //    @BindView(R.id.rolling_tv)
+//    MyTextSwitcher rollingTv;
+    @BindView(R.id.marqueeview)
+    MarqueeView marqueeview;
 
     private List<ZwwRoomBean> roomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
     private String sessionId;
-    //    private String phone;
     private EmptyLayout.OnClickReTryListener onClickReTryListener;
-    private List<String> list1 = new ArrayList<>();
     private List<VideoBackBean> playBackBeanList = new ArrayList<>();
+    private List<Marquee> marquees = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -63,11 +66,9 @@ public class ZWWJFragment extends BaseFragment {
 
     }
 
-    private void initText(List<String> listRun) {
-        int size = listRun.size();
-        String[] arr = listRun.toArray(new String[size]);
-        rollingTv.setTextStillTime(3000);
-        rollingTv.setResources(arr);
+    private void initText() {
+
+
 
     }
 
@@ -77,13 +78,15 @@ public class ZWWJFragment extends BaseFragment {
             public void _onSuccess(Result<LoginInfo> listRankBeanResult) {
                 playBackBeanList = listRankBeanResult.getData().getPlayback();
                 for (int i = 0; i < playBackBeanList.size(); i++) {
-                    String s = "恭喜" + playBackBeanList.get(i).getUSERNAME() +
-                            "用户抓中一个" + playBackBeanList.get(i).getDOLLNAME();
-                    list1.add(s);
+                    Marquee marquee=new Marquee();
+                    String s = "恭喜" +"<font color='#FF0000'>"+playBackBeanList.get(i).getUSERNAME()+"</font>"
+                            +"用户抓中一个" + playBackBeanList.get(i).getDOLLNAME();
+                    marquee.setTitle(s);
+                    marquee.setImgUrl(UrlUtils.USERFACEIMAGEURL+playBackBeanList.get(i).getIMAGE_URL());
+                    marquees.add(marquee);
                 }
-
-                initText(list1);
-
+                marqueeview.setImage(true);
+                marqueeview.startWithList(marquees);
             }
 
             @Override
@@ -142,18 +145,18 @@ public class ZWWJFragment extends BaseFragment {
                 @Override
                 public void onItemClick(int position) {
                     if ((roomBeens.size() > 0) && (!Utils.isEmpty(sessionId))) {
-                        String doll_id = roomBeens.get(position).getDOLL_ID();
+                        String room_id = roomBeens.get(position).getDOLL_ID();
                         boolean room_status = false;
-                        UserUtils.setNettyInfo(sessionId, UserUtils.NickName, doll_id);
+                        UserUtils.setNettyInfo(sessionId, UserUtils.NickName, room_id);
                         if (roomBeens.get(position).getDOLL_STATE().equals("0")) {
                             room_status = true;
                         } else if (roomBeens.get(position).getDOLL_STATE().equals("1")) {
                             room_status = false;
                         }
                         enterNext(roomBeens.get(position).getDOLL_NAME(),
-                                    roomBeens.get(position).getCAMERA_NAME_01(),
-                                    room_status, String.valueOf(roomBeens.get(position).getDOLL_GOLD()),
-                                    roomBeens.get(position).getDOLL_ID());
+                                roomBeens.get(position).getCAMERA_NAME_01(),
+                                room_status, String.valueOf(roomBeens.get(position).getDOLL_GOLD()),
+                                roomBeens.get(position).getDOLL_ID());
                     }
                 }
             };
@@ -167,6 +170,7 @@ public class ZWWJFragment extends BaseFragment {
         intent.putExtra(Utils.TAG_DOLL_Id, id);
         startActivity(intent);
     }
+
 
     @Override
     public void onResume() {

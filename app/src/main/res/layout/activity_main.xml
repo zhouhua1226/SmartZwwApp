@@ -1,116 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.home.MainActivity">
-
-
-    <LinearLayout
-        android:id="@+id/lv_main_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#f0f2f5"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical" >
-
-        <ImageView
-            android:id="@+id/line_shade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:src="@drawable/icon_shade" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#f0f2f5"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            >
-
-            <LinearLayout
-                android:id="@+id/layout_tab_zww"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/iv_tab_zww"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:background="@drawable/zww" />
-
-                <TextView
-                    android:id="@+id/tv_tab_hall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="抓娃娃"
-                    android:textColor="#fe719b"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_tab_list"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/iv_tab_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:background="@drawable/phb" />
-
-                <TextView
-                    android:id="@+id/tv_tab_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="排行榜"
-                    android:textColor="#57515d"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_tab_my"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/iv_tab_my"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:background="@drawable/wd" />
-
-                <TextView
-                    android:id="@+id/tv_tab_my"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="我的"
-                    android:textColor="#57515d"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+    android:orientation="vertical"
+    tools:context=".activity.home.MainActivity"
+    android:clipChildren="false"
+    >
 
     <FrameLayout
         android:id="@+id/main_center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/lv_main_bottom"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_alignParentTop="true"
         android:background="#DDDCDC" />
-</RelativeLayout>
+
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/lv_main_bottom"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="60dp"-->
+    <!--android:background="#f0f2f5"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:orientation="vertical"-->
+    <!--&gt;-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/line_shade"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/main_shade" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/main_shade"
+        android:orientation="horizontal"
+
+        >
+
+
+        <LinearLayout
+            android:id="@+id/layout_tab_list"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/iv_tab_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/rank_icon" />
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_tab_list"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:text="排行榜"-->
+            <!--android:textColor="#57515d"-->
+            <!--android:textSize="12sp" />-->
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_tab_zww"
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
+
+            <ImageView
+                android:id="@+id/iv_tab_zww"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/zww_icon"
+                android:layout_centerInParent="true"
+                />
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_tab_hall"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:text="抓娃娃"-->
+            <!--android:textColor="#fe719b"-->
+            <!--android:textSize="12sp" />-->
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_tab_my"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/iv_tab_my"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/mycenter_icon"
+                android:layout_gravity="center"/>
+
+            <!--<TextView-->
+            <!--android:visibility="gone"-->
+            <!--android:id="@+id/tv_tab_my"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:text="我的"-->
+            <!--android:textColor="#57515d"-->
+            <!--android:textSize="12sp" />-->
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
+
+
+    <!--</LinearLayout>-->

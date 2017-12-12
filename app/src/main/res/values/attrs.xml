@@ -7,4 +7,10 @@
         <attr name="progressColor" format="color"/>
         <attr name="progressBgColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="MarqueeViewStyle">
+        <attr name="mvInterval" format="integer|reference"/>
+        <attr name="mvAnimDuration" format="integer|reference"/>
+        <attr name="mvTextSize" format="dimension|reference"/>
+    </declare-styleable>
 </resources>

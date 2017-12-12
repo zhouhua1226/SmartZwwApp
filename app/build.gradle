@@ -93,4 +93,5 @@ dependencies {
     compile 'com.bartoszlipinski:recyclerviewheader2:2.0.1'
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile files('libs/smartavengine.jar')
+    compile project(':polygonimageview')
 }

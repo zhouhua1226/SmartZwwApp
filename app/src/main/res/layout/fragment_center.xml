@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/bg03">
+        android:background="@color/white">
 
         <ImageButton
             android:id="@+id/image_kefu"
@@ -18,15 +18,15 @@
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
             android:scaleType="centerInside"
-            android:src="@drawable/kf1"
-            android:visibility="visible" />
+            android:src="@drawable/mycenter_service"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="我的账号"
-            android:textColor="@color/white"
+            android:text="我的"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
         <ImageButton
@@ -37,117 +37,248 @@
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
             android:scaleType="centerInside"
-            android:src="@drawable/setting" />
+            android:src="@drawable/mycenter_setting"
+            android:visibility="gone"
+            />
     </RelativeLayout>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swiperefresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/mycenter_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"
-                    />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mycenter_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:visibility="gone"
+        />
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical">-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/mycenter_bg">
 
+        <ImageView
+            android:id="@+id/user_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/round"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            />
 
-            <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="center_horizontal|top">
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical">-->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bj01">
-
-                    <ImageView
-                        android:id="@+id/user_image"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:background="@drawable/round"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="25dp"
-                        />
-
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_below="@+id/user_image"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        android:id="@+id/user_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        tools:text="云梦一霸"
-                        android:textSize="13sp"
-                        android:textColor="@color/white"
-                        />
+        <TextView
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/user_image"
+            android:gravity="center"
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="云梦一霸"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:layout_below="@+id/user_name"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/user_number"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="累积抓中0次"
-                            android:textColor="@color/white"
-                            android:layout_marginRight="20dp"
-                            android:textSize="15sp"/>
-
-                        <TextView
-                            android:id="@+id/user_filling"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="充值+"
-                            android:textColor="@color/white"
-                            android:layout_toRightOf="@+id/user_number"
-                            android:textSize="15sp"/>
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-
-
-            <!--</LinearLayout>-->
-
-            </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="horizontal"
+            android:layout_below="@+id/user_name"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/user_image"
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/mycenter_none_tv"
-                android:layout_width="match_parent"
+                android:id="@+id/user_number"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="暂无抓取成功记录！"
-                android:textColor="@color/gray"
-                android:layout_marginTop="200dp"
-                android:paddingTop="30dp"
-                android:gravity="center_horizontal"
+                android:text="累积抓中0次"
+                android:textColor="@color/white"
+                android:layout_marginRight="20dp"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/user_filling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="充值+"
+                android:textColor="@color/white"
+                android:layout_toRightOf="@+id/user_number"
+                android:textSize="15sp"
                 android:visibility="gone"
                 />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/mycenter_mycurrency_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="1000"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/mycenter_gamecurrency"
+            android:background="@drawable/mycenter_gamecurrency_bg"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mycenter_pay_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/white">
 
 
-            </FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="   充值"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:drawableLeft="@drawable/mycenter_pay"
+            />
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed" />
+
+    <RelativeLayout
+        android:id="@+id/mycenter_catchrecord_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="   抓娃娃记录"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:drawableLeft="@drawable/mycenter_record"
+            />
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed" />
+
+    <RelativeLayout
+        android:id="@+id/mycenter_setting_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="   设置"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:drawableLeft="@drawable/mycenter_setting"
+            />
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed" />
+
+    <RelativeLayout
+        android:id="@+id/mycenter_kefu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="   客服"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:drawableLeft="@drawable/mycenter_service"
+            />
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+    <!--</LinearLayout>-->
+    <TextView
+        android:id="@+id/mycenter_none_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="暂无抓取成功记录！"
+        android:textColor="@color/gray"
+        android:layout_marginTop="200dp"
+        android:paddingTop="30dp"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        />
+
+
+
 
 
 </LinearLayout>

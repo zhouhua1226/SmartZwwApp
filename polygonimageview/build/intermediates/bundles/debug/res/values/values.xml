@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PolygonImageView"><attr format="integer" name="poly_vertices"/><attr format="float" name="poly_rotation_angle"/><attr format="float" name="poly_corner_radius"/><attr format="boolean" name="poly_border"/><attr format="color" name="poly_border_color"/><attr format="dimension" name="poly_border_width"/><attr format="boolean" name="poly_shadow"/><attr format="color" name="poly_shadow_color"/></declare-styleable>
+    <declare-styleable name="PolygonImageViewTheme"><attr format="reference" name="polygonImageViewStyle"/></declare-styleable>
+</resources>

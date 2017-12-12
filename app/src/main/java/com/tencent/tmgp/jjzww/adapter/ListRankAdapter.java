@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.bean.UserBean;
+import com.tencent.tmgp.jjzww.utils.UrlUtils;
+import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
 
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
@@ -54,8 +56,9 @@ public class ListRankAdapter extends RecyclerView.Adapter<ListRankAdapter.ListRa
 
     @Override
     public void onBindViewHolder(final ListRankViewHolder holder, final int position) {
-        UserBean bean=mDatas.get(position);
-        if (mOnItemClickListener!=null){
+        UserBean bean = mDatas.get(position);
+        holder.rank_ordinalNum.setText((position + 4) + "");
+        if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -63,15 +66,18 @@ public class ListRankAdapter extends RecyclerView.Adapter<ListRankAdapter.ListRa
                 }
             });
         }
-        Glide.with(mContext).load(picter[position]).into(holder.rank_image);
+        Glide.with(mContext)
+                .load(UrlUtils.USERFACEIMAGEURL + mDatas.get(position).getIMAGE_URL())
+                .dontAnimate()
+                .transform(new GlideCircleTransform(mContext))
+                .into(holder.rank_userImag);
         holder.rank_number.setText(bean.getDOLLTOTAL());
 
-        if (bean.getNICKNAME().equals("")){
+        if (bean.getNICKNAME().equals("")) {
             holder.rank_name.setText(bean.getUSERNAME());
-        }else {
+        } else {
             holder.rank_name.setText(bean.getNICKNAME());
         }
-
 
     }
 
@@ -87,13 +93,15 @@ public class ListRankAdapter extends RecyclerView.Adapter<ListRankAdapter.ListRa
 
     class ListRankViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView rank_image;
-        TextView rank_name,rank_number;
+        ImageView rank_image,rank_userImag;
+        TextView rank_name,rank_number,rank_ordinalNum;
         public ListRankViewHolder(View itemView) {
             super(itemView);
+            rank_userImag= (ImageView) itemView.findViewById(R.id.rankitem_userImag);
             rank_image= (ImageView) itemView.findViewById(R.id.rank_image);
             rank_name= (TextView) itemView.findViewById(R.id.rank_name);
             rank_number= (TextView) itemView.findViewById(R.id.rank_number);
+            rank_ordinalNum= (TextView) itemView.findViewById(R.id.rankitem_ordinalnum);
         }
     }
 }

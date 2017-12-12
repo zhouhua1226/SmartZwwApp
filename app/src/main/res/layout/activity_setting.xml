@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@drawable/bg03">
+        android:background="@drawable/app_toptheme_bg">
 
         <ImageButton
             android:id="@+id/image_back"
@@ -89,6 +89,37 @@
 
         <ImageView
 
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/back1" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#ededed" />
+    <RelativeLayout
+        android:id="@+id/betrecord_rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:text="我的投注记录"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentEnd="true"
@@ -288,7 +319,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/login_bt"
+        android:background="@drawable/logout_btn_bg"
         android:text="退出登录"
         android:textColor="@color/white"
         android:textSize="14sp" />

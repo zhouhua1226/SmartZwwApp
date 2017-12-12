@@ -247,4 +247,13 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
+    //退出登录
+    public void getLogout(String userId,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getLogout(userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }

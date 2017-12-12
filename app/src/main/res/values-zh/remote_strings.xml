@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
-    <string name="app_name">SmartPlayerSDKDemo</string>
+    <string name="app_name">街机抓娃娃</string>
     <string name="video_loading_text">正在加载!</string>
     <string name="money_temp">%d次</string>
     <string name="free_text">空闲中</string>

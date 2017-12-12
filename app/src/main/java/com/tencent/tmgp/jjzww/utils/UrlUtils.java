@@ -53,6 +53,9 @@ public class UrlUtils {
     //完整的URL：http://106.75.142.42:8080/pooh-web/uploadFiles/DollImage/A002201710310002.jpg
     public static final String PICTUREURL = "http://47.100.15.18:8080/pooh-web/uploadFiles/DollImage/";
 
+    //退出登录
+    public static final String LOGOUT=URL+"/pooh-web/app/logout";
+
     //头像上传http://47.100.15.18:8080/pooh-web/api/updateUser
     public static final String FACEIMAGEURL = "http://47.100.15.18:8080/pooh-web/api/updateUser";
 

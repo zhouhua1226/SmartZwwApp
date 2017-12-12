@@ -1,31 +1,331 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/select_pop_gv_bg"
+    >
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/topLy"
-        android:background="@drawable/bg03"
+        android:background="@drawable/mycenter_bg"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="210dp"
+        android:orientation="vertical"
+        >
         <TextView
             android:textSize="16sp"
             android:textColor="@android:color/white"
-            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
             android:text="排行榜"
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+
+                <net.grobas.view.PolygonImageView
+                    android:id="@+id/rank_secondtx_imag"
+                    android:layout_width="75dp"
+                    android:layout_height="85dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    app:poly_border="true"
+                    app:poly_border_color="#CCCCCC"
+                    app:poly_border_width="5dp"
+                    app:poly_corner_radius="5"
+                    app:poly_rotation_angle="90"
+                    app:poly_shadow="false"
+                    app:poly_vertices="6"/>
+
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/ranklist_copper_bk"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:visibility="gone"
+                    />
+                <ImageView
+                    android:id="@+id/rank_secondyp_imag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ranklist_silver"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="85dp"
+                    />
+                <LinearLayout
+                    android:id="@+id/rank_secondName_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rank_secondyp_imag"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@+id/rank_secondName_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="2dp"
+                        android:background="#FFFF00"
+                        />
+
+                    <TextView
+                        android:id="@+id/rank_secondNum_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="3dp"
+                        android:textStyle="bold"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+
+                <net.grobas.view.PolygonImageView
+                    android:id="@+id/rank_firsttx_imag"
+                    android:layout_width="75dp"
+                    android:layout_height="85dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    app:poly_border="true"
+                    app:poly_border_color="#FFE311"
+                    app:poly_border_width="5dp"
+                    app:poly_corner_radius="5"
+                    app:poly_rotation_angle="90"
+                    app:poly_shadow="false"
+                    app:poly_vertices="6"/>
+
+
+                <ImageView
+                    android:id="@+id/rank_firstyp_imag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ranklist_gold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="65dp"
+                    />
+                <LinearLayout
+                    android:id="@+id/rank_firstName_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rank_firstyp_imag"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@+id/rank_firstName_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="2dp"
+                        android:background="#FFFF00"
+                        />
+
+                    <TextView
+                        android:id="@+id/rank_firstNum_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="3dp"
+                        android:textStyle="bold"
+                        />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+                <net.grobas.view.PolygonImageView
+                    android:id="@+id/rank_thirdtx_imag"
+                    android:layout_width="75dp"
+                    android:layout_height="85dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    app:poly_border="true"
+                    app:poly_border_color="#CE8236"
+                    app:poly_border_width="5dp"
+                    app:poly_corner_radius="5"
+                    app:poly_rotation_angle="90"
+                    app:poly_shadow="false"
+                    app:poly_vertices="6"/>
+
+
+                <ImageView
+                    android:id="@+id/rank_thirdyp_imag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ranklist_copper"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="85dp"
+                    />
+                <LinearLayout
+                    android:id="@+id/rank_thirdName_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rank_thirdyp_imag"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@+id/rank_thirdName_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="2dp"
+                        android:background="#FFFF00"
+                        />
+
+                    <TextView
+                        android:id="@+id/rank_thirdNum_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="3dp"
+                        android:textStyle="bold"
+                        />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rank_my_layout"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/rank_userImag"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="35dp"
+            />
+
+        <TextView
+            android:id="@+id/rank_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/rank_userImag"
+            />
+
+        <TextView
+            android:id="@+id/rank_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#26BAAF"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/rankitem_ordinalnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="第0名"
+            android:layout_below="@+id/rank_name"
+            android:textSize="11sp"
+            android:paddingTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/gray"
+            android:layout_toRightOf="@+id/rank_userImag"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/select_pop_gv_bg"/>
+
     </RelativeLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ranktwo_recyclerbiew"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:overScrollMode="never"
         android:scrollbars="none"
-        android:background="@drawable/fillingcurrency_dialog"/>
+        android:background="@color/white"/>
 
 </LinearLayout>

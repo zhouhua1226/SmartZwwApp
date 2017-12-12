@@ -217,4 +217,12 @@ public interface SmartService {
             @Field(UrlUtils.USERID) String userID
     );
 
+    //退出登录
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.LOGOUT)
+    Observable<Result<LoginInfo>>getLogout(
+            @Field(UrlUtils.USERID) String userID
+    );
+
 }

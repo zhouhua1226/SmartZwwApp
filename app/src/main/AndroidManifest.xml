@@ -37,11 +37,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--
         <activity
             android:name="com.videogo.main.EzvizWebViewActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
-
+        -->
         <!--=============================友盟相关=============================================-->
         <meta-data
             android:name="UMENG_APPKEY"
@@ -167,6 +168,34 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity android:name="com.tencent.tmgp.jjzww.activity.home.VideoPlayBackActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+        <activity android:name=".activity.home.BetRecordActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+        <!-- ###############    微信回调类    #############  -->
+        <activity android:name=".wxapi.WXEntryActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="standard"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+        <activity android:name=".wxapi.WXPayEntryActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="standard"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <!-- ###############    微信回调类    #############  -->
+
+        <activity android:name=".activity.home.LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"

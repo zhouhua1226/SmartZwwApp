@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.home.InformationActivity;
+import com.tencent.tmgp.jjzww.activity.home.RecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.RecordGameActivty;
 import com.tencent.tmgp.jjzww.activity.home.RecordGameTwoActivity;
 import com.tencent.tmgp.jjzww.activity.home.SelectRechargeTypeActiivty;
@@ -65,15 +67,22 @@ public class MyCenterFragment extends BaseFragment {
     TextView userFilling;
     @BindView(R.id.mycenter_recyclerview)
     RecyclerView mycenterRecyclerview;
-    @BindView(R.id.header)
-    RecyclerViewHeader header;
-    @BindView(R.id.swiperefresh)
-    SwipeRefreshLayout swiperefresh;
     @BindView(R.id.mycenter_none_tv)
     TextView mycenterNoneTv;
-    Unbinder unbinder1;
+    @BindView(R.id.mycenter_pay_layout)
+    RelativeLayout mycenterPayLayout;
+    @BindView(R.id.mycenter_catchrecord_layout)
+    RelativeLayout mycenterCatchrecordLayout;
+    @BindView(R.id.mycenter_setting_layout)
+    RelativeLayout mycenterSettingLayout;
+    @BindView(R.id.mycenter_kefu_layout)
+    RelativeLayout mycenterKefuLayout;
+    @BindView(R.id.mycenter_mycurrency_tv)
+    TextView mycenterMycurrencyTv;
+
     private FillingCurrencyDialog fillingCurrencyDialog;
     private MyCenterAdapter myCenterAdapter;
+    private Unbinder unbinder1;
     private List<String> list;
     private List<VideoBackBean> videoList = new ArrayList<>();
     private List<VideoBackBean> videoReList = new ArrayList<>();
@@ -88,8 +97,8 @@ public class MyCenterFragment extends BaseFragment {
         Glide.get(getContext()).clearMemory();
 
 //        initlist();
-        initData();
-        onClick();
+//        initData();
+//        onClick();
     }
 
     private void onClick() {
@@ -109,22 +118,22 @@ public class MyCenterFragment extends BaseFragment {
             }
         });
 
-//        下拉刷新
-        swiperefresh.setColorSchemeResources(R.color.pink);
-        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swiperefresh.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getUserImageAndName();
-//                        initlist();
-                        myCenterAdapter.notifyDataSetChanged();
-                        swiperefresh.setRefreshing(false);
-                    }
-                }, 2000);
-            }
-        });
+////        下拉刷新
+//        swiperefresh.setColorSchemeResources(R.color.pink);
+//        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                swiperefresh.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        getUserImageAndName();
+////                        initlist();
+//                        myCenterAdapter.notifyDataSetChanged();
+//                        swiperefresh.setRefreshing(false);
+//                    }
+//                }, 2000);
+//            }
+//        });
 
     }
 
@@ -133,7 +142,6 @@ public class MyCenterFragment extends BaseFragment {
         mycenterRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mycenterRecyclerview.addItemDecoration(new SpaceItemDecoration(15));
         mycenterRecyclerview.setAdapter(myCenterAdapter);
-        header.attachTo(mycenterRecyclerview);
 
     }
 
@@ -148,7 +156,7 @@ public class MyCenterFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         getUserImageAndName();
-        getVideoBackList(userName.getText().toString());
+        //getVideoBackList(userName.getText().toString());
     }
 
     private void getUserImageAndName() {
@@ -158,6 +166,8 @@ public class MyCenterFragment extends BaseFragment {
             } else {
                 userName.setText(UserUtils.UserPhone);
             }
+            mycenterMycurrencyTv.setText(" "+UserUtils.UserBalance);
+            userNumber.setText("累积抓中" + UserUtils.UserCatchNum + "次");
             Glide.with(getContext())
                     .load(UserUtils.UserImage)
                     .dontAnimate()
@@ -165,25 +175,30 @@ public class MyCenterFragment extends BaseFragment {
                     .into(userImage);
         } else {
             userName.setText("请登录");
+            videoList.clear();
             userImage.setImageResource(R.drawable.round);
         }
     }
 
-    @OnClick({R.id.image_kefu, R.id.image_setting, R.id.user_image, R.id.user_filling, R.id.user_name})
+    @OnClick({R.id.mycenter_kefu_layout, R.id.mycenter_setting_layout, R.id.user_image,
+            R.id.mycenter_pay_layout, R.id.user_name,R.id.mycenter_catchrecord_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.image_kefu:
+            case R.id.mycenter_kefu_layout:
                 MyToast.getToast(getContext(), "我是客服").show();
                 break;
-            case R.id.image_setting:
+            case R.id.mycenter_setting_layout:
                 startActivity(new Intent(getContext(), SettingActivity.class));
                 break;
             case R.id.user_image:
                 startActivity(new Intent(getContext(), InformationActivity.class));
                 break;
-            case R.id.user_filling:
+            case R.id.mycenter_pay_layout:
                 startActivity(new Intent(getContext(), SelectRechargeTypeActiivty.class));
 //                getMoney();
+                break;
+            case R.id.mycenter_catchrecord_layout:
+                startActivity(new Intent(getContext(), RecordActivity.class));
                 break;
             case R.id.user_name:
                 //此处添加登录dialog

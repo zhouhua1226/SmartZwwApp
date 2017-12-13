@@ -10,9 +10,11 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.iot.game.pooh.server.entity.json.announce.LotteryDrawAnnounceMessage;
+import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.utils.SPUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
+import com.tencent.tmgp.jjzww.view.WinningDialog;
 import com.umeng.message.PushAgent;
 
 
@@ -20,6 +22,7 @@ import com.umeng.message.PushAgent;
  * Created by zhouh on 2017/9/7.
  */
 public abstract class BaseActivity extends AppCompatActivity{
+    private static WinningDialog winningDialog;
     private static final String TAG = "BaseActivity---";
 
     @Override
@@ -45,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     }
 
     private void initDialog() {
+        winningDialog=new WinningDialog(this, R.style.easy_dialog_style);
 
     }
 
@@ -55,5 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         String roomId = message.getRoomId();
         String pId = message.getPeriodsNum();
         Utils.showLogE(TAG, "房间号:" + roomId + "第" + pId + "期开奖了.......");
+        winningDialog.setShowText("房间号:" + roomId + "第" + pId + "期开奖了.......");
+        winningDialog.show();
     }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/back_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/guessing_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignEnd="@+id/relativeLayout" />
+
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/guessing_bj"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/relativeLayout">
+
+        <LinearLayout
+            android:layout_width="210dp"
+            android:layout_height="70dp"
+            android:background="@drawable/winning_bg"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:background="@drawable/money2"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/winning_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="获得0娃娃币"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:textSize="16sp"
+                android:textColor="#fc327c"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

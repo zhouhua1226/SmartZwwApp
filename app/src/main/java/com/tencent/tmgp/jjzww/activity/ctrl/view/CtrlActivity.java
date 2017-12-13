@@ -166,6 +166,9 @@ public class CtrlActivity extends Activity implements IctrlView {
     private String playUrl1 = "rtmp://106.14.171.182/aita/num-1";//"rtmp://rtmp.open.ys7.com/openlive/784efe98624241eb8923bde2d7530c38";//"rtmp://106.14.171.182/user/user";  //主摄像头
     private String playUrl2 = "rtmp://106.14.171.182/aita/num-2";//"rtmp://rtmp.open.ys7.com/openlive/784efe98624241eb8923bde2d7530c38";//"rtmp://106.14.171.182/live/livestream";//次摄像头
     private String currentUrl;
+    //用户操作和竞猜
+    private boolean isStart = false;
+    private boolean isLottery = false;
 
     static {
         System.loadLibrary("SmartPlayer");
@@ -387,7 +390,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                         ctrlCompl.sendCmdCtrl(MoveType.START);
                         coinTv.setText((Integer.parseInt(UserUtils.UserBalance) - money) + "");
                         getCreatPlayList(UserUtils.NickName, dollName);//开始游戏分发场次
-
+                        getPlayNum(UserUtils.UserPhone, String.valueOf(money));   //扣款
+                        isStart = true;
                     }
                     setVibratorTime(300, -1);
                     rechargeButton.setVisibility(View.GONE);
@@ -430,6 +434,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                     coinTv.setText((Integer.parseInt(UserUtils.UserBalance) - money) + "");
                     ctrlButtomLayout.setVisibility(View.VISIBLE);
                     ctrlBetingLayout.setVisibility(View.GONE);
+                    isLottery = true;
                 } else {
                     MyToast.getToast(getApplicationContext(), "请下注！").show();
                 }
@@ -742,6 +747,18 @@ public class CtrlActivity extends Activity implements IctrlView {
             //TODO 主板报错
             PoohAbnormalStatus status = (PoohAbnormalStatus) object;
             Utils.showLogE(TAG, "主板报错 错误代码:::" + status.getValue());
+            //TODO 主板异常  UI返回用户金额
+            if(isStart) {
+                //TODO 返回玩家金额
+
+            } else {
+                //TODO 返回竞猜金额 如果用户竞猜
+                if (isLottery) {
+
+                }
+            }
+            isStart = false;
+            isLottery = false;
         }
     }
 
@@ -756,11 +773,12 @@ public class CtrlActivity extends Activity implements IctrlView {
         if (roomId.equals(AppGlobal.getInstance().getUserInfo().getRoomid())) {
             getStartstation();
             setStartMode(true);
+            isStart = false;  //标志复位
+            isLottery = false;
             if (Utils.isEmpty(upTime)) {
                 return;
             }
             ctrlCompl.stopRecordView(); //录制完毕
-            getPlayNum(UserUtils.UserPhone, String.valueOf(money));   //扣款
             if (number != 0) {
                 //抓到娃娃  上传给后台
                 upFileName = "";
@@ -780,7 +798,6 @@ public class CtrlActivity extends Activity implements IctrlView {
             }
             updataTime(upTime, state);
             upTime = "";
-
         }
     }
 
@@ -834,7 +851,6 @@ public class CtrlActivity extends Activity implements IctrlView {
 
             }
         });
-
     }
 
     //开始游戏分发场次

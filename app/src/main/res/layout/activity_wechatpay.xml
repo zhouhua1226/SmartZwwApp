@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/bg03" >
+        android:background="@color/apptheme_bg" >
 
         <ImageButton
             android:id="@+id/btn_back"
@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg03"
+            android:background="@drawable/setting_logout_btn_bg"
             android:text="立即充值"
             android:textColor="@color/white"
             android:textSize="16sp" />

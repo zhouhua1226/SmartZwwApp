@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/bg03">
+        android:background="@color/apptheme_bg">
 
         <ImageButton
             android:id="@+id/image_back"
@@ -261,7 +261,7 @@
             android:layout_below="@+id/text_tv"
             android:layout_width="75dp"
             android:layout_height="30dp"
-            android:background="@drawable/fillingcurrency_dialog"
+            android:background="@drawable/setting_logout_btn_bg"
             android:text="兑换游戏币"
             android:textSize="14sp"
             android:textColor="@color/white"
@@ -276,7 +276,7 @@
             android:layout_below="@+id/text_tv"
             android:layout_width="75dp"
             android:layout_height="30dp"
-            android:background="@drawable/fillingcurrency_dialog"
+            android:background="@drawable/setting_logout_btn_bg"
             android:text="申请发货"
             android:textSize="14sp"
             android:textColor="@color/white"

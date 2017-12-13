@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/bg03">
+        android:background="@color/apptheme_bg">
 
         <ImageButton
             android:id="@+id/image_back"
@@ -61,7 +61,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/login_bt"
+        android:background="@drawable/setting_logout_btn_bg"
         android:text="提交"
         android:textColor="@color/white"
         android:textSize="18sp" />

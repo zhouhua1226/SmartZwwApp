@@ -13,7 +13,7 @@
         android:id="@+id/layout_top_select"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@drawable/bg03">
+        android:background="@color/apptheme_bg">
 
         <ImageButton
             android:id="@+id/image_back"

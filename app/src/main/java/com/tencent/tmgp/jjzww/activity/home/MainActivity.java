@@ -171,6 +171,7 @@ public class MainActivity extends BaseActivity {
                 UserUtils.UserBalance = loginInfoResult.getData().getAppUser().getBALANCE();
                 //用户头像  11/22 13：25
                 UserUtils.UserImage = UrlUtils.USERFACEIMAGEURL + loginInfoResult.getData().getAppUser().getIMAGE_URL();
+                UserUtils.UserCatchNum=loginInfoResult.getData().getAppUser().getDOLLTOTAL();
                 UserUtils.DOLL_ID = loginInfoResult.getData().getAppUser().getDOLL_ID();
                 UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();
                 UserUtils.UserAddress=loginInfoResult.getData().getAppUser().getCNEE_NAME()+" "+
@@ -233,6 +234,7 @@ public class MainActivity extends BaseActivity {
                         UserUtils.NickName = result.getData().getAppUser().getNICKNAME();
                         UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
                         UserUtils.UserImage = UrlUtils.USERFACEIMAGEURL + result.getData().getAppUser().getIMAGE_URL();
+                        UserUtils.UserCatchNum=result.getData().getAppUser().getDOLLTOTAL();
                         UserUtils.DOLL_ID=result.getData().getAppUser().getDOLL_ID();
                         UserUtils.USER_ID=result.getData().getAppUser().getUSER_ID();
                         UserUtils.UserAddress=result.getData().getAppUser().getCNEE_NAME()+" "+

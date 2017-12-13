@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@drawable/app_toptheme_bg">
+        android:background="@color/apptheme_bg">
 
         <ImageButton
             android:id="@+id/image_back"
@@ -319,7 +319,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/logout_btn_bg"
+        android:background="@drawable/setting_logout_btn_bg"
         android:text="退出登录"
         android:textColor="@color/white"
         android:textSize="14sp" />

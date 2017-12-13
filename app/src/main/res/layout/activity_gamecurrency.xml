@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/bg03">
+        android:background="@color/apptheme_bg">
 
         <ImageButton
             android:id="@+id/image_back"
@@ -33,7 +33,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/game"
+        android:background="@drawable/mycenter_bg"
         android:orientation="vertical"
         android:gravity="center">
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:text="当前游戏币"
             android:textSize="13sp"
-            android:textColor="#b3ffffff"/>
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/game_tv"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             tools:text="200"
             android:textSize="30sp"
-            android:textColor="#ffdb45"
+            android:textColor="@color/white"
             android:layout_marginTop="12dp"/>
 
     </LinearLayout>

@@ -407,7 +407,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 //竞猜
                 ctrlButtomLayout.setVisibility(View.GONE);
                 ctrlBetingLayout.setVisibility(View.VISIBLE);
-                getPlayId(dollName);//给围观群众分发id
+                getPlayId(dollId);//给围观群众分发id
                 break;
             case R.id.ctrl_instruction_image:
                 //说明
@@ -838,8 +838,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     //围观群众获取游戏场次
-    private void getPlayId(String dollName) {
-        HttpManager.getInstance().getPlayId(dollName, new RequestSubscriber<Result<LoginInfo>>() {
+    private void getPlayId(String dollId) {
+        HttpManager.getInstance().getPlayId(dollId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
                 UserUtils.PlayBackId = loginInfoResult.getData().getPlayBack().getID();//游戏场次id

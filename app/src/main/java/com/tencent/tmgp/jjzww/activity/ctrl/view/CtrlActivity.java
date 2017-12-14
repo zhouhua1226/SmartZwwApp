@@ -390,7 +390,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                         ctrlCompl.sendCmdCtrl(MoveType.START);
                         coinTv.setText((Integer.parseInt(UserUtils.UserBalance) - money) + "");
                         getCreatPlayList(UserUtils.NickName, dollName);//开始游戏分发场次
-                        getPlayNum(UserUtils.UserPhone, String.valueOf(money));   //扣款
+                        getPlayNum(UserUtils.USER_ID,String.valueOf(money),dollId);   //扣款
                         isStart = true;
                     }
                     setVibratorTime(300, -1);
@@ -803,9 +803,9 @@ public class CtrlActivity extends Activity implements IctrlView {
 
     /************************************************* 网络请求区***************************************************/
     //消费接口
-    private void getPlayNum(String phone, String number) {
-        String phones = Base64.encodeToString(phone.getBytes(), Base64.DEFAULT);
-        HttpManager.getInstance().getUserPlayNum(phones, number, new RequestSubscriber<Result<LoginInfo>>() {
+    private void getPlayNum(String userId, String number,String dollId) {
+//        String phones = Base64.encodeToString(phone.getBytes(), Base64.DEFAULT);
+        HttpManager.getInstance().getUserPlayNum(userId, number,dollId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> result) {
                 Log.e(TAG, "消费结果=" + result.getMsg());

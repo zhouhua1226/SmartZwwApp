@@ -121,8 +121,8 @@ public class HttpManager {
     }
 
     //消费   11/21 16：15
-    public void getUserPlayNum(String phone,String money,Subscriber<Result<LoginInfo>> subscriber){
-        Observable<Result<LoginInfo>> o= smartService.getUserPlayNum(phone,money);
+    public void getUserPlayNum(String userId,String money,String dollId,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o= smartService.getUserPlayNum(userId,money,dollId);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

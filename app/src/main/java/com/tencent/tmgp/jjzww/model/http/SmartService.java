@@ -93,8 +93,9 @@ public interface SmartService {
     @FormUrlEncoded
     @POST(UrlUtils.USERPLAYURL)
     Observable<Result<LoginInfo>> getUserPlayNum(
-            @Field(UrlUtils.PHONE) String phone,
-            @Field(UrlUtils.USERPLAYNUM) String gold
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.USERPLAYNUM) String gold,
+            @Field(UrlUtils.DOLLID) String dollId
 
     );
 

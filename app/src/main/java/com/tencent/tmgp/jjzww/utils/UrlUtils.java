@@ -22,6 +22,7 @@ public class UrlUtils {
     public static final String DOLLNAME = "dollName";
     public static final String TIME = "time";
     public static final String STATE = "state";
+    public static final String GUESSID="guessId";
 
     public static final String USERID = "userId";
     public static final String WAGER = "wager";

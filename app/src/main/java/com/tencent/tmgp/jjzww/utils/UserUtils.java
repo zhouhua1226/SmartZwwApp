@@ -26,6 +26,7 @@ public class UserUtils {
     public static String DOllGold="";
     public static String USER_ID="";
     public static String DOLL_ID="";
+    public static String GUESSID="";
     public static int id;
     public static int PlayBackId;
 

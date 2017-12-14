@@ -30,6 +30,17 @@ public class UserBean implements Serializable {
     private String CNEE_NAME;
     private String CNEE_PHONE;
     private String CNEE_ADDRESS;
+    private String GUESSID;
+
+    public String getGUESSID() {
+        return GUESSID;
+    }
+
+    public void setGUESSID(String GUESSID) {
+        this.GUESSID = GUESSID;
+    }
+
+
 
     public String getCNEE_NAME() {
         return CNEE_NAME;

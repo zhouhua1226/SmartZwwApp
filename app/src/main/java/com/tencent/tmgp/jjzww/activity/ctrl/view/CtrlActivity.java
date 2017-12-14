@@ -430,7 +430,7 @@ public class CtrlActivity extends Activity implements IctrlView {
             case R.id.ctrl_confirm_layout:
                 //下注
                 if (zt.equals("1") || zt.equals("0")) {
-                    getBets(UserUtils.USER_ID, Integer.valueOf(money).intValue(), zt, UserUtils.PlayBackId, dollId);
+                    getBets(UserUtils.USER_ID, Integer.valueOf(money).intValue(), zt, UserUtils.GUESSID, dollId);
                     coinTv.setText((Integer.parseInt(UserUtils.UserBalance) - money) + "");
                     ctrlButtomLayout.setVisibility(View.VISIBLE);
                     ctrlBetingLayout.setVisibility(View.GONE);
@@ -820,9 +820,9 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     //下注接口
-    private void getBets(String userID, Integer wager, String guessKey, Integer playBackId,
+    private void getBets(String userID, Integer wager, String guessKey, String guessId,
                          String dollID) {
-        HttpManager.getInstance().getBets(userID, wager, guessKey, playBackId, dollID, new RequestSubscriber<Result<AppUserBean>>() {
+        HttpManager.getInstance().getBets(userID, wager, guessKey, guessId, dollID, new RequestSubscriber<Result<AppUserBean>>() {
             @Override
             public void _onSuccess(Result<AppUserBean> appUserBeanResult) {
                 coinTv.setText(appUserBeanResult.getData().getAppUser().getBALANCE());
@@ -858,7 +858,8 @@ public class CtrlActivity extends Activity implements IctrlView {
         HttpManager.getInstance().getCreatPlayList(nickName, dollName, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-                UserUtils.id = loginInfoResult.getData().getPlayBack().getID();
+//                UserUtils.id = loginInfoResult.getData().getPlayBack().getID();
+                UserUtils.GUESSID=loginInfoResult.getData().getPlayBack().getGUESSID();
             }
             @Override
             public void _onError(Throwable e) {
@@ -904,7 +905,7 @@ public class CtrlActivity extends Activity implements IctrlView {
 
     private void updataTime(String time, String state) {
 
-        HttpManager.getInstance().getRegPlayBack(UserUtils.id, time, UserUtils.NickName, state, dollName, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getRegPlayBack(time, UserUtils.NickName, state, dollName, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
 

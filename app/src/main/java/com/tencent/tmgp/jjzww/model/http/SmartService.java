@@ -108,7 +108,6 @@ public interface SmartService {
     @FormUrlEncoded
     @POST(UrlUtils.UPLOADURL)
     Observable<Result<LoginInfo>> getRegPlayBack(
-            @Field(UrlUtils.ID) int id,
             @Field(UrlUtils.TIME) String time,
             @Field(UrlUtils.NICKNANME) String nickName,
             @Field(UrlUtils.STATE) String state,
@@ -141,7 +140,7 @@ public interface SmartService {
             @Field(UrlUtils.USERID) String userID,
             @Field(UrlUtils.WAGER) Integer wager,
             @Field(UrlUtils.GUESSKEY) String guessKey,
-            @Field(UrlUtils.PLAYBACK) Integer playBackId,
+            @Field(UrlUtils.GUESSID) String guessId,
             @Field(UrlUtils.DOLLID) String dollID
     );
 
@@ -164,7 +163,7 @@ public interface SmartService {
     @FormUrlEncoded
     @POST(UrlUtils.PLAYIDURL)
     Observable<Result<LoginInfo>> getPlayId(
-            @Field(UrlUtils.DOLLNAME) String dollName
+            @Field(UrlUtils.DOLLID) String dollId
     );
 
     //获取下注人数

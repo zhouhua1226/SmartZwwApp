@@ -139,8 +139,8 @@ public class HttpManager {
     }
 
     //视屏上传
-    public void getRegPlayBack(int id,String time,String nickname,String state,String dollname,Subscriber<Result<LoginInfo>> subscriber){
-        Observable<Result<LoginInfo>> o= smartService.getRegPlayBack(id,time,nickname,state,dollname);
+    public void getRegPlayBack(String time,String nickname,String state,String dollname,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o= smartService.getRegPlayBack(time,nickname,state,dollname);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -166,9 +166,9 @@ public class HttpManager {
     }
 
     //下注
-    public void getBets(String userId,int wager,String guessKey,int playBackId,
+    public void getBets(String userId,int wager,String guessKey,String guessId,
                         String dollID,Subscriber<Result<AppUserBean>> subscriber){
-        Observable<Result<AppUserBean>> o= smartService.getBets(userId,wager,guessKey,playBackId,dollID);
+        Observable<Result<AppUserBean>> o= smartService.getBets(userId,wager,guessKey,guessId,dollID);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

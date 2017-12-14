@@ -23,6 +23,16 @@ public class VideoBackBean implements Serializable{
     private String SENDGOODS;
     private String IMAGE_URL;
 
+    public String getGUESSID() {
+        return GUESSID;
+    }
+
+    public void setGUESSID(String GUESSID) {
+        this.GUESSID = GUESSID;
+    }
+
+    private String GUESSID;
+
     public String getIMAGE_URL() {
         return IMAGE_URL;
     }

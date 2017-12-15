@@ -6,6 +6,15 @@ android {
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
 
+    signingConfigs {
+        release {
+            keyAlias 'jjkeys'
+            keyPassword "tianji"
+            storeFile file('jjwork.jks')
+            storePassword "tianji"
+        }
+    }
+
     defaultConfig {
         applicationId "com.tencent.tmgp.jjzww"
         minSdkVersion 17
@@ -13,7 +22,11 @@ android {
         versionCode 1
         versionName "1.0.1"
         multiDexEnabled true
+        signingConfig signingConfigs.release
     }
+
+
+
     splits {
 
         // Configures screen ABI split settings
@@ -30,7 +43,7 @@ android {
 
             // Specifies a list of ABIs that Gradle should create APKs for
             //include "armeabi"
-            include 'armeabi-v7a, arm64-v8a' //select ABIs to build APKs for
+            include 'armeabi' //select ABIs to build APKs for
 
             // Specify that we do not want to also generate a universal APK that includes all ABIs
             universalApk true
@@ -41,6 +54,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
     packagingOptions {
@@ -62,7 +79,11 @@ android {
     }
 }
 
-
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -94,4 +115,6 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile files('libs/smartavengine.jar')
     compile project(':polygonimageview')
+    compile(name: 'YSDK_Android_1.3.6_841', ext: 'aar')
+    compile project(':easyysdk')
 }

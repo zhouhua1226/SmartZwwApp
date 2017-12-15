@@ -1,0 +1,285 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--  -->
+    <dimen name="root_layout_width">443.5dp</dimen>
+    <dimen name="root_layout_height">330dp</dimen>
+
+    <!-- 首页登录 -->
+    <dimen name="loading_button_layout_width">273.5dp</dimen>
+    <dimen name="loading_button_layout_height">53.5dp</dimen>
+    <dimen name="separate_line_margin">15dp</dimen>
+    <dimen name="loading_small_button_layout_width">136.5dp</dimen>
+    <dimen name="loading_small_button_layout_height">46.5dp</dimen>
+    <!--微信图标大小-->
+    <dimen name="weixin_icon_width">64dp</dimen>
+    <dimen name="weixin_icon_height">64dp</dimen>
+
+
+    <!-- 通用输入框 -->
+    <dimen name="edittext_common_width">266.5dp</dimen>
+    <dimen name="edittext_common_height">41.3dp</dimen>
+    <dimen name="edittext_common_short_width">186.5dp</dimen>
+    <dimen name="edittext_common_recharge_width">217dp</dimen>
+    <dimen name="account_item_height">30dp</dimen>
+    <dimen name="recharge_mode_item_height">34.5dp</dimen>
+    <dimen name="spinner_drop_down_width">361dp</dimen>
+    <dimen name="spinner_drop_down_last_height">61dp</dimen>
+    <dimen name="spinner_drop_down_vertical_offse">16dp</dimen>
+    <dimen name="spinner_drop_down_layout_max_height">96dp</dimen>
+
+
+    <!-- 底部按钮高度 -->
+    <dimen name="bottom_button_height">38dp</dimen>
+    <dimen name="edittext_padding_right">24dp</dimen>
+    <dimen name="obtain_identifying_code_button_width">73.5dp</dimen>
+    <dimen name="obtain_identifying_code_button_height">41.5dp</dimen>
+    <dimen name="accont_dropdown_menu_width">16.67dp</dimen>
+    <dimen name="button_icon_size">44dip</dimen>
+
+    <dimen name="delete_img_size">40dip</dimen>
+    <!--  <dimen name="rectangle_button_size">31dip</dimen>-->
+    <dimen name="account_image_size">42.5dip</dimen>
+    <dimen name="transaction_record_item_height">31.5dip</dimen>
+    <dimen name="transaction_record_short_item_height">14dip</dimen>
+    <dimen name="rectangle_button_size">36.5dip</dimen>
+
+
+
+
+    <!-- 字号 -->
+    <dimen name="text_font_size_11">5.5sp</dimen>
+    <dimen name="text_font_size_12">6sp</dimen>
+    <dimen name="text_font_size_13">6.5sp</dimen>
+    <dimen name="text_font_size_14">7sp</dimen>
+    <dimen name="text_font_size_15">7.5sp</dimen>
+    <dimen name="text_font_size_16">8sp</dimen>
+    <dimen name="text_font_size_18">9sp</dimen>
+    <dimen name="text_font_size_20">10sp</dimen>
+    <dimen name="text_font_size_21">10.5sp</dimen>
+    <dimen name="text_font_size_22">11sp</dimen>
+    <dimen name="text_font_size_23">11.5sp</dimen>
+    <dimen name="text_font_size_24">12sp</dimen>
+    <dimen name="text_font_size_25">12.5sp</dimen>
+    <dimen name="text_font_size_26">13sp</dimen>
+    <dimen name="text_font_size_26.6">13.3sp</dimen>
+    <dimen name="text_font_size_27">13.5sp</dimen>
+    <dimen name="text_font_size_28">14sp</dimen>
+    <dimen name="text_font_size_29">14.5sp</dimen>
+    <dimen name="text_font_size_30">15sp</dimen>
+    <dimen name="text_font_size_31">15.5sp</dimen>
+    <dimen name="text_font_size_32">16sp</dimen>
+    <dimen name="text_font_size_36">18sp</dimen>
+    <dimen name="text_font_size_54">27sp</dimen>
+    <dimen name="width_90">45dip</dimen>
+    <dimen name="width_110">55dip</dimen>
+    <dimen name="width_120">60dip</dimen>
+    <dimen name="width_150">75dip</dimen>
+    <dimen name="width_160">82dip</dimen>
+    <dimen name="width_190">95dip</dimen>
+    <dimen name="width_420">210dip</dimen>
+    <dimen name="width_233">116.5dip</dimen>
+    <dimen name="width_252">126dip</dimen>
+    <dimen name="width_254">127dip</dimen>
+    <dimen name="width_263">131.5dip</dimen>
+    <dimen name="width_304">152dip</dimen>
+    <dimen name="width_344">172dip</dimen>
+    <dimen name="height_152">76dip</dimen>
+    <dimen name="height_110">55dip</dimen>
+    <dimen name="height_100">50dip</dimen>
+    <dimen name="height_120">60dip</dimen>
+
+    <!-- margin -->
+    <dimen name="margin_0">0dip</dimen>
+    <dimen name="margin_2">1dip</dimen>
+    <dimen name="margin_4">2dip</dimen>
+    <dimen name="margin_5">2.5dip</dimen>
+    <dimen name="margin_6">3dip</dimen>
+    <dimen name="margin_7">3.5dip</dimen>
+    <dimen name="margin_8">4dip</dimen>
+    <dimen name="margin_9">4.5dip</dimen>
+    <dimen name="margin_10">5dip</dimen>
+    <dimen name="margin_11">5.5dip</dimen>
+    <dimen name="margin_12">6dip</dimen>
+    <dimen name="margin_13">6.5dip</dimen>
+    <dimen name="margin_14">7dip</dimen>
+    <dimen name="margin_15">7.5dip</dimen>
+    <dimen name="margin_16">8dip</dimen>
+    <dimen name="margin_17">8.5dip</dimen>
+    <dimen name="margin_18">9dip</dimen>
+    <dimen name="margin_19">9.5dip</dimen>
+    <dimen name="margin_20">10dip</dimen>
+    <dimen name="margin_21">10.5dip</dimen>
+    <dimen name="margin_22">11dip</dimen>
+    <dimen name="margin_23">11.5dip</dimen>
+    <dimen name="margin_24">12dip</dimen>
+    <dimen name="margin_25">12.5dip</dimen>
+    <dimen name="margin_26">13dip</dimen>
+    <dimen name="margin_27">13.5dip</dimen>
+    <dimen name="margin_28">14dip</dimen>
+    <dimen name="margin_29">14.5dip</dimen>
+    <dimen name="margin_30">15dip</dimen>
+    <dimen name="margin_32">16dip</dimen>
+    <dimen name="margin_33">16.5dip</dimen>
+    <dimen name="margin_34">17dip</dimen>
+    <dimen name="margin_35">17.5dip</dimen>
+    <dimen name="margin_36">18dip</dimen>
+    <dimen name="margin_37">18.5dip</dimen>
+    <dimen name="margin_38">19dip</dimen>
+    <dimen name="margin_40">20dip</dimen>
+    <dimen name="margin_41">20.5dip</dimen>
+    <dimen name="margin_42">21dip</dimen>
+    <dimen name="margin_43">21.5dip</dimen>
+    <dimen name="margin_44">22dip</dimen>
+    <dimen name="margin_45">22.5dip</dimen>
+    <dimen name="margin_46">23dip</dimen>
+    <dimen name="margin_47">23.5dip</dimen>
+    <dimen name="margin_48">24dip</dimen>
+    <dimen name="margin_50">25dip</dimen>
+    <dimen name="margin_51">25.5dip</dimen>
+    <dimen name="margin_52">26dip</dimen>
+    <dimen name="margin_53">26.5dip</dimen>
+    <dimen name="margin_54">27dip</dimen>
+    <dimen name="margin_55">27.5dip</dimen>
+    <dimen name="margin_56">28dip</dimen>
+    <dimen name="margin_57">28.5dip</dimen>
+    <dimen name="margin_59">29.5dip</dimen>
+    <dimen name="margin_60">30dip</dimen>
+    <dimen name="margin_61">30.5dip</dimen>
+    <dimen name="margin_62">31dip</dimen>
+    <dimen name="margin_63">31.5dip</dimen>
+    <dimen name="margin_64">32dip</dimen>
+    <dimen name="margin_65">32.5dip</dimen>
+    <dimen name="margin_67">33.5dip</dimen>
+    <dimen name="margin_70">35dip</dimen>
+    <dimen name="margin_72">36dip</dimen>
+    <dimen name="margin_73">36.5dip</dimen>
+    <dimen name="margin_74">37dip</dimen>
+    <dimen name="margin_75">37.5dip</dimen>
+    <dimen name="margin_76">38dip</dimen>
+    <dimen name="margin_77">38.5dip</dimen>
+    <dimen name="margin_79">39.5dip</dimen>
+    <dimen name="margin_80">40dip</dimen>
+    <dimen name="margin_82">41dip</dimen>
+    <dimen name="margin_83">41.5dip</dimen>
+    <dimen name="margin_85">42.5dip</dimen>
+    <dimen name="margin_86">43dip</dimen>
+    <dimen name="margin_87">43.5dip</dimen>
+    <dimen name="margin_88">44dip</dimen>
+    <dimen name="margin_90">45dip</dimen>
+    <dimen name="margin_92">46dip</dimen>
+    <dimen name="margin_93">46.5dip</dimen>
+    <dimen name="margin_95">47.5dip</dimen>
+    <dimen name="margin_96">48dip</dimen>
+    <dimen name="margin_97">48.5dip</dimen>
+    <dimen name="margin_100">50dip</dimen>
+    <dimen name="margin_102">51dip</dimen>
+    <dimen name="margin_105">52.5dip</dimen>
+    <dimen name="margin_106">53dip</dimen>
+    <dimen name="margin_107">53.5dip</dimen>
+    <dimen name="margin_104">52dip</dimen>
+    <dimen name="margin_103">51.5dip</dimen>
+    <dimen name="margin_109">54.5dip</dimen>
+    <dimen name="margin_112">56dip</dimen>
+    <dimen name="margin_113">56.5dip</dimen>
+    <dimen name="margin_115">57.5dip</dimen>
+    <dimen name="margin_116">58dip</dimen>
+    <dimen name="margin_119">59.5dip</dimen>
+    <dimen name="margin_122">61dip</dimen>
+    <dimen name="margin_114">57dip</dimen>
+    <dimen name="margin_120">60dip</dimen>
+    <dimen name="margin_125">62.5dip</dimen>
+    <dimen name="margin_126">63dip</dimen>
+    <dimen name="margin_128">64dip</dimen>
+    <dimen name="margin_130">65dip</dimen>
+    <dimen name="margin_131">65.5dip</dimen>
+    <dimen name="margin_132">66dip</dimen>
+    <dimen name="margin_133">66.5dip</dimen>
+    <dimen name="margin_134">67dip</dimen>
+    <dimen name="margin_137">68.5dip</dimen>
+    <dimen name="margin_140">70dip</dimen>
+    <dimen name="margin_147">73.5dip</dimen>
+    <dimen name="margin_148">74dip</dimen>
+    <dimen name="margin_150">75dip</dimen>
+    <dimen name="margin_154">77dip</dimen>
+    <dimen name="margin_156">78dip</dimen>
+    <dimen name="margin_158">79dip</dimen>
+    <dimen name="margin_163">81.5dip</dimen>
+    <dimen name="margin_164">82dip</dimen>
+    <dimen name="margin_170">85dip</dimen>
+    <dimen name="margin_174">87dip</dimen>
+    <dimen name="margin_179">89.5dip</dimen>
+    <dimen name="margin_182">91dip</dimen>
+    <dimen name="margin_184">92dip</dimen>
+    <dimen name="margin_185">92.5dip</dimen>
+    <dimen name="margin_188">94dip</dimen>
+    <dimen name="margin_190">95dip</dimen>
+    <dimen name="margin_196">98dip</dimen>
+    <dimen name="margin_197">98.5dip</dimen>
+    <dimen name="margin_200">100dip</dimen>
+    <dimen name="margin_208">104dip</dimen>
+    <dimen name="margin_214">107dip</dimen>
+    <dimen name="margin_220">110dip</dimen>
+    <dimen name="margin_225">112.5dip</dimen>
+    <dimen name="margin_227">113.5dip</dimen>
+    <dimen name="margin_230">115dip</dimen>
+    <dimen name="margin_229">114.5dip</dimen>
+    <dimen name="margin_233">116.5dip</dimen>
+    <dimen name="margin_235">117.5dip</dimen>
+    <dimen name="margin_242">121.5dip</dimen>
+    <dimen name="margin_246.6">123.3dip</dimen>
+    <dimen name="margin_248">124dip</dimen>
+    <dimen name="margin_250">125dip</dimen>
+    <dimen name="margin_260">130dip</dimen>
+    <dimen name="margin_266">133dip</dimen>
+    <dimen name="margin_267">133.5dip</dimen>
+    <dimen name="margin_270">135dip</dimen>
+    <dimen name="margin_272">136dip</dimen>
+    <dimen name="margin_280">140dip</dimen>
+    <dimen name="margin_285">142.5dip</dimen>
+    <dimen name="margin_287">143.5dip</dimen>
+    <dimen name="margin_292">146dip</dimen>
+    <dimen name="margin_300">150dip</dimen>
+    <dimen name="margin_307">153.5dip</dimen>
+    <dimen name="margin_310">155dip</dimen>
+    <dimen name="margin_312">156dip</dimen>
+    <dimen name="margin_315">157.5dip</dimen>
+    <dimen name="margin_316">158dip</dimen>
+    <dimen name="margin_320">160dip</dimen>
+    <dimen name="margin_324">162dip</dimen>
+    <dimen name="margin_333">166dip</dimen>
+    <dimen name="margin_338">169dip</dimen>
+    <dimen name="margin_342">171dip</dimen>
+    <dimen name="margin_360">180dip</dimen>
+    <dimen name="margin_363">181.5dip</dimen>
+    <dimen name="margin_395">197.5dip</dimen>
+    <dimen name="margin_400">200dip</dimen>
+    <dimen name="margin_427">213.5dip</dimen>
+    <dimen name="margin_442">221dip</dimen>
+    <dimen name="margin_467">233.5dip</dimen>
+    <dimen name="margin_600">300dip</dimen>
+    <dimen name="margin_667">333.5dip</dimen>
+    <dimen name="margin_653">326.5dip</dimen>
+    <dimen name="margin_927">463.5dip</dimen>
+    <dimen name="margin_533">266.5dip</dimen>
+    <dimen name="safe_grade_view_width">15dip</dimen>
+    <dimen name="safe_grade_view_height">5dip</dimen>
+    <dimen name="pay_list_icon_width">30dp</dimen>
+    <dimen name="pay_list_icon_height">30dp</dimen>
+
+    <!--通用报错宽度-->
+    <dimen name="port_common_erro_text_width">233.3dp</dimen>
+    <dimen name="port_userlogin_erro_text_width">173.3dp</dimen>
+    <dimen name="port_edituser_erro_text_width">150dp</dimen>
+    <dimen name="port_regist_modify_psw_erro_text_width">213.3dp</dimen>
+
+    <dimen name="land_common_erro_text_width">266.6dp</dimen>
+    <dimen name="land_userlogin_erro_text_width">193.3dp</dimen>
+    <dimen name="land_edituser_erro_text_width">193.3dp</dimen>
+
+
+
+</resources>

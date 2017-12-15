@@ -163,8 +163,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     private String zt = "";
     private Boolean isOpenSucess = false; //以第一个摄像头为标准
     //播放地址流
-    private String playUrl1 = "rtmp://106.14.171.182/aita/num-1";//"rtmp://rtmp.open.ys7.com/openlive/784efe98624241eb8923bde2d7530c38";//"rtmp://106.14.171.182/user/user";  //主摄像头
-    private String playUrl2 = "rtmp://106.14.171.182/aita/num-2";//"rtmp://rtmp.open.ys7.com/openlive/784efe98624241eb8923bde2d7530c38";//"rtmp://106.14.171.182/live/livestream";//次摄像头
+    private String playUrl1 = "rtmp://192.168.1.108:1935/aita/num-0005-m";//"rtmp://rtmp.open.ys7.com/openlive/784efe98624241eb8923bde2d7530c38";//"rtmp://106.14.171.182/user/user";  //主摄像头
+    private String playUrl2 = "rtmp://192.168.1.108:1935/aita/num-0005-s";//"rtmp://rtmp.open.ys7.com/openlive/784efe98624241eb8923bde2d7530c38";//"rtmp://106.14.171.182/live/livestream";//次摄像头
     private String currentUrl;
     //用户操作和竞猜
     private boolean isStart = false;
@@ -750,11 +750,11 @@ public class CtrlActivity extends Activity implements IctrlView {
             //TODO 主板异常  UI返回用户金额
             if(isStart) {
                 //TODO 返回玩家金额
-
+                getUserDate(UserUtils.USER_ID);   //获取用户余额
             } else {
                 //TODO 返回竞猜金额 如果用户竞猜
                 if (isLottery) {
-
+                    getUserDate(UserUtils.USER_ID);    //获取用户余额
                 }
             }
             isStart = false;
@@ -773,6 +773,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         if (roomId.equals(AppGlobal.getInstance().getUserInfo().getRoomid())) {
             getStartstation();
             setStartMode(true);
+            getUserDate(UserUtils.USER_ID);    //再次获取用户余额并更新UI
             isStart = false;  //标志复位
             isLottery = false;
             if (Utils.isEmpty(upTime)) {
@@ -804,7 +805,6 @@ public class CtrlActivity extends Activity implements IctrlView {
     /************************************************* 网络请求区***************************************************/
     //消费接口
     private void getPlayNum(String userId, String number,String dollId) {
-//        String phones = Base64.encodeToString(phone.getBytes(), Base64.DEFAULT);
         HttpManager.getInstance().getUserPlayNum(userId, number,dollId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> result) {
@@ -917,4 +917,22 @@ public class CtrlActivity extends Activity implements IctrlView {
             }
         });
     }
+
+    //获取用户信息接口
+    private void getUserDate(String userId){
+        HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<LoginInfo>>() {
+            @Override
+            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+                Log.e(TAG,"获取结果="+loginInfoResult.getMsg());
+
+            }
+
+            @Override
+            public void _onError(Throwable e) {
+
+            }
+        });
+    }
+
+
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/guess_dialog_imag"
+        android:layout_width="220dp"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        android:background="@drawable/guess_success_dialog"
+        />
+    <RelativeLayout
+        android:id="@+id/guess_success_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/guessdialog_success_bg"
+        >
+        <ImageView
+            android:id="@+id/guess_cancel_imag"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/white_x_bg"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            />
+        <ImageView
+            android:id="@+id/guess_title_imag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/guessdialog_seccess_tx"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            />
+        <ImageView
+            android:id="@+id/guess_hb_imag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/guessdialog_success_hb"
+            android:layout_marginTop="85dp"
+            />
+        <TextView
+            android:id="@+id/guess_content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="恭喜您，猜中啦！"
+            android:textColor="#383021"
+            android:layout_below="@+id/guess_hb_imag"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

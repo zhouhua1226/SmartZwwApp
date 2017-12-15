@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/catchdialog_fail_bg"
+        >
+
+        <TextView
+            android:id="@+id/catchdialog_title1_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="太可惜了!"
+            android:textSize="15sp"
+            android:textColor="#3B3B38"
+            android:layout_marginTop="105dp"
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:id="@+id/catchdialog_title2_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本次抓娃娃没有成功。"
+            android:textSize="15sp"
+            android:textColor="#3B3B38"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/catchdialog_title1_tv"
+            android:layout_centerHorizontal="true"
+            />
+
+
+        <TextView
+            android:id="@+id/catchdialog_fail_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="稍后再试"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/catchdialog_go_bg"
+            android:layout_below="@+id/catchdialog_title2_tv"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="25dp"
+
+            />
+        <TextView
+            android:id="@+id/catchdialog_success_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="稍后再试"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/catchdialog_again_bg"
+            android:layout_below="@+id/catchdialog_title2_tv"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="25dp"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

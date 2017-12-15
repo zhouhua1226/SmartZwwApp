@@ -2,6 +2,7 @@ package com.tencent.tmgp.jjzww.base;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -14,6 +15,8 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.utils.SPUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
+import com.tencent.tmgp.jjzww.view.CatchDollResultDialog;
+import com.tencent.tmgp.jjzww.view.GuessingSuccessDialog;
 import com.tencent.tmgp.jjzww.view.WinningDialog;
 import com.umeng.message.PushAgent;
 
@@ -22,7 +25,7 @@ import com.umeng.message.PushAgent;
  * Created by zhouh on 2017/9/7.
  */
 public abstract class BaseActivity extends AppCompatActivity{
-    private static WinningDialog winningDialog;
+    private static GuessingSuccessDialog guessingSuccessDialog;
     private static final String TAG = "BaseActivity---";
 
     @Override
@@ -48,7 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     }
 
     private void initDialog() {
-        winningDialog=new WinningDialog(this, R.style.easy_dialog_style);
+        guessingSuccessDialog=new GuessingSuccessDialog(this, R.style.easy_dialog_style);
 
     }
 
@@ -59,7 +62,21 @@ public abstract class BaseActivity extends AppCompatActivity{
         String roomId = message.getRoomId();
         String pId = message.getPeriodsNum();
         Utils.showLogE(TAG, "房间号:" + roomId + "第" + pId + "期开奖了.......");
-        winningDialog.setShowText("房间号:" + roomId + "第" + pId + "期开奖了.......");
-        winningDialog.show();
+        guessingSuccessDialog.setCancelable(true);
+        guessingSuccessDialog.show();
+        guessingSuccessDialog.setDialogResultListener(new GuessingSuccessDialog.DialogResultListener() {
+            @Override
+            public void getResult(int resultCode) {
+                if(resultCode==0){
+                    guessingSuccessDialog.dismiss();
+                }
+            }
+        });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                guessingSuccessDialog.dismiss();
+            }
+        },3000);
     }
 }

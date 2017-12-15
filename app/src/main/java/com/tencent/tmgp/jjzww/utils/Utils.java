@@ -9,10 +9,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.telephony.TelephonyManager;
 
 import com.gatz.netty.global.ConnectResultEvent;
+import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.bean.ConsigneeBean;
+import com.tencent.tmgp.jjzww.view.CatchDollResultDialog;
+import com.tencent.tmgp.jjzww.view.GuessingSuccessDialog;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -240,5 +244,44 @@ public class Utils {
         return consigneeBean;
     }
 
+    //竞彩成功弹窗
+    public static void getGuessSuccessDialog(Context context){
+        final GuessingSuccessDialog guessingSuccessDialog=new GuessingSuccessDialog(context, R.style.easy_dialog_style);
+        guessingSuccessDialog.setCancelable(true);
+        guessingSuccessDialog.show();
+        guessingSuccessDialog.setDialogResultListener(new GuessingSuccessDialog.DialogResultListener() {
+            @Override
+            public void getResult(int resultCode) {
+                if(resultCode==0){
+                    guessingSuccessDialog.dismiss();
+                }
+            }
+        });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                guessingSuccessDialog.dismiss();
+            }
+        },3000);
+    }
+
+    public static void getCatchResultDialog(Context context){
+        final CatchDollResultDialog resultDialog=new CatchDollResultDialog(context,R.style.easy_dialog_style);
+        resultDialog.setCancelable(false);
+        resultDialog.show();
+        resultDialog.setDialogResultListener(new CatchDollResultDialog.DialogResultListener() {
+            @Override
+            public void getResult(int resultCode) {
+                if(resultCode==0){
+                    //取消
+                    resultDialog.dismiss();
+                }else {
+                    //再试一次
+                    resultDialog.dismiss();
+                }
+            }
+        });
+
+    }
 
 }

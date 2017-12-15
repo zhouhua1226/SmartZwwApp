@@ -225,4 +225,34 @@ public interface SmartService {
             @Field(UrlUtils.USERID) String userID
     );
 
+    //获取用户信息接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETUSERDATEURL)
+    Observable<Result<LoginInfo>>getUserDate(
+            @Field(UrlUtils.USERID) String userId
+    );
+
+    //WXQQ登录接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.YSDKLOGINURL)
+    Observable<Result<LoginInfo>>getYSDKLogin(
+            @Field(UrlUtils.WXQQ_UID) String uid,
+            @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken,
+            @Field(UrlUtils.WXQQ_NICKNAME) String nickName,
+            @Field(UrlUtils.WXQQ_IMAGEURL) String imageUrl
+    );
+
+    //YSDK支付接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.YSDKPAYORDERURL)
+    Observable<Result<LoginInfo>>getYSDKPay(
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken,
+            @Field(UrlUtils.WXQQ_AMOUNT) String amount
+    );
+
+
 }

@@ -256,4 +256,33 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
+    //获取用户信息
+    public void getUserDate(String userId,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getUserDate(userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //WXQQ登录
+    public void getYSDKLogin(String uid,String accessToken,String nickName,String imageUrl,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getYSDKLogin(uid,accessToken,nickName,imageUrl);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //ysdk支付创建订单接口
+    //WXQQ登录
+    public void getYSDKPay(String userId,String accessToken,String amount,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getYSDKPay(userId,accessToken,amount);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
 }

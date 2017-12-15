@@ -2,32 +2,33 @@ package com.tencent.tmgp.jjzww.wxapi;
 
 import android.os.Bundle;
 
-import com.tencent.tmgp.jjzww.R;
-import com.tencent.tmgp.jjzww.base.BaseActivity;
-
-import butterknife.ButterKnife;
-
-public class WXEntryActivity extends BaseActivity {
+import com.easy.ysdk.EasyShareApi;
+import com.easy.ysdk.share.ShareWX;
+import com.tencent.mm.sdk.modelbase.BaseResp;
 
 
-	private String TAG="WXEntryActivity";
+public class WXEntryActivity extends com.tencent.ysdk.module.user.impl.wx.YSDKWXEntryActivity {
 
-	@Override
-	protected int getLayoutId() {
-		return R.layout.wxback_result;
-	}
+//    private IWXAPI api;
 
 	@Override
-	protected void afterCreate(Bundle savedInstanceState) {
-		initView();
-
-
-	}
-
-	@Override
-	protected void initView() {
-		ButterKnife.bind(this);
+	public void onCreate(Bundle bundle) {
+		super.onCreate(bundle);
+		//为了进行分享，不得已创建两个api
+		if(EasyShareApi.getInstance().getIwxapi()!=null){
+			EasyShareApi.getInstance().getIwxapi().handleIntent(getIntent(),WXEntryActivity.this);
+		}
 	}
 
 
+	@Override
+	public void onResp(BaseResp baseResp) {
+		//super里集成了微信登录和微信支付，一定要保留
+		super.onResp(baseResp);
+		//以下逻辑为处理微信分享
+		ShareWX.onResp(baseResp);
+
+
+
+	}
 }

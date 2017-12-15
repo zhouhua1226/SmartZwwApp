@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--分享页面-->
+    <string name="robust_share_it_qq">QQ</string>
+    <string name="robust_share_it_qzone">QQ空间</string>
+    <string name="robust_share_it_wecate">微信</string>
+    <string name="robust_share_it_friends">朋友圈</string>
+    <string name="robust_share_it_link">复制链接</string>
+    <string name="robust_share_it_title_text">分享至</string>
+    <string name="robust_share_it_bottom_text">取消</string>
+
+
+</resources>

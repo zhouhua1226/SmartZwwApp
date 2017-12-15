@@ -42,6 +42,14 @@ public class UrlUtils {
     public static final String SENDGOODSREMARK="remark";
     public static final String SENDGOODSUSERID="userId";
 
+    //微信QQ登录接口
+    public static final String WXQQ_UID="uid";
+    public static final String WXQQ_ACCESSTOKEN="accessToken";
+    public static final String WXQQ_NICKNAME="nickName";
+    public static final String WXQQ_IMAGEURL="imageUrl";
+    //ysdk支付金额字段
+    public static final String WXQQ_AMOUNT="amount";
+
     public static final String URL = "http://47.100.15.18:8080";
 //    public static final String URL="http://106.75.142.42:8080/";
 
@@ -118,5 +126,14 @@ public class UrlUtils {
 
     //兑换列表接口
     public static final String EXCHANGELISTURL=URL+"/pooh-web/app/getConList";
+
+    //获取用户信息接口
+    public static final String GETUSERDATEURL=URL+"/pooh-web/api/getUserInfo";    //参数：userId 获取用户信息
+
+    //微信QQ登录创建用户接口
+    public static final String YSDKLOGINURL=URL+"/pooh-web/app/tencentLogin";
+
+    //YSDK支付创建订单接口
+    public static final String YSDKPAYORDERURL=URL+"";
 
 }

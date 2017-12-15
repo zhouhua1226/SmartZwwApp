@@ -1,1 +1,1 @@
-include ':app', ':PushSDK', ':polygonimageview'
+include ':app', ':PushSDK', ':polygonimageview', ':easyysdk'

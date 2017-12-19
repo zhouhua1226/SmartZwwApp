@@ -17,6 +17,15 @@ public class LoginInfo implements Serializable{
     private List<PlayBackBean> playBackBeen;
     private VideoBackBean playBack;
     private List<ExChangeMoneyBean> conversionList;
+    private OrderBean Order;
+
+    public OrderBean getOrder() {
+        return Order;
+    }
+
+    public void setOrder(OrderBean order) {
+        Order = order;
+    }
 
     public List<ExChangeMoneyBean> getConversionList() {
         return conversionList;

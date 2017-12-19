@@ -1,5 +1,6 @@
 package com.tencent.tmgp.jjzww.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.multidex.MultiDex;
@@ -10,12 +11,16 @@ import com.tencent.tmgp.jjzww.service.SmartRemoteService;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by zhouh on 2017/9/7.
  */
 public class MyApplication extends MultiDexApplication {
 
     private static MyApplication myApplication;
+    public static List<Activity> activities = new LinkedList<Activity>();
 
     @Override
     public void onCreate() {
@@ -71,5 +76,21 @@ public class MyApplication extends MultiDexApplication {
         System.exit(0);
     }
 
+    public void exit() {
+        if (activities != null) {
+            Activity activity;
+            for (int i = 0; i < activities.size(); i++) {
+                activity = activities.get(i);
+                if (activity != null) {
+                    if (!activity.isFinishing()) {
+                        activity.finish();
+                    }
+                    activity = null;
+                }
+                activities.remove(i);
+                i--;
+            }
+        }
+    }
 
 }

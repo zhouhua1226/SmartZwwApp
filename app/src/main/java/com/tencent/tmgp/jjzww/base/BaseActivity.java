@@ -28,11 +28,13 @@ public abstract class BaseActivity extends AppCompatActivity{
     private static GuessingSuccessDialog guessingSuccessDialog;
     private static final String TAG = "BaseActivity---";
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         afterCreate(savedInstanceState);
+        MyApplication.getInstance().activities.add(this);
         PushAgent.getInstance(this).onAppStart();
         RxBus.get().register(this);
         initDialog();

@@ -25,6 +25,7 @@ import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
+import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
 
 import java.util.ArrayList;
@@ -123,7 +124,7 @@ public class RankFragmentTwo extends BaseFragment {
                 list = listRankBeanResult.getData().getAppUser();
                 Utils.showLogE(TAG + "看看...", list.size() + "");
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getUSER_ID().equals(UserUtils.USER_ID)&&i>9) {
+                    if (list.get(i).getUSER_ID().equals(YsdkUtils.loginResult.getData().getAppUser().getUSER_ID())&&i>9) {
                         myBean = list.get(i);
                         myNum = (i + 1) + "";
                         Log.e(TAG,"我的排名="+myNum);

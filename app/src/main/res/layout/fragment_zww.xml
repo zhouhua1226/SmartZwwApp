@@ -27,7 +27,16 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:paddingLeft="-10dp"
+            android:visibility="gone"
             android:background="@drawable/zww_top_png1" />
+
+        <com.youth.banner.Banner
+            android:id="@+id/zww_banner"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            ></com.youth.banner.Banner>
 
         <LinearLayout
             android:layout_width="match_parent"

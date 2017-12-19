@@ -134,7 +134,7 @@ public class UrlUtils {
     public static final String YSDKLOGINURL=URL+"/pooh-web/app/tencentLogin";
 
     //YSDK支付创建订单接口
-    public static final String YSDKPAYORDERURL=URL+"";
+    public static final String YSDKPAYORDERURL=URL+"/pooh-web/pay/getTradeOrder";
 
     //YSDK版自动登录
     public static final String YSDKAUTHLOGINURL=URL+"/pooh-web/app/tencentAutoLogin";

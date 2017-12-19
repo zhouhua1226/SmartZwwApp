@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -143,6 +142,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     ImageView moneyImage;
     @BindView(R.id.ctrl_betting_back_button)
     Button ctrlBettingBackButton;
+    @BindView(R.id.startgame_text_imag)
+    ImageView startgameTextImag;
 
     private CtrlCompl ctrlCompl;
     private FillingCurrencyDialog fillingCurrencyDialog;
@@ -178,6 +179,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        ButterKnife.bind(this);
         afterCreate();
     }
 
@@ -189,7 +191,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         Utils.showLogE(TAG, "afterCreate");
         initView();
         initData();
-        coinTv.setText(UserUtils.UserBalance);
+        coinTv.setText("  " + UserUtils.UserBalance);
         setVibrator();   //初始化振动器
     }
 
@@ -226,7 +228,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         setStartMode(getIntent().getBooleanExtra(Utils.TAG_ROOM_STATUS, true));
         ctrlQuizLayout.setEnabled(false);
         currentUrl = playUrl1;
-        ctrlCompl.startPlayVideo(mRealPlaySv ,currentUrl);
+        ctrlCompl.startPlayVideo(mRealPlaySv, currentUrl);
     }
 
 
@@ -337,7 +339,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     protected void onRestart() {
         super.onRestart();
         Utils.showLogE(TAG, "onRestart");
-        if(ctrlFailIv.getVisibility() == View.VISIBLE) {
+        if (ctrlFailIv.getVisibility() == View.VISIBLE) {
             ctrlFailIv.setVisibility(View.GONE);
         }
         ctrlGifView.setVisibility(View.VISIBLE);
@@ -388,9 +390,9 @@ public class CtrlActivity extends Activity implements IctrlView {
                     if ((Utils.connectStatus.equals(ConnectResultEvent.CONNECT_SUCCESS))
                             && (isCurrentConnect)) {
                         ctrlCompl.sendCmdCtrl(MoveType.START);
-                        coinTv.setText((Integer.parseInt(UserUtils.UserBalance) - money) + "");
+                        coinTv.setText("  " + (Integer.parseInt(UserUtils.UserBalance) - money) + "");
                         getCreatPlayList(UserUtils.NickName, dollName);//开始游戏分发场次
-                        getPlayNum(UserUtils.USER_ID,String.valueOf(money),dollId);   //扣款
+                        getPlayNum(UserUtils.USER_ID, String.valueOf(money), dollId);   //扣款
                         isStart = true;
                     }
                     setVibratorTime(300, -1);
@@ -431,7 +433,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 //下注
                 if (zt.equals("1") || zt.equals("0")) {
                     getBets(UserUtils.USER_ID, Integer.valueOf(money).intValue(), zt, UserUtils.GUESSID, dollId);
-                    coinTv.setText((Integer.parseInt(UserUtils.UserBalance) - money) + "");
+                    coinTv.setText("  " + (Integer.parseInt(UserUtils.UserBalance) - money) + "");
                     ctrlButtomLayout.setVisibility(View.VISIBLE);
                     ctrlBetingLayout.setVisibility(View.GONE);
                     isLottery = true;
@@ -444,7 +446,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 ctrlButtomLayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.ctrl_change_camera_iv:
-                currentUrl = currentUrl.equals(playUrl1)? playUrl2:playUrl1;
+                currentUrl = currentUrl.equals(playUrl1) ? playUrl2 : playUrl1;
                 ctrlCompl.startPlaySwitchUrlVideo(currentUrl);
                 break;
             default:
@@ -520,7 +522,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 switch (view.getId()) {
                     case R.id.front_image:
                         setVibratorTime(3000, 1);
-                        if(currentUrl.equals(playUrl1)) {
+                        if (currentUrl.equals(playUrl1)) {
                             ctrlCompl.sendCmdCtrl(MoveType.FRONT);
                         } else if (currentUrl.equals(playUrl2)) {
                             ctrlCompl.sendCmdCtrl(MoveType.LEFT);
@@ -531,7 +533,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                         break;
                     case R.id.back_image:
                         setVibratorTime(3000, 1);
-                        if(currentUrl.equals(playUrl1)) {
+                        if (currentUrl.equals(playUrl1)) {
                             ctrlCompl.sendCmdCtrl(MoveType.BACK);
                         } else if (currentUrl.equals(playUrl2)) {
                             ctrlCompl.sendCmdCtrl(MoveType.RIGHT);
@@ -542,7 +544,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                         break;
                     case R.id.left_image:
                         setVibratorTime(3000, 1);
-                        if(currentUrl.equals(playUrl1)) {
+                        if (currentUrl.equals(playUrl1)) {
                             ctrlCompl.sendCmdCtrl(MoveType.LEFT);
                         } else if (currentUrl.equals(playUrl2)) {
                             ctrlCompl.sendCmdCtrl(MoveType.BACK);
@@ -619,10 +621,12 @@ public class CtrlActivity extends Activity implements IctrlView {
     private void setStartMode(boolean isFree) {
         startgameLl.setEnabled(isFree);
         if (isFree) {
-            startgameLl.setBackgroundResource(R.drawable.ctrl_startgame_bg_n);
+            startgameLl.setBackgroundResource(R.drawable.ctrl_startgame_button);
+            startgameTextImag.setImageResource(R.drawable.begin_game_text);
             return;
         }
-        startgameLl.setBackgroundResource(R.drawable.ctrl_startgame_bg_d);
+        startgameLl.setBackgroundResource(R.drawable.ctrl_unstartgame_button);
+        startgameTextImag.setImageResource(R.drawable.ctrl_begin_loading);
         if (userInfos.size() > 1) {
             ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcurrency_dialog);
             ctrlQuizLayout.setEnabled(true);
@@ -631,7 +635,10 @@ public class CtrlActivity extends Activity implements IctrlView {
             ctrlQuizLayout.setEnabled(false);
         }
     }
-    /**************************************************控制状态区*****************************************************/
+
+    /**************************************************
+     * 控制状态区
+     *****************************************************/
     //控制区与状态区
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = {
             @Tag(Utils.TAG_ROOM_IN),
@@ -665,7 +672,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                         .equals(MoveType.START.name())) {
                     getWorkstation();
                     ctrlCompl.startRecordVideo();
-                }  else if (moveControlResponse.getMoveType().name()
+                } else if (moveControlResponse.getMoveType().name()
                         .equals(MoveType.CATCH.name())) {
                     //TODO 本人点击下爪了 下爪成功
                     Utils.showLogE(TAG, "本人点击下爪成功......");
@@ -698,7 +705,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 getUserInfos(userInfos);
             }
         }
-}
+    }
 
     //监控网关区
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = {
@@ -748,7 +755,7 @@ public class CtrlActivity extends Activity implements IctrlView {
             PoohAbnormalStatus status = (PoohAbnormalStatus) object;
             Utils.showLogE(TAG, "主板报错 错误代码:::" + status.getValue());
             //TODO 主板异常  UI返回用户金额
-            if(isStart) {
+            if (isStart) {
                 //TODO 返回玩家金额
                 getUserDate(UserUtils.USER_ID);   //获取用户余额
             } else {
@@ -802,10 +809,12 @@ public class CtrlActivity extends Activity implements IctrlView {
         }
     }
 
-    /************************************************* 网络请求区***************************************************/
+    /*************************************************
+     * 网络请求区
+     ***************************************************/
     //消费接口
-    private void getPlayNum(String userId, String number,String dollId) {
-        HttpManager.getInstance().getUserPlayNum(userId, number,dollId, new RequestSubscriber<Result<LoginInfo>>() {
+    private void getPlayNum(String userId, String number, String dollId) {
+        HttpManager.getInstance().getUserPlayNum(userId, number, dollId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> result) {
                 Log.e(TAG, "消费结果=" + result.getMsg());
@@ -825,8 +834,8 @@ public class CtrlActivity extends Activity implements IctrlView {
         HttpManager.getInstance().getBets(userID, wager, guessKey, guessId, dollID, new RequestSubscriber<Result<AppUserBean>>() {
             @Override
             public void _onSuccess(Result<AppUserBean> appUserBeanResult) {
-                coinTv.setText(appUserBeanResult.getData().getAppUser().getBALANCE());
-                UserUtils.UserBalance=appUserBeanResult.getData().getAppUser().getBALANCE();
+                coinTv.setText("  " + appUserBeanResult.getData().getAppUser().getBALANCE());
+                UserUtils.UserBalance = appUserBeanResult.getData().getAppUser().getBALANCE();
 
             }
 
@@ -859,8 +868,9 @@ public class CtrlActivity extends Activity implements IctrlView {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
 //                UserUtils.id = loginInfoResult.getData().getPlayBack().getID();
-                UserUtils.GUESSID=loginInfoResult.getData().getPlayBack().getGUESSID();
+                UserUtils.GUESSID = loginInfoResult.getData().getPlayBack().getGUESSID();
             }
+
             @Override
             public void _onError(Throwable e) {
 
@@ -870,13 +880,13 @@ public class CtrlActivity extends Activity implements IctrlView {
 
     //获取下注人数
 
-    private void getPond(int playId){
+    private void getPond(int playId) {
 
         HttpManager.getInstance().getPond(playId, new RequestSubscriber<Result<PondResponseBean>>() {
             @Override
             public void _onSuccess(Result<PondResponseBean> loginInfoResult) {
-                ctrlBettingNumberOne.setText( loginInfoResult.getData().getPond().getGUESS_Y()+"");
-                ctrlBettingNumberTwo.setText( loginInfoResult.getData().getPond().getGUESS_N()+"");
+                ctrlBettingNumberOne.setText(loginInfoResult.getData().getPond().getGUESS_Y() + "");
+                ctrlBettingNumberTwo.setText(loginInfoResult.getData().getPond().getGUESS_N() + "");
 
             }
 
@@ -919,12 +929,14 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     //获取用户信息接口
-    private void getUserDate(String userId){
+    private void getUserDate(String userId) {
         HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-                Log.e(TAG,"获取结果="+loginInfoResult.getMsg());
-
+                Log.e(TAG, "获取结果=" + loginInfoResult.getMsg());
+                if (loginInfoResult.getMsg().equals("success")) {
+                    coinTv.setText("  " + loginInfoResult.getData().getAppUser().getBALANCE());
+                }
             }
 
             @Override

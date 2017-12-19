@@ -84,12 +84,12 @@ public class TakePhotoActivity extends com.jph.takephoto.app.TakePhotoActivity i
         String str = android.util.Base64.encodeToString(string.getBytes(), android.util.Base64.DEFAULT);
         Bitmap bitmap= BitmapUtils.compressImageFromFile(imagePath);
         base64=Base64.encode(BitmapUtils.compressBmpFromBmp(bitmap));
-        getFaceImage(str,base64);
+        getFaceImage(UserUtils.USER_ID,base64);
     }
 
 
-    private void getFaceImage(String phone,String faceImage){
-        HttpManager.getInstance().getFaceImage(phone, faceImage, new RequestSubscriber<Result<AppUserBean>>() {
+    private void getFaceImage(String userId,String faceImage){
+        HttpManager.getInstance().getFaceImage(userId, faceImage, new RequestSubscriber<Result<AppUserBean>>() {
             @Override
             public void _onSuccess(Result<AppUserBean> result) {
                 Utils.showLogE(TAG,result.getMsg());

@@ -117,4 +117,6 @@ dependencies {
     compile project(':polygonimageview')
     compile(name: 'YSDK_Android_1.3.6_841', ext: 'aar')
     compile project(':easyysdk')
+    compile 'com.youth.banner:banner:1.4.9'  //最新版本
+
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,10 @@ import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
+import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
+import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.FillingCurrencyDialog;
 import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
 import com.tencent.tmgp.jjzww.view.MyToast;
@@ -96,9 +99,6 @@ public class MyCenterFragment extends BaseFragment {
     protected void afterCreate(Bundle savedInstanceState) {
         Glide.get(getContext()).clearMemory();
 
-//        initlist();
-//        initData();
-//        onClick();
     }
 
     private void onClick() {
@@ -145,26 +145,20 @@ public class MyCenterFragment extends BaseFragment {
 
     }
 
-//    private void initlist() {
-//        list = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            list.add(i + "");
-//        }
-//    }
 
     @Override
     public void onResume() {
         super.onResume();
-        getUserImageAndName();
-        //getVideoBackList(userName.getText().toString());
+        Log.e("<<<<<<<<<<<<","个人中心userId="+UserUtils.USER_ID);
+        getUserDate(YsdkUtils.loginResult.getData().getAppUser().getUSER_ID());
     }
 
     private void getUserImageAndName() {
-        if (!Utils.isEmpty(UserUtils.UserPhone)) {
+        if (!Utils.isEmpty(UserUtils.USER_ID)) {
             if (!UserUtils.NickName.equals("")) {
                 userName.setText(UserUtils.NickName);
             } else {
-                userName.setText(UserUtils.UserPhone);
+                userName.setText("暂无昵称");
             }
             mycenterMycurrencyTv.setText(" "+UserUtils.UserBalance);
             userNumber.setText("累积抓中" + UserUtils.UserCatchNum + "次");
@@ -178,6 +172,27 @@ public class MyCenterFragment extends BaseFragment {
             videoList.clear();
             userImage.setImageResource(R.drawable.round);
         }
+    }
+
+    private void getUserDate(String userId) {
+        HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<LoginInfo>>() {
+            @Override
+            public void _onSuccess(Result<LoginInfo> result) {
+                UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
+                UserUtils.UserCatchNum=result.getData().getAppUser().getDOLLTOTAL();
+                UserUtils.NickName=result.getData().getAppUser().getNICKNAME();
+                UserUtils.UserImage = UrlUtils.USERFACEIMAGEURL + result.getData().getAppUser().getIMAGE_URL();
+                Log.e(TAG, "个人信息刷新结果=" + result.getMsg()+"余额="+result.getData().getAppUser().getBALANCE()
+                        +"抓取次数="+result.getData().getAppUser().getDOLLTOTAL()
+                        +"昵称="+result.getData().getAppUser().getNICKNAME()
+                        +"头像="+UserUtils.UserImage);
+                getUserImageAndName();
+            }
+
+            @Override
+            public void _onError(Throwable e) {
+            }
+        });
     }
 
     @OnClick({R.id.mycenter_kefu_layout, R.id.mycenter_setting_layout, R.id.user_image,

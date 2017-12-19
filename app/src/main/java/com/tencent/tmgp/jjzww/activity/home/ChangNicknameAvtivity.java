@@ -48,7 +48,7 @@ public class ChangNicknameAvtivity extends BaseActivity {
         if (!UserUtils.NickName.equals("")) {
             nicknameEt.setText(UserUtils.NickName);
         } else {
-            nicknameEt.setText(UserUtils.UserPhone);
+            nicknameEt.setText("暂无昵称");
         }
 
     }
@@ -66,15 +66,10 @@ public class ChangNicknameAvtivity extends BaseActivity {
                 break;
             case R.id.save_bt:
                 String name = nicknameEt.getText().toString();
-                String ph = UserUtils.UserPhone;
-                Log.e("修改昵称《《《", "用户名=" + name + "  手机号=" + ph);
-                if (Utils.isEmpty(ph) || Utils.isEmpty(name)) {
-                    return;
-                }
                 if (Utils.isSpecialChar(name)) {
                     MyToast.getToast(getApplicationContext(), "你输入的包含非法字符，请重新输入！").show();
                 } else {
-                    getUserName(ph, name);
+                    getUserName(UserUtils.USER_ID, name);
                 }
                 break;
             case R.id.changen_image:
@@ -85,10 +80,10 @@ public class ChangNicknameAvtivity extends BaseActivity {
         }
     }
 
-    public void getUserName(String phone, String nickName) {
-        String phones = Base64.encodeToString(phone.getBytes(), Base64.DEFAULT);
-        Log.e("修改昵称<<<", "手机号加密后=" + phones);
-        HttpManager.getInstance().getUserName(phones, nickName, new RequestSubscriber<Result<AppUserBean>>() {
+    public void getUserName(String userId, String nickName) {
+        //String phones = Base64.encodeToString(phone.getBytes(), Base64.DEFAULT);
+        //Log.e("修改昵称<<<", "手机号加密后=" + phones);
+        HttpManager.getInstance().getUserName(userId, nickName, new RequestSubscriber<Result<AppUserBean>>() {
             @Override
             public void _onSuccess(Result<AppUserBean> result) {
                 UserUtils.NickName = result.getData().getAppUser().getNICKNAME();

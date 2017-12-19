@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
@@ -20,14 +24,20 @@ import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.view.EmptyLayout;
+import com.tencent.tmgp.jjzww.view.GlideImageLoader;
 import com.tencent.tmgp.jjzww.view.MarqueeView;
-import com.tencent.tmgp.jjzww.view.MyTextSwitcher;
+import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.tmgp.jjzww.view.SpaceItemDecoration;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
@@ -45,6 +55,9 @@ public class ZWWJFragment extends BaseFragment {
 //    MyTextSwitcher rollingTv;
     @BindView(R.id.marqueeview)
     MarqueeView marqueeview;
+    @BindView(R.id.zww_banner)
+    Banner zwwBanner;
+    Unbinder unbinder1;
 
     private List<ZwwRoomBean> roomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
@@ -52,6 +65,7 @@ public class ZWWJFragment extends BaseFragment {
     private EmptyLayout.OnClickReTryListener onClickReTryListener;
     private List<VideoBackBean> playBackBeanList = new ArrayList<>();
     private List<Marquee> marquees = new ArrayList<>();
+    private List<String> mListImage;
 
     @Override
     protected int getLayoutId() {
@@ -63,13 +77,7 @@ public class ZWWJFragment extends BaseFragment {
         initData();
         onClick();
         getUserList();
-
-    }
-
-    private void initText() {
-
-
-
+        initBanner();
     }
 
     private void getUserList() {
@@ -78,11 +86,11 @@ public class ZWWJFragment extends BaseFragment {
             public void _onSuccess(Result<LoginInfo> listRankBeanResult) {
                 playBackBeanList = listRankBeanResult.getData().getPlayback();
                 for (int i = 0; i < playBackBeanList.size(); i++) {
-                    Marquee marquee=new Marquee();
-                    String s = "恭喜" +"<font color='#FF0000'>"+playBackBeanList.get(i).getUSERNAME()+"</font>"
-                            +"用户抓中一个" + playBackBeanList.get(i).getDOLLNAME();
+                    Marquee marquee = new Marquee();
+                    String s = "恭喜" + "<font color='#FF0000'>" + playBackBeanList.get(i).getUSERNAME() + "</font>"
+                            + "用户抓中一个" + playBackBeanList.get(i).getDOLLNAME();
                     marquee.setTitle(s);
-                    marquee.setImgUrl(UrlUtils.USERFACEIMAGEURL+playBackBeanList.get(i).getIMAGE_URL());
+                    marquee.setImgUrl(UrlUtils.USERFACEIMAGEURL + playBackBeanList.get(i).getIMAGE_URL());
                     marquees.add(marquee);
                 }
                 marqueeview.setImage(true);
@@ -175,7 +183,72 @@ public class ZWWJFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getUserList();
+        //getUserList();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder1.unbind();
+    }
+
+    //banner轮播
+    private void initBanner(){
+        //设置Banner样式
+        zwwBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        //设置图片加载器
+        zwwBanner.setImageLoader(new GlideImageLoader());
+        //实例化图片集合
+        mListImage = new ArrayList<>();
+        //将图片放入集合中
+        mListImage.add("http://img.hc360.com/auto-a/info/images/200803/8998419-10.jpg");
+        mListImage.add("http://img.ichemo.cn/model/5188ebc96c74dd.jpg");
+        mListImage.add("http://i.ebayimg.com/00/s/MzU1WDcwOQ==/%24%28KGrHqR,%21hYFDuguSMpNBQ8e+seDCQ~~60_1.JPG?set_id=880000500F");
+        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/65kWq9ygL.Sw4G9*hj30d0BXvNLS9RworM3lIuw7lfc!/c/dPMAAAAAAAAA&ek=1&kp=1&pt=0&bo=9AH6AAAAAAARFy8!&t=5&vuin=2422172415&tm=1513652400&sce=60-2-2&rf=newphoto&t=5");
+        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/IkSbTgiJL9I7Ec7FQwySpUwLkkXznq2td3ZzvKH0wKA!/c/dPMAAAAAAAAA&ek=1&kp=1&pt=0&bo=9AH6AAAAAAARFy8!&t=5&vuin=2422172415&tm=1513652400&sce=60-2-2&rf=newphoto&t=5");
+        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/22f4y.iBc4SJJqW5TbKIffpgD8.2lkp2cACnn*hM1j8!/b/dPMAAAAAAAAA&ek=1&kp=1&pt=0&bo=9AH6AAAAAAARFy8!&vuin=2422172415&tm=1513656000&sce=60-2-2&rf=viewer_4");
+        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/*OrL7JyltR.4ruHWBAdgs5zPVEMF83H*7e3mxfb5dUw!/c/dD8BAAAAAAAA&ek=1&kp=1&pt=0&bo=9AH6AAAAAAARFy8!&t=5&vuin=2422172415&tm=1513652400&sce=60-2-2&rf=newphoto&t=5");
+        mListImage.add("http://m.qpic.cn/psb?/V129YDsp1WxQ4t/ZnDBmT03YYQT61mv20vHsah5eHPXlSDmRruTCStBK.E!/b/dPIAAAAAAAAA&bo=wgHSAAAAAAARByE!&rf=viewer_4");
+        mListImage.add("http://m.qpic.cn/psb?/V129YDsp1WxQ4t/3KAvFL2XxdKQYeCqqEhtJijB.J5gT6btdSVsFB91GUU!/b/dPIAAAAAAAAA&bo=wgHSAAAAAAARFzE!&rf=viewer_4");
+        //设置Banner图片集合
+        zwwBanner.setImages(mListImage);
+        //设置Banner动画效果
+        zwwBanner.setBannerAnimation(Transformer.DepthPage);
+        //设置轮播时间
+        zwwBanner.setDelayTime(2000);
+        //设置指示器位置（当banner模式中有指示器时）
+        zwwBanner.setIndicatorGravity(BannerConfig.CENTER);
+        //Banner设置方法全部调用完毕时最后调用
+        zwwBanner.start();
+        zwwBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                MyToast.getToast(getContext(),"您点击了第"+(position+1)+"张图片").show();
+            }
+        });
+    }
+
+    //如果你需要考虑更好的体验，可以这么操作
+    @Override
+    public void onStart() {
+        super.onStart();
+        //开始轮播
+       zwwBanner.startAutoPlay();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        //结束轮播
+        zwwBanner.stopAutoPlay();
     }
 
 }

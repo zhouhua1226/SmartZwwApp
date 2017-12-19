@@ -30,11 +30,9 @@
             android:name="com.tencent.tmgp.jjzww.activity.home.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <!--
         <activity
@@ -183,10 +181,13 @@
 
         <activity android:name=".activity.home.LoginActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="standard"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             </activity>
 
 

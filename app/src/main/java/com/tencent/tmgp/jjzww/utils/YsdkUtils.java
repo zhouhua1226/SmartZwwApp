@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.easy.ysdk.EasyYSDKApi;
 import com.robust.sdk.avatar.AutoAccessCallback;
+import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.view.MyToast;
 
 /**
@@ -20,21 +22,9 @@ public class YsdkUtils {
     public static String auth_token= "";     //用户身份token
     public static String nickName="";        //用户昵称
     public static String imageUrl="";        //用户头像(只有微信或QQ登录，并且用户有头像时才会有效)
+    public static final String AUTH_TOKEN="AUTH_TOKEN";
+    public static boolean isShare=false;
+    public static Result<LoginInfo> loginResult;    //登录信息返回类
 
-
-    public static String getAccessToken(final Context context) {
-        EasyYSDKApi.autoAccess(YsdkUtils.auth_token, new AutoAccessCallback() {
-            @Override
-            public void onSuccess(String accessToken) {
-                access_token = accessToken;
-            }
-            @Override
-            public void onFail(int code) {
-                Log.e("YsdkUtils--", "获取AccessToken失败");
-                MyToast.getToast(context, "登录过期，请重新登录！").show();
-            }
-        });
-        return access_token;
-    }
 
 }

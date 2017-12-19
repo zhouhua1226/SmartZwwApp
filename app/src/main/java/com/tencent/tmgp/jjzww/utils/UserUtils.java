@@ -14,6 +14,8 @@ public class UserUtils {
     //SP_TAG
     public static final String SP_TAG_LOGIN = "SP_TAG_LOGIN";
     public static final String SP_TAG_PHONE = "SP_TAG_PHONE";
+    public static final String SP_TAG_USERID="SP_TAG_USERID";
+    public static final String SP_TAG_ISLOGOUT="SP_TAG_ISLOGOUT";
 
     public static String NickName = "";
     public static String UserPhone="";    //用户手机号
@@ -29,6 +31,7 @@ public class UserUtils {
     public static String GUESSID="";
     public static int id;
     public static int PlayBackId;
+    public static boolean isLogout=false;
 
     public static final String RECODE_URL = Environment.getExternalStorageDirectory().getPath()
             + "/SmartRemoteApp/";

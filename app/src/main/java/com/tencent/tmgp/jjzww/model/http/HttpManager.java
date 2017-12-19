@@ -84,8 +84,8 @@ public class HttpManager {
     }
 
     //上传头像
-    public void getFaceImage(String phone, String faceImage, RequestSubscriber<Result<AppUserBean>> subscriber){
-        Observable<Result<AppUserBean>> o= smartService.getFaceImage(phone,faceImage);
+    public void getFaceImage(String userId, String faceImage, RequestSubscriber<Result<AppUserBean>> subscriber){
+        Observable<Result<AppUserBean>> o= smartService.getFaceImage(userId,faceImage);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -103,8 +103,8 @@ public class HttpManager {
 //    }
 
     //修改用户名   11/21 13：15
-    public void getUserName(String phone,String nickName,Subscriber<Result<AppUserBean>> subscriber){
-        Observable<Result<AppUserBean>> o= smartService.getUserName(phone,nickName);
+    public void getUserName(String userId,String nickName,Subscriber<Result<AppUserBean>> subscriber){
+        Observable<Result<AppUserBean>> o= smartService.getUserName(userId,nickName);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -275,9 +275,17 @@ public class HttpManager {
     }
 
     //ysdk支付创建订单接口
-    //WXQQ登录
     public void getYSDKPay(String userId,String accessToken,String amount,Subscriber<Result<LoginInfo>> subscriber){
         Observable<Result<LoginInfo>> o =smartService.getYSDKPay(userId,accessToken,amount);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //YSDK自动登录接口
+    public void getYSDKAuthLogin(String userId,String accessToken,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getYSDKAuthLogin(userId,accessToken);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

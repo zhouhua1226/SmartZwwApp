@@ -57,7 +57,7 @@ public interface SmartService {
     @FormUrlEncoded
     @POST(UrlUtils.FACEIMAGEURL)
     Observable<Result<AppUserBean>> getFaceImage(
-            @Field(UrlUtils.PHONE) String phone,
+            @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.FACEIMAGE) String base64Image
     );
 
@@ -66,7 +66,7 @@ public interface SmartService {
     @FormUrlEncoded
     @POST(UrlUtils.UserNickNameURL)
     Observable<Result> getNickName(
-            @Field(UrlUtils.PHONE) String phone,
+            @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.NICKNANME) String nickname
     );
 
@@ -75,7 +75,7 @@ public interface SmartService {
     @FormUrlEncoded
     @POST(UrlUtils.USERNAMEURL)
         Observable<Result<AppUserBean>> getUserName(
-            @Field(UrlUtils.PHONE) String phone,
+            @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.NICKNANME) String nickName
     );
 
@@ -254,5 +254,13 @@ public interface SmartService {
             @Field(UrlUtils.WXQQ_AMOUNT) String amount
     );
 
+    //YSDK自动登录接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.YSDKAUTHLOGINURL)
+    Observable<Result<LoginInfo>>getYSDKAuthLogin(
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken
+    );
 
 }

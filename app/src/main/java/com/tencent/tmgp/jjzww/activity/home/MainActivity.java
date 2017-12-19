@@ -3,8 +3,10 @@ package com.tencent.tmgp.jjzww.activity.home;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -67,8 +69,8 @@ public class MainActivity extends BaseActivity {
     ImageView ivTabMy;//我的图标
     @BindView(R.id.layout_tab_my)
     LinearLayout layoutTabMy;//我的图标布局
-    @BindView(R.id.main_center)
-    FrameLayout mainCenter;
+//    @BindView(R.id.main_center)
+//    FrameLayout mainCenter;
 
     private LoginDialog loginDialog;
     private Timer timer;
@@ -76,47 +78,52 @@ public class MainActivity extends BaseActivity {
     private MyCenterFragment myCenterFragment;//个人中心
     private RankFragmentTwo rankFragment;//排行榜
     private ZWWJFragment zwwjFragment;//抓娃娃
+    private Fragment fragmentAll;
     private long mExitTime;
     private List<ZwwRoomBean> dollLists = new ArrayList<>();
     private String ph;
-    private List<VideoBackBean> playBackBeanList = new ArrayList<>();
+    private String userID;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
+    private Result<LoginInfo> loginInfoResult;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_welcome;
+        return R.layout.activity_main;
     }
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         Utils.showLogE(TAG, "afterCreate");
-        initWelcome();
+        initView();
+        showZwwFg();
         settings = getSharedPreferences("app_user", 0);// 获取SharedPreference对象
         editor = settings.edit();// 获取编辑对象。
         editor.putBoolean("isVibrator",true);
         editor.commit();
     }
 
-    private void initWelcome() {
-        setContentView(R.layout.activity_welcome);//闪屏
-        new Handler().postDelayed(initRunnable, 2000);
-    }
-
-    private Runnable initRunnable = new Runnable() {
-        @Override
-        public void run() {
-            View MainView = getLayoutInflater().inflate(R.layout.activity_main, null);
-            setContentView(MainView);
-            initView();
-            showZwwFg();
-            initData();
-        }
-    };
+//    private void initWelcome() {
+//        setContentView(R.layout.activity_welcome);//闪屏
+//        new Handler().postDelayed(initRunnable, 2000);
+//    }
+//
+//    private Runnable initRunnable = new Runnable() {
+//        @Override
+//        public void run() {
+//            View MainView = getLayoutInflater().inflate(R.layout.activity_main, null);
+//            setContentView(MainView);
+//            initView();
+//            showZwwFg();
+//            initData();
+//        }
+//    };
 
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        fragmentAll = getSupportFragmentManager().findFragmentById(
+                R.id.main_center);
     }
 
     private void initData() {
@@ -139,6 +146,11 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getLoginBackDate();
+    }
 
     @Override
     protected void onDestroy() {
@@ -193,6 +205,44 @@ public class MainActivity extends BaseActivity {
                 Utils.showLogE(TAG, "logIn::::" + e.getMessage());
             }
         });
+    }
+
+    private void getLoginBackDate(){
+        loginInfoResult= (Result<LoginInfo>) getIntent().getExtras().getSerializable("loginback");
+        if(loginInfoResult!=null&&!loginInfoResult.equals("")){
+            if (loginInfoResult.getMsg().equals(Utils.HTTP_OK)) {
+                Utils.showLogE(TAG, "logIn::::" + loginInfoResult.getMsg());
+                Utils.token = loginInfoResult.getData().getAccessToken();
+                dollLists = loginInfoResult.getData().getDollList();
+                //用户手机号
+                UserUtils.UserPhone = loginInfoResult.getData().getAppUser().getPHONE();
+                //UserUtils.UserNickName = loginInfoResult.getData().getAppUser().getPHONE();
+                //用户名  11/22 13：25
+                UserUtils.UserName = loginInfoResult.getData().getAppUser().getUSERNAME();
+                UserUtils.NickName = loginInfoResult.getData().getAppUser().getNICKNAME();
+                //用户余额
+                UserUtils.UserBalance = loginInfoResult.getData().getAppUser().getBALANCE();
+                //用户头像  11/22 13：25
+                UserUtils.UserImage = UrlUtils.USERFACEIMAGEURL + loginInfoResult.getData().getAppUser().getIMAGE_URL();
+                UserUtils.UserCatchNum = loginInfoResult.getData().getAppUser().getDOLLTOTAL();
+                UserUtils.DOLL_ID = loginInfoResult.getData().getAppUser().getDOLL_ID();
+                UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();
+                UserUtils.UserAddress = loginInfoResult.getData().getAppUser().getCNEE_NAME() + " " +
+                        loginInfoResult.getData().getAppUser().getCNEE_PHONE() + " " +
+                        loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
+                zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID());
+                Log.e("<<<<<<<<<<<","房间长度="+dollLists.size());
+                if (dollLists.size() != 0) {
+                    zwwjFragment.notifyAdapter(dollLists);
+                }
+                getDeviceStates();
+                startTimer();
+            }
+        }else {
+            if (zwwjFragment != null) {
+                zwwjFragment.showError();
+            }
+        }
     }
 
     private LoginDialog.IdialogClick idialogClick = new LoginDialog.IdialogClick() {
@@ -286,37 +336,75 @@ public class MainActivity extends BaseActivity {
     };
 
     private void showZwwFg() {
-        FragmentTransaction nowTransaction = getSupportFragmentManager().beginTransaction();
-        if (zwwjFragment == null) {
-            zwwjFragment = new ZWWJFragment();
-            zwwjFragment.setOnClickEmptyListener(onClickReTryListener);
+        if (!(fragmentAll instanceof ZWWJFragment)) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            //如果所有的fragment都不为空的话，把所有的fragment都进行隐藏。最开始进入应用程序，fragment为空时，此方法不执行
+            hideFragment(fragmentTransaction);
+            //如果这个fragment为空的话，就创建一个fragment，并且把它加到ft中去.如果不为空，就把它直接给显示出来
+            if(zwwjFragment == null){
+                zwwjFragment = new ZWWJFragment();
+                fragmentTransaction.add(R.id.main_center, zwwjFragment);
+            }else {
+                fragmentTransaction.show(zwwjFragment);
+            }
+            setFocuse();
+            ivTabZww.setBackgroundResource(R.drawable.zww_icon);
+            //一定要记得提交
+            fragmentTransaction.commit();
         }
-        nowTransaction.replace(R.id.main_center, zwwjFragment);
-        nowTransaction.commitAllowingStateLoss();
-        setFocuse();
-        ivTabZww.setBackgroundResource(R.drawable.zww_icon);
+
     }
 
     private void showRankFg() {
-        FragmentTransaction nowTransaction = getSupportFragmentManager().beginTransaction();
-        if (rankFragment == null) {
+        if (!(fragmentAll instanceof RankFragmentTwo)) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            //如果所有的fragment都不为空的话，把所有的fragment都进行隐藏。最开始进入应用程序，fragment为空时，此方法不执行
+            hideFragment(fragmentTransaction);
+            //如果这个fragment为空的话，就创建一个fragment，并且把它加到ft中去.如果不为空，就把它直接给显示出来
             rankFragment = new RankFragmentTwo();
+            fragmentTransaction.add(R.id.main_center, rankFragment);
+            setFocuse();
+            ivTabList.setBackgroundResource(R.drawable.rank_icon);
+            //一定要记得提交
+            fragmentTransaction.commit();
         }
-        nowTransaction.replace(R.id.main_center, rankFragment);
-        nowTransaction.commitAllowingStateLoss();
-        setFocuse();
-        ivTabList.setBackgroundResource(R.drawable.rank_icon);
+
     }
 
     private void showMyCenterFg() {
-        FragmentTransaction nowTransaction = getSupportFragmentManager().beginTransaction();
-        if (myCenterFragment == null) {
-            myCenterFragment = new MyCenterFragment();
+        if (!(fragmentAll instanceof MyCenterFragment)) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            //如果所有的fragment都不为空的话，把所有的fragment都进行隐藏。最开始进入应用程序，fragment为空时，此方法不执行
+            hideFragment(fragmentTransaction);
+            //如果这个fragment为空的话，就创建一个fragment，并且把它加到ft中去.如果不为空，就把它直接给显示出来
+            if(myCenterFragment == null){
+                myCenterFragment = new MyCenterFragment();
+                fragmentTransaction.add(R.id.main_center,myCenterFragment);
+            }else {
+                fragmentTransaction.show(myCenterFragment);
+            }
+            setFocuse();
+            ivTabMy.setBackgroundResource(R.drawable.mycenter_icon);
+            //一定要记得提交
+            fragmentTransaction.commit();
         }
-        nowTransaction.replace(R.id.main_center, myCenterFragment);
-        nowTransaction.commitAllowingStateLoss();
-        setFocuse();
-        ivTabMy.setBackgroundResource(R.drawable.mycenter_icon);
+
+    }
+
+    //隐藏fragment
+    public void hideFragment(FragmentTransaction fragmentTransaction){
+        if(zwwjFragment != null){
+            fragmentTransaction.hide(zwwjFragment);
+        }
+        if(rankFragment != null){
+            fragmentTransaction.hide(rankFragment);
+        }
+        if(myCenterFragment != null){
+            fragmentTransaction.hide(myCenterFragment);
+        }
     }
 
     @OnClick({R.id.layout_tab_zww, R.id.layout_tab_list, R.id.layout_tab_my})

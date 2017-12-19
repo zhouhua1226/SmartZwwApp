@@ -96,7 +96,9 @@ public class MainActivity extends BaseActivity {
     protected void afterCreate(Bundle savedInstanceState) {
         Utils.showLogE(TAG, "afterCreate");
         initView();
+        initNetty();
         showZwwFg();
+        getLoginBackDate();
         settings = getSharedPreferences("app_user", 0);// 获取SharedPreference对象
         editor = settings.edit();// 获取编辑对象。
         editor.putBoolean("isVibrator",true);
@@ -128,28 +130,36 @@ public class MainActivity extends BaseActivity {
 
     private void initData() {
         //RxBus.get().register(this);
-        loginDialog = new LoginDialog(this, R.style.easy_dialog_style);
-        loginDialog.setDialogClickListener(idialogClick);
+//        loginDialog = new LoginDialog(this, R.style.easy_dialog_style);
+//        loginDialog.setDialogClickListener(idialogClick);
+//        if ((boolean) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_LOGIN, false)) {
+//            //用户已经注册
+//            ph = (String) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_PHONE, "");
+//            if (Utils.isEmpty(ph)) {
+//                return;
+//            }
+//            if (Utils.isNetworkAvailable(getApplicationContext())) {
+//                logIn(ph, false);
+//            }
+//        } else {
+//            loginDialog.setCanceledOnTouchOutside(false);
+//            loginDialog.show();
+//        }
+    }
+
+    private void initNetty() {
         doServcerConnect();
-        if ((boolean) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_LOGIN, false)) {
-            //用户已经注册
-            ph = (String) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_PHONE, "");
-            if (Utils.isEmpty(ph)) {
-                return;
-            }
-            if (Utils.isNetworkAvailable(getApplicationContext())) {
-                logIn(ph, false);
-            }
-        } else {
-            loginDialog.setCanceledOnTouchOutside(false);
-            loginDialog.show();
-        }
+        NettyUtils.registerAppManager();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getLoginBackDate();
     }
 
     @Override
@@ -231,10 +241,7 @@ public class MainActivity extends BaseActivity {
                         loginInfoResult.getData().getAppUser().getCNEE_PHONE() + " " +
                         loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
                 zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID());
-                Log.e("<<<<<<<<<<<","房间长度="+dollLists.size());
-                if (dollLists.size() != 0) {
-                    zwwjFragment.notifyAdapter(dollLists);
-                }
+                Log.e(TAG,"房间长度=" + dollLists.size() + "======" + UserUtils.UserAddress);
                 getDeviceStates();
                 startTimer();
             }
@@ -450,7 +457,7 @@ public class MainActivity extends BaseActivity {
     private void doServcerConnect() {
         String ip = "47.100.8.129";//"106.75.142.42";//"47.100.8.129";//172.16.7.222测试
         AppClient.getInstance().setHost(ip);
-        AppClient.getInstance().setPort(8580); //
+        AppClient.getInstance().setPort(8580);
         if (!AppProperties.initProperties(getResources())) {
             Utils.showLogE(TAG, "netty初始化配置信息出错");
             return;

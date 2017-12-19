@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
@@ -57,7 +60,7 @@ public class ZWWJFragment extends BaseFragment {
     MarqueeView marqueeview;
     @BindView(R.id.zww_banner)
     Banner zwwBanner;
-    Unbinder unbinder1;
+   // Unbinder unbinder1;
 
     private List<ZwwRoomBean> roomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
@@ -105,6 +108,8 @@ public class ZWWJFragment extends BaseFragment {
     }
 
 
+
+
     private void initData() {
         Utils.showLogE(TAG, "afterCreate:::::>>>>" + roomBeens.size());
         dismissEmptyLayout();
@@ -144,8 +149,8 @@ public class ZWWJFragment extends BaseFragment {
 
     public void setSessionId(String id) {
         this.sessionId = id;
-        UserUtils.setNettyInfo(sessionId, UserUtils.UserName, "");
-        UserUtils.doNettyConnect();
+        UserUtils.setNettyInfo(sessionId, UserUtils.USER_ID, "");
+        UserUtils.doNettyConnect(NettyUtils.LOGIN_TYPE_TENCENT);
     }
 
     public ZWWAdapter.OnItemClickListener onItemClickListener =
@@ -155,24 +160,32 @@ public class ZWWJFragment extends BaseFragment {
                     if ((roomBeens.size() > 0) && (!Utils.isEmpty(sessionId))) {
                         String room_id = roomBeens.get(position).getDOLL_ID();
                         boolean room_status = false;
-                        UserUtils.setNettyInfo(sessionId, UserUtils.NickName, room_id);
+                        UserUtils.setNettyInfo(sessionId, UserUtils.USER_ID, room_id);
                         if (roomBeens.get(position).getDOLL_STATE().equals("0")) {
                             room_status = true;
                         } else if (roomBeens.get(position).getDOLL_STATE().equals("1")) {
                             room_status = false;
                         }
-                        enterNext(roomBeens.get(position).getDOLL_NAME(),
-                                roomBeens.get(position).getCAMERA_NAME_01(),
-                                room_status, String.valueOf(roomBeens.get(position).getDOLL_GOLD()),
-                                roomBeens.get(position).getDOLL_ID());
+                        String url1 = roomBeens.get(position).getCAMERA_NAME_01();
+                        String url2 = roomBeens.get(position).getCAMERA_NAME_02();
+                        if (!TextUtils.isEmpty(url2)) {
+                            enterNext(roomBeens.get(position).getDOLL_NAME(),
+                                    url1, url2,
+                                    room_status,
+                                    String.valueOf(roomBeens.get(position).getDOLL_GOLD()),
+                                    roomBeens.get(position).getDOLL_ID());
+                        } else {
+                            Utils.showLogE(TAG, "当前设备没有配置摄像头!");
+                        }
                     }
                 }
             };
 
-    private void enterNext(String name, String camera, boolean status, String gold, String id) {
+    private void enterNext(String name, String camera1, String camera2, boolean status, String gold, String id) {
         Intent intent = new Intent(getActivity(), CtrlActivity.class);
         intent.putExtra(Utils.TAG_ROOM_NAME, name);
-        intent.putExtra(Utils.TAG_CAMERA_NAME, camera);
+        intent.putExtra(Utils.TAG_URL_MASTER, camera1);
+        intent.putExtra(Utils.TAG_URL_SECOND, camera2);
         intent.putExtra(Utils.TAG_ROOM_STATUS, status);
         intent.putExtra(Utils.TAG_DOLL_GOLD, gold);
         intent.putExtra(Utils.TAG_DOLL_Id, id);
@@ -186,19 +199,19 @@ public class ZWWJFragment extends BaseFragment {
         //getUserList();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder1.unbind();
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        // TODO: inflate a fragment view
+//        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+//        unbinder1 = ButterKnife.bind(this, rootView);
+//        return rootView;
+//    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        unbinder1.unbind();
+//    }
 
     //banner轮播
     private void initBanner(){

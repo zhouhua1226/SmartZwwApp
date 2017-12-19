@@ -164,8 +164,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     private String zt = "";
     private Boolean isOpenSucess = false; //以第一个摄像头为标准
     //播放地址流
-    private String playUrl1 = "rtmp://106.14.171.182:1935/aita/num-0005-m";//"rtmp://rtmp.open.ys7.com/openlive/784efe98624241eb8923bde2d7530c38";//"rtmp://106.14.171.182/user/user";  //主摄像头
-    private String playUrl2 = "rtmp://106.14.171.182:1935/aita/num-0005-s";//"rtmp://rtmp.open.ys7.com/openlive/784efe98624241eb8923bde2d7530c38";//"rtmp://106.14.171.182/live/livestream";//次摄像头
+    private String playUrlMain = "";
+    private String playUrlSecond = "";
     private String currentUrl;
     //用户操作和竞猜
     private boolean isStart = false;
@@ -215,7 +215,8 @@ public class CtrlActivity extends Activity implements IctrlView {
 
     private void initData() {
         ctrlCompl = new CtrlCompl(this, this);
-        camera_name = getIntent().getStringExtra(Utils.TAG_CAMERA_NAME);
+        playUrlMain = getIntent().getStringExtra(Utils.TAG_URL_MASTER);
+        playUrlSecond = getIntent().getStringExtra(Utils.TAG_URL_SECOND);
         dollName = getIntent().getStringExtra(Utils.TAG_ROOM_NAME);
         money = Integer.parseInt(getIntent().getStringExtra(Utils.TAG_DOLL_GOLD));
         dollId = getIntent().getStringExtra(Utils.TAG_DOLL_Id);
@@ -227,7 +228,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         playerNameTv.setText(UserUtils.NickName);
         setStartMode(getIntent().getBooleanExtra(Utils.TAG_ROOM_STATUS, true));
         ctrlQuizLayout.setEnabled(false);
-        currentUrl = playUrl1;
+        currentUrl = playUrlMain;
         ctrlCompl.startPlayVideo(mRealPlaySv, currentUrl);
     }
 
@@ -446,7 +447,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 ctrlButtomLayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.ctrl_change_camera_iv:
-                currentUrl = currentUrl.equals(playUrl1) ? playUrl2 : playUrl1;
+                currentUrl = currentUrl.equals(playUrlMain) ? playUrlSecond : playUrlMain;
                 ctrlCompl.startPlaySwitchUrlVideo(currentUrl);
                 break;
             default:
@@ -522,9 +523,9 @@ public class CtrlActivity extends Activity implements IctrlView {
                 switch (view.getId()) {
                     case R.id.front_image:
                         setVibratorTime(3000, 1);
-                        if (currentUrl.equals(playUrl1)) {
+                        if (currentUrl.equals(playUrlMain)) {
                             ctrlCompl.sendCmdCtrl(MoveType.FRONT);
-                        } else if (currentUrl.equals(playUrl2)) {
+                        } else if (currentUrl.equals(playUrlSecond)) {
                             ctrlCompl.sendCmdCtrl(MoveType.LEFT);
                         } else {
                             ctrlCompl.sendCmdCtrl(MoveType.FRONT);
@@ -533,9 +534,9 @@ public class CtrlActivity extends Activity implements IctrlView {
                         break;
                     case R.id.back_image:
                         setVibratorTime(3000, 1);
-                        if (currentUrl.equals(playUrl1)) {
+                        if (currentUrl.equals(playUrlMain)) {
                             ctrlCompl.sendCmdCtrl(MoveType.BACK);
-                        } else if (currentUrl.equals(playUrl2)) {
+                        } else if (currentUrl.equals(playUrlSecond)) {
                             ctrlCompl.sendCmdCtrl(MoveType.RIGHT);
                         } else {
                             ctrlCompl.sendCmdCtrl(MoveType.BACK);
@@ -544,9 +545,9 @@ public class CtrlActivity extends Activity implements IctrlView {
                         break;
                     case R.id.left_image:
                         setVibratorTime(3000, 1);
-                        if (currentUrl.equals(playUrl1)) {
+                        if (currentUrl.equals(playUrlMain)) {
                             ctrlCompl.sendCmdCtrl(MoveType.LEFT);
-                        } else if (currentUrl.equals(playUrl2)) {
+                        } else if (currentUrl.equals(playUrlSecond)) {
                             ctrlCompl.sendCmdCtrl(MoveType.BACK);
                         } else {
                             ctrlCompl.sendCmdCtrl(MoveType.LEFT);
@@ -555,9 +556,9 @@ public class CtrlActivity extends Activity implements IctrlView {
                         break;
                     case R.id.right_image:
                         setVibratorTime(3000, 1);
-                        if (currentUrl.equals(playUrl1)) {
+                        if (currentUrl.equals(playUrlMain)) {
                             ctrlCompl.sendCmdCtrl(MoveType.RIGHT);
-                        } else if (currentUrl.equals(playUrl2)) {
+                        } else if (currentUrl.equals(playUrlSecond)) {
                             ctrlCompl.sendCmdCtrl(MoveType.FRONT);
                         } else {
                             ctrlCompl.sendCmdCtrl(MoveType.RIGHT);
@@ -654,6 +655,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                     return;
                 }
                 if (moveControlResponse.getMoveType().name().equals(MoveType.START.name())) {
+                    Utils.showLogE(TAG, "观看者观察到start了......");
                     setStartMode(false);
                 } else if (moveControlResponse.getMoveType().name().equals(MoveType.CATCH.name())) {
                     //TODO 其他用户下爪了 观看者
@@ -672,6 +674,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                         .equals(MoveType.START.name())) {
                     getWorkstation();
                     ctrlCompl.startRecordVideo();
+                    //TODO 竞猜按钮隐藏
+
                 } else if (moveControlResponse.getMoveType().name()
                         .equals(MoveType.CATCH.name())) {
                     //TODO 本人点击下爪了 下爪成功

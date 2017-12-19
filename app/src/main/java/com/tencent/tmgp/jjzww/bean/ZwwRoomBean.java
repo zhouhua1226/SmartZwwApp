@@ -12,6 +12,7 @@ public class ZwwRoomBean extends BaseRoom implements Serializable,Comparable<Zww
     private String DOLL_SN;
     private String DOLL_ID;
     private String CAMERA_NAME_01;
+    private String CAMERA_NAME_02;
 
     public void setDOLL_GOLD(int DOLL_GOLD) {
         this.DOLL_GOLD = DOLL_GOLD;
@@ -59,6 +60,14 @@ public class ZwwRoomBean extends BaseRoom implements Serializable,Comparable<Zww
 
     public String getCAMERA_NAME_01() {
         return CAMERA_NAME_01;
+    }
+
+    public void setCAMERA_NAME_02(String CAMERA_NAME_02) {
+        this.CAMERA_NAME_02 = CAMERA_NAME_02;
+    }
+
+    public String getCAMERA_NAME_02() {
+        return CAMERA_NAME_02;
     }
 
     @Override

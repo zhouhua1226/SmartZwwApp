@@ -188,14 +188,11 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            </activity>
+        </activity>
 
 
         <!--米大师支付接入需要-->
-        <supports-screens
-            android:anyDensity="true"
-            android:largeScreens="true"
-            android:normalScreens="true" />
+
         <!-- TODO GAME SDK Midas接入配置 设置屏幕兼容声明 END -->
 
         <!-- TODO SDK接入 QQ接入配置 START -->
@@ -312,4 +309,8 @@
 
     </application>
 
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true" />
 </manifest>

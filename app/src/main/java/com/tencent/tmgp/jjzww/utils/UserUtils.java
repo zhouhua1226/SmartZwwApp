@@ -39,23 +39,23 @@ public class UserUtils {
     public static final int RECODE_ERR_CODE_SDCARD_FAIL_FOR_MEMORY = 201002;
     public static final int RECODE_ERR_CODE_EZPLAY_NULL = 201003;
 
-    public static void setNettyInfo(String sessionId, String phone, String roomId) {
+    public static void setNettyInfo(String sessionId, String userId, String roomId) {
         UserInfo userInfo = new UserInfo();
         userInfo.setSessionId(sessionId);
-        userInfo.setUserName(phone);
+        userInfo.setUserId(userId);
         userInfo.setRoomid(roomId);
         userInfo.setUnitId("UNI1611090002765");
-        Utils.showLogE("setNettyInfo", "change room::::" + sessionId + "====" + phone + "=====" + roomId);
+        Utils.showLogE("setNettyInfo", "change room::::" + sessionId + "====" + userId + "=====" + roomId);
         AppGlobal.getInstance().setUserInfo(userInfo);
     }
 
-    public static void doNettyConnect() {
+    public static void doNettyConnect(final String LogInType) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
                     if (NettyUtils.socketTag) {
-                        AppClient.getInstance().doConnect(NickName);
+                        AppClient.getInstance().doConnect(NickName, LogInType);
                         break;
                     }
                     if (Utils.isExit) {

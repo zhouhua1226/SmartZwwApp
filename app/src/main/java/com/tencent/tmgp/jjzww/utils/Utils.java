@@ -58,9 +58,11 @@ public class Utils {
 
     public static final String TAG_ROOM_NAME = "room_name";
     public static final String TAG_ROOM_STATUS = "status";
-    public static final String TAG_CAMERA_NAME = "camera_name";
     public static final String TAG_DOLL_GOLD="doll_gold";
     public static final String TAG_DOLL_Id="doll_id";
+    public static final String TAG_URL_MASTER = "url_master";
+    public static final String TAG_URL_SECOND = "url_second";
+
     public static boolean isExit = false;
 
     public static String token = "";

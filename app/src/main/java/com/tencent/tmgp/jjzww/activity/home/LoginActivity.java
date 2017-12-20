@@ -1,6 +1,5 @@
 package com.tencent.tmgp.jjzww.activity.home;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +32,7 @@ import com.tencent.tmgp.jjzww.utils.SPUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.utils.YsdkUtils;
+import com.tencent.tmgp.jjzww.view.GifView;
 import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.tmgp.jjzww.view.ProgressDialogs;
 import com.tencent.ysdk.framework.common.ePlatform;
@@ -63,6 +63,8 @@ public class LoginActivity extends BaseActivity {
     TextView loginZfTv;
     @BindView(R.id.login_logout_tv)
     TextView loginLogoutTv;
+    @BindView(R.id.login_loading_gv)
+    GifView loginLoadingGv;
 
     private String TAG = "LoginActivity--";
     private long mBackPressed;
@@ -90,7 +92,7 @@ public class LoginActivity extends BaseActivity {
 
 
     private void initWelcome() {
-        if(!(boolean) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT, false)) {
+        if (!(boolean) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT, false)) {
             setContentView(R.layout.activity_welcome);//闪屏
             if ((boolean) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_LOGIN, false)) {
                 //用户已经注册
@@ -107,7 +109,7 @@ public class LoginActivity extends BaseActivity {
             } else {
                 new Handler().postDelayed(initRunnable, 2000);
             }
-        }else {
+        } else {
             initCreatView();
         }
 
@@ -120,34 +122,38 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
-    private void initCreatView(){
+    private void initCreatView() {
         View MainView = getLayoutInflater().inflate(R.layout.activity_login, null);
         setContentView(MainView);
         initView();
+        loginLoadingGv.setEnabled(false);
+        loginLoadingGv.setMovieResource(R.raw.login_loadinggif);
     }
 
     @OnClick({R.id.login_qq_tv, R.id.login_wx_tv, R.id.login_fx_tv,
-                R.id.login_zf_tv,R.id.login_logout_tv,R.id.login_auth_tv})
+            R.id.login_zf_tv, R.id.login_logout_tv, R.id.login_auth_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_qq_tv:
                 //MyToast.getToast(getApplicationContext(), "点击qq登录！").show();
-                if(Utils.isNetworkAvailable(this)) {
-                    progressDialog = new ProgressDialogs(LoginActivity.this, R.style.easy_dialog_style);
-                    progressDialog.show();
+                if (Utils.isNetworkAvailable(this)) {
+//                    progressDialog = new ProgressDialogs(LoginActivity.this, R.style.easy_dialog_style);
+//                    progressDialog.show();
+                    loginLoadingGv.setVisibility(View.VISIBLE);
                     qqLogin();
-                }else {
-                    MyToast.getToast(getApplicationContext(),"请检查网络！").show();
+                } else {
+                    MyToast.getToast(getApplicationContext(), "请检查网络！").show();
                 }
                 break;
             case R.id.login_wx_tv:
                 //MyToast.getToast(getApplicationContext(), "点击微信登录！").show();
-                if(Utils.isNetworkAvailable(this)) {
-                    progressDialog = new ProgressDialogs(LoginActivity.this, R.style.easy_dialog_style);
-                    progressDialog.show();
+                if (Utils.isNetworkAvailable(this)) {
+//                    progressDialog = new ProgressDialogs(LoginActivity.this, R.style.easy_dialog_style);
+//                    progressDialog.show();
+                    loginLoadingGv.setVisibility(View.VISIBLE);
                     weixinLogin();
-                }else {
-                    MyToast.getToast(getApplicationContext(),"请检查网络！").show();
+                } else {
+                    MyToast.getToast(getApplicationContext(), "请检查网络！").show();
                 }
                 break;
             case R.id.login_fx_tv:
@@ -187,10 +193,9 @@ public class LoginActivity extends BaseActivity {
         EasyYSDKApi.setNotifyListener(new NotifyListener() {
             @Override
             public void onResult(int code, String msg) {
-                Log.e(TAG,"支付通知失败原因="+msg);
+                Log.e(TAG, "支付通知失败原因=" + msg);
             }
         });
-
 
 
     }
@@ -239,6 +244,13 @@ public class LoginActivity extends BaseActivity {
         EasyYSDKApi.logout();
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        //ButterKnife.bind(this);
+    }
+
     class GameLoginCallback implements LoginCallback {
         @Override
         public void onCompelete(int code, JSONObject data) {
@@ -251,20 +263,20 @@ public class LoginActivity extends BaseActivity {
                 YsdkUtils.auth_token = obj.optString("auth_token");//微信QQ标识token
                 YsdkUtils.nickName = obj.optString("nick_name");//用户昵称
                 //YsdkUtils.imageUrl="http://wx.qlogo.cn/mmopen/vi_32/ZQTY6hsXAECWXNic3416yKEfAuyHaWWcZ4rMAvw2DpHEEacG9g6bmXpPia5HraHdnn1P965JILptY02Sd7yUamDQ/132";
-                YsdkUtils.imageUrl = obj.optString("image_url").replace("\"","");//用户头像(只有微信或QQ登录，并且用户有头像时才会有效)
+                YsdkUtils.imageUrl = obj.optString("image_url").replace("\"", "");//用户头像(只有微信或QQ登录，并且用户有头像时才会有效)
                 Log.e(TAG, "uid=" + YsdkUtils.uid + "<<<<access_token=" + YsdkUtils.access_token);
                 Log.e(TAG, "imageUrl=" + YsdkUtils.imageUrl);
                 getYSDKLogin(YsdkUtils.uid, YsdkUtils.access_token, YsdkUtils.nickName, YsdkUtils.imageUrl);
             } else if (code == LoginCallback.FAIL) {
                 //登录失败
-                if(progressDialog!=null)
-                progressDialog.dismiss();
-                MyToast.getToast(getApplicationContext(),"拉取第三方登录失败!").show();
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+                MyToast.getToast(getApplicationContext(), "拉取第三方登录失败!").show();
             } else {
                 //登录异常
-                if(progressDialog!=null)
-                progressDialog.dismiss();
-                MyToast.getToast(getApplicationContext(),"拉取第三方登录异常!").show();
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+                MyToast.getToast(getApplicationContext(), "拉取第三方登录异常!").show();
             }
         }
     }
@@ -297,54 +309,55 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
                 Log.e(TAG, "wxlogin=" + loginInfoResult.getMsg());
-                if(loginInfoResult.getMsg().equals("success")) {
+                if (loginInfoResult.getMsg().equals("success")) {
                     PayReviewer.reviewer();   //通知失败进行重发
-                    progressDialog.dismiss();
-                    YsdkUtils.loginResult=loginInfoResult;
-                    UserUtils.USER_ID=loginInfoResult.getData().getAppUser().getUSER_ID();
-                    Log.e("<<<<<<<<<<<<","登录userId="+UserUtils.USER_ID);
+                    //progressDialog.dismiss();
+                    loginLoadingGv.setVisibility(View.GONE);
+                    YsdkUtils.loginResult = loginInfoResult;
+                    UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();
+                    Log.e("<<<<<<<<<<<<", "登录userId=" + UserUtils.USER_ID);
                     SPUtils.put(getApplicationContext(), YsdkUtils.AUTH_TOKEN, YsdkUtils.auth_token);
                     SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_USERID, YsdkUtils.uid);
                     SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_LOGIN, true);
-                    SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT,false);
+                    SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT, false);
                     MyToast.getToast(getApplicationContext(), "登录成功！").show();
-                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                    Bundle bundle=new Bundle();
-                    bundle.putSerializable("loginback",loginInfoResult);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("loginback", loginInfoResult);
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
-                }else {
-                    if(progressDialog!=null)
-                    progressDialog.dismiss();
-                    MyToast.getToast(getApplicationContext(),"APP后台返回失败!").show();
+                } else {
+                    if (progressDialog != null)
+                        progressDialog.dismiss();
+                    MyToast.getToast(getApplicationContext(), "APP后台返回失败!").show();
                 }
 
             }
 
             @Override
             public void _onError(Throwable e) {
-                if(progressDialog!=null)
-                progressDialog.dismiss();
-                MyToast.getToast(getApplicationContext(),"网络请求异常!").show();
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+                MyToast.getToast(getApplicationContext(), "网络请求异常!").show();
             }
         });
     }
 
-    private void getYSDKAuthLogin(String userId,String accessToken){
+    private void getYSDKAuthLogin(String userId, String accessToken) {
         HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
                 Log.e(TAG, "wxauthlogin=" + loginInfoResult.getMsg());
-                if(loginInfoResult.getMsg().equals("success")) {
+                if (loginInfoResult.getMsg().equals("success")) {
                     //PayReviewer.reviewer();   //通知失败进行重发
                     MyToast.getToast(getApplicationContext(), "自动登录成功！").show();
-                    YsdkUtils.loginResult=loginInfoResult;
-                    UserUtils.USER_ID=loginInfoResult.getData().getAppUser().getUSER_ID();
-                    Log.e("<<<<<<<<<<<<","自动登录userId="+UserUtils.USER_ID);
-                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                    Bundle bundle=new Bundle();
-                    bundle.putSerializable("loginback",loginInfoResult);
+                    YsdkUtils.loginResult = loginInfoResult;
+                    UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();
+                    Log.e("<<<<<<<<<<<<", "自动登录userId=" + UserUtils.USER_ID);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("loginback", loginInfoResult);
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
@@ -358,18 +371,19 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    public  void getAccessToken(String authToken) {
+    public void getAccessToken(String authToken) {
         EasyYSDKApi.autoAccess(authToken, new AutoAccessCallback() {
             @Override
             public void onSuccess(String accessToken) {
 
-                YsdkUtils.access_token=accessToken;
-                Log.e("YsdkUtils--", "获取AccessToken="+YsdkUtils.access_token);
-                getYSDKAuthLogin(uid,accessToken);  //自动登录
+                YsdkUtils.access_token = accessToken;
+                Log.e("YsdkUtils--", "获取AccessToken=" + YsdkUtils.access_token);
+                getYSDKAuthLogin(uid, accessToken);  //自动登录
             }
+
             @Override
-            public void onFail(int code,String message) {
-                Log.e("YsdkUtils--", "获取AccessToken失败原因="+message);
+            public void onFail(int code, String message) {
+                Log.e("YsdkUtils--", "获取AccessToken失败原因=" + message);
                 MyToast.getToast(LoginActivity.this, "登录过期，请重新登录！").show();
                 initCreatView();
             }

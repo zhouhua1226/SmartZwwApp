@@ -457,6 +457,8 @@ public class CtrlActivity extends Activity implements IctrlView {
 
 
     private void getWorkstation() {
+        ctrlQuizLayout.setVisibility(View.GONE);
+        ctrlDollgoldTv.setVisibility(View.GONE);
         startgameLl.setVisibility(View.GONE);
         rechargeLl.setVisibility(View.GONE);
         catchLl.setVisibility(View.VISIBLE);
@@ -465,6 +467,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     private void getStartstation() {
+        ctrlQuizLayout.setVisibility(View.VISIBLE);
+        ctrlDollgoldTv.setVisibility(View.VISIBLE);
         startgameLl.setVisibility(View.VISIBLE);
         rechargeLl.setVisibility(View.VISIBLE);
         catchLl.setVisibility(View.GONE);
@@ -530,7 +534,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                         } else {
                             ctrlCompl.sendCmdCtrl(MoveType.FRONT);
                         }
-                        topImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_action_down_top_s));
+                        topImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_select_up_imag));
                         break;
                     case R.id.back_image:
                         setVibratorTime(3000, 1);
@@ -541,7 +545,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                         } else {
                             ctrlCompl.sendCmdCtrl(MoveType.BACK);
                         }
-                        belowImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_action_down_below_s));
+                        belowImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_select_down_imag));
                         break;
                     case R.id.left_image:
                         setVibratorTime(3000, 1);
@@ -552,7 +556,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                         } else {
                             ctrlCompl.sendCmdCtrl(MoveType.LEFT);
                         }
-                        leftImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_action_down_left_s));
+                        leftImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_select_left_imag));
                         break;
                     case R.id.right_image:
                         setVibratorTime(3000, 1);
@@ -563,7 +567,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                         } else {
                             ctrlCompl.sendCmdCtrl(MoveType.RIGHT);
                         }
-                        rightImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_action_down_right_s));
+                        rightImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_select_right_imag));
                         break;
                     case R.id.catch_ll:
                         setVibratorTime(300, -1);
@@ -578,22 +582,22 @@ public class CtrlActivity extends Activity implements IctrlView {
                     case R.id.front_image:
                         vibrator.cancel();
                         ctrlCompl.sendCmdCtrl(MoveType.STOP);
-                        topImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_action_down_top_n));
+                        topImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_up_imag));
                         break;
                     case R.id.back_image:
                         vibrator.cancel();
                         ctrlCompl.sendCmdCtrl(MoveType.STOP);
-                        belowImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_action_down_below_n));
+                        belowImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_down_imag));
                         break;
                     case R.id.left_image:
                         vibrator.cancel();
                         ctrlCompl.sendCmdCtrl(MoveType.STOP);
-                        leftImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_action_down_left_n));
+                        leftImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_left_imag));
                         break;
                     case R.id.right_image:
                         vibrator.cancel();
                         ctrlCompl.sendCmdCtrl(MoveType.STOP);
-                        rightImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_action_down_right_n));
+                        rightImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_right_imag));
                         break;
                     case R.id.catch_ll:
                         ctrlCompl.stopTimeCounter();
@@ -629,10 +633,12 @@ public class CtrlActivity extends Activity implements IctrlView {
         startgameLl.setBackgroundResource(R.drawable.ctrl_unstartgame_button);
         startgameTextImag.setImageResource(R.drawable.ctrl_begin_loading);
         if (userInfos.size() > 1) {
-            ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcurrency_dialog);
+            //ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcurrency_dialog);
+            moneyImage.setImageResource(R.drawable.ctrl_bet_button);
             ctrlQuizLayout.setEnabled(true);
         } else {
-            ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);
+            //ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);
+            moneyImage.setImageResource(R.drawable.ctrl_unbet_button);
             ctrlQuizLayout.setEnabled(false);
         }
     }
@@ -660,7 +666,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                 } else if (moveControlResponse.getMoveType().name().equals(MoveType.CATCH.name())) {
                     //TODO 其他用户下爪了 观看者
                     Utils.showLogE(TAG, "观看者观察到下爪了......");
-                    ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);//点击下抓，竞猜变色
+                    //ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);//点击下抓，竞猜变色
+                    moneyImage.setImageResource(R.drawable.ctrl_unbet_button);
                     ctrlQuizLayout.setEnabled(false);
                     ctrlBetingLayout.setVisibility(View.GONE);
                     ctrlButtomLayout.setVisibility(View.VISIBLE);
@@ -680,7 +687,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                         .equals(MoveType.CATCH.name())) {
                     //TODO 本人点击下爪了 下爪成功
                     Utils.showLogE(TAG, "本人点击下爪成功......");
-                    ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);//点击下抓，竞猜变色
+                    //ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);//点击下抓，竞猜变色
+                    moneyImage.setImageResource(R.drawable.ctrl_unbet_button);
                     ctrlQuizLayout.setEnabled(false);
                 }
             }
@@ -777,7 +785,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     @Subscribe(thread = EventThread.MAIN_THREAD,
             tags = {@Tag(Utils.TAG_DEVICE_FREE)})
     public void getDeviceFree(GatewayPoohStatusMessage message) {
-        rechargeButton.setVisibility(View.VISIBLE);
+        //rechargeButton.setVisibility(View.VISIBLE);
         String roomId = message.getRoomId();
         int number = message.getGifinumber();
         Utils.showLogE(TAG, "getDeviceFree::::::" + roomId + "======" + number);

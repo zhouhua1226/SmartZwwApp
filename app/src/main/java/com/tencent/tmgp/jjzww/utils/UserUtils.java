@@ -25,12 +25,12 @@ public class UserUtils {
     public static String UserBalance="";    //用户余额（游戏币）
     public static String UserCatchNum="";   //用户累积抓住次数
     public static String UserAddress="";
-    public static String DOllGold="";
+    //public static String DOllGold="";
     public static String USER_ID="";
     public static String DOLL_ID="";
-    public static String GUESSID="";
+    //public static String GUESSID="";
     public static int id;
-    public static int PlayBackId;
+    //public static int PlayBackId;
     public static boolean isLogout=false;
 
     public static final String RECODE_URL = Environment.getExternalStorageDirectory().getPath()
@@ -39,13 +39,17 @@ public class UserUtils {
     public static final int RECODE_ERR_CODE_SDCARD_FAIL_FOR_MEMORY = 201002;
     public static final int RECODE_ERR_CODE_EZPLAY_NULL = 201003;
 
-    public static void setNettyInfo(String sessionId, String userId, String roomId) {
+    public static void setNettyInfo(String sessionId, String userId, String roomId, boolean isReconnect) {
         UserInfo userInfo = new UserInfo();
         userInfo.setSessionId(sessionId);
         userInfo.setUserId(userId);
-        userInfo.setRoomid(roomId);
+        if (isReconnect) {
+            userInfo.setRoomid(AppGlobal.getInstance().getUserInfo().getRoomid());
+        } else {
+            userInfo.setRoomid(roomId);
+        }
         userInfo.setUnitId("UNI1611090002765");
-        Utils.showLogE("setNettyInfo", "change room::::" + sessionId + "====" + userId + "=====" + roomId);
+        Utils.showLogE("setNettyInfo", "change room::::" + sessionId + "====" + userId + "=====" + userInfo.getRoomid());
         AppGlobal.getInstance().setUserInfo(userInfo);
     }
 

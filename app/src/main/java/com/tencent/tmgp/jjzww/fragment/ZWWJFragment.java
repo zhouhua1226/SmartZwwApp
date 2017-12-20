@@ -147,9 +147,9 @@ public class ZWWJFragment extends BaseFragment {
         zwwEmptylayout.dismiss();
     }
 
-    public void setSessionId(String id) {
+    public void setSessionId(String id, boolean isReconnect) {
         this.sessionId = id;
-        UserUtils.setNettyInfo(sessionId, UserUtils.USER_ID, "");
+        UserUtils.setNettyInfo(sessionId, UserUtils.USER_ID, "", isReconnect);
         UserUtils.doNettyConnect(NettyUtils.LOGIN_TYPE_TENCENT);
     }
 
@@ -160,7 +160,7 @@ public class ZWWJFragment extends BaseFragment {
                     if ((roomBeens.size() > 0) && (!Utils.isEmpty(sessionId))) {
                         String room_id = roomBeens.get(position).getDOLL_ID();
                         boolean room_status = false;
-                        UserUtils.setNettyInfo(sessionId, UserUtils.USER_ID, room_id);
+                        UserUtils.setNettyInfo(sessionId, UserUtils.USER_ID, room_id, false);
                         if (roomBeens.get(position).getDOLL_STATE().equals("0")) {
                             room_status = true;
                         } else if (roomBeens.get(position).getDOLL_STATE().equals("1")) {

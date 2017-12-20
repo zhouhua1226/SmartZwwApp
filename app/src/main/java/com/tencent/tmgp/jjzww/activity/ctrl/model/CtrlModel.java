@@ -136,6 +136,7 @@ public class CtrlModel implements SmartEventCallback {
                 callBack.getVideoPlayErr(EZUtils.PLAYER_ERC_PLAYERR);
                 break;
             case EVENTID.EVENT_DANIULIVE_ERC_PLAYER_CONNECTED: //直播成功
+                callBack.getVideoPlaySucess();
                 break;
             case EVENTID.EVENT_DANIULIVE_ERC_PLAYER_DISCONNECTED: //连接断开
                 if (!isChangerUrl) {

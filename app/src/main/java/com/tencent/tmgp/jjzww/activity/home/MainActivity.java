@@ -2,18 +2,15 @@ package com.tencent.tmgp.jjzww.activity.home;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tencent.tmgp.jjzww.R;
@@ -21,7 +18,6 @@ import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.Token;
-import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.bean.ZwwRoomBean;
 import com.tencent.tmgp.jjzww.fragment.MyCenterFragment;
 import com.tencent.tmgp.jjzww.fragment.RankFragmentTwo;
@@ -32,12 +28,12 @@ import com.tencent.tmgp.jjzww.utils.SPUtils;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
+import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.EmptyLayout;
 import com.tencent.tmgp.jjzww.view.LoginDialog;
 import com.gatz.netty.AppClient;
 import com.gatz.netty.utils.AppProperties;
 import com.gatz.netty.utils.NettyUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -199,7 +195,7 @@ public class MainActivity extends BaseActivity {
                 UserUtils.UserAddress=loginInfoResult.getData().getAppUser().getCNEE_NAME()+" "+
                                       loginInfoResult.getData().getAppUser().getCNEE_PHONE()+" "+
                                       loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
-                zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID());
+                zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID(), false);
                 if (dollLists.size() != 0) {
                     zwwjFragment.notifyAdapter(dollLists);
                 }
@@ -240,7 +236,7 @@ public class MainActivity extends BaseActivity {
                 UserUtils.UserAddress = loginInfoResult.getData().getAppUser().getCNEE_NAME() + " " +
                         loginInfoResult.getData().getAppUser().getCNEE_PHONE() + " " +
                         loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
-                zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID());
+                zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID(), false);
                 Log.e(TAG,"房间长度=" + dollLists.size() + "======" + UserUtils.UserAddress);
                 getDeviceStates();
                 startTimer();
@@ -297,7 +293,7 @@ public class MainActivity extends BaseActivity {
                         UserUtils.UserAddress=result.getData().getAppUser().getCNEE_NAME()+" "+
                                               result.getData().getAppUser().getCNEE_PHONE()+" "+
                                               result.getData().getAppUser().getCNEE_ADDRESS();
-                        zwwjFragment.setSessionId(result.getData().getSessionID());
+                        zwwjFragment.setSessionId(result.getData().getSessionID(), false);
                         if (dollLists.size() == 0) {
                             zwwjFragment.showError();
                         } else {
@@ -502,7 +498,9 @@ public class MainActivity extends BaseActivity {
             getDeviceStates();
         } else if (state.equals(Utils.TAG_SESSION_INVALID)) {
             Utils.showLogE(TAG, "TAG_SESSION_INVALID");
-            logIn((String) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_PHONE, "0"), false);
+            //logIn((String) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_PHONE, "0"), false);
+            //TODO 重连后重新连接 QQ/WEIXIN 模式检测
+            getYSDKAuthLogin(UserUtils.USER_ID, YsdkUtils.access_token);
         } else if (state.equals(Utils.TAG_GATEWAT_USING)) {
             Utils.showLogE(TAG, "TAG_GATEWAT_USING");
         }
@@ -591,5 +589,22 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    private void getYSDKAuthLogin(String userId, String accessToken){
+        HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<LoginInfo>>() {
+            @Override
+            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+                Log.e(TAG, "断开重连 重新获取相关参数" + loginInfoResult.getMsg());
+                if(loginInfoResult.getMsg().equals("success")) {
+                    if (zwwjFragment != null) {
+                        zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID(), true);
+                    }
+                }
+            }
 
+            @Override
+            public void _onError(Throwable e) {
+
+            }
+        });
+    }
 }

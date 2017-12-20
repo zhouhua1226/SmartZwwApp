@@ -170,6 +170,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     //用户操作和竞猜
     private boolean isStart = false;
     private boolean isLottery = false;
+    private String periodsNum;
 
     static {
         System.loadLibrary("SmartPlayer");
@@ -392,8 +393,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                             && (isCurrentConnect)) {
                         ctrlCompl.sendCmdCtrl(MoveType.START);
                         coinTv.setText("  " + (Integer.parseInt(UserUtils.UserBalance) - money) + "");
-                        getCreatPlayList(UserUtils.NickName, dollName);//开始游戏分发场次
-                        getPlayNum(UserUtils.USER_ID, String.valueOf(money), dollId);   //扣款
+                        //getCreatPlayList(UserUtils.NickName, dollName);//开始游戏分发场次
+                        //getPlayNum(UserUtils.USER_ID, String.valueOf(money), dollId); //扣款
                         isStart = true;
                     }
                     setVibratorTime(300, -1);
@@ -410,7 +411,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                 //竞猜
                 ctrlButtomLayout.setVisibility(View.GONE);
                 ctrlBetingLayout.setVisibility(View.VISIBLE);
-                getPlayId(dollId);//给围观群众分发id
+                //getPlayId(dollId);//给围观群众分发id
+                getPond(Integer.valueOf(periodsNum));
                 break;
             case R.id.ctrl_instruction_image:
                 //说明
@@ -433,7 +435,7 @@ public class CtrlActivity extends Activity implements IctrlView {
             case R.id.ctrl_confirm_layout:
                 //下注
                 if (zt.equals("1") || zt.equals("0")) {
-                    getBets(UserUtils.USER_ID, Integer.valueOf(money).intValue(), zt, UserUtils.GUESSID, dollId);
+                    getBets(UserUtils.USER_ID, Integer.valueOf(money).intValue(), zt,  periodsNum, dollId);
                     coinTv.setText("  " + (Integer.parseInt(UserUtils.UserBalance) - money) + "");
                     ctrlButtomLayout.setVisibility(View.VISIBLE);
                     ctrlBetingLayout.setVisibility(View.GONE);
@@ -628,6 +630,9 @@ public class CtrlActivity extends Activity implements IctrlView {
         if (isFree) {
             startgameLl.setBackgroundResource(R.drawable.ctrl_startgame_button);
             startgameTextImag.setImageResource(R.drawable.begin_game_text);
+            ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);
+            ctrlQuizLayout.setEnabled(false);
+            ctrlQuizLayout.setVisibility(View.VISIBLE);
             return;
         }
         startgameLl.setBackgroundResource(R.drawable.ctrl_unstartgame_button);
@@ -682,7 +687,9 @@ public class CtrlActivity extends Activity implements IctrlView {
                     getWorkstation();
                     ctrlCompl.startRecordVideo();
                     //TODO 竞猜按钮隐藏
-
+                    ctrlQuizLayout.setVisibility(View.INVISIBLE);
+                    //获取期号
+                    periodsNum = moveControlResponse.getPeriodsNum();
                 } else if (moveControlResponse.getMoveType().name()
                         .equals(MoveType.CATCH.name())) {
                     //TODO 本人点击下爪了 下爪成功
@@ -720,6 +727,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     //监控网关区
+    //网关重连过后 需要前端主动去获取一次网关的状态来最终判断网关是否存在
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = {
             @Tag(Utils.TAG_CONNECT_ERR),
             @Tag(Utils.TAG_CONNECT_SUCESS)})
@@ -727,10 +735,13 @@ public class CtrlActivity extends Activity implements IctrlView {
         if (state.equals(Utils.TAG_CONNECT_ERR)) {
             Utils.showLogE(TAG, "TAG_CONNECT_ERR");
             ctrlStatusIv.setImageResource(R.drawable.point_red);
+            isCurrentConnect = false;
         } else if (state.equals(Utils.TAG_CONNECT_SUCESS)) {
             Utils.showLogE(TAG, "TAG_CONNECT_SUCESS");
             ctrlStatusIv.setImageResource(R.drawable.point_green);
             NettyUtils.sendRoomInCmd();
+            //TODO 后续修改获取网关状态接口
+            NettyUtils.sendGetDeviceStatesCmd();
         }
     }
 
@@ -825,20 +836,20 @@ public class CtrlActivity extends Activity implements IctrlView {
      * 网络请求区
      ***************************************************/
     //消费接口
-    private void getPlayNum(String userId, String number, String dollId) {
-        HttpManager.getInstance().getUserPlayNum(userId, number, dollId, new RequestSubscriber<Result<LoginInfo>>() {
-            @Override
-            public void _onSuccess(Result<LoginInfo> result) {
-                Log.e(TAG, "消费结果=" + result.getMsg());
-                UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
-            }
-
-            @Override
-            public void _onError(Throwable e) {
-                MyToast.getToast(getApplicationContext(), "扣费失败！").show();
-            }
-        });
-    }
+//    private void getPlayNum(String userId, String number, String dollId) {
+//        HttpManager.getInstance().getUserPlayNum(userId, number, dollId, new RequestSubscriber<Result<LoginInfo>>() {
+//            @Override
+//            public void _onSuccess(Result<LoginInfo> result) {
+//                Log.e(TAG, "消费结果=" + result.getMsg());
+//                UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
+//            }
+//
+//            @Override
+//            public void _onError(Throwable e) {
+//                MyToast.getToast(getApplicationContext(), "扣费失败！").show();
+//            }
+//        });
+//    }
 
     //下注接口
     private void getBets(String userID, Integer wager, String guessKey, String guessId,
@@ -848,7 +859,6 @@ public class CtrlActivity extends Activity implements IctrlView {
             public void _onSuccess(Result<AppUserBean> appUserBeanResult) {
                 coinTv.setText("  " + appUserBeanResult.getData().getAppUser().getBALANCE());
                 UserUtils.UserBalance = appUserBeanResult.getData().getAppUser().getBALANCE();
-
             }
 
             @Override
@@ -858,37 +868,37 @@ public class CtrlActivity extends Activity implements IctrlView {
         });
     }
 
-    //围观群众获取游戏场次
-    private void getPlayId(String dollId) {
-        HttpManager.getInstance().getPlayId(dollId, new RequestSubscriber<Result<LoginInfo>>() {
-            @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-                UserUtils.PlayBackId = loginInfoResult.getData().getPlayBack().getID();//游戏场次id
-                getPond(UserUtils.PlayBackId);//获取下注人数
-            }
+//    //围观群众获取游戏场次
+//    private void getPlayId(String dollId) {
+//        HttpManager.getInstance().getPlayId(dollId, new RequestSubscriber<Result<LoginInfo>>() {
+//            @Override
+//            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+//                //UserUtils.PlayBackId = loginInfoResult.getData().getPlayBack().getID();//游戏场次id
+//                getPond(UserUtils.PlayBackId);//获取下注人数
+//            }
+//
+//            @Override
+//            public void _onError(Throwable e) {
+//
+//            }
+//        });
+//    }
 
-            @Override
-            public void _onError(Throwable e) {
-
-            }
-        });
-    }
-
-    //开始游戏分发场次
-    private void getCreatPlayList(String nickName, String dollName) {
-        HttpManager.getInstance().getCreatPlayList(nickName, dollName, new RequestSubscriber<Result<LoginInfo>>() {
-            @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-//                UserUtils.id = loginInfoResult.getData().getPlayBack().getID();
-                UserUtils.GUESSID = loginInfoResult.getData().getPlayBack().getGUESSID();
-            }
-
-            @Override
-            public void _onError(Throwable e) {
-
-            }
-        });
-    }
+//    //开始游戏分发场次
+//    private void getCreatPlayList(String nickName, String dollName) {
+//        HttpManager.getInstance().getCreatPlayList(nickName, dollName, new RequestSubscriber<Result<LoginInfo>>() {
+//            @Override
+//            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+//                //UserUtils.id = loginInfoResult.getData().getPlayBack().getID();
+//                //UserUtils.GUESSID = loginInfoResult.getData().getPlayBack().getGUESSID();
+//            }
+//
+//            @Override
+//            public void _onError(Throwable e) {
+//
+//            }
+//        });
+//    }
 
     //获取下注人数
 
@@ -899,7 +909,6 @@ public class CtrlActivity extends Activity implements IctrlView {
             public void _onSuccess(Result<PondResponseBean> loginInfoResult) {
                 ctrlBettingNumberOne.setText(loginInfoResult.getData().getPond().getGUESS_Y() + "");
                 ctrlBettingNumberTwo.setText(loginInfoResult.getData().getPond().getGUESS_N() + "");
-
             }
 
             @Override

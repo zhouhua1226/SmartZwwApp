@@ -412,6 +412,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 ctrlButtomLayout.setVisibility(View.GONE);
                 ctrlBetingLayout.setVisibility(View.VISIBLE);
                 //getPlayId(dollId);//给围观群众分发id
+
                 getPond(Integer.valueOf(periodsNum));
                 break;
             case R.id.ctrl_instruction_image:
@@ -638,11 +639,11 @@ public class CtrlActivity extends Activity implements IctrlView {
         startgameLl.setBackgroundResource(R.drawable.ctrl_unstartgame_button);
         startgameTextImag.setImageResource(R.drawable.ctrl_begin_loading);
         if (userInfos.size() > 1) {
-            //ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcurrency_dialog);
+            ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcurrency_dialog);
             moneyImage.setImageResource(R.drawable.ctrl_bet_button);
             ctrlQuizLayout.setEnabled(true);
         } else {
-            //ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);
+            ctrlQuizLayout.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);
             moneyImage.setImageResource(R.drawable.ctrl_unbet_button);
             ctrlQuizLayout.setEnabled(false);
         }

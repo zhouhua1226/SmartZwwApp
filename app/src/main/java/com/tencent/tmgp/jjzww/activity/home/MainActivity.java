@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -41,6 +42,7 @@ import com.iot.game.pooh.server.entity.json.GetStatusResponse;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -533,17 +535,23 @@ public class MainActivity extends BaseActivity {
                                 //设备异常了
                                 bean.setDOLL_STATE("0");
                             } else {
-                                if (stats.equals(Utils.FREE)) {
-                                    bean.setDOLL_STATE("10");
-                                } else if (stats.equals(Utils.BUSY)) {
+                                String url = bean.getCAMERA_NAME_02();
+                                if ((stats.equals(Utils.FREE) && (!TextUtils.isEmpty(url)))) {
                                     bean.setDOLL_STATE("11");
+                                } else if (stats.equals(Utils.BUSY) && (!TextUtils.isEmpty(url))) {
+                                    bean.setDOLL_STATE("10");
                                 }
                             }
                             dollLists.set(j, bean);
                         }
                     }
                     //TODO 按照规则重新排序
-                    Collections.sort(dollLists);
+                    Collections.sort(dollLists, new Comparator<ZwwRoomBean>() {
+                        @Override
+                        public int compare(ZwwRoomBean t1, ZwwRoomBean t2) {
+                            return t2.getDOLL_STATE().compareTo(t1.getDOLL_STATE());
+                        }
+                    });
                     zwwjFragment.notifyAdapter(dollLists);
                 }
             }

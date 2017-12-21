@@ -140,13 +140,14 @@
                             android:layout_height="25dp"
                             android:layout_gravity="center_vertical"
                             android:text="我可"
-                            android:paddingLeft="15dp"
+                            android:paddingLeft="25dp"
                             android:layout_marginRight="15dp"
-                            android:gravity="center"
+                            android:gravity="left|center_vertical"
                             android:textColor="@android:color/white"
                             android:textSize="14sp"
                             android:background="@drawable/ctr_ty_bg"
                             android:layout_marginLeft="40dp"
+                            android:paddingRight="7dp"
                             />
 
                         <ImageView

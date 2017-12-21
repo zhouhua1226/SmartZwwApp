@@ -45,6 +45,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder1 holder, final int position) {
         holder.name_tv.setText(mDatas.get(position).getDOLLNAME());
+        if(mDatas.get(position).getCREATETIME().length()>=14)
         holder.times_tv.setText(getTime(mDatas.get(position).getCREATETIME()));
         holder.results_tv.setText("抓取成功");
         Glide.with(mContext)

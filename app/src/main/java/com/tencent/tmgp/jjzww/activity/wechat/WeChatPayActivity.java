@@ -2,7 +2,6 @@ package com.tencent.tmgp.jjzww.activity.wechat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,11 +27,9 @@ import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.YsdkUtils;
-import com.tencent.tmgp.jjzww.view.MyToast;
+import com.tencent.tmgp.jjzww.view.GifView;
 
 import org.json.JSONObject;
-
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +49,8 @@ public class WeChatPayActivity extends BaseActivity {
     TextView wxYeTv;
     @BindView(R.id.wx_play_btn)
     Button wxPlayBtn;
+    @BindView(R.id.wechatpay_gif_view)
+    GifView wechatpayGifView;
     private String TAG = "WeChatPayActivity--";
     private Intent intent;
     private String moneyzf;
@@ -69,6 +68,8 @@ public class WeChatPayActivity extends BaseActivity {
         moneyzf = intent.getStringExtra("money");
         amountTv.setText(moneyzf);
         wxYeTv.setText(UserUtils.UserBalance);
+        wechatpayGifView.setEnabled(false);
+        wechatpayGifView.setMovieResource(R.raw.waitloadinggif);
     }
 
     @Override
@@ -90,6 +91,7 @@ public class WeChatPayActivity extends BaseActivity {
         EasyYSDKApi.handleIntent(this.getIntent());
         EasyYSDKApi.setUserListener();
         EasyYSDKApi.setBuglyListener();
+        EasyYSDKApi.registPayActivity(this);
 
         //add hx_ysdk  初始化
         Bundle initParams = new Bundle();
@@ -104,14 +106,14 @@ public class WeChatPayActivity extends BaseActivity {
         EasyYSDKApi.setNotifyListener(new NotifyListener() {
             @Override
             public void onResult(int code, String msg) {
-                Log.e(TAG,"支付通知失败原因="+msg);
+                Log.e(TAG, "支付通知失败原因=" + msg);
             }
         });
         PayReviewer.reviewer();   //通知失败进行重发
 
     }
 
-    private void pay(String userId,String accessToken,int amount,String order) {
+    private void pay(String userId, String accessToken, int amount, String order) {
         //开始封装支付参数
         Bundle payInfo = new Bundle();
         payInfo.putString(PayKey.USER_ID, userId);//用户id，登录接口中返回给游戏的uid
@@ -137,11 +139,10 @@ public class WeChatPayActivity extends BaseActivity {
                 this.finish();
                 break;
             case R.id.btn_ok:
-                moneyzf=amountTv.getText().toString();
-                //MyToast.getToast(this, moneyzf + "元").show();
-                //wxPayMoney(UserUtils.UserPhone, moneyzf);
-                Log.e(TAG,"获取订单参数userId="+UserUtils.USER_ID+"accessToken="+YsdkUtils.access_token+"金额="+moneyzf);
-                getYSDKPay(UserUtils.USER_ID,YsdkUtils.access_token,moneyzf);
+                wechatpayGifView.setVisibility(View.VISIBLE);
+                moneyzf = amountTv.getText().toString();
+                Log.e(TAG, "获取订单参数userId=" + UserUtils.USER_ID + "accessToken=" + YsdkUtils.access_token + "金额=" + moneyzf);
+                getYSDKPay(UserUtils.USER_ID, YsdkUtils.access_token, moneyzf);
                 break;
             case R.id.wx_play_btn:
 //                getPlayNum(UserUtils.UserPhone, moneyzf);
@@ -154,7 +155,7 @@ public class WeChatPayActivity extends BaseActivity {
         HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> result) {
-                Log.e(TAG, "充值后获取余额结果=" + result.getMsg()+result.getData().getAppUser().getBALANCE());
+                Log.e(TAG, "充值后获取余额结果=" + result.getMsg() + result.getData().getAppUser().getBALANCE());
                 UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
                 //MyToast.getToast(getApplicationContext(), moneyzf+"充值成功！").show();
             }
@@ -165,15 +166,16 @@ public class WeChatPayActivity extends BaseActivity {
         });
     }
 
-    private void getYSDKPay(String userId,String accessToken,String amount){
+    private void getYSDKPay(String userId, String accessToken, String amount) {
         HttpManager.getInstance().getYSDKPay(userId, accessToken, amount, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-                Log.e(TAG,"订单生成结果="+loginInfoResult.getMsg());
-                String uid=loginInfoResult.getData().getOrder().getUSER_ID();
-                String order=loginInfoResult.getData().getOrder().getORDER_ID();
-                int amount= Integer.parseInt(loginInfoResult.getData().getOrder().getREGAMOUNT());
-                pay(UserUtils.USER_ID,YsdkUtils.access_token,amount,order);
+                Log.e(TAG, "订单生成结果=" + loginInfoResult.getMsg());
+                String uid = loginInfoResult.getData().getOrder().getUSER_ID();
+                String order = loginInfoResult.getData().getOrder().getORDER_ID();
+                int amount = Integer.parseInt(loginInfoResult.getData().getOrder().getREGAMOUNT());
+                wechatpayGifView.setVisibility(View.GONE);
+                pay(UserUtils.USER_ID, YsdkUtils.access_token, amount, order);
             }
 
             @Override
@@ -189,12 +191,12 @@ public class WeChatPayActivity extends BaseActivity {
             Toast.makeText(WeChatPayActivity.this, TAG + code + ":" + data.toString(), Toast.LENGTH_SHORT).show();
             switch (code) {
                 case PayCallback.FAIL:
-                    Log.e(TAG,"米大师支付结果="+"支付失败");
+                    Log.e(TAG, "米大师支付结果=" + "支付失败");
                     Toast.makeText(getBaseContext(), "支付失败", Toast.LENGTH_SHORT).show();
                     break;
 
                 case PayCallback.SUCCESS:
-                    Log.e(TAG,"米大师支付结果="+"支付成功");
+                    Log.e(TAG, "米大师支付结果=" + "支付成功");
                     Toast.makeText(getBaseContext(), "支付成功！", Toast.LENGTH_SHORT).show();
                     //getUserDate(UserUtils.USER_ID);
                     break;
@@ -234,6 +236,7 @@ public class WeChatPayActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EasyYSDKApi.onDestroy(this);
+        EasyYSDKApi.unRegistPayActivity();
     }
 
     @Override

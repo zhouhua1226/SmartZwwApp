@@ -2,6 +2,7 @@ package com.tencent.tmgp.jjzww.activity.ctrl.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,6 +46,7 @@ import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
+import com.tencent.tmgp.jjzww.view.CatchDollResultDialog;
 import com.tencent.tmgp.jjzww.view.FillingCurrencyDialog;
 import com.tencent.tmgp.jjzww.view.GifView;
 import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
@@ -145,6 +147,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     Button ctrlBettingBackButton;
     @BindView(R.id.startgame_text_imag)
     ImageView startgameTextImag;
+    @BindView(R.id.ctrl_back_imag)
+    ImageView ctrlBackImag;
 
     private CtrlCompl ctrlCompl;
     private FillingCurrencyDialog fillingCurrencyDialog;
@@ -192,6 +196,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     private void afterCreate() {
+        playBGMusic();   //播放房间背景音乐
         Utils.showLogE(TAG, "afterCreate");
         initView();
         initData();
@@ -249,6 +254,17 @@ public class CtrlActivity extends Activity implements IctrlView {
         NettyUtils.sendGetDeviceStatesCmd();
         ctrlCompl = null;
         RxBus.get().unregister(this);
+
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        if (btn_mediaPlayer != null && btn_mediaPlayer.isPlaying()) {
+            btn_mediaPlayer.stop();
+            btn_mediaPlayer.release();
+            btn_mediaPlayer = null;
+        }
     }
 
     @Override
@@ -377,13 +393,14 @@ public class CtrlActivity extends Activity implements IctrlView {
         }
     };
 
-    @OnClick({R.id.image_back, R.id.recharge_button,
+    @OnClick({R.id.image_back, R.id.recharge_button,R.id.ctrl_back_imag,
             R.id.startgame_ll, R.id.ctrl_fail_iv, R.id.ctrl_quiz_layout, R.id.ctrl_instruction_image, R.id.ctrl_betting_winning, R.id.ctrl_betting_fail,
             R.id.ctrl_confirm_layout, R.id.ctrl_betting_back_button,
             R.id.ctrl_change_camera_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.image_back:
+            case R.id.ctrl_back_imag:
                 finish();
                 break;
             case R.id.recharge_button:
@@ -415,7 +432,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 ctrlButtomLayout.setVisibility(View.GONE);
                 ctrlBetingLayout.setVisibility(View.VISIBLE);
                 //getPlayId(dollId);//给围观群众分发id
-                getPond(periodsNum,dollId);
+                getPond(periodsNum, dollId);
                 break;
             case R.id.ctrl_instruction_image:
                 //说明
@@ -437,7 +454,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 break;
             case R.id.ctrl_confirm_layout:
                 //下注
-                if(Integer.parseInt(UserUtils.UserBalance)>=money) {
+                if (Integer.parseInt(UserUtils.UserBalance) >= money) {
                     if (zt.equals("1") || zt.equals("0")) {
                         getBets(UserUtils.USER_ID, Integer.valueOf(money).intValue(), zt, periodsNum, dollId);
                         coinTv.setText("  " + (Integer.parseInt(UserUtils.UserBalance) - money) + "");
@@ -449,7 +466,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                     } else {
                         MyToast.getToast(getApplicationContext(), "请下注！").show();
                     }
-                }else {
+                } else {
                     MyToast.getToast(getApplicationContext(), "请充值！").show();
                 }
                 break;
@@ -813,29 +830,38 @@ public class CtrlActivity extends Activity implements IctrlView {
             getStartstation();
             setStartMode(true);
             getUserDate(UserUtils.USER_ID);    //再次获取用户余额并更新UI
+
+//            if (Utils.isEmpty(upTime)) {
+//                return;
+//            }
+            ctrlCompl.stopRecordView(); //录制完毕
+            if (isStart) {
+                if (number != 0) {
+                    //抓到娃娃  上传给后台
+                    upFileName = "";
+                    state = "1";
+                    Utils.showLogE(TAG, "抓取成功！");
+                    playBtnMusic(R.raw.catch_success_music);
+                    setCatchResultDialog(true);
+                } else {
+                    //删除本地视频
+                    state = "0";
+                    Utils.showLogE(TAG, "抓取失败！");
+                    playBtnMusic(R.raw.catch_fail_music);
+                    setCatchResultDialog(false);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+//                            boolean d = Utils.delFile(upFileName);
+//                            Utils.showLogE(TAG, "没抓住 删除" + upFileName + "视频....." + d);
+                            upFileName = "";
+
+                        }
+                    }, 2000);  //2s后删除 保证录制完毕
+                }
+            }
             isStart = false;  //标志复位
             isLottery = false;
-            if (Utils.isEmpty(upTime)) {
-                return;
-            }
-            ctrlCompl.stopRecordView(); //录制完毕
-            if (number != 0) {
-                //抓到娃娃  上传给后台
-                upFileName = "";
-                state = "1";
-            } else {
-                //删除本地视频
-                state = "0";
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean d = Utils.delFile(upFileName);
-                        Utils.showLogE(TAG, "没抓住 删除" + upFileName + "视频....." + d);
-                        upFileName = "";
-
-                    }
-                }, 2000);  //2s后删除 保证录制完毕
-            }
             updataTime(upTime, state);
             upTime = "";
         }
@@ -911,9 +937,9 @@ public class CtrlActivity extends Activity implements IctrlView {
 
     //获取下注人数
 
-    private void getPond(String playId,String dollId) {
+    private void getPond(String playId, String dollId) {
 
-        HttpManager.getInstance().getPond(playId,dollId, new RequestSubscriber<Result<PondResponseBean>>() {
+        HttpManager.getInstance().getPond(playId, dollId, new RequestSubscriber<Result<PondResponseBean>>() {
             @Override
             public void _onSuccess(Result<PondResponseBean> loginInfoResult) {
                 ctrlBettingNumberOne.setText(loginInfoResult.getData().getPond().getGUESS_Y() + "");
@@ -966,6 +992,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 Log.e(TAG, "获取结果=" + loginInfoResult.getMsg());
                 if (loginInfoResult.getMsg().equals("success")) {
                     coinTv.setText("  " + loginInfoResult.getData().getAppUser().getBALANCE());
+                    UserUtils.UserBalance = loginInfoResult.getData().getAppUser().getBALANCE();
                 }
             }
 
@@ -976,8 +1003,44 @@ public class CtrlActivity extends Activity implements IctrlView {
         });
     }
 
-    private void playBGMusic(){
+    private void playBGMusic() {
+        mediaPlayer = MediaPlayer.create(this, R.raw.catchroom_bgm);
+        // 设置音频流的类型
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+        Utils.showLogE(TAG, "房间背景音乐播放成功"+mediaPlayer.isPlaying());
+        //MyToast.getToast(getApplicationContext(),"播放成功"+mediaPlayer.isPlaying()).show();
+    }
+
+    private void playBtnMusic(int file) {
+        btn_mediaPlayer = MediaPlayer.create(this, file);
+        btn_mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        btn_mediaPlayer.start();
+    }
+
+    private void setCatchResultDialog(boolean result) {
+        CatchDollResultDialog catchDollResultDialog = new CatchDollResultDialog(this, R.style.activitystyle);
+        catchDollResultDialog.setCancelable(false);
+        catchDollResultDialog.show();
+        if (result) {
+            catchDollResultDialog.setTitle("恭喜您！");
+            catchDollResultDialog.setContent("本次抓娃娃成功啦。");
+        } else {
+            catchDollResultDialog.setTitle("太可惜了！");
+            catchDollResultDialog.setContent("本次抓娃娃失败啦。");
+        }
+        catchDollResultDialog.setDialogResultListener(new CatchDollResultDialog.DialogResultListener() {
+            @Override
+            public void getResult(int resultCode) {
+                if (resultCode == 1) {
+                    MyToast.getToast(getApplicationContext(), "二次抢抓功能还在完善中！").show();
+                }
+            }
+        });
+
 
     }
+
 
 }

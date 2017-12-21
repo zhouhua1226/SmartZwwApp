@@ -20,7 +20,7 @@ public class CatchDollResultDialog extends Dialog implements View.OnClickListene
 
     private final static String TAG = "CatchDollResultDialog";
     private Context context;
-    private TextView fail_tv,success_tv;
+    private TextView fail_tv,success_tv,title,content;
 
     public CatchDollResultDialog(Context context) {
         super(context);
@@ -45,8 +45,17 @@ public class CatchDollResultDialog extends Dialog implements View.OnClickListene
     public void findView() {
         fail_tv= (TextView) findViewById(R.id.catchdialog_fail_tv);
         success_tv= (TextView) findViewById(R.id.catchdialog_success_tv);
+        title= (TextView) findViewById(R.id.catchdialog_title1_tv);
+        content= (TextView) findViewById(R.id.catchdialog_content_tv);
     }
 
+    public void setTitle(String titles){
+        title.setText(titles);
+    }
+
+    public void setContent(String contents){
+        content.setText(contents);
+    }
     /**
      * 绑定监听
      **/

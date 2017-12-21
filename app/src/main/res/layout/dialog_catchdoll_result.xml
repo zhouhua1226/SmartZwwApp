@@ -5,6 +5,7 @@
     >
 
     <RelativeLayout
+        android:id="@+id/catchdialog_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/catchdialog_fail_bg"
@@ -21,7 +22,7 @@
             android:layout_centerHorizontal="true"
             />
         <TextView
-            android:id="@+id/catchdialog_title2_tv"
+            android:id="@+id/catchdialog_content_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="本次抓娃娃没有成功。"
@@ -41,7 +42,7 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:background="@drawable/catchdialog_go_bg"
-            android:layout_below="@+id/catchdialog_title2_tv"
+            android:layout_below="@+id/catchdialog_content_tv"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="25dp"
 
@@ -50,11 +51,11 @@
             android:id="@+id/catchdialog_success_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="稍后再试"
+            android:text="再抓一次"
             android:gravity="center"
             android:textColor="@color/black"
             android:background="@drawable/catchdialog_again_bg"
-            android:layout_below="@+id/catchdialog_title2_tv"
+            android:layout_below="@+id/catchdialog_content_tv"
             android:layout_marginTop="50dp"
             android:layout_marginRight="25dp"
             android:layout_alignParentRight="true"

@@ -750,6 +750,7 @@ public class CtrlActivity extends Activity implements IctrlView {
             NettyUtils.sendRoomInCmd();
             //TODO 后续修改获取网关状态接口
             NettyUtils.sendGetDeviceStatesCmd();
+            isCurrentConnect = true;
         }
     }
 

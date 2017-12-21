@@ -735,7 +735,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     //监控网关区
-    //网关重连过后 需要前端主动去获取一次网关的状态来最终判断网关是否存在
+    //TODO 网关重连过后 需要前端主动去获取一次网关的状态来最终判断网关是否存在!!!
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = {
             @Tag(Utils.TAG_CONNECT_ERR),
             @Tag(Utils.TAG_CONNECT_SUCESS)})

@@ -203,8 +203,8 @@ public class HttpManager {
     }
 
     //获取下注人数
-    public void  getPond(int playId,Subscriber<Result<PondResponseBean>>subscriber){
-        Observable<Result<PondResponseBean>> o =smartService.getPond( playId);
+    public void  getPond(String playId,String dollId,Subscriber<Result<PondResponseBean>>subscriber){
+        Observable<Result<PondResponseBean>> o =smartService.getPond(playId,dollId);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

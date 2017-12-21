@@ -172,7 +172,8 @@ public interface SmartService {
     @FormUrlEncoded
     @POST(UrlUtils.GETPONDURL)
     Observable<Result<PondResponseBean>>getPond(
-            @Field(UrlUtils.PLAYID) int playId
+            @Field(UrlUtils.PLAYID) String playId,
+            @Field(UrlUtils.DOLLID) String dollId
     );
 
     //收货人信息

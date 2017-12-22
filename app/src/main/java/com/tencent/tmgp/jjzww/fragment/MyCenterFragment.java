@@ -22,6 +22,7 @@ import com.tencent.tmgp.jjzww.activity.home.RecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.RecordGameActivty;
 import com.tencent.tmgp.jjzww.activity.home.RecordGameTwoActivity;
 import com.tencent.tmgp.jjzww.activity.home.SelectRechargeTypeActiivty;
+import com.tencent.tmgp.jjzww.activity.home.ServiceActivity;
 import com.tencent.tmgp.jjzww.activity.home.SettingActivity;
 import com.tencent.tmgp.jjzww.activity.wechat.WeChatPayActivity;
 import com.tencent.tmgp.jjzww.adapter.MyCenterAdapter;
@@ -200,7 +201,7 @@ public class MyCenterFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mycenter_kefu_layout:
-                MyToast.getToast(getContext(), "我是客服").show();
+                startActivity(new Intent(getContext(),ServiceActivity.class));
                 break;
             case R.id.mycenter_setting_layout:
                 startActivity(new Intent(getContext(), SettingActivity.class));

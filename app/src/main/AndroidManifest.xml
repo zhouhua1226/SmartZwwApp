@@ -309,6 +309,14 @@
         <!--android:name="MANIFEST_META_CID"-->
         <!--android:value="000000005dcac43b015dcac5c3ed0001" />-->
 
+        <activity
+            android:name=".activity.home.ServiceActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+
     </application>
 
     <supports-screens

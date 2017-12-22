@@ -122,7 +122,7 @@ public class SelectRechargeTypeActiivty extends BaseActivity {
                 finish();
                 break;
             case R.id.image_service:
-                MyToast.getToast(this,"我是客服").show();
+                startActivity(new Intent(this,ServiceActivity.class));
                 break;
             case R.id.layout_wechat:
                 getMoney();

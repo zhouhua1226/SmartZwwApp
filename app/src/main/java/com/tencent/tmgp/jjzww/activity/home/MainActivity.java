@@ -100,6 +100,7 @@ public class MainActivity extends BaseActivity {
         settings = getSharedPreferences("app_user", 0);// 获取SharedPreference对象
         editor = settings.edit();// 获取编辑对象。
         editor.putBoolean("isVibrator",true);
+        editor.putBoolean("isOpenMusic",true);
         editor.commit();
     }
 

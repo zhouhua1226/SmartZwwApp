@@ -16,6 +16,7 @@ public class UserUtils {
     public static final String SP_TAG_PHONE = "SP_TAG_PHONE";
     public static final String SP_TAG_USERID="SP_TAG_USERID";
     public static final String SP_TAG_ISLOGOUT="SP_TAG_ISLOGOUT";
+    public static final String SP_TAG_ISOPENMUSIC="SP_TAG_ISOPENMUSIC";
 
     public static String NickName = "";
     public static String UserPhone="";    //用户手机号

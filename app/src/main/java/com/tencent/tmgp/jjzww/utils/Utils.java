@@ -66,7 +66,6 @@ public class Utils {
     public static boolean isExit = false;
 
     public static String token = "";
-
     public static boolean isVibrator;  //是否开启震动  11/18 11:20
     public static final String HTTP_OK = "success";
 
@@ -284,6 +283,11 @@ public class Utils {
             }
         });
 
+    }
+
+    //房间背景音乐控制方法
+    public static boolean getIsOpenMusic(Context context){
+        return (boolean)SPUtils.get(context, UserUtils.SP_TAG_ISOPENMUSIC, true);
     }
 
 }

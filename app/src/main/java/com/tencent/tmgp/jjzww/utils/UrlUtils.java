@@ -52,6 +52,8 @@ public class UrlUtils {
 
     public static final String URL = "http://47.100.15.18:8080";
 //    public static final String URL="http://106.75.142.42:8080/";
+    //壕鑫客服链接
+    public static final String SERVICEURL="http://chat10.live800.com/live800/chatClient/chatbox.jsp?companyID=924464&configID=234256&jid=9174122739";
 
     //getSmsCode
     public static final String GETSMSCODE = "http://47.100.15.18:8080/pooh-web/sms/getRegSMSCode";//"http://controller.ngrok.cc/m/sms/getSMSCodeLogin";

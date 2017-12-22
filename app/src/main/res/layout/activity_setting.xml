@@ -204,6 +204,39 @@
         android:layout_marginRight="10dp"
         android:background="#ededed" />
     <RelativeLayout
+        android:id="@+id/roommusic_control_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:text="房间音效"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/roommusic_control_imag"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/vibrator_control_bg" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#ededed" />
+    <RelativeLayout
         android:id="@+id/vibrator_control_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tencent.tmgp.jjzww.R;
@@ -21,6 +22,7 @@ public class CatchDollResultDialog extends Dialog implements View.OnClickListene
     private final static String TAG = "CatchDollResultDialog";
     private Context context;
     private TextView fail_tv,success_tv,title,content;
+    private RelativeLayout bg_layout;
 
     public CatchDollResultDialog(Context context) {
         super(context);
@@ -47,6 +49,7 @@ public class CatchDollResultDialog extends Dialog implements View.OnClickListene
         success_tv= (TextView) findViewById(R.id.catchdialog_success_tv);
         title= (TextView) findViewById(R.id.catchdialog_title1_tv);
         content= (TextView) findViewById(R.id.catchdialog_content_tv);
+        bg_layout= (RelativeLayout) findViewById(R.id.catchdialog_layout);
     }
 
     public void setTitle(String titles){
@@ -56,6 +59,11 @@ public class CatchDollResultDialog extends Dialog implements View.OnClickListene
     public void setContent(String contents){
         content.setText(contents);
     }
+
+    public void setBackground(int picter){
+        bg_layout.setBackgroundResource(picter);
+    }
+
     /**
      * 绑定监听
      **/

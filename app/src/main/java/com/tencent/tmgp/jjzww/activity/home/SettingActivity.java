@@ -68,6 +68,10 @@ public class SettingActivity extends BaseActivity {
     RelativeLayout betrecordRl;
     @BindView(R.id.setting_share_layout)
     RelativeLayout settingShareLayout;
+    @BindView(R.id.roommusic_control_imag)
+    ImageView roommusicControlImag;
+    @BindView(R.id.roommusic_control_layout)
+    RelativeLayout roommusicControlLayout;
 
     private String TAG = "SettingActivity";
     private SharedPreferences settings;
@@ -83,6 +87,7 @@ public class SettingActivity extends BaseActivity {
     protected void afterCreate(Bundle savedInstanceState) {
         initView();
         setIsVibrator();
+        setIsOpenMusic();
         try {
             settingUpdateTv.setText("当前版本：" + Utils.getAppCodeOrName(this, 1));
         } catch (Exception e) {
@@ -128,14 +133,15 @@ public class SettingActivity extends BaseActivity {
             R.id.record_rl, R.id.invitation_rl, R.id.feedback_rl,
             R.id.gywm_rl, R.id.bt_out, R.id.vibrator_control_layout,
             R.id.vibrator_control_imag, R.id.setting_update_layout,
-            R.id.betrecord_rl,R.id.setting_share_layout})
+            R.id.betrecord_rl, R.id.setting_share_layout,R.id.roommusic_control_layout,
+            R.id.roommusic_control_imag})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.image_back:
                 finish();
                 break;
             case R.id.image_kf:
-                Toast.makeText(this, "我是客服", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,ServiceActivity.class));
                 break;
             case R.id.money_rl:
                 //我的游戏币
@@ -165,7 +171,8 @@ public class SettingActivity extends BaseActivity {
                 //getLogout(UserUtils.USER_ID);
                 Toast.makeText(context, "退出登录", Toast.LENGTH_SHORT).show();
                 loginOut();
-                SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT, true);;
+                SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT, true);
+                ;
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
@@ -175,6 +182,16 @@ public class SettingActivity extends BaseActivity {
                 editor.putBoolean("isVibrator", Utils.isVibrator);
                 editor.commit();
                 setBtnText(vibratorControlImag, Utils.isVibrator);
+                break;
+            case R.id.roommusic_control_layout:
+            case R.id.roommusic_control_imag:
+                boolean isMusic=(boolean)SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_ISOPENMUSIC, true);
+                if(isMusic){
+                    SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_ISOPENMUSIC, false);
+                }else {
+                    SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_ISOPENMUSIC, true);
+                }
+                setIsOpenMusic();
                 break;
             case R.id.setting_update_layout:
                 MyToast.getToast(getApplicationContext(), "当前为最新版!").show();
@@ -214,6 +231,7 @@ public class SettingActivity extends BaseActivity {
         if (settings.contains("isVibrator")) {
             Utils.isVibrator = settings.getBoolean("isVibrator", true);
         }
+
         if (!Utils.isVibrator)
             vibratorControlImag.setSelected(false);
         else
@@ -226,6 +244,15 @@ public class SettingActivity extends BaseActivity {
             btn.setSelected(true);
         else
             btn.setSelected(false);
+    }
+
+    private void setIsOpenMusic(){
+        boolean isOpen=(boolean)SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_ISOPENMUSIC, true);
+        if(isOpen){
+            roommusicControlImag.setSelected(true);
+        }else {
+            roommusicControlImag.setSelected(false);
+        }
     }
 
     private void getLogout(String userId) {

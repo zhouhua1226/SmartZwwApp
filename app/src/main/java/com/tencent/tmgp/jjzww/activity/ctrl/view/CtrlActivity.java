@@ -196,7 +196,9 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     private void afterCreate() {
-        playBGMusic();   //播放房间背景音乐
+        if(Utils.getIsOpenMusic(getApplicationContext())) {
+            playBGMusic();   //播放房间背景音乐
+        }
         Utils.showLogE(TAG, "afterCreate");
         initView();
         initData();
@@ -608,21 +610,25 @@ public class CtrlActivity extends Activity implements IctrlView {
             case MotionEvent.ACTION_UP:
                 switch (view.getId()) {
                     case R.id.front_image:
+                        if(vibrator!=null)
                         vibrator.cancel();
                         ctrlCompl.sendCmdCtrl(MoveType.STOP);
                         topImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_up_imag));
                         break;
                     case R.id.back_image:
+                        if(vibrator!=null)
                         vibrator.cancel();
                         ctrlCompl.sendCmdCtrl(MoveType.STOP);
                         belowImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_down_imag));
                         break;
                     case R.id.left_image:
+                        if(vibrator!=null)
                         vibrator.cancel();
                         ctrlCompl.sendCmdCtrl(MoveType.STOP);
                         leftImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_left_imag));
                         break;
                     case R.id.right_image:
+                        if(vibrator!=null)
                         vibrator.cancel();
                         ctrlCompl.sendCmdCtrl(MoveType.STOP);
                         rightImage.setImageDrawable(getResources().getDrawable(R.drawable.ctrl_right_imag));
@@ -1026,9 +1032,11 @@ public class CtrlActivity extends Activity implements IctrlView {
         if (result) {
             catchDollResultDialog.setTitle("恭喜您！");
             catchDollResultDialog.setContent("本次抓娃娃成功啦。");
+            catchDollResultDialog.setBackground(R.drawable.catchdialog_success_bg);
         } else {
             catchDollResultDialog.setTitle("太可惜了！");
             catchDollResultDialog.setContent("本次抓娃娃失败啦。");
+            catchDollResultDialog.setBackground(R.drawable.catchdialog_fail_bg);
         }
         catchDollResultDialog.setDialogResultListener(new CatchDollResultDialog.DialogResultListener() {
             @Override

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 
 
 import com.iot.game.pooh.server.entity.json.announce.LotteryDrawAnnounceMessage;
+import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.gatz.netty.global.ConnectResultEvent;
 import com.gatz.netty.observer.HandlerObserver;
@@ -131,6 +132,15 @@ public class SmartRemoteService extends Service {
             } else if (tag.equals(ConnectResultEvent.LOTTERY_DRAW_ANNOUNCE)) {
                 LotteryDrawAnnounceMessage message = (LotteryDrawAnnounceMessage) objs[0];
                 RxBus.get().post(Utils.TAG_LOTTERY_DRAW, message);
+                String p = message.getPeriodsNum();
+                String roomId = message.getRoomId();
+                if (message.getBingoNickNameList() == null) {
+                    Intent intent = new Intent();
+                    intent.setAction(UserUtils.ACTION_LOTTERY);
+                    intent.putExtra(UserUtils.LOTTERY_PERIODSNUM, p);
+                    intent.putExtra(UserUtils.LOTTERY_ROOMID, roomId);
+                    sendBroadcast(intent);
+                }
             }
         }
 

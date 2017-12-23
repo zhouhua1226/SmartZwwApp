@@ -1,6 +1,10 @@
 package com.tencent.tmgp.jjzww.base;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -38,6 +42,9 @@ public abstract class BaseActivity extends AppCompatActivity{
         PushAgent.getInstance(this).onAppStart();
         RxBus.get().register(this);
         initDialog();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(UserUtils.ACTION_LOTTERY);
+        this.registerReceiver(LotteryReceiver, intentFilter);
     }
 
     protected abstract int getLayoutId();
@@ -50,20 +57,24 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
         RxBus.get().unregister(this);
+        this.unregisterReceiver(LotteryReceiver);
     }
 
     private void initDialog() {
         guessingSuccessDialog=new GuessingSuccessDialog(this, R.style.easy_dialog_style);
-
     }
 
-    //监控开奖信息
-    @Subscribe(thread = EventThread.MAIN_THREAD, tags = {
-            @Tag(Utils.TAG_LOTTERY_DRAW)})
-    public void getConnectStates(LotteryDrawAnnounceMessage message) {
-        String roomId = message.getRoomId();
-        String pId = message.getPeriodsNum();
-        Utils.showLogE(TAG, "房间号:" + roomId + "第" + pId + "期开奖了.......");
+    private BroadcastReceiver LotteryReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String roomId = intent.getStringExtra(UserUtils.LOTTERY_ROOMID);
+            String pId = intent.getStringExtra(UserUtils.LOTTERY_PERIODSNUM);
+            Utils.showLogE(TAG, "房间号:" + roomId + "第" + pId + "期开奖了.......");
+            showLotteryDialog();
+        }
+    };
+
+    private void showLotteryDialog() {
         guessingSuccessDialog.setCancelable(true);
         guessingSuccessDialog.show();
         guessingSuccessDialog.setDialogResultListener(new GuessingSuccessDialog.DialogResultListener() {

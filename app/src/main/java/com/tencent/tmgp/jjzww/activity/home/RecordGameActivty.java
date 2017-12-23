@@ -118,12 +118,12 @@ public class RecordGameActivty extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        // TODO: add setContentView(...) invocation
+//        ButterKnife.bind(this);
+//    }
 
     @OnClick({R.id.image_back, R.id.image_service, R.id.gamemoney_button, R.id.shipments_button})
     public void onViewClicked(View view) {

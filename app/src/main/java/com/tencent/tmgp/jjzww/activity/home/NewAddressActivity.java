@@ -62,12 +62,6 @@ public class NewAddressActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     private void initData(){
         name=newaddressNameEt.getText().toString();

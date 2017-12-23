@@ -26,12 +26,9 @@ public class UserUtils {
     public static String UserBalance="";    //用户余额（游戏币）
     public static String UserCatchNum="";   //用户累积抓住次数
     public static String UserAddress="";
-    //public static String DOllGold="";
     public static String USER_ID="";
     public static String DOLL_ID="";
-    //public static String GUESSID="";
     public static int id;
-    //public static int PlayBackId;
     public static boolean isLogout=false;
 
     public static final String RECODE_URL = Environment.getExternalStorageDirectory().getPath()
@@ -39,6 +36,10 @@ public class UserUtils {
     public static final int RECODE_ERR_CODE_SDCARD_DISABLE = 201001;
     public static final int RECODE_ERR_CODE_SDCARD_FAIL_FOR_MEMORY = 201002;
     public static final int RECODE_ERR_CODE_EZPLAY_NULL = 201003;
+
+    public static final String ACTION_LOTTERY = "LotteryReceiver";
+    public static final String LOTTERY_ROOMID = "lottery_roomId";
+    public static final String LOTTERY_PERIODSNUM = "lottery_periodsNum";
 
     public static void setNettyInfo(String sessionId, String userId, String roomId, boolean isReconnect) {
         UserInfo userInfo = new UserInfo();

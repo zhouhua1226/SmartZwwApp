@@ -163,6 +163,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        Utils.showLogE(TAG, "onDestroyonDestroyonDestroyonDestroy");
         super.onDestroy();
         Utils.isExit = true;
         stopTimer();
@@ -239,7 +240,9 @@ public class MainActivity extends BaseActivity {
                 UserUtils.UserAddress = loginInfoResult.getData().getAppUser().getCNEE_NAME() + " " +
                         loginInfoResult.getData().getAppUser().getCNEE_PHONE() + " " +
                         loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
-                zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID(), false);
+                if (zwwjFragment != null) {
+                    zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID(), false);
+                }
                 Log.e(TAG,"房间长度=" + dollLists.size() + "======" + UserUtils.UserAddress);
                 getDeviceStates();
                 startTimer();
@@ -479,6 +482,7 @@ public class MainActivity extends BaseActivity {
         startTimer();
         getDeviceStates();
         NettyUtils.pingRequest();
+        Utils.showLogE(TAG, "onRestartonRestartonRestart");
     }
 
     @Override

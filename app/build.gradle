@@ -119,5 +119,4 @@ dependencies {
     compile project(':easyysdk')
     compile 'com.youth.banner:banner:1.4.9'
     //最新版本
-    compile files('libs/socket_api_release_v1.0.1.jar')
 }

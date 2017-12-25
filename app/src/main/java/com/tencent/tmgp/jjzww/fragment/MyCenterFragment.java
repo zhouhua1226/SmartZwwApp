@@ -210,8 +210,9 @@ public class MyCenterFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), InformationActivity.class));
                 break;
             case R.id.mycenter_pay_layout:
-                startActivity(new Intent(getContext(), SelectRechargeTypeActiivty.class));
+//                startActivity(new Intent(getContext(), SelectRechargeTypeActiivty.class));
 //                getMoney();
+                startActivity(new Intent(getContext(),WeChatPayActivity.class));
                 break;
             case R.id.mycenter_catchrecord_layout:
                 startActivity(new Intent(getContext(), RecordActivity.class));
@@ -315,18 +316,4 @@ public class MyCenterFragment extends BaseFragment {
         return list;
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder1.unbind();
-    }
 }

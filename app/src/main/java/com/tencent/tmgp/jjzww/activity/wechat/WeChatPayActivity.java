@@ -2,12 +2,11 @@ package com.tencent.tmgp.jjzww.activity.wechat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easy.ysdk.EasyYSDKApi;
@@ -20,6 +19,7 @@ import com.robust.sdk.api.PayCallback;
 import com.robust.sdk.api.RobustApi;
 import com.robust.sdk.data.PayKey;
 import com.tencent.tmgp.jjzww.R;
+import com.tencent.tmgp.jjzww.adapter.WeChatPayAdapter;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
@@ -28,8 +28,13 @@ import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.GifView;
+import com.tencent.tmgp.jjzww.view.SpaceItemDecoration;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,19 +46,14 @@ import butterknife.OnClick;
 public class WeChatPayActivity extends BaseActivity {
     @BindView(R.id.btn_back)
     ImageButton btnBack;
-    @BindView(R.id.amount_tv)
-    EditText amountTv;
-    @BindView(R.id.btn_ok)
-    Button btnOk;
-    @BindView(R.id.wx_ye_tv)
-    TextView wxYeTv;
-    @BindView(R.id.wx_play_btn)
-    Button wxPlayBtn;
     @BindView(R.id.wechatpay_gif_view)
     GifView wechatpayGifView;
+    @BindView(R.id.wechatpay_recyclerview)
+    RecyclerView wechatpayRecyclerview;
     private String TAG = "WeChatPayActivity--";
-    private Intent intent;
-    private String moneyzf;
+    private WeChatPayAdapter weChatPayAdapter;
+    private List<String> mylist;
+
 
     @Override
     protected int getLayoutId() {
@@ -64,23 +64,37 @@ public class WeChatPayActivity extends BaseActivity {
     protected void afterCreate(Bundle savedInstanceState) {
         initView();
         initSDK();
-        intent = getIntent();
-        moneyzf = intent.getStringExtra("money");
-        amountTv.setText(moneyzf);
-        wxYeTv.setText(UserUtils.UserBalance);
+        initData();
         wechatpayGifView.setEnabled(false);
         wechatpayGifView.setMovieResource(R.raw.waitloadinggif);
     }
 
-    @Override
-    protected void initView() {
-        ButterKnife.bind(this);
+    private void initData() {
+        mylist = new ArrayList<String>();
+        for (int i = 0; i < 6; i++) {
+            mylist.add(i + "");
+        }
+        weChatPayAdapter = new WeChatPayAdapter(this, mylist);
+        wechatpayRecyclerview.setLayoutManager(new GridLayoutManager(this, 2));
+        wechatpayRecyclerview.addItemDecoration(new SpaceItemDecoration(15));
+        wechatpayRecyclerview.setAdapter(weChatPayAdapter);
+        weChatPayAdapter.setmOnItemClickListener(new WeChatPayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, String amount) {
+//                    MyToast.getToast(WeChatPayActivity.this, "点击了" + position+"多少"+amount).show();
+//                    String stri =amount.substring(1);
+//                    String s=StringUtils.substringBefore(amount.substring(1),".");
+//                    int i=Integer.valueOf(StringUtils.substringBefore(amount.substring(1),".")).intValue()*100;
+                String str = String.valueOf(Integer.valueOf
+                        (StringUtils.substringBefore(amount.substring(1), ".")).intValue() * 100);
+                wechatpayGifView.setVisibility(View.VISIBLE);
+                getYSDKPay(UserUtils.USER_ID, YsdkUtils.access_token, str);
+            }
+        });
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
+    protected void initView() {
         ButterKnife.bind(this);
     }
 
@@ -110,7 +124,6 @@ public class WeChatPayActivity extends BaseActivity {
             }
         });
         PayReviewer.reviewer();   //通知失败进行重发
-
     }
 
     private void pay(String userId, String accessToken, int amount, String order) {
@@ -132,40 +145,6 @@ public class WeChatPayActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.btn_back, R.id.btn_ok, R.id.wx_play_btn})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_back:
-                this.finish();
-                break;
-            case R.id.btn_ok:
-                wechatpayGifView.setVisibility(View.VISIBLE);
-                moneyzf = amountTv.getText().toString();
-                Log.e(TAG, "获取订单参数userId=" + UserUtils.USER_ID + "accessToken=" + YsdkUtils.access_token + "金额=" + moneyzf);
-                getYSDKPay(UserUtils.USER_ID, YsdkUtils.access_token, moneyzf);
-                break;
-            case R.id.wx_play_btn:
-//                getPlayNum(UserUtils.UserPhone, moneyzf);
-                wxYeTv.setText(UserUtils.UserBalance);
-                break;
-        }
-    }
-
-    private void getUserDate(String userId) {
-        HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<LoginInfo>>() {
-            @Override
-            public void _onSuccess(Result<LoginInfo> result) {
-                Log.e(TAG, "充值后获取余额结果=" + result.getMsg() + result.getData().getAppUser().getBALANCE());
-                UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
-                //MyToast.getToast(getApplicationContext(), moneyzf+"充值成功！").show();
-            }
-
-            @Override
-            public void _onError(Throwable e) {
-            }
-        });
-    }
-
     private void getYSDKPay(String userId, String accessToken, String amount) {
         HttpManager.getInstance().getYSDKPay(userId, accessToken, amount, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
@@ -183,6 +162,12 @@ public class WeChatPayActivity extends BaseActivity {
 
             }
         });
+    }
+
+
+    @OnClick(R.id.btn_back)
+    public void onViewClicked() {
+        finish();
     }
 
     class GamePayCallback implements PayCallback {
@@ -206,8 +191,6 @@ public class WeChatPayActivity extends BaseActivity {
                     Toast.makeText(WeChatPayActivity.this, "erro:" + data == null ? "" : data.toString(), Toast.LENGTH_SHORT).show();
                     break;
             }
-
-
         }
     }
 
@@ -216,7 +199,6 @@ public class WeChatPayActivity extends BaseActivity {
         super.onResume();
         EasyYSDKApi.onResume(this);
     }
-
 
     @Override
     protected void onPause() {
@@ -256,6 +238,4 @@ public class WeChatPayActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         EasyYSDKApi.onActivityResult(requestCode, resultCode, data);
     }
-
-
 }

@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/SmartZwwApp.iml" filepath="$PROJECT_DIR$/SmartZwwApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/easyysdk/easyysdk.iml" filepath="$PROJECT_DIR$/easyysdk/easyysdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easyysdk/easyysdk.iml" filepath="$PROJECT_DIR$/easyysdk/easyysdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/polygonimageview/polygonimageview.iml" filepath="$PROJECT_DIR$/polygonimageview/polygonimageview.iml" />
     </modules>
   </component>

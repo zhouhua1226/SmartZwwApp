@@ -875,10 +875,10 @@ public class CtrlActivity extends Activity implements IctrlView {
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = {
             @Tag(Utils.TAG_LOTTERY_DRAW)})
     public void getConnectStates(LotteryDrawAnnounceMessage message) {
-        String pId = message.getPeriodsNum();
+        //String pId = message.getPeriodsNum();
         List<String> nickNameList = message.getBingoNickNameList();
         if (nickNameList != null) {
-            StringBuffer sBuffer = new StringBuffer("期号" + pId + "中奖名单:");
+            StringBuffer sBuffer = new StringBuffer("恭喜:");
             int count = nickNameList.size();
             if (count > 3) {
                 sBuffer.append(nickNameList.get(0) + "," + nickNameList.get(1) + "," +nickNameList.get(2));
@@ -887,7 +887,9 @@ public class CtrlActivity extends Activity implements IctrlView {
                     sBuffer.append(name);
                     sBuffer.append(",");
                 }
+                sBuffer.deleteCharAt(sBuffer.length()-1);
             }
+            sBuffer.append("猜中");
             MyToast.getToast(getApplicationContext(), sBuffer.toString()).show();
         }
     }

@@ -292,5 +292,13 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
+    //获取充值卡列表
+    public void getPayCardList(Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getPayCardList();
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
 }

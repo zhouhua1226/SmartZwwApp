@@ -294,20 +294,14 @@
 
         <meta-data
             android:name="MANIFEST_META_CHID"
-            android:value="ok0001" />
-        <!--<meta-data-->
-        <!--android:name="MANIFEST_META_CID"-->
-        <!--android:value="0000000056b0f8650156b16198000002" />-->
-
+            android:value="tencent" />
 
         <meta-data
             android:name="MANIFEST_META_CID"
-            android:value="aed34f22d80e430a868c083da0e4de07" />
+            android:value="6f456783a0fe44e28771c08ab63a52f7" />
+        <!-- 正式环境cid= 6f456783a0fe44e28771c08ab63a52f7-->
+        <!-- 测试环境cid= aed34f22d80e430a868c083da0e4de07-->
         <!--配置hx_ysdk组件——End-->
-        <!--正式环境参数-->
-        <!--<meta-data-->
-        <!--android:name="MANIFEST_META_CID"-->
-        <!--android:value="000000005dcac43b015dcac5c3ed0001" />-->
 
         <activity
             android:name=".activity.home.ServiceActivity"

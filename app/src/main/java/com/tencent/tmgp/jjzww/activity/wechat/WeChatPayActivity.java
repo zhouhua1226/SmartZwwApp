@@ -22,6 +22,7 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.adapter.WeChatPayAdapter;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.PayCardBean;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
@@ -52,7 +53,7 @@ public class WeChatPayActivity extends BaseActivity {
     RecyclerView wechatpayRecyclerview;
     private String TAG = "WeChatPayActivity--";
     private WeChatPayAdapter weChatPayAdapter;
-    private List<String> mylist;
+    private List<PayCardBean> mylist;
 
 
     @Override
@@ -65,30 +66,23 @@ public class WeChatPayActivity extends BaseActivity {
         initView();
         initSDK();
         initData();
+        getPayCardList();
         wechatpayGifView.setEnabled(false);
         wechatpayGifView.setMovieResource(R.raw.waitloadinggif);
     }
 
     private void initData() {
-        mylist = new ArrayList<String>();
-        for (int i = 0; i < 6; i++) {
-            mylist.add(i + "");
-        }
+        mylist = new ArrayList<PayCardBean>();
         weChatPayAdapter = new WeChatPayAdapter(this, mylist);
         wechatpayRecyclerview.setLayoutManager(new GridLayoutManager(this, 2));
         wechatpayRecyclerview.addItemDecoration(new SpaceItemDecoration(15));
         wechatpayRecyclerview.setAdapter(weChatPayAdapter);
         weChatPayAdapter.setmOnItemClickListener(new WeChatPayAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position, String amount) {
-//                    MyToast.getToast(WeChatPayActivity.this, "点击了" + position+"多少"+amount).show();
-//                    String stri =amount.substring(1);
-//                    String s=StringUtils.substringBefore(amount.substring(1),".");
-//                    int i=Integer.valueOf(StringUtils.substringBefore(amount.substring(1),".")).intValue()*100;
-                String str = String.valueOf(Integer.valueOf
-                        (StringUtils.substringBefore(amount.substring(1), ".")).intValue() * 100);
+            public void onItemClick(int position) {
                 wechatpayGifView.setVisibility(View.VISIBLE);
-                getYSDKPay(UserUtils.USER_ID, YsdkUtils.access_token, str);
+                int money= Integer.parseInt(mylist.get(position).getAMOUNT())*100;
+                getYSDKPay(UserUtils.USER_ID, YsdkUtils.access_token, String.valueOf(money));
             }
         });
     }
@@ -109,7 +103,7 @@ public class WeChatPayActivity extends BaseActivity {
 
         //add hx_ysdk  初始化
         Bundle initParams = new Bundle();
-        initParams.putString(RobustApi.InitParamsKey.CKEY, "rcWhucD6efT="); //"L0VRoX/sAWg="
+        initParams.putString(RobustApi.InitParamsKey.CKEY, "y3WfBKF1FY4="); //测试环境ckey="rcWhucD6efT="  正式环境ckey="y3WfBKF1FY4="
         RobustApi.init(this, initParams);
 
         //分享初始化
@@ -164,6 +158,25 @@ public class WeChatPayActivity extends BaseActivity {
         });
     }
 
+    //获取充值卡列表
+    public void getPayCardList(){
+        HttpManager.getInstance().getPayCardList(new RequestSubscriber<Result<LoginInfo>>() {
+            @Override
+            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+                Log.e(TAG, "充值卡列表获取结果=" + loginInfoResult.getMsg());
+                if(loginInfoResult.getMsg().equals("success")){
+                    mylist=loginInfoResult.getData().getPaycard();
+                    Log.e(TAG, "充值卡列表获取结果=" + mylist.size());
+                    weChatPayAdapter.notify(mylist);
+                }
+            }
+
+            @Override
+            public void _onError(Throwable e) {
+
+            }
+        });
+    }
 
     @OnClick(R.id.btn_back)
     public void onViewClicked() {

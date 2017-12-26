@@ -64,6 +64,8 @@ public class UrlUtils {
     //完整的URL：http://106.75.142.42:8080/pooh-web/uploadFiles/DollImage/A002201710310002.jpg
     public static final String PICTUREURL = "http://47.100.15.18:8080/pooh-web/uploadFiles/DollImage/";
 
+    //充值卡url
+    public static final String PAYCARDTPURL = "http://47.100.15.18:8080/pooh-web/uploadFiles/paycard/";
     //退出登录
     public static final String LOGOUT=URL+"/pooh-web/app/logout";
 
@@ -139,5 +141,9 @@ public class UrlUtils {
 
     //YSDK版自动登录
     public static final String YSDKAUTHLOGINURL=URL+"/pooh-web/app/tencentAutoLogin";
+
+    //获取充值卡列表
+    public static final String PAYCARDLISTURL=URL+"/pooh-web/pay/getPaycard";
+
 
 }

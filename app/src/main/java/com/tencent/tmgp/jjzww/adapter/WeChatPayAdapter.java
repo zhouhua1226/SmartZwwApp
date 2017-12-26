@@ -9,7 +9,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
+import com.tencent.tmgp.jjzww.bean.PayCardBean;
+import com.tencent.tmgp.jjzww.bean.VideoBackBean;
+import com.tencent.tmgp.jjzww.utils.UrlUtils;
+import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
 
 import java.util.List;
 
@@ -19,16 +24,16 @@ import java.util.List;
 public class WeChatPayAdapter extends RecyclerView.Adapter<WeChatPayAdapter.WeChatPayHolder> {
 
     private Context mContext;
-    private List<String> mDatas;
+    private List<PayCardBean> mDatas;
     private OnItemClickListener mOnItemClickListener;
 
-    public WeChatPayAdapter(Context context, List<String>list){
+    public WeChatPayAdapter(Context context, List<PayCardBean>list){
         this.mContext=context;
         this.mDatas=list;
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position, String string);
+        void onItemClick(int position);
     }
 
     @Override
@@ -41,49 +46,16 @@ public class WeChatPayAdapter extends RecyclerView.Adapter<WeChatPayAdapter.WeCh
     @Override
     public void onBindViewHolder(final WeChatPayHolder holder, final int position) {
 
-        switch (mDatas.get(position)){
-            case "0":
-                break;
-            case "1":
-                holder.discount_image.setImageResource(R.drawable.wechatpay_item_discount9);
-                holder.gold_layout.setBackgroundResource(R.drawable.wechatpay_item_gold2);
-                holder.amount_tv.setText("¥30.00");
-                holder.quantity_tv.setText("335");
-
-                break;
-            case "2":
-                holder.discount_image.setImageResource(R.drawable.wechatpay_item_discount68);
-                holder.gold_layout.setBackgroundResource(R.drawable.wechatpay_item_gold3);
-                holder.amount_tv.setText("¥68.00");
-                holder.quantity_tv.setText("800");
-                break;
-            case "3":
-                holder.discount_image.setImageResource(R.drawable.wechatpay_item_discount8);
-                holder.gold_layout.setBackgroundResource(R.drawable.wechatpay_item_gold4);
-                holder.amount_tv.setText("¥128.00");
-                holder.quantity_tv.setText("1600");
-                break;
-            case "4":
-                holder.discount_image.setImageResource(R.drawable.wechatpay_item_discount75);
-                holder.gold_layout.setBackgroundResource(R.drawable.wechatpay_item_gold5);
-                holder.amount_tv.setText("¥328.00");
-                holder.quantity_tv.setText("4375");
-                break;
-            case "5":
-                holder.discount_image.setImageResource(R.drawable.wechatpay_item_discount7);
-                holder.gold_layout.setBackgroundResource(R.drawable.wechatpay_item_gold6);
-                holder.amount_tv.setText("¥648.00");
-                holder.quantity_tv.setText("9260");
-                break;
-            default:
-                break;
-        }
+        Glide.with(mContext)
+                .load(UrlUtils.PICTUREURL+mDatas.get(position).getIMAGEURL())
+                .dontAnimate()
+                .into(holder.paycard_image);
 
         if (mOnItemClickListener!=null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(position,holder.amount_tv.getText().toString());
+                    mOnItemClickListener.onItemClick(position);
                 }
             });
 
@@ -97,19 +69,20 @@ public class WeChatPayAdapter extends RecyclerView.Adapter<WeChatPayAdapter.WeCh
     }
 
     class WeChatPayHolder extends RecyclerView.ViewHolder{
-        private ImageView discount_image;//折扣
-        private RelativeLayout gold_layout;//背景
-        private TextView quantity_tv;//数量
-        private TextView amount_tv;//钱
+        private ImageView paycard_image;
 
         public WeChatPayHolder(View itemView) {
             super(itemView);
-            discount_image= (ImageView) itemView.findViewById(R.id.discount_image);
-            gold_layout= (RelativeLayout) itemView.findViewById(R.id.gold_layout);
-            quantity_tv= (TextView) itemView.findViewById(R.id.quantity_tv);
-            amount_tv= (TextView) itemView.findViewById(R.id.amount_tv);
+            paycard_image= (ImageView) itemView.findViewById(R.id.paycard_image);
+
         }
     }
+
+    public void notify(List<PayCardBean> lists) {
+        this.mDatas = lists;
+        notifyDataSetChanged();
+    }
+
     public void setmOnItemClickListener(OnItemClickListener clickListener) {
         this.mOnItemClickListener = clickListener;
     }

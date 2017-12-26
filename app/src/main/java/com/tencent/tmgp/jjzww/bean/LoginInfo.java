@@ -18,6 +18,15 @@ public class LoginInfo implements Serializable{
     private VideoBackBean playBack;
     private List<ExChangeMoneyBean> conversionList;
     private OrderBean Order;
+    private List<PayCardBean> paycard;
+
+    public List<PayCardBean> getPaycard() {
+        return paycard;
+    }
+
+    public void setPaycard(List<PayCardBean> paycard) {
+        this.paycard = paycard;
+    }
 
     public OrderBean getOrder() {
         return Order;

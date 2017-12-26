@@ -181,7 +181,7 @@ public class LoginActivity extends BaseActivity {
 
         //add hx_ysdk  初始化
         Bundle initParams = new Bundle();
-        initParams.putString(RobustApi.InitParamsKey.CKEY, "rcWhucD6efT="); //"L0VRoX/sAWg="
+        initParams.putString(RobustApi.InitParamsKey.CKEY, "y3WfBKF1FY4="); //测试环境ckey="rcWhucD6efT="  正式环境ckey="y3WfBKF1FY4="
         RobustApi.init(this, initParams);
 
         //分享初始化
@@ -254,7 +254,7 @@ public class LoginActivity extends BaseActivity {
     class GameLoginCallback implements LoginCallback {
         @Override
         public void onCompelete(int code, JSONObject data) {
-            Log.e(TAG, "QQWX登录=" + data);
+            Log.e(TAG, "YSDK登录回调=" + data);
             if (code == LoginCallback.SUCCESS) {
                 //登录成功
                 JSONObject obj = data.optJSONObject("data");
@@ -269,13 +269,11 @@ public class LoginActivity extends BaseActivity {
                 getYSDKLogin(YsdkUtils.uid, YsdkUtils.access_token, YsdkUtils.nickName, YsdkUtils.imageUrl);
             } else if (code == LoginCallback.FAIL) {
                 //登录失败
-                if (progressDialog != null)
-                    progressDialog.dismiss();
+                loginLoadingGv.setVisibility(View.GONE);
                 MyToast.getToast(getApplicationContext(), "拉取第三方登录失败!").show();
             } else {
                 //登录异常
-                if (progressDialog != null)
-                    progressDialog.dismiss();
+                loginLoadingGv.setVisibility(View.GONE);
                 MyToast.getToast(getApplicationContext(), "拉取第三方登录异常!").show();
             }
         }
@@ -328,9 +326,8 @@ public class LoginActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    if (progressDialog != null)
-                        progressDialog.dismiss();
-                    MyToast.getToast(getApplicationContext(), "APP后台返回失败!").show();
+                    loginLoadingGv.setVisibility(View.GONE);
+                    MyToast.getToast(getApplicationContext(), "登录失败!").show();
                 }
 
             }

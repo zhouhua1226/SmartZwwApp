@@ -1,47 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="165dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/wechatpay_item_bg">
+    >
 
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/wechatpay_item_discount95"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/discount_image" />
-
-        <RelativeLayout
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/wechatpay_item_gold1"
-            android:id="@+id/gold_layout"
-            android:layout_centerInParent="true">
-
-            <TextView
-                android:id="@+id/quantity_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="65"
-                android:textColor="@color/black"
-                android:layout_marginEnd="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true" />
-
-        </RelativeLayout>
-
-
-    <TextView
-        android:id="@+id/amount_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="￥6.00"
-        android:textColor="@color/black"
-        android:layout_below="@+id/discount_image"
-        android:layout_toStartOf="@+id/discount_image"
-        android:layout_marginTop="20dp" />
+        android:src="@drawable/paycard_six"
+        android:id="@+id/paycard_image" />
 
 
 </RelativeLayout>

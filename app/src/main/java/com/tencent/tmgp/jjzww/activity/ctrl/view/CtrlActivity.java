@@ -303,6 +303,7 @@ public class CtrlActivity extends Activity implements IctrlView {
             btn_mediaPlayer.release();
             btn_mediaPlayer = null;
         }
+        release();
     }
 
     @Override
@@ -392,6 +393,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     protected void onStop() {
         super.onStop();
         ctrlCompl.stopPlayVideo();
+        release();  //释放录屏
     }
 
     @Override
@@ -1096,7 +1098,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                     recordVirtualDisplay();
 
                 } finally {
-                    release();
+                    //release();
                 }
             }
         }.start();

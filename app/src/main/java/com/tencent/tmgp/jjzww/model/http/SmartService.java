@@ -265,4 +265,9 @@ public interface SmartService {
             @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken
     );
 
+    //获取充值卡列表
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @GET(UrlUtils.PAYCARDLISTURL)
+    Observable<Result<LoginInfo>> getPayCardList();
+
 }

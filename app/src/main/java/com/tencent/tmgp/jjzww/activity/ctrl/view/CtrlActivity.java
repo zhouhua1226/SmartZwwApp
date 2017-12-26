@@ -1075,10 +1075,11 @@ public class CtrlActivity extends Activity implements IctrlView {
         projectionManager = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mediaProjection = projectionManager.getMediaProjection(resultCode,data);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mediaProjection = projectionManager.getMediaProjection(resultCode,data);
+        }
         new Thread() {
             @Override
             public void run() {
@@ -1087,14 +1088,18 @@ public class CtrlActivity extends Activity implements IctrlView {
                         prepareEncoder();
                         File file = new File(UserUtils.RECODE_URL, upTime+ ".mp4");
                         filePath = file.getAbsolutePath();
-                        mediaMuxer = new MediaMuxer(filePath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                            mediaMuxer = new MediaMuxer(filePath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
+                        }
 
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    virtualDisplay = mediaProjection.createVirtualDisplay(TAG + "-display",
-                            width, height, dpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_PUBLIC,
-                            surface, null, null);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        virtualDisplay = mediaProjection.createVirtualDisplay(TAG + "-display",
+                                width, height, dpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_PUBLIC,
+                                surface, null, null);
+                    }
                     recordVirtualDisplay();
 
                 } finally {
@@ -1119,9 +1124,11 @@ public class CtrlActivity extends Activity implements IctrlView {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void encodeToVideoTrack(int index) {
-        ByteBuffer encodedData = mediaCodec.getOutputBuffer(index);
+        ByteBuffer encodedData = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            encodedData = mediaCodec.getOutputBuffer(index);
+        }
 
         if ((bufferInfo.flags & MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != 0) {
             bufferInfo.size = 0;
@@ -1132,19 +1139,21 @@ public class CtrlActivity extends Activity implements IctrlView {
         if (encodedData != null) {
             encodedData.position(bufferInfo.offset);
             encodedData.limit(bufferInfo.offset + bufferInfo.size);
-            mediaMuxer.writeSampleData(videoTrackIndex, encodedData, bufferInfo);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                mediaMuxer.writeSampleData(videoTrackIndex, encodedData, bufferInfo);
+            }
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void resetOutputFormat() {
         MediaFormat newFormat = mediaCodec.getOutputFormat();
-        videoTrackIndex = mediaMuxer.addTrack(newFormat);
-        mediaMuxer.start();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            videoTrackIndex = mediaMuxer.addTrack(newFormat);
+            mediaMuxer.start();
+        }
         muxerStarted = true;
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void prepareEncoder() throws IOException {
         MediaFormat format = MediaFormat.createVideoFormat("video/avc", width, height);
         format.setInteger(MediaFormat.KEY_COLOR_FORMAT,
@@ -1155,14 +1164,18 @@ public class CtrlActivity extends Activity implements IctrlView {
 
         mediaCodec = MediaCodec.createEncoderByType("video/avc");
         mediaCodec.configure(format, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE);
-        surface = mediaCodec.createInputSurface();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            surface = mediaCodec.createInputSurface();
+        }
         mediaCodec.start();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     public void StartRecorder() {
         Utils.showLogE(TAG, "视频开始录制时间::::" + upTime + "=====" );
-        startActivityForResult(projectionManager.createScreenCaptureIntent(),RECORDER_CODE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivityForResult(projectionManager.createScreenCaptureIntent(),RECORDER_CODE);
+        }
     }
 
     public void StopRecorder() {
@@ -1171,7 +1184,6 @@ public class CtrlActivity extends Activity implements IctrlView {
         //Toast.makeText(this, "Recorder stop", Toast.LENGTH_SHORT).show();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void release() {
         if (mediaCodec != null) {
             mediaCodec.stop();
@@ -1179,13 +1191,19 @@ public class CtrlActivity extends Activity implements IctrlView {
             mediaCodec = null;
         }
         if (virtualDisplay != null) {
-            virtualDisplay.release();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                virtualDisplay.release();
+            }
         }
         if (mediaProjection != null) {
-            mediaProjection.stop();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mediaProjection.stop();
+            }
         }
         if (mediaMuxer != null) {
-            mediaMuxer.release();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                mediaMuxer.release();
+            }
             mediaMuxer = null;
         }
     }

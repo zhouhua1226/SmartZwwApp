@@ -152,6 +152,7 @@ public class MyCenterFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         Log.e("<<<<<<<<<<<<","个人中心userId="+UserUtils.USER_ID);
+        if(YsdkUtils.loginResult!=null)
         getUserDate(YsdkUtils.loginResult.getData().getAppUser().getUSER_ID());
     }
 

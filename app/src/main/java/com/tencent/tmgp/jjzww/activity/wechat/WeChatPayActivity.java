@@ -67,8 +67,7 @@ public class WeChatPayActivity extends BaseActivity {
         initSDK();
         initData();
         getPayCardList();
-        wechatpayGifView.setEnabled(false);
-        wechatpayGifView.setMovieResource(R.raw.waitloadinggif);
+
     }
 
     private void initData() {
@@ -90,6 +89,9 @@ public class WeChatPayActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        wechatpayGifView.setEnabled(false);
+        wechatpayGifView.setMovieResource(R.raw.waitloadinggif);
+        wechatpayGifView.setVisibility(View.VISIBLE);
     }
 
     //初始化sdk
@@ -165,15 +167,18 @@ public class WeChatPayActivity extends BaseActivity {
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
                 Log.e(TAG, "充值卡列表获取结果=" + loginInfoResult.getMsg());
                 if(loginInfoResult.getMsg().equals("success")){
+                    wechatpayGifView.setVisibility(View.GONE);
                     mylist=loginInfoResult.getData().getPaycard();
                     Log.e(TAG, "充值卡列表获取结果=" + mylist.size());
                     weChatPayAdapter.notify(mylist);
+                }else {
+                    wechatpayGifView.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void _onError(Throwable e) {
-
+                wechatpayGifView.setVisibility(View.GONE);
             }
         });
     }
@@ -186,7 +191,7 @@ public class WeChatPayActivity extends BaseActivity {
     class GamePayCallback implements PayCallback {
         @Override
         public void onCompelete(int code, JSONObject data) {
-            Toast.makeText(WeChatPayActivity.this, TAG + code + ":" + data.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(WeChatPayActivity.this, TAG + code + ":" + data.toString(), Toast.LENGTH_SHORT).show();
             switch (code) {
                 case PayCallback.FAIL:
                     Log.e(TAG, "米大师支付结果=" + "支付失败");

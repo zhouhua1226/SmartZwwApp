@@ -90,8 +90,8 @@ public class ZWWJFragment extends BaseFragment {
                 playBackBeanList = listRankBeanResult.getData().getPlayback();
                 for (int i = 0; i < playBackBeanList.size(); i++) {
                     Marquee marquee = new Marquee();
-                    String s = "恭喜" + "<font color='#FF0000'>" + playBackBeanList.get(i).getUSERNAME() + "</font>"
-                            + "用户抓中一个" + playBackBeanList.get(i).getDOLLNAME();
+                    String s = "恭喜" + "<font color='#FF0000'>" + playBackBeanList.get(i).getNICKNAME() + "</font>"
+                            + "用户抓中一个" + playBackBeanList.get(i).getDOLL_NAME();
                     marquee.setTitle(s);
                     marquee.setImgUrl(UrlUtils.USERFACEIMAGEURL + playBackBeanList.get(i).getIMAGE_URL());
                     marquees.add(marquee);

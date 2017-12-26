@@ -139,8 +139,8 @@ public class HttpManager {
     }
 
     //视屏上传
-    public void getRegPlayBack(String time,String nickname,String state,String dollname,Subscriber<Result<LoginInfo>> subscriber){
-        Observable<Result<LoginInfo>> o= smartService.getRegPlayBack(time,nickname,state,dollname);
+    public void getRegPlayBack(String time,String userId,String state,String dollId,String guessId,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o= smartService.getRegPlayBack(time,userId,state,dollId,guessId);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -148,8 +148,8 @@ public class HttpManager {
     }
 
     //获取视频回放列表
-    public void getVideoBackList(String userName,Subscriber<Result<LoginInfo>> subscriber){
-        Observable<Result<LoginInfo>> o= smartService.getVideoBackList(userName);
+    public void getVideoBackList(String userId,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o= smartService.getVideoBackList(userId);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -230,8 +230,8 @@ public class HttpManager {
     }
 
     //兑换游戏币
-    public void getExChangeWWB(String id,String dollName,String number,String userId,Subscriber<Result<LoginInfo>> subscriber){
-        Observable<Result<LoginInfo>> o =smartService.getExchangeWWB(id,dollName,number,userId);
+    public void getExChangeWWB(String id,String dollId,String number,String userId,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getExchangeWWB(id,dollId,number,userId);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

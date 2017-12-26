@@ -18,6 +18,7 @@ import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.home.InformationActivity;
+import com.tencent.tmgp.jjzww.activity.home.MyCtachRecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.RecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.RecordGameActivty;
 import com.tencent.tmgp.jjzww.activity.home.RecordGameTwoActivity;
@@ -215,7 +216,7 @@ public class MyCenterFragment extends BaseFragment {
                 startActivity(new Intent(getContext(),WeChatPayActivity.class));
                 break;
             case R.id.mycenter_catchrecord_layout:
-                startActivity(new Intent(getContext(), RecordActivity.class));
+                startActivity(new Intent(getContext(), MyCtachRecordActivity.class));
                 break;
             case R.id.user_name:
                 //此处添加登录dialog
@@ -261,59 +262,59 @@ public class MyCenterFragment extends BaseFragment {
         }
     };
 
-    private void getVideoBackList(String userName) {
-        HttpManager.getInstance().getVideoBackList(userName, new RequestSubscriber<Result<LoginInfo>>() {
-            @Override
-            public void _onSuccess(Result<LoginInfo> result) {
-                videoList = result.getData().getPlayback();
-                videoReList = result.getData().getDollCount();
-                Utils.showLogE("mycenter记录列表", "result=" + result.getMsg() + "=" + videoList.size());
-                if (videoList.size() != 0) {
-                    userNumber.setText("累积抓中" + videoList.get(0).getDOLLTOTAL() + "次");
-                    mycenterNoneTv.setVisibility(View.GONE);
-                    //myCenterAdapter.notify(getCatchNum(removeDuplicate(videoList),videoReList));
-                    myCenterAdapter.notify(videoList);
-                } else {
-                    Utils.showLogE("个人中心", "暂无数据");
-                    mycenterRecyclerview.setVisibility(View.GONE);
-                    mycenterNoneTv.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void _onError(Throwable e) {
-
-            }
-        });
-    }
-
-    //记录数据重组   11/28 17:55
-    private List<VideoBackBean> getCatchNum(List<VideoBackBean> list, List<VideoBackBean> reList) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDOLLNAME().equals(reList.get(i).getDOLLNAME())) {
-                list.get(i).setCOUNT(reList.get(i).getCOUNT());
-            } else {
-                for (int j = 0; j < reList.size(); j++) {
-                    if (reList.get(j).getDOLLNAME().equals(list.get(i).getDOLLNAME())) {
-                        list.get(i).setCOUNT(reList.get(j).getCOUNT());
-                    }
-                }
-            }
-        }
-        return list;
-    }
-
-    //记录重复赛选
-    public List<VideoBackBean> removeDuplicate(List<VideoBackBean> list) {
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int j = list.size() - 1; j > i; j--) {
-                if (list.get(j).getDOLLNAME().equals(list.get(i).getDOLLNAME())) {
-                    list.remove(j);
-                }
-            }
-        }
-
-        return list;
-    }
+//    private void getVideoBackList(String userName) {
+//        HttpManager.getInstance().getVideoBackList(userName, new RequestSubscriber<Result<LoginInfo>>() {
+//            @Override
+//            public void _onSuccess(Result<LoginInfo> result) {
+//                videoList = result.getData().getPlayback();
+//                videoReList = result.getData().getDollCount();
+//                Utils.showLogE("mycenter记录列表", "result=" + result.getMsg() + "=" + videoList.size());
+//                if (videoList.size() != 0) {
+//                    userNumber.setText("累积抓中" + videoList.get(0).getDOLLTOTAL() + "次");
+//                    mycenterNoneTv.setVisibility(View.GONE);
+//                    //myCenterAdapter.notify(getCatchNum(removeDuplicate(videoList),videoReList));
+//                    myCenterAdapter.notify(videoList);
+//                } else {
+//                    Utils.showLogE("个人中心", "暂无数据");
+//                    mycenterRecyclerview.setVisibility(View.GONE);
+//                    mycenterNoneTv.setVisibility(View.VISIBLE);
+//                }
+//            }
+//
+//            @Override
+//            public void _onError(Throwable e) {
+//
+//            }
+//        });
+//    }
+//
+//    //记录数据重组   11/28 17:55
+//    private List<VideoBackBean> getCatchNum(List<VideoBackBean> list, List<VideoBackBean> reList) {
+//        for (int i = 0; i < list.size(); i++) {
+//            if (list.get(i).getDOLLNAME().equals(reList.get(i).getDOLLNAME())) {
+//                list.get(i).setCOUNT(reList.get(i).getCOUNT());
+//            } else {
+//                for (int j = 0; j < reList.size(); j++) {
+//                    if (reList.get(j).getDOLLNAME().equals(list.get(i).getDOLLNAME())) {
+//                        list.get(i).setCOUNT(reList.get(j).getCOUNT());
+//                    }
+//                }
+//            }
+//        }
+//        return list;
+//    }
+//
+//    //记录重复赛选
+//    public List<VideoBackBean> removeDuplicate(List<VideoBackBean> list) {
+//        for (int i = 0; i < list.size() - 1; i++) {
+//            for (int j = list.size() - 1; j > i; j--) {
+//                if (list.get(j).getDOLLNAME().equals(list.get(i).getDOLLNAME())) {
+//                    list.remove(j);
+//                }
+//            }
+//        }
+//
+//        return list;
+//    }
 
 }

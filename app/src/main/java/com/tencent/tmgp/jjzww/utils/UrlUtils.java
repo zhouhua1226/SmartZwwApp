@@ -85,7 +85,6 @@ public class UrlUtils {
     //消费接口
     public static final String USERPLAYURL = URL + "/pooh-web/pay/costBalance";
 
-
     //listRank
     public static final String LISTRANKURL = URL + "/pooh-web/rank/rankList";
 

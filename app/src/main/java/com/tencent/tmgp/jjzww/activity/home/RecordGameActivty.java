@@ -92,8 +92,8 @@ public class RecordGameActivty extends BaseActivity {
 
 
     private void initData() {
-        nameTv.setText(videoBackBean.getDOLLNAME());
-        timesTv.setText(Utils.getTime(videoBackBean.getCREATETIME()));
+        nameTv.setText(videoBackBean.getDOLL_NAME());
+        timesTv.setText(Utils.getTime(videoBackBean.getCAMERA_DATE()));
         mydollNumTv.setText("1");
         mydollExchangenumTv.setText(videoBackBean.getCONVERSIONGOLD() + "");
         mydollIdTv.setText(videoBackBean.getID() + "");
@@ -132,7 +132,7 @@ public class RecordGameActivty extends BaseActivity {
                 this.finish();
                 break;
             case R.id.image_service:
-                MyToast.getToast(this, "我是客服按钮").show();
+                startActivity(new Intent(RecordGameActivty.this,MyCtachRecordActivity.class));
                 break;
             case R.id.gamemoney_button:
                 //兑换游戏币
@@ -144,7 +144,7 @@ public class RecordGameActivty extends BaseActivity {
                     @Override
                     public void getResult(int resultCode) {
                         if (1 == resultCode) {// 确定
-                            getExChangeWWB(String.valueOf(videoBackBean.getID()),videoBackBean.getDOLLNAME(),"1", UserUtils.USER_ID);
+                            getExChangeWWB(String.valueOf(videoBackBean.getID()),videoBackBean.getDOLLID(),"1", UserUtils.USER_ID);
                         }else {
                             MyToast.getToast(getApplicationContext(),"兑换取消!").show();
                         }
@@ -165,12 +165,12 @@ public class RecordGameActivty extends BaseActivity {
 
     private void getViewChange(){
         //0:寄存   1:发货   2:兑换游戏币
-        if (videoBackBean.getPOSTSTATE().equals("0")) {
+        if (videoBackBean.getPOST_STATE().equals("0")) {
             mydollStateTv.setText("寄存中");
             nonesendLayout.setVisibility(View.VISIBLE);
             sendLayout.setVisibility(View.GONE);
             exchangedTv.setVisibility(View.GONE);
-        } else if(videoBackBean.getPOSTSTATE().equals("1")){
+        } else if(videoBackBean.getPOST_STATE().equals("1")){
             mydollStateTv.setText("已发货");
             nonesendLayout.setVisibility(View.GONE);
             sendLayout.setVisibility(View.VISIBLE);
@@ -181,7 +181,7 @@ public class RecordGameActivty extends BaseActivity {
             sendaddressTv.setText("地址："+consigneeBean.getAddress());
             sendremarkTv.setText("备注："+consigneeBean.getRemark());
 
-        } else if(videoBackBean.getPOSTSTATE().equals("2")){
+        } else if(videoBackBean.getPOST_STATE().equals("2")){
             mydollStateTv.setText("已兑换");
             nonesendLayout.setVisibility(View.GONE);
             sendLayout.setVisibility(View.GONE);
@@ -206,8 +206,8 @@ public class RecordGameActivty extends BaseActivity {
         }
     }
 
-    private void getExChangeWWB(String id,String dollName,String number,String userId){
-        HttpManager.getInstance().getExChangeWWB(id, dollName, number, userId, new RequestSubscriber<Result<LoginInfo>>() {
+    private void getExChangeWWB(String id,String dollId,String number,String userId){
+        HttpManager.getInstance().getExChangeWWB(id, dollId, number, userId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
                 Log.e(TAG,"兑换结果="+loginInfoResult.getMsg());

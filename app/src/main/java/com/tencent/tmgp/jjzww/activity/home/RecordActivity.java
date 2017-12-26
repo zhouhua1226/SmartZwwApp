@@ -42,7 +42,7 @@ public class RecordActivity extends BaseActivity {
     TextView cecordFailTv;
 
     private RecordAdapter recordAdapter;
-    private String userName = "";
+    private String userId = "";
     private List<VideoBackBean> listVideo = new ArrayList<>();
 
     //我的主娃娃记录
@@ -56,11 +56,11 @@ public class RecordActivity extends BaseActivity {
         initView();
         initdata();
         onClick();
-        getVideoBackList(userName);
+        getVideoBackList(userId);
     }
 
     private void initdata() {
-        userName = UserUtils.NickName;
+        userId = UserUtils.USER_ID;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recodeRecyclerview.setLayoutManager(linearLayoutManager);
         recodeRecyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -92,8 +92,8 @@ public class RecordActivity extends BaseActivity {
     }
 
 
-    private void getVideoBackList(String userName) {
-        HttpManager.getInstance().getVideoBackList(userName, new RequestSubscriber<Result<LoginInfo>>() {
+    private void getVideoBackList(String userId) {
+        HttpManager.getInstance().getVideoBackList(userId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> result) {
                 listVideo = result.getData().getPlayback();
@@ -119,7 +119,7 @@ public class RecordActivity extends BaseActivity {
         @Override
         public void onItemClick(int position) {
             Intent intent = new Intent(RecordActivity.this, VideoPlayBackActivity.class);
-            intent.putExtra("time", listVideo.get(position).getCREATETIME());
+            intent.putExtra("time", listVideo.get(position).getCAMERA_DATE());
             startActivity(intent);
         }
     };

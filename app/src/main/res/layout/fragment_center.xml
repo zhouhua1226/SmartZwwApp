@@ -183,7 +183,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:gravity="center"
-            android:text="   抓娃娃记录"
+            android:text="   娃娃邮寄"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:drawableLeft="@drawable/mycenter_record"

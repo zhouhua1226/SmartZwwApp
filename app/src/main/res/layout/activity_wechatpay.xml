@@ -39,7 +39,7 @@
         android:layout_below="@+id/wechatpay_top_layout"
         android:scrollbars="none"
         android:overScrollMode="never"
-        android:layout_marginTop="120dp"/>
+        android:layout_marginTop="70dp"/>
 
     <com.tencent.tmgp.jjzww.view.GifView
         android:id="@+id/wechatpay_gif_view"

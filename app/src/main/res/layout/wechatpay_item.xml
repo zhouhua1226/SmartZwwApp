@@ -18,8 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/wechatpay_item_gold1"
             android:id="@+id/gold_layout"
-            android:layout_alignBottom="@+id/discount_image"
-            android:layout_centerHorizontal="true">
+            android:layout_centerInParent="true">
 
             <TextView
                 android:id="@+id/quantity_tv"
@@ -27,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="65"
                 android:textColor="@color/black"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true" />
 
@@ -40,9 +39,9 @@
         android:layout_height="wrap_content"
         android:text="￥6.00"
         android:textColor="@color/black"
-        android:layout_below="@+id/gold_layout"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/discount_image"
+        android:layout_toStartOf="@+id/discount_image"
+        android:layout_marginTop="20dp" />
 
 
 </RelativeLayout>

@@ -110,9 +110,10 @@ public interface SmartService {
     @POST(UrlUtils.UPLOADURL)
     Observable<Result<LoginInfo>> getRegPlayBack(
             @Field(UrlUtils.TIME) String time,
-            @Field(UrlUtils.NICKNANME) String nickName,
+            @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.STATE) String state,
-            @Field(UrlUtils.DOLLNAME) String dollname
+            @Field(UrlUtils.DOLLID) String dollId,
+            @Field(UrlUtils.GUESSID) String guessId
 
 
     );
@@ -122,7 +123,7 @@ public interface SmartService {
     @FormUrlEncoded
     @POST(UrlUtils.VIDEOBACKURL)
     Observable<Result<LoginInfo>> getVideoBackList(
-            @Field(UrlUtils.NICKNANME) String name
+            @Field(UrlUtils.USERID) String userId
     );
 
     //获取房间用户头像
@@ -196,7 +197,7 @@ public interface SmartService {
             @Field(UrlUtils.SENDGOODSNUM) String number,
             @Field(UrlUtils.SENDGOODSSHXX) String consignee,
             @Field(UrlUtils.SENDGOODSREMARK) String remark,
-            @Field(UrlUtils.SENDGOODSUSERID) String userID
+            @Field(UrlUtils.SENDGOODSUSERID) String userId
     );
 
     //兑换游戏币
@@ -205,9 +206,9 @@ public interface SmartService {
     @POST(UrlUtils.EXCHANGEURL)
     Observable<Result<LoginInfo>>getExchangeWWB(
             @Field(UrlUtils.SENDGOODSID) String id,
-            @Field(UrlUtils.DOLLNAME) String dollName,
+            @Field(UrlUtils.DOLLID) String dollId,
             @Field(UrlUtils.SENDGOODSNUM) String number,
-            @Field(UrlUtils.USERID) String userID
+            @Field(UrlUtils.USERID) String userId
     );
 
     //兑换记录列表

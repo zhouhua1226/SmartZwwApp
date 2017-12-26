@@ -76,8 +76,8 @@ public class ConsignmentActivity extends BaseActivity {
 
     private void initData(){
         videoBackBean=(VideoBackBean) getIntent().getExtras().getSerializable("sqfh");
-        nameTv.setText(videoBackBean.getDOLLNAME());
-        timesTv.setText(Utils.getTime(videoBackBean.getCREATETIME()));
+        nameTv.setText(videoBackBean.getDOLL_NAME());
+        timesTv.setText(Utils.getTime(videoBackBean.getCAMERA_DATE()));
         if(!Utils.isEmpty(UserUtils.UserAddress)) {
             informationTv.setText(UserUtils.UserAddress);
         }else {

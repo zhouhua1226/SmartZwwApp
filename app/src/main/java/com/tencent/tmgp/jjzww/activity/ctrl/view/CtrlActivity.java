@@ -1,15 +1,29 @@
 package com.tencent.tmgp.jjzww.activity.ctrl.view;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.hardware.display.DisplayManager;
+import android.hardware.display.VirtualDisplay;
 import android.media.AudioManager;
+import android.media.MediaCodec;
+import android.media.MediaCodecInfo;
+import android.media.MediaFormat;
+import android.media.MediaMuxer;
 import android.media.MediaPlayer;
+import android.media.projection.MediaProjection;
+import android.media.projection.MediaProjectionManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.gatz.netty.global.AppGlobal;
@@ -56,8 +71,12 @@ import com.tencent.tmgp.jjzww.view.QuizInstrictionDialog;
 import com.tencent.tmgp.jjzww.view.TimeCircleProgressView;
 import com.tencent.tmgp.jjzww.view.VibratorView;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -129,13 +148,11 @@ public class CtrlActivity extends Activity implements IctrlView {
     @BindView(R.id.ctrl_betting_number_layout)
     LinearLayout ctrlBettingNumberLayout;
     @BindView(R.id.ctrl_betting_winning)
-    Button ctrlBettingWinning;
+    ImageButton ctrlBettingWinning;
     @BindView(R.id.ctrl_betting_fail)
-    Button ctrlBettingFail;
-    @BindView(R.id.ctrl_dollgold_tv1)
-    TextView ctrlDollgoldTv1;
+    ImageButton ctrlBettingFail;
     @BindView(R.id.ctrl_confirm_layout)
-    LinearLayout ctrlConfirmLayout;
+    Button ctrlConfirmLayout;
     @BindView(R.id.ctrl_beting_layout)
     RelativeLayout ctrlBetingLayout;
     @BindView(R.id.player_layout)
@@ -180,6 +197,23 @@ public class CtrlActivity extends Activity implements IctrlView {
     private MediaPlayer mediaPlayer;
     private MediaPlayer btn_mediaPlayer;
 
+    //录屏
+    private static final int RECORDER_CODE = 0;
+    int width;
+    int height;
+    int dpi;
+    MediaProjectionManager projectionManager;
+    MediaProjection mediaProjection;
+    MediaCodec mediaCodec;
+    MediaMuxer mediaMuxer;
+    Surface surface;
+    VirtualDisplay virtualDisplay;
+    private MediaCodec.BufferInfo bufferInfo = new MediaCodec.BufferInfo();
+    private int videoTrackIndex = -1;
+    String filePath;
+    private AtomicBoolean mQuit = new AtomicBoolean(false);
+    private boolean muxerStarted = false;
+
     static {
         System.loadLibrary("SmartPlayer");
     }
@@ -205,6 +239,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         initData();
         coinTv.setText("  " + UserUtils.UserBalance);
         setVibrator();   //初始化振动器
+        initScreenRecord();   //初始化录屏
     }
 
     protected void initView() {
@@ -236,7 +271,7 @@ public class CtrlActivity extends Activity implements IctrlView {
             dollNameTv.setText(dollName);
         }
         ctrlDollgoldTv.setText(money + "/次");
-        ctrlDollgoldTv1.setText(money + "/次");//下注金额
+        ctrlConfirmLayout.setText(money + "/次");   //下注金额
         playerNameTv.setText(UserUtils.NickName);
         setStartMode(getIntent().getBooleanExtra(Utils.TAG_ROOM_STATUS, true));
         ctrlQuizLayout.setEnabled(false);
@@ -415,6 +450,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                     if ((Utils.connectStatus.equals(ConnectResultEvent.CONNECT_SUCCESS))
                             && (isCurrentConnect)) {
                         ctrlCompl.sendCmdCtrl(MoveType.START);
+                        upTime=Utils.getTime();
+                        StartRecorder();
                         coinTv.setText("  " + (Integer.parseInt(UserUtils.UserBalance) - money) + "");
                         isStart = true;
                     }
@@ -442,14 +479,14 @@ public class CtrlActivity extends Activity implements IctrlView {
 
             case R.id.ctrl_betting_winning:
                 zt = "1";
-                ctrlBettingWinning.setBackgroundResource(R.drawable.ctrl_betting_item);
-                ctrlBettingFail.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);
+                ctrlBettingFail.setImageResource(R.drawable.ctrl_guess_unselect_bz);
+                ctrlBettingWinning.setImageResource(R.drawable.ctrl_guess_select_z);
                 //中
                 break;
             case R.id.ctrl_betting_fail:
                 zt = "0";
-                ctrlBettingFail.setBackgroundResource(R.drawable.ctrl_betting_item);
-                ctrlBettingWinning.setBackgroundResource(R.drawable.fillingcureency_dialog_gray);
+                ctrlBettingFail.setImageResource(R.drawable.ctrl_guess_select_bz);
+                ctrlBettingWinning.setImageResource(R.drawable.ctrl_guess_unselect_z);
                 //不中
                 break;
             case R.id.ctrl_confirm_layout:
@@ -723,6 +760,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                     getWorkstation();
                     ctrlCompl.startRecordVideo();
                     //TODO 竞猜按钮隐藏
+                    periodsNum = moveControlResponse.getPeriodsNum();//为满足后台需求，这里也需要获取一下期数
                     ctrlQuizLayout.setVisibility(View.INVISIBLE);
 
                 } else if (moveControlResponse.getMoveType().name()
@@ -838,17 +876,17 @@ public class CtrlActivity extends Activity implements IctrlView {
             getStartstation();
             setStartMode(true);
             getUserDate(UserUtils.USER_ID);    //再次获取用户余额并更新UI
-
 //            if (Utils.isEmpty(upTime)) {
 //                return;
 //            }
             ctrlCompl.stopRecordView(); //录制完毕
             if (isStart) {
+                StopRecorder();   //录制完毕
                 if (number != 0) {
-                    //抓到娃娃  上传给后台
                     upFileName = "";
                     state = "1";
                     Utils.showLogE(TAG, "抓取成功！");
+                    updataTime(upTime, state);   //抓到娃娃  上传给后台
                     playBtnMusic(R.raw.catch_success_music);
                     setCatchResultDialog(true);
                 } else {
@@ -860,6 +898,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+//                            boolean d = Utils.delFile(upFileName);
+//                            Utils.showLogE(TAG, "没抓住 删除" + upFileName + "视频....." + d);
                             upFileName = "";
                         }
                     }, 2000);  //2s后删除 保证录制完毕
@@ -867,7 +907,6 @@ public class CtrlActivity extends Activity implements IctrlView {
             }
             isStart = false;  //标志复位
             isLottery = false;
-            updataTime(upTime, state);
             upTime = "";
         }
     }
@@ -949,10 +988,10 @@ public class CtrlActivity extends Activity implements IctrlView {
 
     private void updataTime(String time, String state) {
 
-        HttpManager.getInstance().getRegPlayBack(time, UserUtils.NickName, state, dollName, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getRegPlayBack(time, UserUtils.USER_ID, state, dollId,periodsNum, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-
+                Utils.showLogE(TAG, "游戏记录上传结果="+loginInfoResult.getMsg());
             }
 
             @Override
@@ -1018,4 +1057,135 @@ public class CtrlActivity extends Activity implements IctrlView {
             }
         });
     }
+
+    private void initScreenRecord(){
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        // 获取状态栏高度
+        Rect frame = new Rect();
+        getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        int statusBarHeight = frame.top;
+        Log.i("TAG", "" + statusBarHeight);
+        // 获取屏幕长和高
+        width = getWindowManager().getDefaultDisplay().getWidth();
+        height = getWindowManager().getDefaultDisplay().getHeight()-statusBarHeight;
+        dpi = 1;
+        projectionManager = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mediaProjection = projectionManager.getMediaProjection(resultCode,data);
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    try {
+                        prepareEncoder();
+                        File file = new File(UserUtils.RECODE_URL, upTime+ ".mp4");
+                        filePath = file.getAbsolutePath();
+                        mediaMuxer = new MediaMuxer(filePath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    virtualDisplay = mediaProjection.createVirtualDisplay(TAG + "-display",
+                            width, height, dpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_PUBLIC,
+                            surface, null, null);
+                    recordVirtualDisplay();
+
+                } finally {
+                    release();
+                }
+            }
+        }.start();
+
+        //Toast.makeText(this, "Recorder is running...", Toast.LENGTH_SHORT).show();
+        //moveTaskToBack(true);
+    }
+
+    private void recordVirtualDisplay() {
+        while (!mQuit.get()) {
+            int index = mediaCodec.dequeueOutputBuffer(bufferInfo, 10000);
+            if (index == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
+                resetOutputFormat();
+            } else if (index >= 0) {
+                encodeToVideoTrack(index);
+                mediaCodec.releaseOutputBuffer(index, false);
+            }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void encodeToVideoTrack(int index) {
+        ByteBuffer encodedData = mediaCodec.getOutputBuffer(index);
+
+        if ((bufferInfo.flags & MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != 0) {
+            bufferInfo.size = 0;
+        }
+        if (bufferInfo.size == 0) {
+            encodedData = null;
+        }
+        if (encodedData != null) {
+            encodedData.position(bufferInfo.offset);
+            encodedData.limit(bufferInfo.offset + bufferInfo.size);
+            mediaMuxer.writeSampleData(videoTrackIndex, encodedData, bufferInfo);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+    private void resetOutputFormat() {
+        MediaFormat newFormat = mediaCodec.getOutputFormat();
+        videoTrackIndex = mediaMuxer.addTrack(newFormat);
+        mediaMuxer.start();
+        muxerStarted = true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+    private void prepareEncoder() throws IOException {
+        MediaFormat format = MediaFormat.createVideoFormat("video/avc", width, height);
+        format.setInteger(MediaFormat.KEY_COLOR_FORMAT,
+                MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface);
+        format.setInteger(MediaFormat.KEY_BIT_RATE, 6000000);
+        format.setInteger(MediaFormat.KEY_FRAME_RATE, 30);
+        format.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 10);
+
+        mediaCodec = MediaCodec.createEncoderByType("video/avc");
+        mediaCodec.configure(format, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE);
+        surface = mediaCodec.createInputSurface();
+        mediaCodec.start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void StartRecorder() {
+        Utils.showLogE(TAG, "视频开始录制时间::::" + upTime + "=====" );
+        startActivityForResult(projectionManager.createScreenCaptureIntent(),RECORDER_CODE);
+    }
+
+    public void StopRecorder() {
+        Utils.showLogE(TAG, "视频录制结束::::" + upTime + "=====" );
+        mQuit.set(true);
+        //Toast.makeText(this, "Recorder stop", Toast.LENGTH_SHORT).show();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void release() {
+        if (mediaCodec != null) {
+            mediaCodec.stop();
+            mediaCodec.release();
+            mediaCodec = null;
+        }
+        if (virtualDisplay != null) {
+            virtualDisplay.release();
+        }
+        if (mediaProjection != null) {
+            mediaProjection.stop();
+        }
+        if (mediaMuxer != null) {
+            mediaMuxer.release();
+            mediaMuxer = null;
+        }
+    }
+
 }

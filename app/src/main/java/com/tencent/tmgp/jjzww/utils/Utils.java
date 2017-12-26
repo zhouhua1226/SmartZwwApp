@@ -130,7 +130,7 @@ public class Utils {
      * 将当前时间 格式化
      */
     public static String getTime() {
-        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         String date = sDateFormat.format(new java.util.Date());
         return date;
     }
@@ -197,13 +197,17 @@ public class Utils {
      * 2017/11/30  15：55
      */
     public static String getTime(String times){
-        String year=times.substring(0,4);
-        String month=times.substring(4,6);
-        String day=times.substring(6,8);
-        String hour=times.substring(8,10);
-        String minte=times.substring(10,12);
-        String second=times.substring(12,14);
-        return year+"/"+month+"/"+day+"  "+hour+":"+minte+":"+second;
+        if(times.length()>=14) {
+            String year = times.substring(0, 4);
+            String month = times.substring(4, 6);
+            String day = times.substring(6, 8);
+            String hour = times.substring(8, 10);
+            String minte = times.substring(10, 12);
+            String second = times.substring(12, 14);
+            return year + "/" + month + "/" + day + "  " + hour + ":" + minte + ":" + second;
+        }else {
+            return  "年/" +  "月/" +  "日  " + "时:分:秒";
+        }
     }
 
 

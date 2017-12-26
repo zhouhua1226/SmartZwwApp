@@ -55,13 +55,12 @@ public class MyCenterAdapter extends RecyclerView.Adapter<MyCenterAdapter.Center
 
     @Override
     public void onBindViewHolder(final CenterViewHolder holder, final int position) {
-
-        holder.name.setText(mDatas.get(position).getDOLLNAME());
-        holder.times.setText(Utils.getTime(mDatas.get(position).getCREATETIME()));
+        holder.name.setText(mDatas.get(position).getDOLL_NAME());
+        holder.times.setText(Utils.getTime(mDatas.get(position).getCAMERA_DATE()));
         Glide.with(mContext)
                 .load(UrlUtils.PICTUREURL+mDatas.get(position).getDOLL_URL())
                 .dontAnimate()
-                .transform(new GlideCircleTransform(mContext))
+                //.transform(new GlideCircleTransform(mContext))
                 .into(holder.imageview);
         if (mOnItemClickListener!=null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -20,6 +20,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -447,6 +448,10 @@ public class CtrlActivity extends Activity implements IctrlView {
                 getMoney();
                 break;
             case R.id.startgame_ll:
+                if (TextUtils.isEmpty(UserUtils.UserBalance)) {
+                    getUserDate(UserUtils.USER_ID);
+                    return;
+                }
                 //开始游戏按钮
                 if (Integer.parseInt(UserUtils.UserBalance) >= money) {
                     if ((Utils.connectStatus.equals(ConnectResultEvent.CONNECT_SUCCESS))
@@ -472,6 +477,10 @@ public class CtrlActivity extends Activity implements IctrlView {
                 ctrlButtomLayout.setVisibility(View.GONE);
                 ctrlBetingLayout.setVisibility(View.VISIBLE);
                 getPond(periodsNum, dollId);
+                ctrlBettingFail.setImageResource(R.drawable.ctrl_guess_unselect_bz);
+                ctrlBettingWinning.setImageResource(R.drawable.ctrl_guess_unselect_z);
+                ctrlBettingWinning.setEnabled(true);
+                ctrlBettingWinning.setEnabled(true);
                 break;
             case R.id.ctrl_instruction_image:
                 //说明
@@ -483,16 +492,26 @@ public class CtrlActivity extends Activity implements IctrlView {
                 zt = "1";
                 ctrlBettingFail.setImageResource(R.drawable.ctrl_guess_unselect_bz);
                 ctrlBettingWinning.setImageResource(R.drawable.ctrl_guess_select_z);
+                ctrlBettingFail.setEnabled(true);
+                ctrlBettingWinning.setEnabled(false);
                 //中
                 break;
             case R.id.ctrl_betting_fail:
                 zt = "0";
                 ctrlBettingFail.setImageResource(R.drawable.ctrl_guess_select_bz);
                 ctrlBettingWinning.setImageResource(R.drawable.ctrl_guess_unselect_z);
+                ctrlBettingWinning.setEnabled(true);
+                ctrlBettingFail.setEnabled(false);
                 //不中
                 break;
             case R.id.ctrl_confirm_layout:
                 //下注
+                ctrlBettingWinning.setEnabled(true);
+                ctrlBettingWinning.setEnabled(true);
+                if (TextUtils.isEmpty(UserUtils.UserBalance)) {
+                    getUserDate(UserUtils.USER_ID);
+                    return;
+                }
                 if (Integer.parseInt(UserUtils.UserBalance) >= money) {
                     if (zt.equals("1") || zt.equals("0")) {
                         getBets(UserUtils.USER_ID, Integer.valueOf(money).intValue(), zt, periodsNum, dollId);
@@ -944,8 +963,13 @@ public class CtrlActivity extends Activity implements IctrlView {
         HttpManager.getInstance().getBets(userID, wager, guessKey, guessId, dollID, new RequestSubscriber<Result<AppUserBean>>() {
             @Override
             public void _onSuccess(Result<AppUserBean> appUserBeanResult) {
-                coinTv.setText("  " + appUserBeanResult.getData().getAppUser().getBALANCE());
-                UserUtils.UserBalance = appUserBeanResult.getData().getAppUser().getBALANCE();
+                if (appUserBeanResult.getData().getAppUser() != null) {
+                    String balance = appUserBeanResult.getData().getAppUser().getBALANCE();
+                    if (TextUtils.isEmpty(balance)) {
+                        coinTv.setText(balance);
+                        UserUtils.UserBalance = balance;
+                    }
+                }
             }
 
             @Override
@@ -961,8 +985,10 @@ public class CtrlActivity extends Activity implements IctrlView {
         HttpManager.getInstance().getPond(playId, dollId, new RequestSubscriber<Result<PondResponseBean>>() {
             @Override
             public void _onSuccess(Result<PondResponseBean> loginInfoResult) {
-                ctrlBettingNumberOne.setText(loginInfoResult.getData().getPond().getGUESS_Y() + "");
-                ctrlBettingNumberTwo.setText(loginInfoResult.getData().getPond().getGUESS_N() + "");
+                if (loginInfoResult.getData().getPond() != null) {
+                    ctrlBettingNumberOne.setText(loginInfoResult.getData().getPond().getGUESS_Y() + "");
+                    ctrlBettingNumberTwo.setText(loginInfoResult.getData().getPond().getGUESS_N() + "");
+                }
             }
 
             @Override
@@ -1010,8 +1036,13 @@ public class CtrlActivity extends Activity implements IctrlView {
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
                 Log.e(TAG, "获取结果=" + loginInfoResult.getMsg());
                 if (loginInfoResult.getMsg().equals("success")) {
-                    coinTv.setText("  " + loginInfoResult.getData().getAppUser().getBALANCE());
-                    UserUtils.UserBalance = loginInfoResult.getData().getAppUser().getBALANCE();
+                    if(loginInfoResult.getData().getAppUser() != null) {
+                        String balance = loginInfoResult.getData().getAppUser().getBALANCE();
+                        if (!TextUtils.isEmpty(balance)) {
+                            coinTv.setText(balance);
+                            UserUtils.UserBalance = balance;
+                        }
+                    }
                 }
             }
 
@@ -1087,6 +1118,10 @@ public class CtrlActivity extends Activity implements IctrlView {
                     try {
                         prepareEncoder();
                         File file = new File(UserUtils.RECODE_URL, upTime+ ".mp4");
+                        if (!file.exists()) {
+                            Utils.showLogE(TAG, "创建视频文件失败.....");
+                            return;
+                        }
                         filePath = file.getAbsolutePath();
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                             mediaMuxer = new MediaMuxer(filePath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);

@@ -130,16 +130,23 @@ public class RankFragmentTwo extends BaseFragment {
                         Log.e(TAG,"我的排名="+myNum);
                     }
                 }
-                firstBean=list.get(0);
-                secondBean=list.get(1);
-                thirdBean=list.get(2);
                 int length=list.size();
+                if(length>=1)
+                firstBean=list.get(0);
+                if(length>=2)
+                secondBean=list.get(1);
+                if(length>=3)
+                thirdBean=list.get(2);
                 rankList.clear();
                 if(length>10){
                     for(int i=3;i<10;i++){
                         rankList.add(list.get(i));
                     }
-                }else {
+                }else if(length>3&&length<=10){
+                    for(int i=3;i<length;i++){
+                        rankList.add(list.get(i));
+                    }
+                } else {
                     rankList=list;
                 }
                 Utils.showLogE(TAG + "看看？？", rankList.size() + "");

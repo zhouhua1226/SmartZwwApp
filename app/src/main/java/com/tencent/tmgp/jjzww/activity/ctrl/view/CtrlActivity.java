@@ -211,8 +211,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     VirtualDisplay virtualDisplay;
     private MediaCodec.BufferInfo bufferInfo = new MediaCodec.BufferInfo();
     private int videoTrackIndex = -1;
-    String filePath;
-    private AtomicBoolean mQuit = new AtomicBoolean(false);
+    private String filePath;
+    private AtomicBoolean mQuit;
     private boolean muxerStarted = false;
 
     static {
@@ -919,9 +919,11 @@ public class CtrlActivity extends Activity implements IctrlView {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-//                            boolean d = Utils.delFile(upFileName);
-//                            Utils.showLogE(TAG, "没抓住 删除" + upFileName + "视频....." + d);
-                            upFileName = "";
+                            if(!filePath.equals("")) {
+                                boolean d = Utils.delFile(filePath);
+                                Utils.showLogE(TAG, "没抓住 删除" + filePath + "视频....." + d);
+                                upFileName = "";
+                            }
                         }
                     }, 2000);  //2s后删除 保证录制完毕
                 }
@@ -1108,7 +1110,11 @@ public class CtrlActivity extends Activity implements IctrlView {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Utils.showLogE(TAG, "录屏onActivityResult()----1");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if(projectionManager==null){
+                return;
+            }
             mediaProjection = projectionManager.getMediaProjection(resultCode,data);
         }
         new Thread() {
@@ -1118,7 +1124,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                     try {
                         prepareEncoder();
                         File file = new File(UserUtils.RECODE_URL, upTime+ ".mp4");
-                        if (!file.exists()) {
+                        Utils.showLogE(TAG, "录屏视频保存路径--"+file.getAbsolutePath());
+                        if (file==null) {
                             Utils.showLogE(TAG, "创建视频文件失败.....");
                             return;
                         }
@@ -1131,6 +1138,10 @@ public class CtrlActivity extends Activity implements IctrlView {
                         throw new RuntimeException(e);
                     }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        if(mediaProjection==null){
+                            MyToast.getToast(getApplicationContext(),"您抓取成功的视频将无法正常回放!").show();
+                            return;
+                        }
                         virtualDisplay = mediaProjection.createVirtualDisplay(TAG + "-display",
                                 width, height, dpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_PUBLIC,
                                 surface, null, null);
@@ -1145,9 +1156,11 @@ public class CtrlActivity extends Activity implements IctrlView {
 
         //Toast.makeText(this, "Recorder is running...", Toast.LENGTH_SHORT).show();
         //moveTaskToBack(true);
+        Utils.showLogE(TAG, "录屏onActivityResult()----2");
     }
 
     private void recordVirtualDisplay() {
+        Utils.showLogE(TAG, "录屏recordVirtualDisplay()----1");
         while (!mQuit.get()) {
             int index = mediaCodec.dequeueOutputBuffer(bufferInfo, 10000);
             if (index == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
@@ -1157,9 +1170,11 @@ public class CtrlActivity extends Activity implements IctrlView {
                 mediaCodec.releaseOutputBuffer(index, false);
             }
         }
+        Utils.showLogE(TAG, "录屏recordVirtualDisplay()----2");
     }
 
     private void encodeToVideoTrack(int index) {
+        Utils.showLogE(TAG, "录屏encodeToVideoTrack(int index)----1");
         ByteBuffer encodedData = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             encodedData = mediaCodec.getOutputBuffer(index);
@@ -1178,18 +1193,22 @@ public class CtrlActivity extends Activity implements IctrlView {
                 mediaMuxer.writeSampleData(videoTrackIndex, encodedData, bufferInfo);
             }
         }
+        Utils.showLogE(TAG, "录屏encodeToVideoTrack(int index)----2");
     }
 
     private void resetOutputFormat() {
+        Utils.showLogE(TAG, "录屏resetOutputFormat()----1");
         MediaFormat newFormat = mediaCodec.getOutputFormat();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             videoTrackIndex = mediaMuxer.addTrack(newFormat);
             mediaMuxer.start();
         }
         muxerStarted = true;
+        Utils.showLogE(TAG, "录屏resetOutputFormat()----2");
     }
 
     private void prepareEncoder() throws IOException {
+        Utils.showLogE(TAG, "录屏prepareEncoder()----1");
         MediaFormat format = MediaFormat.createVideoFormat("video/avc", width, height);
         format.setInteger(MediaFormat.KEY_COLOR_FORMAT,
                 MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface);
@@ -1203,12 +1222,17 @@ public class CtrlActivity extends Activity implements IctrlView {
             surface = mediaCodec.createInputSurface();
         }
         mediaCodec.start();
+        Utils.showLogE(TAG, "录屏prepareEncoder()----2");
     }
 
 
     public void StartRecorder() {
         Utils.showLogE(TAG, "视频开始录制时间::::" + upTime + "=====" );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mQuit= new AtomicBoolean(false);
+            if(projectionManager==null){
+                return;
+            }
             startActivityForResult(projectionManager.createScreenCaptureIntent(),RECORDER_CODE);
         }
     }

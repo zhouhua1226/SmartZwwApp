@@ -17,6 +17,7 @@ import com.flamigo.jsdk.api.FlamigoJApi;
 import com.proto.security.SecurityApi;
 import com.robust.sdk.api.PayCallback;
 import com.robust.sdk.api.RobustApi;
+import com.robust.sdk.avatar.TencentListener;
 import com.robust.sdk.data.PayKey;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.adapter.WeChatPayAdapter;
@@ -81,7 +82,7 @@ public class WeChatPayActivity extends BaseActivity {
             public void onItemClick(int position) {
                 wechatpayGifView.setVisibility(View.VISIBLE);
                 int money= Integer.parseInt(mylist.get(position).getAMOUNT())*100;
-                getYSDKPay(UserUtils.USER_ID, YsdkUtils.access_token, String.valueOf(money));
+                getYSDKPay(UserUtils.USER_ID, YsdkUtils.access_token, String.valueOf(10));
             }
         });
     }
@@ -102,6 +103,15 @@ public class WeChatPayActivity extends BaseActivity {
         EasyYSDKApi.setUserListener();
         EasyYSDKApi.setBuglyListener();
         EasyYSDKApi.registPayActivity(this);
+        EasyYSDKApi.setTecentListener(new TencentListener() {
+            @Override
+            public void onChange(int code, String message) {
+                if(code == TencentListener.TENGCENT_PAY_UI_SHOWN){
+                    //启动了腾讯支付的页面
+                    wechatpayGifView.setVisibility(View.GONE);
+                }
+            }
+        });
 
         //add hx_ysdk  初始化
         Bundle initParams = new Bundle();
@@ -149,7 +159,6 @@ public class WeChatPayActivity extends BaseActivity {
                 String uid = loginInfoResult.getData().getOrder().getUSER_ID();
                 String order = loginInfoResult.getData().getOrder().getORDER_ID();
                 int amount = Integer.parseInt(loginInfoResult.getData().getOrder().getREGAMOUNT());
-                wechatpayGifView.setVisibility(View.GONE);
                 pay(UserUtils.USER_ID, YsdkUtils.access_token, amount, order);
             }
 

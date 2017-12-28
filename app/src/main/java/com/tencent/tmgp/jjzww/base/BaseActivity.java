@@ -11,17 +11,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
-import com.iot.game.pooh.server.entity.json.announce.LotteryDrawAnnounceMessage;
 import com.tencent.tmgp.jjzww.R;
-import com.tencent.tmgp.jjzww.utils.SPUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
-import com.tencent.tmgp.jjzww.view.CatchDollResultDialog;
 import com.tencent.tmgp.jjzww.view.GuessingSuccessDialog;
-import com.tencent.tmgp.jjzww.view.WinningDialog;
 import com.umeng.message.PushAgent;
 
 
@@ -31,7 +24,6 @@ import com.umeng.message.PushAgent;
 public abstract class BaseActivity extends AppCompatActivity{
     private static GuessingSuccessDialog guessingSuccessDialog;
     private static final String TAG = "BaseActivity---";
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +53,9 @@ public abstract class BaseActivity extends AppCompatActivity{
     }
 
     private void initDialog() {
-        guessingSuccessDialog=new GuessingSuccessDialog(this, R.style.easy_dialog_style);
+        if (guessingSuccessDialog == null) {
+            guessingSuccessDialog = new GuessingSuccessDialog(this, R.style.easy_dialog_style);
+        }
     }
 
     private BroadcastReceiver LotteryReceiver = new BroadcastReceiver() {
@@ -75,6 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     };
 
     private void showLotteryDialog() {
+        initDialog();
         guessingSuccessDialog.setCancelable(true);
         guessingSuccessDialog.show();
         guessingSuccessDialog.setDialogResultListener(new GuessingSuccessDialog.DialogResultListener() {

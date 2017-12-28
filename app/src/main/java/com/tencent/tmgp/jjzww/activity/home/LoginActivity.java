@@ -244,13 +244,6 @@ public class LoginActivity extends BaseActivity {
         EasyYSDKApi.logout();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        //ButterKnife.bind(this);
-    }
-
     class GameLoginCallback implements LoginCallback {
         @Override
         public void onCompelete(int code, JSONObject data) {

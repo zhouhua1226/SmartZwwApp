@@ -134,6 +134,7 @@ public class SmartRemoteService extends Service {
                 RxBus.get().post(Utils.TAG_LOTTERY_DRAW, message);
                 String p = message.getPeriodsNum();
                 String roomId = message.getRoomId();
+                Utils.showLogE(TAG, message.toString());
                 if (message.getBingoNickNameList() == null) {
                     Intent intent = new Intent();
                     intent.setAction(UserUtils.ACTION_LOTTERY);

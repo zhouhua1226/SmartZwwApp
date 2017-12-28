@@ -81,6 +81,27 @@
                     android:layout_marginLeft="15dp"
                     />
 
+                <TextView
+                    android:id="@+id/ctrl_guessrecord_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 竞猜记录"
+                    android:background="@drawable/ctr_money_bg"
+                    android:textColor="#fcf005"
+                    android:textSize="12sp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ctrl_guessrecord_imag"
+                    android:layout_toLeftOf="@+id/coin_tv"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginRight="5dp"
+                    />
+
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -196,14 +217,14 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/ctr_money_bg"
                     android:layout_alignParentRight="true"
-                    android:text="  111"
+                    android:text="  111 充值"
                     android:gravity="center_vertical"
                     android:paddingTop="5dp"
+                    android:paddingRight="8dp"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:textColor="#fcf005"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
+                    android:textSize="12sp"
                     android:layout_marginBottom="7dp"
                     android:layout_marginRight="10dp"
                     android:layout_alignParentBottom="true"
@@ -272,13 +293,13 @@
         </RelativeLayout>
         <ImageView
             android:id="@+id/ctrl_instruction_image"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:background="@drawable/ctrl_betting_instruction"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ctrl_guess_introduce_imag"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/ctrl_quiz_layout"
-            android:layout_marginLeft="5dp"
-            android:visibility="gone"
+            android:layout_toLeftOf="@+id/ctrl_quiz_layout"
+            android:layout_marginRight="3dp"
+            android:visibility="visible"
 
             />
 

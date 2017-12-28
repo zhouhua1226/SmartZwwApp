@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="观屏玩家对游戏中的玩家抓取 结果进行竞猜下注"
                 android:textSize="14sp"
-                android:textColor="#e85d8b"
+                android:textColor="@color/apptheme_bg"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -53,9 +53,9 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="30dp"
-                android:text="下注后，如猜中，则未猜中玩家所投游戏币均分给猜中玩家(采取四舍五入计算方式),如遇平局，则流局"
+                android:text="下注后，如猜中，则未猜中玩家所投游戏币均分给猜中玩家，如所有玩家都下注一个选项，则流局"
                 android:textSize="14sp"
-                android:textColor="#e85d8b"/>
+                android:textColor="@color/apptheme_bg"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:layout_marginLeft="30dp"
                 android:text="每局下注节制时间为游戏中玩家按下抓前"
                 android:textSize="14sp"
-                android:textColor="#e85d8b"/>
+                android:textColor="@color/apptheme_bg"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,14 +73,14 @@
                 android:layout_marginLeft="30dp"
                 android:text="最终解释权归本公司所有"
                 android:textSize="14sp"
-                android:textColor="#e85d8b"/>
+                android:textColor="@color/apptheme_bg"/>
 
 
             <Button
                 android:id="@+id/cancel_button"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:background="@drawable/fillingcurrency_dialog"
+                android:background="@drawable/setting_logout_btn_bg"
                 android:layout_marginTop="15dp"
                 android:text="取消"
                 android:textColor="@color/white"

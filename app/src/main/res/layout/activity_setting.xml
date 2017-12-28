@@ -69,14 +69,18 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#ededed" />
+        android:background="#ededed"
+        android:visibility="gone"
+        />
 
 
     <RelativeLayout
         android:id="@+id/record_rl"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone"
+        >
 
         <TextView
             android:layout_width="wrap_content"

@@ -222,15 +222,10 @@ public class ZWWJFragment extends BaseFragment {
         //实例化图片集合
         mListImage = new ArrayList<>();
         //将图片放入集合中
-        mListImage.add("http://img.hc360.com/auto-a/info/images/200803/8998419-10.jpg");
-        mListImage.add("http://img.ichemo.cn/model/5188ebc96c74dd.jpg");
-        mListImage.add("http://i.ebayimg.com/00/s/MzU1WDcwOQ==/%24%28KGrHqR,%21hYFDuguSMpNBQ8e+seDCQ~~60_1.JPG?set_id=880000500F");
-        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/65kWq9ygL.Sw4G9*hj30d0BXvNLS9RworM3lIuw7lfc!/c/dPMAAAAAAAAA&ek=1&kp=1&pt=0&bo=9AH6AAAAAAARFy8!&t=5&vuin=2422172415&tm=1513652400&sce=60-2-2&rf=newphoto&t=5");
-        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/IkSbTgiJL9I7Ec7FQwySpUwLkkXznq2td3ZzvKH0wKA!/c/dPMAAAAAAAAA&ek=1&kp=1&pt=0&bo=9AH6AAAAAAARFy8!&t=5&vuin=2422172415&tm=1513652400&sce=60-2-2&rf=newphoto&t=5");
-        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/22f4y.iBc4SJJqW5TbKIffpgD8.2lkp2cACnn*hM1j8!/b/dPMAAAAAAAAA&ek=1&kp=1&pt=0&bo=9AH6AAAAAAARFy8!&vuin=2422172415&tm=1513656000&sce=60-2-2&rf=viewer_4");
-        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/*OrL7JyltR.4ruHWBAdgs5zPVEMF83H*7e3mxfb5dUw!/c/dD8BAAAAAAAA&ek=1&kp=1&pt=0&bo=9AH6AAAAAAARFy8!&t=5&vuin=2422172415&tm=1513652400&sce=60-2-2&rf=newphoto&t=5");
-        mListImage.add("http://m.qpic.cn/psb?/V129YDsp1WxQ4t/ZnDBmT03YYQT61mv20vHsah5eHPXlSDmRruTCStBK.E!/b/dPIAAAAAAAAA&bo=wgHSAAAAAAARByE!&rf=viewer_4");
-        mListImage.add("http://m.qpic.cn/psb?/V129YDsp1WxQ4t/3KAvFL2XxdKQYeCqqEhtJijB.J5gT6btdSVsFB91GUU!/b/dPIAAAAAAAAA&bo=wgHSAAAAAAARFzE!&rf=viewer_4");
+        mListImage.add("http://a3.qpic.cn/psb?/V129YDsp1WxQ4t/JPdMtHPJ*9Ehg5LKWWxZbWXmc98vnPzfulfPKHLjLCw!/m/dPIAAAAAAAAAnull&bo=9AH6AAAAAAARBz8!&rf=photolist&t=5");
+        mListImage.add("http://a3.qpic.cn/psb?/V129YDsp1WxQ4t/GGGISYZ.XKSTzPGVG0kOo4jc7ZDcb0K323iC3XGkfAA!/m/dF4BAAAAAAAAnull&bo=9AH6AAAAAAARBz8!&rf=photolist&t=5");
+        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/wPy6vTwbGOlxclqMS0R.zbKpks0osTMhrLiwaLYuuwU!/m/dFsBAAAAAAAAnull&bo=9AH6AAAAAAARBz8!&rf=photolist&t=5");
+        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/ZbySEUy6wQCzcHo8Up7.COU4zwFY10tJ0mV.riA.0fM!/c/dPMAAAAAAAAA&ek=1&kp=1&pt=0&bo=vAJeAQAAAAARF8E!&t=5&vuin=2422172415&tm=1514440800&sce=60-2-2&rf=newphoto&t=5");
         //设置Banner图片集合
         zwwBanner.setImages(mListImage);
         //设置Banner动画效果

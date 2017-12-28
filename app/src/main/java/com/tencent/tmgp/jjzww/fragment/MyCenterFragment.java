@@ -2,7 +2,6 @@ package com.tencent.tmgp.jjzww.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.home.InformationActivity;
@@ -22,7 +20,6 @@ import com.tencent.tmgp.jjzww.activity.home.MyCtachRecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.RecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.RecordGameActivty;
 import com.tencent.tmgp.jjzww.activity.home.RecordGameTwoActivity;
-import com.tencent.tmgp.jjzww.activity.home.SelectRechargeTypeActiivty;
 import com.tencent.tmgp.jjzww.activity.home.ServiceActivity;
 import com.tencent.tmgp.jjzww.activity.home.SettingActivity;
 import com.tencent.tmgp.jjzww.activity.wechat.WeChatPayActivity;
@@ -39,7 +36,6 @@ import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.FillingCurrencyDialog;
 import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
-import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.tmgp.jjzww.view.SpaceItemDecoration;
 
 import java.util.ArrayList;
@@ -84,6 +80,9 @@ public class MyCenterFragment extends BaseFragment {
     RelativeLayout mycenterKefuLayout;
     @BindView(R.id.mycenter_mycurrency_tv)
     TextView mycenterMycurrencyTv;
+    @BindView(R.id.mycenter_videoback_layout)
+    RelativeLayout mycenterVideobackLayout;
+    Unbinder unbinder2;
 
     private FillingCurrencyDialog fillingCurrencyDialog;
     private MyCenterAdapter myCenterAdapter;
@@ -151,9 +150,9 @@ public class MyCenterFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("<<<<<<<<<<<<","个人中心userId="+UserUtils.USER_ID);
-        if(YsdkUtils.loginResult!=null)
-        getUserDate(YsdkUtils.loginResult.getData().getAppUser().getUSER_ID());
+        Log.e("<<<<<<<<<<<<", "个人中心userId=" + UserUtils.USER_ID);
+        if (YsdkUtils.loginResult != null)
+            getUserDate(YsdkUtils.loginResult.getData().getAppUser().getUSER_ID());
     }
 
     private void getUserImageAndName() {
@@ -163,7 +162,7 @@ public class MyCenterFragment extends BaseFragment {
             } else {
                 userName.setText("暂无昵称");
             }
-            mycenterMycurrencyTv.setText(" "+UserUtils.UserBalance);
+            mycenterMycurrencyTv.setText(" " + UserUtils.UserBalance);
             userNumber.setText("累积抓中" + UserUtils.UserCatchNum + "次");
             Glide.with(getContext())
                     .load(UserUtils.UserImage)
@@ -182,13 +181,13 @@ public class MyCenterFragment extends BaseFragment {
             @Override
             public void _onSuccess(Result<LoginInfo> result) {
                 UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
-                UserUtils.UserCatchNum=result.getData().getAppUser().getDOLLTOTAL();
-                UserUtils.NickName=result.getData().getAppUser().getNICKNAME();
+                UserUtils.UserCatchNum = result.getData().getAppUser().getDOLLTOTAL();
+                UserUtils.NickName = result.getData().getAppUser().getNICKNAME();
                 UserUtils.UserImage = UrlUtils.USERFACEIMAGEURL + result.getData().getAppUser().getIMAGE_URL();
-                Log.e(TAG, "个人信息刷新结果=" + result.getMsg()+"余额="+result.getData().getAppUser().getBALANCE()
-                        +"抓取次数="+result.getData().getAppUser().getDOLLTOTAL()
-                        +"昵称="+result.getData().getAppUser().getNICKNAME()
-                        +"头像="+UserUtils.UserImage);
+                Log.e(TAG, "个人信息刷新结果=" + result.getMsg() + "余额=" + result.getData().getAppUser().getBALANCE()
+                        + "抓取次数=" + result.getData().getAppUser().getDOLLTOTAL()
+                        + "昵称=" + result.getData().getAppUser().getNICKNAME()
+                        + "头像=" + UserUtils.UserImage);
                 getUserImageAndName();
             }
 
@@ -199,11 +198,12 @@ public class MyCenterFragment extends BaseFragment {
     }
 
     @OnClick({R.id.mycenter_kefu_layout, R.id.mycenter_setting_layout, R.id.user_image,
-            R.id.mycenter_pay_layout, R.id.user_name,R.id.mycenter_catchrecord_layout})
+            R.id.mycenter_pay_layout, R.id.user_name, R.id.mycenter_catchrecord_layout,
+            R.id.mycenter_videoback_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mycenter_kefu_layout:
-                startActivity(new Intent(getContext(),ServiceActivity.class));
+                startActivity(new Intent(getContext(), ServiceActivity.class));
                 break;
             case R.id.mycenter_setting_layout:
                 startActivity(new Intent(getContext(), SettingActivity.class));
@@ -214,10 +214,13 @@ public class MyCenterFragment extends BaseFragment {
             case R.id.mycenter_pay_layout:
 //                startActivity(new Intent(getContext(), SelectRechargeTypeActiivty.class));
 //                getMoney();
-                startActivity(new Intent(getContext(),WeChatPayActivity.class));
+                startActivity(new Intent(getContext(), WeChatPayActivity.class));
                 break;
             case R.id.mycenter_catchrecord_layout:
                 startActivity(new Intent(getContext(), MyCtachRecordActivity.class));
+                break;
+            case R.id.mycenter_videoback_layout:
+                startActivity(new Intent(getContext(), RecordActivity.class));
                 break;
             case R.id.user_name:
                 //此处添加登录dialog
@@ -262,6 +265,20 @@ public class MyCenterFragment extends BaseFragment {
             getContext().startActivity(intent);
         }
     };
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder2 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder2.unbind();
+    }
 
 //    private void getVideoBackList(String userName) {
 //        HttpManager.getInstance().getVideoBackList(userName, new RequestSubscriber<Result<LoginInfo>>() {

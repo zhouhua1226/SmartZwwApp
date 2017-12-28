@@ -82,7 +82,7 @@ public class WeChatPayActivity extends BaseActivity {
             public void onItemClick(int position) {
                 wechatpayGifView.setVisibility(View.VISIBLE);
                 int money= Integer.parseInt(mylist.get(position).getAMOUNT())*100;
-                getYSDKPay(UserUtils.USER_ID, YsdkUtils.access_token, String.valueOf(10));
+                getYSDKPay(UserUtils.USER_ID, YsdkUtils.access_token, String.valueOf(money));
             }
         });
     }

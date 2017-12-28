@@ -23,7 +23,7 @@ import butterknife.OnClick;
  * Created by yincong on 2017/12/6 16:44
  * 修改人：
  * 修改时间：
- * 类描述：投注记录
+ * 类描述：竞猜记录
  */
 public class BetRecordActivity extends BaseActivity {
 

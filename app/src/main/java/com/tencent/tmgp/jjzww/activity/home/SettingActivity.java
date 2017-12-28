@@ -214,7 +214,8 @@ public class SettingActivity extends BaseActivity {
                 // Utils.getCatchResultDialog(this);
                 break;
             case R.id.setting_share_layout:
-                RobustApi.getInstance().shareWx(this, new ShareInfo(YsdkUtils.uid));
+                Log.e(TAG,"分享参数userId="+UserUtils.USER_ID);
+                RobustApi.getInstance().shareWx(this, new ShareInfo(UserUtils.USER_ID));
                 break;
 
         }

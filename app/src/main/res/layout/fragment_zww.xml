@@ -90,15 +90,19 @@
         <com.tencent.tmgp.jjzww.view.EmptyLayout
             android:id="@+id/zww_emptylayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#eceaea"
+            >
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/zww_recyclerview"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"
                 android:background="#eceaea"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:layout_centerHorizontal="true"
+                >
             </android.support.v7.widget.RecyclerView>
 
         </com.tencent.tmgp.jjzww.view.EmptyLayout>

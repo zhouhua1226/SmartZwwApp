@@ -41,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         MyApplication.getInstance().activities.add(this);
         PushAgent.getInstance(this).onAppStart();
         RxBus.get().register(this);
-        initDialog();
+        //initDialog();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(UserUtils.ACTION_LOTTERY);
         this.registerReceiver(LotteryReceiver, intentFilter);
@@ -70,7 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity{
             String roomId = intent.getStringExtra(UserUtils.LOTTERY_ROOMID);
             String pId = intent.getStringExtra(UserUtils.LOTTERY_PERIODSNUM);
             Utils.showLogE(TAG, "房间号:" + roomId + "第" + pId + "期开奖了.......");
-            showLotteryDialog();
+            //showLotteryDialog();
         }
     };
 

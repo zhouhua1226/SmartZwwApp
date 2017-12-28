@@ -202,6 +202,44 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:background="#ededed"
+        android:visibility="gone"
+        />
+
+    <RelativeLayout
+        android:id="@+id/mycenter_videoback_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="   视频回放"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:drawableLeft="@drawable/mycenter_videoback_imag"
+            />
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         android:background="#ededed" />
 
     <RelativeLayout

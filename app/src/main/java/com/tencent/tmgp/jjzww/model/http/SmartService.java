@@ -1,6 +1,7 @@
 package com.tencent.tmgp.jjzww.model.http;
 
 import com.tencent.tmgp.jjzww.bean.AppUserBean;
+import com.tencent.tmgp.jjzww.bean.BetRecordBean;
 import com.tencent.tmgp.jjzww.bean.ListRankBean;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.PondResponseBean;
@@ -269,5 +270,13 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @GET(UrlUtils.PAYCARDLISTURL)
     Observable<Result<LoginInfo>> getPayCardList();
+
+    //用户竞猜记录
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETGUESSDETAIL)
+    Observable<Result<BetRecordBean>> getGuessDetail(
+            @Field(UrlUtils.USERID) String userId
+    );
 
 }

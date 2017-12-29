@@ -1,6 +1,7 @@
 package com.tencent.tmgp.jjzww.model.http;
 
 import com.tencent.tmgp.jjzww.bean.AppUserBean;
+import com.tencent.tmgp.jjzww.bean.BetRecordBean;
 import com.tencent.tmgp.jjzww.bean.ConsigneeBean;
 import com.tencent.tmgp.jjzww.bean.ListRankBean;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
@@ -295,6 +296,16 @@ public class HttpManager {
     //获取充值卡列表
     public void getPayCardList(Subscriber<Result<LoginInfo>> subscriber){
         Observable<Result<LoginInfo>> o =smartService.getPayCardList();
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //用户竞猜记录
+
+    public void getGuessDetail(String userId,Subscriber<Result<BetRecordBean>>subscriber){
+        Observable<Result<BetRecordBean>> o =smartService.getGuessDetail(userId);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -1,5 +1,7 @@
 package com.tencent.tmgp.jjzww.base;
 
+
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -18,6 +21,7 @@ public abstract class BaseFragment extends Fragment{
     protected View rootView;
     protected Unbinder unbinder;
     protected FragmentManager mfragmentManager;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,11 +43,13 @@ public abstract class BaseFragment extends Fragment{
         afterCreate(savedInstanceState);
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
 
     protected abstract int getLayoutId();
 

@@ -1,57 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="70dp"
+    android:weightSum="4"
     >
 
+    <TextView
+        android:id="@+id/periodsNum_tv"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:text="1227001"/>
+    <TextView
+        android:id="@+id/results_tv"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textColor="@color/black"
+        android:layout_height="match_parent"
+        android:text="抓中"/>
+
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center">
         <TextView
-            android:id="@+id/title_tv"
+            android:id="@+id/bettingResults_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            tools:text="第12场"/>
+            android:textColor="#e73640"
+            android:text="不中"/>
 
         <TextView
-            android:id="@+id/room_tv"
+            android:layout_toRightOf="@+id/bettingResults_tv"
+            android:id="@+id/bettingResults_tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="100dp"
-            android:textSize="13sp"
-            android:textColor="@color/pink"
-            tools:text="皮卡丘房间"/>
+            android:textColor="#e73640"
+            android:text="/对"/>
 
-        <TextView
-            android:id="@+id/times_tv"
-            android:layout_below="@+id/title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="15dp"
-            android:textColor="#848484"
-            android:text="2017/10/17 14:12"/>
 
-        <TextView
-            android:id="@+id/value_tv"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="#fb7e50"
-            android:layout_marginRight="15dp"
-            android:text="+50"/>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/amount_tv"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textColor="#ff7f25"
+        android:layout_height="match_parent"
+        android:text="87"/>
+
 
 
 

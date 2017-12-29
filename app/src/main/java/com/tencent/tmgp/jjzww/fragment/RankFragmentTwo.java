@@ -85,7 +85,6 @@ public class RankFragmentTwo extends BaseFragment {
     @BindView(R.id.rank_my_layout)
     RelativeLayout rankMyLayout;
 
-    Unbinder unbinder1;
     private ListRankAdapter listRankAdapter;
     private List<UserBean> list = new ArrayList<>();
     private List<UserBean> rankList=new ArrayList<>();
@@ -94,7 +93,7 @@ public class RankFragmentTwo extends BaseFragment {
     private UserBean secondBean=new UserBean();
     private UserBean thirdBean=new UserBean();
     private String myNum = "";
-    Unbinder unbinder;
+
 
     @Override
     protected int getLayoutId() {
@@ -171,20 +170,6 @@ public class RankFragmentTwo extends BaseFragment {
             }
 
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder1.unbind();
     }
 
     private void setViewDate(String myNum) {

@@ -160,6 +160,7 @@ public class WeChatPayActivity extends BaseActivity {
                 String order = loginInfoResult.getData().getOrder().getORDER_ID();
                 int amount = Integer.parseInt(loginInfoResult.getData().getOrder().getREGAMOUNT());
                 pay(UserUtils.USER_ID, YsdkUtils.access_token, amount, order);
+
             }
 
             @Override

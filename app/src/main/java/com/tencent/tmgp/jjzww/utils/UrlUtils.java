@@ -146,5 +146,10 @@ public class UrlUtils {
     //获取充值卡列表
     public static final String PAYCARDLISTURL=URL+"/pooh-web/pay/getPaycard";
 
+    //用户竞猜记录
+//    http://192.168.1.21:8080/pooh-web/app/getGuessDetailTop10
+    public static final String GETGUESSDETAIL=URL+"/pooh-web/app/getGuessDetailTop10";
+
+//    public static final String GETGUESSDETAIL="http://192.168.1.21:8080/pooh-web/app/getGuessDetailTop10";
 
 }

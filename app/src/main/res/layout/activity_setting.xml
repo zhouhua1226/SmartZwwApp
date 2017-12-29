@@ -108,14 +108,14 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="#ededed"
-        android:visibility="gone"
+        android:visibility="visible"
         />
     <RelativeLayout
         android:id="@+id/betrecord_rl"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
-        android:visibility="gone"
+        android:visibility="visible"
         >
 
         <TextView

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -11,13 +12,16 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.adapter.BetRecordAdapter;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.bean.BetRecordBean;
-
+import com.tencent.tmgp.jjzww.bean.Result;
+import com.tencent.tmgp.jjzww.model.http.HttpManager;
+import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
+import com.tencent.tmgp.jjzww.utils.UserUtils;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 /**
  * Created by yincong on 2017/12/6 16:44
@@ -38,7 +42,8 @@ public class BetRecordActivity extends BaseActivity {
 
     private String TAG = "BetRecordActivity--";
     private BetRecordAdapter betRecordAdapter;
-    private List<BetRecordBean> list = new ArrayList<>();
+    private List<BetRecordBean.DataListBean> list = new ArrayList<>();
+    private List<BetRecordBean.DataListBean>mylist=new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -48,8 +53,8 @@ public class BetRecordActivity extends BaseActivity {
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         initView();
-        getDate();
         initDate();
+        getGuessDetail(UserUtils.USER_ID);
     }
 
     @OnClick(R.id.image_back)
@@ -63,6 +68,7 @@ public class BetRecordActivity extends BaseActivity {
     }
 
     private void initDate() {
+
         betRecordAdapter = new BetRecordAdapter(this, list);
         betrecodeRecyclerview.setAdapter(betRecordAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -70,21 +76,32 @@ public class BetRecordActivity extends BaseActivity {
         betrecodeRecyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
-    private void getDate() {
-        int playId[] = {2, 4, 6, 7, 8, 21, 25, 29, 30, 45};
-        String time[] = {"2017/12/5  08:22:20", "2017/12/5  08:25:50", "2017/12/5  10:12:10", "2017/12/5  12:42:08",
-                "2017/12/5  12:52:43", "2017/12/5  13:55:55", "2017/12/5  21:04:20", "2017/12/5  21:08:34",
-                "2017/12/5  22:50:11", "2017/12/5  23:09:25"};
-        String room[] = {"皮卡丘", "我爱罗", "杰尼龟", "超梦", "皮卡丘", "妙蛙种子",
-                "杰尼龟", "杰尼龟", "皮卡丘", "超梦", "宇智波鼬", "史迪奇"};
-        String money[] = {"+40", "+60", "-50", "-70", "+80", "+30", "-20", "+40", "+90", "-70"};
-        for (int i = 0; i < playId.length; i++) {
-            BetRecordBean betRecordBean = new BetRecordBean();
-            betRecordBean.setPLAYID(String.valueOf(playId[i]));
-            betRecordBean.setBETTIME(time[i]);
-            betRecordBean.setDOLLNAME(room[i]);
-            betRecordBean.setBETMONEY(money[i]);
-            list.add(betRecordBean);
+        private void getGuessDetail(String userId){
+            HttpManager.getInstance().getGuessDetail(userId, new RequestSubscriber<Result<BetRecordBean>>() {
+                @Override
+                public void _onSuccess(Result<BetRecordBean> loginInfoResult) {
+                    if (loginInfoResult.getMsg().equals("success")){
+                        list=loginInfoResult.getData().getDataList();
+                        for (int i=0;i<list.size();i++){
+                            if (list.get(i).getSETTLEMENT_FLAG().equals("Y")){
+                                    mylist.add(list.get(i));
+                                if (mylist.size()>0){
+                                    betRecordAdapter.notify(mylist);
+                                }else {
+                                    betrecodeRecyclerview.setVisibility(View.GONE);
+                                    betcecordFailTv.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void _onError(Throwable e) {
+                    betrecodeRecyclerview.setVisibility(View.GONE);
+                    betcecordFailTv.setVisibility(View.VISIBLE);
+                }
+            });
+
         }
-    }
 }

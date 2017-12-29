@@ -23,5 +23,7 @@
     <color name="run_text_bg">#efefef</color>
     <color name="geren_bg">#ececec</color>
     <color name="apptheme_bg">#fed201</color>
+    <color name="betrecordcolor">#e73640</color>
+    <color name="betrecordcolor1">#008c1a</color>
 
 </resources>

@@ -25,11 +25,54 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="我的投注记录"
+            android:text="竞猜记录"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:background="@drawable/mycenter_bg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="期号"/>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="抓取结果"/>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="投注结果"/>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="我的奖金"/>
+
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/betrecode_recyclerview"
@@ -41,7 +84,7 @@
         android:id="@+id/betcecord_fail_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/none_record"
+        android:text="暂竞猜记录"
         android:textColor="@color/gray"
         android:background="#fbfbfb"
         android:gravity="center_horizontal"

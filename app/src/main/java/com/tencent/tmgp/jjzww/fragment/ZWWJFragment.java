@@ -1,15 +1,13 @@
 package com.tencent.tmgp.jjzww.fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
@@ -35,12 +33,9 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
@@ -54,13 +49,10 @@ public class ZWWJFragment extends BaseFragment {
     @BindView(R.id.zww_emptylayout)
     EmptyLayout zwwEmptylayout;
     Unbinder unbinder;
-    //    @BindView(R.id.rolling_tv)
-//    MyTextSwitcher rollingTv;
     @BindView(R.id.marqueeview)
     MarqueeView marqueeview;
     @BindView(R.id.zww_banner)
     Banner zwwBanner;
-   // Unbinder unbinder1;
 
     private List<ZwwRoomBean> roomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
@@ -77,10 +69,20 @@ public class ZWWJFragment extends BaseFragment {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
+        init();
         initData();
         onClick();
         getUserList();
         initBanner();
+
+    }
+
+    private void init() {
+
+//        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//
+//        }
     }
 
     private void getUserList() {
@@ -106,8 +108,6 @@ public class ZWWJFragment extends BaseFragment {
             }
         });
     }
-
-
 
 
     private void initData() {
@@ -199,22 +199,8 @@ public class ZWWJFragment extends BaseFragment {
         //getUserList();
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        // TODO: inflate a fragment view
-//        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-//        unbinder1 = ButterKnife.bind(this, rootView);
-//        return rootView;
-//    }
-//
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        unbinder1.unbind();
-//    }
-
     //banner轮播
-    private void initBanner(){
+    private void initBanner() {
         //设置Banner样式
         zwwBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
@@ -239,7 +225,7 @@ public class ZWWJFragment extends BaseFragment {
         zwwBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                MyToast.getToast(getContext(),"您点击了第"+(position+1)+"张图片").show();
+                MyToast.getToast(getContext(), "您点击了第" + (position + 1) + "张图片").show();
             }
         });
     }
@@ -249,7 +235,7 @@ public class ZWWJFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         //开始轮播
-       zwwBanner.startAutoPlay();
+        zwwBanner.startAutoPlay();
     }
 
     @Override

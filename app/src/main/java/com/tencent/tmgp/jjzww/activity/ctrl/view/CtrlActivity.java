@@ -510,9 +510,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 ctrlCompl.startPlaySwitchUrlVideo(currentUrl);
                 break;
             case R.id.ctrl_guessrecord_tv:
-                Intent intent = new Intent();
-                intent.setClass(this, BetRecordActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this,BetRecordActivity.class));
                 break;
             default:
                 break;

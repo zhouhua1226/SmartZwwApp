@@ -31,10 +31,18 @@
 
     </RelativeLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/consignment_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone"
+        >
 
         <ImageView
             android:id="@+id/title_img"
@@ -107,6 +115,81 @@
 
 
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <LinearLayout
+        android:id="@+id/consignment_singleyj_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:id="@+id/consignment_hdfk_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+            <ImageView
+
+                android:id="@+id/consignment_hdfk_imag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/consignment_unselect"
+                android:layout_marginLeft="20dp"
+                />
+
+            <TextView
+                android:id="@+id/consignment_hdfk_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="货到付款"
+                android:layout_gravity="center_vertical"
+                android:textColor="#5b5b5b"
+                android:layout_marginLeft="10dp"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/consignment_wwbdkyf_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:id="@+id/consignment_wwbdkyf_imag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/consignment_unselect"
+                android:layout_marginLeft="20dp"
+                />
+            <TextView
+                android:id="@+id/consignment_wwbdkyf_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="80娃娃币抵扣邮费"
+                android:layout_gravity="center_vertical"
+                android:textColor="#5b5b5b"
+                android:layout_marginLeft="10dp"
+                />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
 
     <ImageView
         android:layout_width="match_parent"

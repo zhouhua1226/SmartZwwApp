@@ -459,6 +459,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                 //说明
                 quizInstrictionDialog = new QuizInstrictionDialog(this, R.style.easy_dialog_style);
                 quizInstrictionDialog.show();
+                quizInstrictionDialog.setTitle("竞猜游戏说明");
+                quizInstrictionDialog.setContent(Utils.readAssetsTxt(this, "guessintroduce"));
                 break;
 
             case R.id.ctrl_betting_winning:
@@ -703,7 +705,7 @@ public class CtrlActivity extends Activity implements IctrlView {
             ctrlQuizLayout.setVisibility(View.VISIBLE);         //竞彩布局
             return;
         }
-        startgameLl.setBackgroundResource(R.drawable.ctrl_unstartgame_button);
+        startgameLl.setBackgroundResource(R.drawable.ctrl_startgame_button);
         startgameTextImag.setImageResource(R.drawable.ctrl_begin_loading);
         if (userInfos.size() > 1) {
             moneyImage.setImageResource(R.drawable.ctrl_bet_button);
@@ -927,8 +929,15 @@ public class CtrlActivity extends Activity implements IctrlView {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!Utils.isEmpty(UserUtils.USER_ID))
-        getUserDate(UserUtils.USER_ID);    //再次获取用户余额并更新UI
+        if(!Utils.isEmpty(UserUtils.USER_ID)) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getUserDate(UserUtils.USER_ID);    //2秒后获取用户余额并更新UI
+                }
+            },2000);
+
+        }
     }
 
     /*************************************************

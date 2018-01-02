@@ -198,7 +198,8 @@ public interface SmartService {
             @Field(UrlUtils.SENDGOODSNUM) String number,
             @Field(UrlUtils.SENDGOODSSHXX) String consignee,
             @Field(UrlUtils.SENDGOODSREMARK) String remark,
-            @Field(UrlUtils.SENDGOODSUSERID) String userId
+            @Field(UrlUtils.SENDGOODSUSERID) String userId,
+            @Field(UrlUtils.SENDGOODSMODE) String mode
     );
 
     //兑换游戏币

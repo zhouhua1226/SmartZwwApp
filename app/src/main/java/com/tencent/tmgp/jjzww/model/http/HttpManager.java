@@ -222,8 +222,8 @@ public class HttpManager {
     }
 
     //发货
-    public void getSendGoods(String id,String number,String consignee,String remark,String userID,Subscriber<Result<LoginInfo>>subscriber){
-        Observable<Result<LoginInfo>> o =smartService.getSendGoods(id,number,consignee,remark,userID);
+    public void getSendGoods(String id,String number,String consignee,String remark,String userID,String mode,Subscriber<Result<LoginInfo>>subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getSendGoods(id,number,consignee,remark,userID,mode);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

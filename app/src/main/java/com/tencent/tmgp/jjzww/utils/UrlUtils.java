@@ -41,6 +41,7 @@ public class UrlUtils {
     public static final String SENDGOODSSHXX="consignee";
     public static final String SENDGOODSREMARK="remark";
     public static final String SENDGOODSUSERID="userId";
+    public static final String SENDGOODSMODE="mode";
 
     //微信QQ登录接口
     public static final String WXQQ_UID="uid";

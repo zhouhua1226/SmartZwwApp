@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backcolor">
+    android:background="@color/white">
 
     <RelativeLayout
+        android:id="@+id/mycatchrecod_top_layout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/apptheme_bg">
@@ -27,13 +28,133 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
+        <ImageView
+            android:id="@+id/mycatchrecod_dialog_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mycatchrecord_whsm"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:visibility="visible"
+            />
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/mycatchrecod_fx_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/mycatchrecod_top_layout"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
+        <ImageView
+            android:id="@+id/mycatchrecod_fx_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/consignment_unselect"
+            android:layout_gravity="center_vertical"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="反选"
+            android:textColor="@color/gray"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mycatchrecod_qx_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_toLeftOf="@+id/mycatchrecod_fx_layout"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/mycatchrecod_top_layout"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
+        <ImageView
+            android:id="@+id/mycatchrecod_qx_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/consignment_unselect"
+            android:layout_gravity="center_vertical"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全选"
+            android:textColor="@color/gray"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_below="@+id/mycatchrecod_fx_layout"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray"/>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mycatchrecod_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/mycatchrecod_fx_layout"
         />
+
+    <RelativeLayout
+        android:id="@+id/mycatchrecod_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        >
+
+        <ImageView
+            android:id="@+id/mycatchrecod_fhsure_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/mycatchrecord_fhsurebtn_bg"
+            />
+
+        <ImageView
+            android:id="@+id/mycatchrecod_dhsure_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/mycatchrecod_fhsure_image"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/mycatchrecord_dhsurebtn_bg"
+            />
+        <TextView
+            android:id="@+id/mycatchrecod_selectnum_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已选0个娃娃"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/gray"
+            />
+
+
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/mycatchrecod_fail_tv"
@@ -48,4 +169,4 @@
         />
 
 
-</LinearLayout>
+</RelativeLayout>

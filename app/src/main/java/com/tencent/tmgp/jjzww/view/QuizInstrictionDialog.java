@@ -16,6 +16,7 @@ import com.tencent.tmgp.jjzww.R;
 public class QuizInstrictionDialog extends Dialog {
 
     private Button cancel_button;
+    private TextView title_tv,content_tv;
 
     public QuizInstrictionDialog(Context context) {
         super(context);
@@ -37,6 +38,8 @@ public class QuizInstrictionDialog extends Dialog {
     }
 
     public void findView(){
+        title_tv= (TextView) findViewById(R.id.introducedialog_title_tv);
+        content_tv= (TextView) findViewById(R.id.introducedialog_content_tv);
         cancel_button= (Button) findViewById(R.id.cancel_button);
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,4 +49,13 @@ public class QuizInstrictionDialog extends Dialog {
         });
 
     }
+
+    public void setTitle(String title){
+        title_tv.setText(title);
+    }
+
+    public void setContent(String content){
+        content_tv.setText(content);
+    }
+
 }

@@ -1071,7 +1071,7 @@ public class CtrlActivity extends Activity implements IctrlView {
             @Override
             public void getResult(int resultCode) {
                 if (resultCode == 1) {
-                    MyToast.getToast(getApplicationContext(), "二次抢抓功能还在完善中！").show();
+                    //MyToast.getToast(getApplicationContext(), "二次抢抓功能还在完善中！").show();
                 }
             }
         });

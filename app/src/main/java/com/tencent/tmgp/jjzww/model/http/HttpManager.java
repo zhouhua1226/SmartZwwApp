@@ -312,4 +312,13 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
+    //获取金币流水列表
+    public void getPaymenList(String userId,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getPaymenList(userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }

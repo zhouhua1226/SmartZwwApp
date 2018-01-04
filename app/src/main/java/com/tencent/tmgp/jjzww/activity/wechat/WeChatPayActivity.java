@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.easy.ysdk.EasyYSDKApi;
 import com.easy.ysdk.pay.NotifyListener;
 import com.easy.ysdk.pay.PayReviewer;
@@ -64,6 +65,7 @@ public class WeChatPayActivity extends BaseActivity {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
+        Glide.get(this).clearMemory();
         initView();
         initSDK();
         initData();
@@ -130,6 +132,11 @@ public class WeChatPayActivity extends BaseActivity {
             }
         });
         PayReviewer.reviewer();   //通知失败进行重发
+    }
+
+    //判断是否登录
+    private boolean isLogin() {
+        return RobustApi.getInstance().isLogin();
     }
 
     private void pay(String userId, String accessToken, int amount, String order) {
@@ -225,45 +232,59 @@ public class WeChatPayActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EasyYSDKApi.onResume(this);
+        if(!isLogin()) {
+            EasyYSDKApi.onResume(this);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        EasyYSDKApi.onPause(this);
+        if(!isLogin()) {
+            EasyYSDKApi.onPause(this);
+        }
     }
 
 
     @Override
     protected void onStop() {
         super.onStop();
-        EasyYSDKApi.onStop(this);
+        if(!isLogin()) {
+            EasyYSDKApi.onStop(this);
+        }
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EasyYSDKApi.onDestroy(this);
-        EasyYSDKApi.unRegistPayActivity();
+        if(!isLogin()) {
+            EasyYSDKApi.onDestroy(this);
+            EasyYSDKApi.unRegistPayActivity();
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        EasyYSDKApi.onRestart(this);
+        if(!isLogin()) {
+            EasyYSDKApi.onRestart(this);
+        }
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        EasyYSDKApi.handleIntent(intent);
+        if(!isLogin()) {
+            EasyYSDKApi.handleIntent(intent);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        EasyYSDKApi.onActivityResult(requestCode, resultCode, data);
+        if(!isLogin()) {
+            EasyYSDKApi.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

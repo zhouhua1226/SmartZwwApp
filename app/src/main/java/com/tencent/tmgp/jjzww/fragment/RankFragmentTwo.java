@@ -131,11 +131,11 @@ public class RankFragmentTwo extends BaseFragment {
                 }
                 int length=list.size();
                 if(length>=1)
-                firstBean=list.get(0);
+                    firstBean=list.get(0);
                 if(length>=2)
-                secondBean=list.get(1);
+                    secondBean=list.get(1);
                 if(length>=3)
-                thirdBean=list.get(2);
+                    thirdBean=list.get(2);
                 rankList.clear();
                 if(length>10){
                     for(int i=3;i<10;i++){

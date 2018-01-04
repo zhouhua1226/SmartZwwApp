@@ -25,5 +25,6 @@
     <color name="apptheme_bg">#fed201</color>
     <color name="betrecordcolor">#e73640</color>
     <color name="betrecordcolor1">#008c1a</color>
+    <color name="midle_white">#f9f9f9</color>
 
 </resources>

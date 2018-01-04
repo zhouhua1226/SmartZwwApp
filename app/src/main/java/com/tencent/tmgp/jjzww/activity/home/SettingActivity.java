@@ -129,6 +129,11 @@ public class SettingActivity extends BaseActivity {
 
     }
 
+    //判断是否登录
+    private boolean isLogin() {
+        return RobustApi.getInstance().isLogin();
+    }
+
     @OnClick({R.id.image_back, R.id.image_kf, R.id.money_rl,
             R.id.record_rl, R.id.invitation_rl, R.id.feedback_rl,
             R.id.gywm_rl, R.id.bt_out, R.id.vibrator_control_layout,
@@ -278,47 +283,61 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EasyYSDKApi.onResume(this);
+        if(!isLogin()) {
+            EasyYSDKApi.onResume(this);
+        }
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        EasyYSDKApi.onPause(this);
+        if(!isLogin()) {
+            EasyYSDKApi.onPause(this);
+        }
     }
 
 
     @Override
     protected void onStop() {
         super.onStop();
-        EasyYSDKApi.onStop(this);
+        if(!isLogin()) {
+            EasyYSDKApi.onStop(this);
+        }
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EasyYSDKApi.onDestroy(this);
+        if(!isLogin()) {
+            EasyYSDKApi.onDestroy(this);
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        EasyYSDKApi.onRestart(this);
+        if(!isLogin()) {
+            EasyYSDKApi.onRestart(this);
+        }
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        EasyYSDKApi.handleIntent(intent);
+        if(!isLogin()) {
+            EasyYSDKApi.handleIntent(intent);
+        }
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        EasyYSDKApi.onActivityResult(requestCode, resultCode, data);
+        if(!isLogin()) {
+            EasyYSDKApi.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
 }

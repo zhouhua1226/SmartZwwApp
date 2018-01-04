@@ -109,10 +109,10 @@ public class MyCtachRecordActivity extends BaseActivity {
 
     private void initData() {
         myCenterAdapter = new MyCenterAdapter(context, videoList);
+        mycatchrecodRecyclerview.setAdapter(myCenterAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mycatchrecodRecyclerview.setLayoutManager(linearLayoutManager);
         mycatchrecodRecyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mycatchrecodRecyclerview.setAdapter(myCenterAdapter);
 
     }
 

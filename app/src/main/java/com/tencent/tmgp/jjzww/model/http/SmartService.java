@@ -280,4 +280,12 @@ public interface SmartService {
             @Field(UrlUtils.USERID) String userId
     );
 
+    //用户金币流水  getPaymenlist
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.CURRENTACCOUNTURL)
+    Observable<Result<LoginInfo>> getPaymenList(
+            @Field(UrlUtils.USERID) String userId
+    );
+
 }

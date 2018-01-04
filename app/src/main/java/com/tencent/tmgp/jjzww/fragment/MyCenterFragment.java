@@ -2,7 +2,6 @@ package com.tencent.tmgp.jjzww.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,15 +14,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
+import com.tencent.tmgp.jjzww.activity.home.BetRecordActivity;
+import com.tencent.tmgp.jjzww.activity.home.GameCurrencyActivity;
 import com.tencent.tmgp.jjzww.activity.home.InformationActivity;
 import com.tencent.tmgp.jjzww.activity.home.MyCtachRecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.RecordActivity;
-import com.tencent.tmgp.jjzww.activity.home.RecordGameActivty;
-import com.tencent.tmgp.jjzww.activity.home.RecordGameTwoActivity;
 import com.tencent.tmgp.jjzww.activity.home.ServiceActivity;
 import com.tencent.tmgp.jjzww.activity.home.SettingActivity;
 import com.tencent.tmgp.jjzww.activity.wechat.WeChatPayActivity;
-import com.tencent.tmgp.jjzww.adapter.MyCenterAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
@@ -34,9 +32,7 @@ import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.utils.YsdkUtils;
-import com.tencent.tmgp.jjzww.view.FillingCurrencyDialog;
 import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
-import com.tencent.tmgp.jjzww.view.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,13 +79,12 @@ public class MyCenterFragment extends BaseFragment {
     @BindView(R.id.mycenter_videoback_layout)
     RelativeLayout mycenterVideobackLayout;
     Unbinder unbinder2;
+    @BindView(R.id.mycenter_currencyrecord_layout)
+    RelativeLayout mycenterCurrencyrecordLayout;
+    @BindView(R.id.mycenter_guessrecord_layout)
+    RelativeLayout mycenterGuessrecordLayout;
 
-    private FillingCurrencyDialog fillingCurrencyDialog;
-    private MyCenterAdapter myCenterAdapter;
-    private Unbinder unbinder1;
-    private List<String> list;
     private List<VideoBackBean> videoList = new ArrayList<>();
-    private List<VideoBackBean> videoReList = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -101,51 +96,6 @@ public class MyCenterFragment extends BaseFragment {
         Glide.get(getContext()).clearMemory();
 
     }
-
-    private void onClick() {
-        myCenterAdapter.setOnItemClickListener(new MyCenterAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getContext(), RecordGameActivty.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("record", videoList.get(position));
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                startActivity(new Intent(getContext(), RecordGameTwoActivity.class));
-            }
-        });
-
-////        下拉刷新
-//        swiperefresh.setColorSchemeResources(R.color.pink);
-//        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                swiperefresh.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        getUserImageAndName();
-////                        initlist();
-//                        myCenterAdapter.notifyDataSetChanged();
-//                        swiperefresh.setRefreshing(false);
-//                    }
-//                }, 2000);
-//            }
-//        });
-
-    }
-
-    private void initData() {
-        myCenterAdapter = new MyCenterAdapter(getContext(), videoList);
-        mycenterRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        mycenterRecyclerview.addItemDecoration(new SpaceItemDecoration(15));
-        mycenterRecyclerview.setAdapter(myCenterAdapter);
-
-    }
-
 
     @Override
     public void onResume() {
@@ -199,7 +149,8 @@ public class MyCenterFragment extends BaseFragment {
 
     @OnClick({R.id.mycenter_kefu_layout, R.id.mycenter_setting_layout, R.id.user_image,
             R.id.mycenter_pay_layout, R.id.user_name, R.id.mycenter_catchrecord_layout,
-            R.id.mycenter_videoback_layout})
+            R.id.mycenter_videoback_layout, R.id.mycenter_currencyrecord_layout,
+            R.id.mycenter_guessrecord_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mycenter_kefu_layout:
@@ -213,7 +164,6 @@ public class MyCenterFragment extends BaseFragment {
                 break;
             case R.id.mycenter_pay_layout:
 //                startActivity(new Intent(getContext(), SelectRechargeTypeActiivty.class));
-//                getMoney();
                 startActivity(new Intent(getContext(), WeChatPayActivity.class));
                 break;
             case R.id.mycenter_catchrecord_layout:
@@ -225,46 +175,18 @@ public class MyCenterFragment extends BaseFragment {
             case R.id.user_name:
                 //此处添加登录dialog
                 break;
+            case R.id.mycenter_currencyrecord_layout:
+                //金币记录
+                //MyToast.getToast(getContext(),"金币记录").show();
+                startActivity(new Intent(getContext(), GameCurrencyActivity.class));
+                break;
+            case R.id.mycenter_guessrecord_layout:
+                startActivity(new Intent(getContext(), BetRecordActivity.class));
+                break;
             default:
                 break;
         }
     }
-
-    private void getMoney() {
-        fillingCurrencyDialog = new FillingCurrencyDialog(getContext(), R.style.easy_dialog_style);
-        fillingCurrencyDialog.show();
-        fillingCurrencyDialog.setDialogClickListener(myDialogClick);
-    }
-
-    private FillingCurrencyDialog.MyDialogClick myDialogClick = new FillingCurrencyDialog.MyDialogClick() {
-        @Override
-        public void getMoney10(String money) {
-            Intent intent = new Intent(getContext(), WeChatPayActivity.class);
-            intent.putExtra("money", money);
-            getContext().startActivity(intent);
-        }
-
-        @Override
-        public void getMoney20(String money) {
-            Intent intent = new Intent(getContext(), WeChatPayActivity.class);
-            intent.putExtra("money", money);
-            getContext().startActivity(intent);
-        }
-
-        @Override
-        public void getMoney50(String money) {
-            Intent intent = new Intent(getContext(), WeChatPayActivity.class);
-            intent.putExtra("money", money);
-            getContext().startActivity(intent);
-        }
-
-        @Override
-        public void getMoney100(String money) {
-            Intent intent = new Intent(getContext(), WeChatPayActivity.class);
-            intent.putExtra("money", money);
-            getContext().startActivity(intent);
-        }
-    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -280,59 +202,5 @@ public class MyCenterFragment extends BaseFragment {
         unbinder2.unbind();
     }
 
-//    private void getVideoBackList(String userName) {
-//        HttpManager.getInstance().getVideoBackList(userName, new RequestSubscriber<Result<LoginInfo>>() {
-//            @Override
-//            public void _onSuccess(Result<LoginInfo> result) {
-//                videoList = result.getData().getPlayback();
-//                videoReList = result.getData().getDollCount();
-//                Utils.showLogE("mycenter记录列表", "result=" + result.getMsg() + "=" + videoList.size());
-//                if (videoList.size() != 0) {
-//                    userNumber.setText("累积抓中" + videoList.get(0).getDOLLTOTAL() + "次");
-//                    mycenterNoneTv.setVisibility(View.GONE);
-//                    //myCenterAdapter.notify(getCatchNum(removeDuplicate(videoList),videoReList));
-//                    myCenterAdapter.notify(videoList);
-//                } else {
-//                    Utils.showLogE("个人中心", "暂无数据");
-//                    mycenterRecyclerview.setVisibility(View.GONE);
-//                    mycenterNoneTv.setVisibility(View.VISIBLE);
-//                }
-//            }
-//
-//            @Override
-//            public void _onError(Throwable e) {
-//
-//            }
-//        });
-//    }
-//
-//    //记录数据重组   11/28 17:55
-//    private List<VideoBackBean> getCatchNum(List<VideoBackBean> list, List<VideoBackBean> reList) {
-//        for (int i = 0; i < list.size(); i++) {
-//            if (list.get(i).getDOLLNAME().equals(reList.get(i).getDOLLNAME())) {
-//                list.get(i).setCOUNT(reList.get(i).getCOUNT());
-//            } else {
-//                for (int j = 0; j < reList.size(); j++) {
-//                    if (reList.get(j).getDOLLNAME().equals(list.get(i).getDOLLNAME())) {
-//                        list.get(i).setCOUNT(reList.get(j).getCOUNT());
-//                    }
-//                }
-//            }
-//        }
-//        return list;
-//    }
-//
-//    //记录重复赛选
-//    public List<VideoBackBean> removeDuplicate(List<VideoBackBean> list) {
-//        for (int i = 0; i < list.size() - 1; i++) {
-//            for (int j = list.size() - 1; j > i; j--) {
-//                if (list.get(j).getDOLLNAME().equals(list.get(i).getDOLLNAME())) {
-//                    list.remove(j);
-//                }
-//            }
-//        }
-//
-//        return list;
-//    }
 
 }

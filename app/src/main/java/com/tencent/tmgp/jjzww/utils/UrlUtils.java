@@ -153,4 +153,6 @@ public class UrlUtils {
 
 //    public static final String GETGUESSDETAIL="http://192.168.1.21:8080/pooh-web/app/getGuessDetailTop10";
 
+    public static final String CURRENTACCOUNTURL=URL+"/pooh-web/app/getPaymenlist";
+
 }

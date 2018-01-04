@@ -15,6 +15,7 @@ import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.bean.ExChangeMoneyBean;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
+import com.tencent.tmgp.jjzww.bean.UserPaymentBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
@@ -41,7 +42,7 @@ public class GameCurrencyActivity extends BaseActivity {
     TextView gcNoneTv;
 
     private String TAG="GameCurrencyActivity--";
-    private List<ExChangeMoneyBean> list=new ArrayList<>();
+    private List<UserPaymentBean> list=new ArrayList<>();
     private GameCurrencyAdapter gameCurrencyAdapter;
 
     //我的游戏币
@@ -55,7 +56,8 @@ public class GameCurrencyActivity extends BaseActivity {
         initView();
         gameTv.setText(UserUtils.UserBalance);
         initData();
-        getExChangeList(UserUtils.USER_ID);
+        getPaymenList(UserUtils.USER_ID);
+        //getExChangeList(UserUtils.USER_ID);
     }
 
     @Override
@@ -84,12 +86,12 @@ public class GameCurrencyActivity extends BaseActivity {
         recyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
-    private void getExChangeList(String userId){
-        HttpManager.getInstance().getExChangeList(userId, new RequestSubscriber<Result<LoginInfo>>() {
+    private void getPaymenList(String userId){
+        HttpManager.getInstance().getPaymenList(userId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-                Log.e(TAG,"兑换列表="+loginInfoResult.getMsg());
-                list=loginInfoResult.getData().getConversionList();
+                Log.e(TAG,"金币流水列表="+loginInfoResult.getMsg());
+                list=loginInfoResult.getData().getPaymentList();
                 if(list.size()>0){
                     gameCurrencyAdapter.notify(list);
                 }else {
@@ -100,10 +102,32 @@ public class GameCurrencyActivity extends BaseActivity {
 
             @Override
             public void _onError(Throwable e) {
-
             }
         });
     }
+
+//    private void getExChangeList(String userId){
+//        HttpManager.getInstance().getExChangeList(userId, new RequestSubscriber<Result<LoginInfo>>() {
+//            @Override
+//            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+//                Log.e(TAG,"兑换列表="+loginInfoResult.getMsg());
+//                list=loginInfoResult.getData().getConversionList();
+//                if(list.size()>0){
+//                    gameCurrencyAdapter.notify(list);
+//                }else {
+//                    recyclerview.setVisibility(View.GONE);
+//                    gcNoneTv.setVisibility(View.VISIBLE);
+//                }
+//            }
+//
+//            @Override
+//            public void _onError(Throwable e) {
+//
+//            }
+//        });
+//    }
+
+
 
 
 }

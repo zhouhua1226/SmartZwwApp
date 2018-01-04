@@ -19,6 +19,15 @@ public class LoginInfo implements Serializable{
     private List<ExChangeMoneyBean> conversionList;
     private OrderBean Order;
     private List<PayCardBean> paycard;
+    private List<UserPaymentBean> paymentList;
+
+    public List<UserPaymentBean> getPaymentList() {
+        return paymentList;
+    }
+
+    public void setPaymentList(List<UserPaymentBean> paymentList) {
+        this.paymentList = paymentList;
+    }
 
     public List<PayCardBean> getPaycard() {
         return paycard;

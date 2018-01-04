@@ -104,15 +104,16 @@
         android:layout_below="@+id/mycatchrecod_fx_layout"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray"/>
+        android:background="@color/gray"
+        android:visibility="gone"
+        />
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mycatchrecod_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="49dp"
         android:layout_below="@+id/mycatchrecod_fx_layout"
         />
 
@@ -121,7 +122,15 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
+        android:background="@color/midle_white"
+
         >
+
+        <View
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#d6d6d6"/>
 
         <ImageView
             android:id="@+id/mycatchrecod_fhsure_image"

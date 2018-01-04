@@ -44,7 +44,9 @@
         android:id="@+id/money_rl"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -108,14 +110,14 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="#ededed"
-        android:visibility="visible"
+        android:visibility="gone"
         />
     <RelativeLayout
         android:id="@+id/betrecord_rl"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
-        android:visibility="visible"
+        android:visibility="gone"
         >
 
         <TextView
@@ -123,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:text="我的投注记录"
+            android:text="我的竞猜记录"
             android:textColor="@color/black"
             android:textSize="14sp" />
 

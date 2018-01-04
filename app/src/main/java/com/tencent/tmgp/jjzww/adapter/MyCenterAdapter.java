@@ -52,8 +52,6 @@ public class MyCenterAdapter extends RecyclerView.Adapter<MyCenterAdapter.Center
 
     @Override
     public CenterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-
         View view=mInflater.inflate(R.layout.center_item,parent,false);
         CenterViewHolder centerViewHolder=new CenterViewHolder(view);
         return centerViewHolder;

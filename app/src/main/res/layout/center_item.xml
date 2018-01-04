@@ -67,9 +67,10 @@
         />
 
     <View
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_alignParentBottom="true"
-        android:background="#b5b5b5"/>
+        android:background="#d6d6d6"/>
 
     </RelativeLayout>

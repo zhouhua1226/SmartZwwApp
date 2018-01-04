@@ -12,6 +12,7 @@ import com.tencent.tmgp.jjzww.R;
 
 /**
  * Created by hongxiu on 2017/11/29.
+ * 通用说明对话框
  */
 public class QuizInstrictionDialog extends Dialog {
 

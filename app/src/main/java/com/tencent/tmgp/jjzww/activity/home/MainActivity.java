@@ -18,6 +18,9 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
+import com.tencent.tmgp.jjzww.bean.RoomBean;
+import com.tencent.tmgp.jjzww.bean.RoomListBean;
+import com.tencent.tmgp.jjzww.bean.SRStoken;
 import com.tencent.tmgp.jjzww.bean.Token;
 import com.tencent.tmgp.jjzww.bean.ZwwRoomBean;
 import com.tencent.tmgp.jjzww.fragment.MyCenterFragment;
@@ -39,6 +42,9 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.iot.game.pooh.server.entity.json.GetStatusResponse;
+import com.tencent.tmgp.jjzww.view.MyToast;
+import com.tencent.tmgp.jjzww.view.SignInDialog;
+import com.tencent.tmgp.jjzww.view.SignSuccessDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,11 +85,13 @@ public class MainActivity extends BaseActivity {
     private Fragment fragmentAll;
     private long mExitTime;
     private List<ZwwRoomBean> dollLists = new ArrayList<>();
+    private List<RoomBean> roomList=new ArrayList<>();
     private String ph;
     private String userID;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
     private Result<LoginInfo> loginInfoResult;
+    private int[] signDayNum={1,1,1,0,0,0,0};
 
     @Override
     protected int getLayoutId() {
@@ -96,7 +104,9 @@ public class MainActivity extends BaseActivity {
         initView();
         initNetty();
         showZwwFg();
+        getDollList();
         getLoginBackDate();
+        setSignInDialog();
         settings = getSharedPreferences("app_user", 0);// 获取SharedPreference对象
         editor = settings.edit();// 获取编辑对象。
         editor.putBoolean("isVibrator",true);
@@ -201,7 +211,7 @@ public class MainActivity extends BaseActivity {
                                       loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
                 zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID(), false);
                 if (dollLists.size() != 0) {
-                    zwwjFragment.notifyAdapter(dollLists);
+                    zwwjFragment.notifyAdapter(roomList);
                 }
                 getDeviceStates();
                 startTimer();
@@ -224,6 +234,7 @@ public class MainActivity extends BaseActivity {
                 Utils.showLogE(TAG, "logIn::::" + loginInfoResult.getMsg());
                 Utils.token = loginInfoResult.getData().getAccessToken();
                 dollLists = loginInfoResult.getData().getDollList();
+                UserUtils.SRSToken=loginInfoResult.getData().getSRStoken();
                 //用户手机号
                 UserUtils.UserPhone = loginInfoResult.getData().getAppUser().getPHONE();
                 //UserUtils.UserNickName = loginInfoResult.getData().getAppUser().getPHONE();
@@ -233,7 +244,7 @@ public class MainActivity extends BaseActivity {
                 //用户余额
                 UserUtils.UserBalance = loginInfoResult.getData().getAppUser().getBALANCE();
                 //用户头像  11/22 13：25
-                UserUtils.UserImage = UrlUtils.USERFACEIMAGEURL + loginInfoResult.getData().getAppUser().getIMAGE_URL();
+                UserUtils.UserImage = UrlUtils.APPPICTERURL + loginInfoResult.getData().getAppUser().getIMAGE_URL();
                 UserUtils.UserCatchNum = loginInfoResult.getData().getAppUser().getDOLLTOTAL();
                 UserUtils.DOLL_ID = loginInfoResult.getData().getAppUser().getDOLL_ID();
                 UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();
@@ -292,7 +303,7 @@ public class MainActivity extends BaseActivity {
                         UserUtils.UserName = result.getData().getAppUser().getUSERNAME();
                         UserUtils.NickName = result.getData().getAppUser().getNICKNAME();
                         UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
-                        UserUtils.UserImage = UrlUtils.USERFACEIMAGEURL + result.getData().getAppUser().getIMAGE_URL();
+                        UserUtils.UserImage = UrlUtils.APPPICTERURL + result.getData().getAppUser().getIMAGE_URL();
                         UserUtils.UserCatchNum=result.getData().getAppUser().getDOLLTOTAL();
                         UserUtils.DOLL_ID=result.getData().getAppUser().getDOLL_ID();
                         UserUtils.USER_ID=result.getData().getAppUser().getUSER_ID();
@@ -303,7 +314,7 @@ public class MainActivity extends BaseActivity {
                         if (dollLists.size() == 0) {
                             zwwjFragment.showError();
                         } else {
-                            zwwjFragment.notifyAdapter(dollLists);
+                            zwwjFragment.notifyAdapter(roomList);
                         }
                         getDeviceStates();
                         startTimer();
@@ -533,31 +544,42 @@ public class MainActivity extends BaseActivity {
                     String address = status[0];
                     String poohType = status[1];
                     String stats = status[2];
-                    for (int j = 0; j < dollLists.size(); j++) {
-                        ZwwRoomBean bean = dollLists.get(j);
-                        if (bean.getDOLL_ID().equals(address)) {
+                    for (int j = 0; j < roomList.size(); j++) {
+                        RoomBean bean = roomList.get(j);
+                        if (bean.getDollId().equals(address)) {
                             if (!poohType.equals(Utils.OK)) {
                                 //设备异常了
-                                bean.setDOLL_STATE("0");
+                                bean.setDollState("0");
                             } else {
-                                String url = bean.getCAMERA_NAME_02();
-                                if ((stats.equals(Utils.FREE) && (!TextUtils.isEmpty(url)))) {
-                                    bean.setDOLL_STATE("11");
-                                } else if (stats.equals(Utils.BUSY) && (!TextUtils.isEmpty(url))) {
-                                    bean.setDOLL_STATE("10");
+                                int length=bean.getCameras().size();
+                                if (length<2){
+                                    bean.setDollState("0");  //表示当前房间缺失摄像头
+                                }else {
+                                    String url1 = bean.getCameras().get(0).getRtmpUrl();
+                                    String url2 = bean.getCameras().get(1).getRtmpUrl();
+                                    String statu1 = bean.getCameras().get(0).getDeviceState();  //第一个摄像头状态 0可以  1不可以
+                                    String statu2 = bean.getCameras().get(1).getDeviceState();
+                                    ; //第二个摄像头状态 0可以  1不可以
+                                    if (stats.equals(Utils.FREE) && statu1.equals("0") && statu2.equals("0")) {
+                                        bean.setDollState("11");
+                                    } else if (stats.equals(Utils.BUSY) && statu1.equals("0") && statu2.equals("0")) {
+                                        bean.setDollState("10");
+                                    } else {
+                                        bean.setDollState("0");  //摄像头状态错误
+                                    }
                                 }
                             }
-                            dollLists.set(j, bean);
+                            roomList.set(j, bean);
                         }
                     }
                     //TODO 按照规则重新排序
-                    Collections.sort(dollLists, new Comparator<ZwwRoomBean>() {
+                    Collections.sort(roomList, new Comparator<RoomBean>() {
                         @Override
-                        public int compare(ZwwRoomBean t1, ZwwRoomBean t2) {
-                            return t2.getDOLL_STATE().compareTo(t1.getDOLL_STATE());
+                        public int compare(RoomBean t1, RoomBean t2) {
+                            return t2.getDollState().compareTo(t1.getDollState());
                         }
                     });
-                    zwwjFragment.notifyAdapter(dollLists);
+                    zwwjFragment.notifyAdapter(roomList);
                 }
             }
         }
@@ -620,4 +642,97 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
+    private void getDollList(){
+        HttpManager.getInstance().getDollList(new RequestSubscriber<RoomListBean>() {
+            @Override
+            public void _onSuccess(RoomListBean roomListBean) {
+                Utils.showLogE(TAG,"房间列表结果="+roomListBean.getMsg());
+                zwwjFragment.dismissEmptyLayout();
+                if(roomListBean.getMsg().equals("success")){
+                    roomList=roomListBean.getDollList();
+                    if (roomList.size() == 0) {
+                        zwwjFragment.showError();
+                    } else {
+                        zwwjFragment.notifyAdapter(roomList);
+                    }
+                    getDeviceStates();
+                    startTimer();
+                    Utils.showLogE(TAG, "afterCreate:::::>>>>" + roomList.size());
+                }
+            }
+
+            @Override
+            public void _onError(Throwable e) {
+                zwwjFragment.showError();
+                Utils.showLogE(TAG, "getLogin::::" + e.getMessage());
+            }
+        });
+    }
+
+    private void setSignInDialog(){
+        final SignInDialog signInDialog=new SignInDialog(this,R.style.easy_dialog_style);
+        signInDialog.setCancelable(false);
+        signInDialog.show();
+        signInDialog.setBackGroundColor(signDayNum);
+        signInDialog.setDialogResultListener(new SignInDialog.DialogResultListener() {
+            @Override
+            public void getResult(int resultCode) {
+                switch (resultCode){
+                    case 0:
+                        signInDialog.setBackGroundColor(signDayNum);
+                        MyToast.getToast(MainActivity.this,"签到第"+getSignDayNum(signDayNum)+"天");
+                        getSignSuccessDialog();
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        break;
+                    case 5:
+
+                        break;
+                    case 6:
+
+                        break;
+                    case 7:
+
+                        break;
+                }
+            }
+        });
+    }
+
+    private int[] getSignDayNum(int[] signNum){
+        int j=0;
+        for(int i=0;i<signNum.length;i++){
+            if(signNum[i]==1){
+                j+=1;
+            }
+        }
+        for(int i=0;i<j+1&&i<signNum.length;i++){
+            signNum[i]=1;
+        }
+        return signNum;
+    }
+
+    private void getSignSuccessDialog(){
+        SignSuccessDialog signSuccessDialog=new SignSuccessDialog(this,R.style.easy_dialog_style);
+        signSuccessDialog.setCancelable(false);
+        signSuccessDialog.show();
+        signSuccessDialog.setDialogResultListener(new SignSuccessDialog.DialogResultListener() {
+            @Override
+            public void getResult(int resultCode) {
+
+            }
+        });
+    }
+
 }

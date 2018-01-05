@@ -151,8 +151,13 @@ public class UrlUtils {
 //    http://192.168.1.21:8080/pooh-web/app/getGuessDetailTop10
     public static final String GETGUESSDETAIL=URL+"/pooh-web/app/getGuessDetailTop10";
 
-//    public static final String GETGUESSDETAIL="http://192.168.1.21:8080/pooh-web/app/getGuessDetailTop10";
-
+    //金币流水接口
     public static final String CURRENTACCOUNTURL=URL+"/pooh-web/app/getPaymenlist";
+
+    //房间列表接口
+    public static final String DOLLLISTURL=URL+"/pooh-web/app/doll/getDollList";
+
+    //APP图片拼接url
+    public static final String APPPICTERURL="http://47.100.15.18:8888/";
 
 }

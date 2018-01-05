@@ -6,6 +6,8 @@ import com.tencent.tmgp.jjzww.bean.ListRankBean;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.PondResponseBean;
 import com.tencent.tmgp.jjzww.bean.Result;
+import com.tencent.tmgp.jjzww.bean.RoomBean;
+import com.tencent.tmgp.jjzww.bean.RoomListBean;
 import com.tencent.tmgp.jjzww.bean.Token;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
 
@@ -287,5 +289,11 @@ public interface SmartService {
     Observable<Result<LoginInfo>> getPaymenList(
             @Field(UrlUtils.USERID) String userId
     );
+
+    //获取房间列表
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @GET(UrlUtils.DOLLLISTURL)
+    Observable<RoomListBean> getDollList();
+
 
 }

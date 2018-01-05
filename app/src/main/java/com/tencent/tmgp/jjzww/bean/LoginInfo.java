@@ -10,6 +10,7 @@ public class LoginInfo implements Serializable{
     private String accessToken;
     private String sessionID;
     private UserBean appUser;
+    private SRStoken srsToken;
     private List<ZwwRoomBean> dollList;
     private List<VideoBackBean> playback;
     private List<VideoBackBean> dollCount;
@@ -20,6 +21,14 @@ public class LoginInfo implements Serializable{
     private OrderBean Order;
     private List<PayCardBean> paycard;
     private List<UserPaymentBean> paymentList;
+
+    public SRStoken getSRStoken() {
+        return srsToken;
+    }
+
+    public void setSRStoken(SRStoken srsToken) {
+        this.srsToken = srsToken;
+    }
 
     public List<UserPaymentBean> getPaymentList() {
         return paymentList;

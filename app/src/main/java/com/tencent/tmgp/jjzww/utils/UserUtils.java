@@ -6,6 +6,7 @@ import com.gatz.netty.AppClient;
 import com.gatz.netty.UserInfo;
 import com.gatz.netty.global.AppGlobal;
 import com.gatz.netty.utils.NettyUtils;
+import com.tencent.tmgp.jjzww.bean.SRStoken;
 
 /**
  * Created by zhouh on 2017/9/19.
@@ -30,6 +31,7 @@ public class UserUtils {
     public static String DOLL_ID="";
     public static int id;
     public static boolean isLogout=false;
+    public static SRStoken SRSToken;
 
     public static final String RECODE_URL = Environment.getExternalStorageDirectory().getPath()
             + "/SmartRemoteApp/";

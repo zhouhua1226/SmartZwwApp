@@ -133,7 +133,7 @@ public class MyCenterFragment extends BaseFragment {
                 UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
                 UserUtils.UserCatchNum = result.getData().getAppUser().getDOLLTOTAL();
                 UserUtils.NickName = result.getData().getAppUser().getNICKNAME();
-                UserUtils.UserImage = UrlUtils.USERFACEIMAGEURL + result.getData().getAppUser().getIMAGE_URL();
+                UserUtils.UserImage = UrlUtils.APPPICTERURL + result.getData().getAppUser().getIMAGE_URL();
                 Log.e(TAG, "个人信息刷新结果=" + result.getMsg() + "余额=" + result.getData().getAppUser().getBALANCE()
                         + "抓取次数=" + result.getData().getAppUser().getDOLLTOTAL()
                         + "昵称=" + result.getData().getAppUser().getNICKNAME()

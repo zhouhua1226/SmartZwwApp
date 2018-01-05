@@ -8,6 +8,7 @@ import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.PlayBackBean;
 import com.tencent.tmgp.jjzww.bean.PondResponseBean;
 import com.tencent.tmgp.jjzww.bean.Result;
+import com.tencent.tmgp.jjzww.bean.RoomListBean;
 import com.tencent.tmgp.jjzww.bean.Token;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.google.gson.Gson;
@@ -315,6 +316,15 @@ public class HttpManager {
     //获取金币流水列表
     public void getPaymenList(String userId,Subscriber<Result<LoginInfo>> subscriber){
         Observable<Result<LoginInfo>> o =smartService.getPaymenList(userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //获取房间列表
+    public void getDollList(Subscriber<RoomListBean> subscriber){
+        Observable<RoomListBean> o =smartService.getDollList();
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

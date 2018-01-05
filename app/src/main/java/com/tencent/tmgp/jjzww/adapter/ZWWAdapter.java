@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
+import com.tencent.tmgp.jjzww.bean.RoomBean;
 import com.tencent.tmgp.jjzww.bean.ZwwRoomBean;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
 
@@ -20,10 +21,10 @@ import java.util.List;
  */
 public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
     private Context mContext;
-    private List<ZwwRoomBean> mDatas;
+    private List<RoomBean> mDatas;
     private OnItemClickListener mOnItemClickListener;
 
-    public ZWWAdapter(Context context, List<ZwwRoomBean> list) {
+    public ZWWAdapter(Context context, List<RoomBean> list) {
         this.mContext = context;
         this.mDatas = list;
     }
@@ -41,14 +42,14 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
 
     @Override
     public void onBindViewHolder(ZWWViewHolder holder, final int position) {
-        ZwwRoomBean bean = mDatas.get(position);
-        holder.money.setText(bean.getDOLL_GOLD()+"");
-        holder.name.setText(bean.getDOLL_NAME());
-        Glide.with(mContext).load(UrlUtils.PICTUREURL + bean.getDOLL_URL()).error(R.drawable.loading).into(holder.imageView);
+        RoomBean bean = mDatas.get(position);
+        holder.money.setText(bean.getDollGold()+"");
+        holder.name.setText(bean.getDollName());
+        Glide.with(mContext).load(UrlUtils.PICTUREURL + bean.getDollUrl()).error(R.drawable.loading).into(holder.imageView);
         holder.itemView.setEnabled(true);
-        if (bean.getDOLL_STATE().equals("11")) {
+        if (bean.getDollState().equals("11")) {
             holder.connectIv.setImageResource(R.drawable.ctrl_work_icon);
-        } else if (bean.getDOLL_STATE().equals("10")) {
+        } else if (bean.getDollState().equals("10")) {
             holder.connectIv.setImageResource(R.drawable.ctrl_idling_icon);
         } else {
             holder.connectIv.setImageResource(R.drawable.ctrl_repair_icon);
@@ -84,7 +85,7 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
         }
     }
 
-    public void notify(List<ZwwRoomBean> lists) {
+    public void notify(List<RoomBean> lists) {
         this.mDatas = lists;
         notifyDataSetChanged();
     }

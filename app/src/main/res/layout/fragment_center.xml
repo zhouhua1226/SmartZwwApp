@@ -257,7 +257,7 @@
             android:text="   金币记录"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:drawableLeft="@drawable/mycenter_record"
+            android:drawableLeft="@drawable/mycenter_currencyrecord"
             />
 
         <ImageView
@@ -290,7 +290,7 @@
             android:text="   竞猜记录"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:drawableLeft="@drawable/mycenter_record"
+            android:drawableLeft="@drawable/mycenter_guessrecord"
             />
 
         <ImageView

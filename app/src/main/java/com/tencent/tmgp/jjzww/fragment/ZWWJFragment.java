@@ -17,6 +17,8 @@ import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Marquee;
 import com.tencent.tmgp.jjzww.bean.Result;
+import com.tencent.tmgp.jjzww.bean.RoomBean;
+import com.tencent.tmgp.jjzww.bean.RoomListBean;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.bean.ZwwRoomBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -54,7 +56,7 @@ public class ZWWJFragment extends BaseFragment {
     @BindView(R.id.zww_banner)
     Banner zwwBanner;
 
-    private List<ZwwRoomBean> roomBeens = new ArrayList<>();
+    private List<RoomBean> roomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
     private String sessionId;
     private EmptyLayout.OnClickReTryListener onClickReTryListener;
@@ -95,7 +97,7 @@ public class ZWWJFragment extends BaseFragment {
                     String s = "恭喜" + "<font color='#FF0000'>" + playBackBeanList.get(i).getNICKNAME() + "</font>"
                             + "用户抓中一个" + playBackBeanList.get(i).getDOLL_NAME();
                     marquee.setTitle(s);
-                    marquee.setImgUrl(UrlUtils.USERFACEIMAGEURL + playBackBeanList.get(i).getIMAGE_URL());
+                    marquee.setImgUrl(UrlUtils.APPPICTERURL + playBackBeanList.get(i).getIMAGE_URL());
                     marquees.add(marquee);
                 }
                 marqueeview.setImage(true);
@@ -126,7 +128,7 @@ public class ZWWJFragment extends BaseFragment {
         zwwAdapter.setmOnItemClickListener(onItemClickListener);
     }
 
-    public void notifyAdapter(List<ZwwRoomBean> rooms) {
+    public void notifyAdapter(List<RoomBean> rooms) {
         roomBeens = rooms;
         zwwAdapter.notify(roomBeens);
     }
@@ -158,22 +160,36 @@ public class ZWWJFragment extends BaseFragment {
                 @Override
                 public void onItemClick(int position) {
                     if ((roomBeens.size() > 0) && (!Utils.isEmpty(sessionId))) {
-                        String room_id = roomBeens.get(position).getDOLL_ID();
+                        String room_id = roomBeens.get(position).getDollId();
                         boolean room_status = false;
                         UserUtils.setNettyInfo(sessionId, UserUtils.USER_ID, room_id, false);
-                        if (roomBeens.get(position).getDOLL_STATE().equals("0")) {
+                        if (roomBeens.get(position).getDollState().equals("0")) {
                             room_status = true;
-                        } else if (roomBeens.get(position).getDOLL_STATE().equals("1")) {
+                        } else if (roomBeens.get(position).getDollState().equals("1")) {
                             room_status = false;
                         }
-                        String url1 = roomBeens.get(position).getCAMERA_NAME_01();
-                        String url2 = roomBeens.get(position).getCAMERA_NAME_02();
-                        if (!TextUtils.isEmpty(url2)) {
-                            enterNext(roomBeens.get(position).getDOLL_NAME(),
+                        String rtmpUrl1 = roomBeens.get(position).getCameras().get(0).getRtmpUrl();
+                        String rtmpUrl2 = roomBeens.get(position).getCameras().get(1).getRtmpUrl();
+                        String serviceName1=roomBeens.get(position).getCameras().get(0).getServerName();
+                        String serviceName2=roomBeens.get(position).getCameras().get(1).getServerName();
+                        String liveStream1=roomBeens.get(position).getCameras().get(0).getLivestream();
+                        String liveStream2=roomBeens.get(position).getCameras().get(1).getLivestream();
+                        String idToken="?token="+UserUtils.SRSToken.getToken()
+                                         +"&expire="+UserUtils.SRSToken.getExpire()
+                                         +"&tid="+UserUtils.SRSToken.getTid()
+                                         +"&time="+UserUtils.SRSToken.getTime()
+                                         +"&type="+UserUtils.SRSToken.getType()
+                                         +"/";
+                        String url1=rtmpUrl1+serviceName1+idToken+liveStream1;
+                        String url2=rtmpUrl2+serviceName2+idToken+liveStream2;
+                        Utils.showLogE(TAG,"房间推流地址1="+url1);
+                        Utils.showLogE(TAG,"房间推流地址2="+url2);
+                        if (!TextUtils.isEmpty(url2)&&!TextUtils.isEmpty(url1)) {
+                            enterNext(roomBeens.get(position).getDollName(),
                                     url1, url2,
                                     room_status,
-                                    String.valueOf(roomBeens.get(position).getDOLL_GOLD()),
-                                    roomBeens.get(position).getDOLL_ID());
+                                    String.valueOf(roomBeens.get(position).getDollGold()),
+                                    roomBeens.get(position).getDollId());
                         } else {
                             Utils.showLogE(TAG, "当前设备没有配置摄像头!");
                         }
@@ -244,5 +260,6 @@ public class ZWWJFragment extends BaseFragment {
         //结束轮播
         zwwBanner.stopAutoPlay();
     }
+
 
 }

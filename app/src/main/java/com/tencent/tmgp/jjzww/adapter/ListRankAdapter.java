@@ -67,7 +67,7 @@ public class ListRankAdapter extends RecyclerView.Adapter<ListRankAdapter.ListRa
             });
         }
         Glide.with(mContext)
-                .load(UrlUtils.USERFACEIMAGEURL + mDatas.get(position).getIMAGE_URL())
+                .load(UrlUtils.APPPICTERURL + mDatas.get(position).getIMAGE_URL())
                 .dontAnimate()
                 .transform(new GlideCircleTransform(mContext))
                 .into(holder.rank_userImag);

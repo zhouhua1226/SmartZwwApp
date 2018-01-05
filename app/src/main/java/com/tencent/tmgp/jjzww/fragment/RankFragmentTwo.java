@@ -183,7 +183,7 @@ public class RankFragmentTwo extends BaseFragment {
             rankNumber.setText(myBean.getDOLLTOTAL());
             rankitemOrdinalnum.setText("第"+myNum+"名");
             Glide.with(getContext())
-                    .load(UrlUtils.USERFACEIMAGEURL + myBean.getIMAGE_URL())
+                    .load(UrlUtils.APPPICTERURL + myBean.getIMAGE_URL())
                     .dontAnimate()
                     .transform(new GlideCircleTransform(getContext()))
                     .into(rankUserImag);
@@ -198,7 +198,7 @@ public class RankFragmentTwo extends BaseFragment {
         }
         rankFirstNumTv.setText(firstBean.getDOLLTOTAL());
         Glide.with(getContext())
-                .load(UrlUtils.USERFACEIMAGEURL + firstBean.getIMAGE_URL())
+                .load(UrlUtils.APPPICTERURL + firstBean.getIMAGE_URL())
                 .dontAnimate()
                 .centerCrop()
                 .transform(new GlideCircleTransform(getContext()))
@@ -211,7 +211,7 @@ public class RankFragmentTwo extends BaseFragment {
         }
         rankSecondNumTv.setText(secondBean.getDOLLTOTAL());
         Glide.with(getContext())
-                .load(UrlUtils.USERFACEIMAGEURL + secondBean.getIMAGE_URL())
+                .load(UrlUtils.APPPICTERURL + secondBean.getIMAGE_URL())
                 .dontAnimate()
                 .centerCrop()
                 .transform(new GlideCircleTransform(getContext()))
@@ -224,7 +224,7 @@ public class RankFragmentTwo extends BaseFragment {
         }
         rankThirdNumTv.setText(thirdBean.getDOLLTOTAL());
         Glide.with(getContext())
-                .load(UrlUtils.USERFACEIMAGEURL + thirdBean.getIMAGE_URL())
+                .load(UrlUtils.APPPICTERURL + thirdBean.getIMAGE_URL())
                 .dontAnimate()
                 .centerCrop()
                 .transform(new GlideCircleTransform(getContext()))

@@ -58,8 +58,6 @@ public class BetRecordAdapter extends RecyclerView.Adapter<BetRecordAdapter.MyVi
                 }else if (bean.getGUESS_TYPE().equals("0")){
                     holder.results_tv.setText("没抓中");
 
-                }else {
-                    holder.results_tv.setText("流局");
                 }
 
 

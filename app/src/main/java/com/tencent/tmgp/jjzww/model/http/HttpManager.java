@@ -331,4 +331,13 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
+    //签到
+    public void getUserSign(String userId,String signType,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getUserSign(userId,signType);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }

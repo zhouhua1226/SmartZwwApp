@@ -113,13 +113,13 @@ public class SignInDialog extends Dialog implements View.OnClickListener{
      * 绑定监听
      **/
     private void setListner() {
-        imageView1.setOnClickListener(this);
-        imageView2.setOnClickListener(this);
-        imageView3.setOnClickListener(this);
-        imageView4.setOnClickListener(this);
-        imageView5.setOnClickListener(this);
-        imageView6.setOnClickListener(this);
-        imageView7.setOnClickListener(this);
+//        imageView1.setOnClickListener(this);
+//        imageView2.setOnClickListener(this);
+//        imageView3.setOnClickListener(this);
+//        imageView4.setOnClickListener(this);
+//        imageView5.setOnClickListener(this);
+//        imageView6.setOnClickListener(this);
+//        imageView7.setOnClickListener(this);
         imageView_sure.setOnClickListener(this);
     }
 
@@ -139,43 +139,43 @@ public class SignInDialog extends Dialog implements View.OnClickListener{
                 if (null != this.listener) {
                     listener.getResult(1);
                 }
-                SignInDialog.this.dismiss();
+                //SignInDialog.this.dismiss();
                 break;
             case R.id.sign_dialog_twoday_imag:
                 if (null != this.listener) {
                     listener.getResult(2);
                 }
-                SignInDialog.this.dismiss();
+                //SignInDialog.this.dismiss();
                 break;
             case R.id.sign_dialog_threeday_imag:
                 if (null != this.listener) {
                     listener.getResult(3);
                 }
-                SignInDialog.this.dismiss();
+                //SignInDialog.this.dismiss();
                 break;
             case R.id.sign_dialog_fourday_imag:
                 if (null != this.listener) {
                     listener.getResult(4);
                 }
-                SignInDialog.this.dismiss();
+                //SignInDialog.this.dismiss();
                 break;
             case R.id.sign_dialog_fiveday_imag:
                 if (null != this.listener) {
                     listener.getResult(5);
                 }
-                SignInDialog.this.dismiss();
+                //SignInDialog.this.dismiss();
                 break;
             case R.id.sign_dialog_sexday_imag:
                 if (null != this.listener) {
                     listener.getResult(6);
                 }
-                SignInDialog.this.dismiss();
+                //SignInDialog.this.dismiss();
                 break;
             case R.id.sign_dialog_sevenday_imag:
                 if (null != this.listener) {
                     listener.getResult(7);
                 }
-                SignInDialog.this.dismiss();
+                //SignInDialog.this.dismiss();
                 break;
             default:
                 break;

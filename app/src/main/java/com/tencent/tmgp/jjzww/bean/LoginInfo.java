@@ -21,6 +21,24 @@ public class LoginInfo implements Serializable{
     private OrderBean Order;
     private List<PayCardBean> paycard;
     private List<UserPaymentBean> paymentList;
+    private SignBean sign;
+
+
+    public SRStoken getSrsToken() {
+        return srsToken;
+    }
+
+    public void setSrsToken(SRStoken srsToken) {
+        this.srsToken = srsToken;
+    }
+
+    public SignBean getSign() {
+        return sign;
+    }
+
+    public void setSign(SignBean sign) {
+        this.sign = sign;
+    }
 
     public SRStoken getSRStoken() {
         return srsToken;

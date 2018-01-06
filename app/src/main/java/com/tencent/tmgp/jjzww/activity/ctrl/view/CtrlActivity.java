@@ -1055,9 +1055,10 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     private void setCatchResultDialog(boolean result) {
-        CatchDollResultDialog catchDollResultDialog = new CatchDollResultDialog(this, R.style.activitystyle);
+        final CatchDollResultDialog catchDollResultDialog = new CatchDollResultDialog(this, R.style.activitystyle);
         catchDollResultDialog.setCancelable(false);
         catchDollResultDialog.show();
+        catchDollResultDialog.setStartAnimation();
         if (result) {
             catchDollResultDialog.setTitle("恭喜您！");
             catchDollResultDialog.setContent("本次抓娃娃成功啦。");
@@ -1075,6 +1076,13 @@ public class CtrlActivity extends Activity implements IctrlView {
                 }
             }
         });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                catchDollResultDialog.dismiss();
+            }
+        },3000);
+
     }
 
 }

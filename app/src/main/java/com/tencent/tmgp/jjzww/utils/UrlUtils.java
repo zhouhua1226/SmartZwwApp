@@ -50,6 +50,8 @@ public class UrlUtils {
     public static final String WXQQ_IMAGEURL="imageUrl";
     //ysdk支付金额字段
     public static final String WXQQ_AMOUNT="amount";
+    //签到接口
+    public static final String SIGNTYPE="signType";
 
     public static final String URL = "http://47.100.15.18:8080";
 //    public static final String URL="http://106.75.142.42:8080/";
@@ -159,5 +161,8 @@ public class UrlUtils {
 
     //APP图片拼接url
     public static final String APPPICTERURL="http://47.100.15.18:8888/";
+
+    //签到接口
+    public static final String USERSIGNURL=URL+"/pooh-web/app/sign";
 
 }

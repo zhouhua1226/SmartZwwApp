@@ -295,5 +295,13 @@ public interface SmartService {
     @GET(UrlUtils.DOLLLISTURL)
     Observable<RoomListBean> getDollList();
 
+    //签到接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.USERSIGNURL)
+    Observable<Result<LoginInfo>> getUserSign(
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.SIGNTYPE) String signType
+    );
 
 }

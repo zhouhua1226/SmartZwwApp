@@ -13,6 +13,8 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
 import com.tencent.tmgp.jjzww.bean.ZwwRoomBean;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
+import com.tencent.tmgp.jjzww.utils.UserUtils;
+import com.tencent.tmgp.jjzww.utils.Utils;
 
 import java.util.List;
 
@@ -63,6 +65,23 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
                 }
             });
         }
+//        String rtmpUrl1 = bean.getCameras().get(0).getRtmpUrl();
+//        String rtmpUrl2 = bean.getCameras().get(1).getRtmpUrl();
+//        String serviceName1=bean.getCameras().get(0).getServerName();
+//        String serviceName2=bean.getCameras().get(1).getServerName();
+//        String liveStream1=bean.getCameras().get(0).getLivestream();
+//        String liveStream2=bean.getCameras().get(1).getLivestream();
+//        String idToken="?token="+ UserUtils.SRSToken.getToken()
+//                +"&expire="+UserUtils.SRSToken.getExpire()
+//                +"&tid="+UserUtils.SRSToken.getTid()
+//                +"&time="+UserUtils.SRSToken.getTime()
+//                +"&type="+UserUtils.SRSToken.getType()
+//                +"/";
+//        String url1=rtmpUrl1+serviceName1+idToken+liveStream1;
+//        String url2=rtmpUrl2+serviceName2+idToken+liveStream2;
+//        Utils.showLogE("<<<<<<<<<<<<<<<<","房间推流地址1="+url1);
+//        Utils.showLogE("<<<<<<<<<<<<<<<<","房间推流地址2="+url2);
+
     }
 
     @Override

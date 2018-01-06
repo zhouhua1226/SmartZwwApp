@@ -15,7 +15,7 @@ import com.tencent.tmgp.jjzww.R;
  * Created by yincong on 2018/1/5 18:26
  * 修改人：
  * 修改时间：
- * 类描述：
+ * 类描述：签到成功弹窗
  */
 public class SignSuccessDialog extends Dialog implements View.OnClickListener{
 

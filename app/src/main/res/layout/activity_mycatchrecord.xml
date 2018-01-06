@@ -170,6 +170,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/none_record"
+        android:layout_below="@+id/mycatchrecod_top_layout"
         android:textColor="@color/gray"
         android:background="#fbfbfb"
         android:gravity="center_horizontal"

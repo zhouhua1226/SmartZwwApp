@@ -91,7 +91,9 @@ public class MainActivity extends BaseActivity {
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
     private Result<LoginInfo> loginInfoResult;
-    private int[] signDayNum={1,1,1,0,0,0,0};
+    private int signNumber = 0;
+    private int[] signDayNum=new int[7];
+    private String isSign="";
 
     @Override
     protected int getLayoutId() {
@@ -104,9 +106,10 @@ public class MainActivity extends BaseActivity {
         initView();
         initNetty();
         showZwwFg();
-        getDollList();
-        getLoginBackDate();
-        setSignInDialog();
+        getDollList();                  //获取房间列表
+        getLoginBackDate();             //登录信息返回
+        getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
+        //setSignInDialog();
         settings = getSharedPreferences("app_user", 0);// 获取SharedPreference对象
         editor = settings.edit();// 获取编辑对象。
         editor.putBoolean("isVibrator",true);
@@ -254,7 +257,7 @@ public class MainActivity extends BaseActivity {
                 if (zwwjFragment != null) {
                     zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID(), false);
                 }
-                Log.e(TAG,"房间长度=" + dollLists.size() + "======" + UserUtils.UserAddress);
+                //Log.e(TAG,"房间长度=" + dollLists.size() + "======" + UserUtils.UserAddress);
                 getDeviceStates();
                 startTimer();
             }
@@ -624,6 +627,9 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    /** ####################### 网络请求区 #########################  **/
+
+    //自动登录
     private void getYSDKAuthLogin(String userId, String accessToken){
         HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
@@ -643,6 +649,7 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    //房间列表
     private void getDollList(){
         HttpManager.getInstance().getDollList(new RequestSubscriber<RoomListBean>() {
             @Override
@@ -651,6 +658,7 @@ public class MainActivity extends BaseActivity {
                 zwwjFragment.dismissEmptyLayout();
                 if(roomListBean.getMsg().equals("success")){
                     roomList=roomListBean.getDollList();
+                    Utils.showLogE(TAG,"摄像头数组长度="+roomList.get(0).getCameras().size());
                     if (roomList.size() == 0) {
                         zwwjFragment.showError();
                     } else {
@@ -670,66 +678,69 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private void setSignInDialog(){
+    private void setSignInDialog(int[] num){
         final SignInDialog signInDialog=new SignInDialog(this,R.style.easy_dialog_style);
-        signInDialog.setCancelable(false);
+        signInDialog.setCancelable(true);
         signInDialog.show();
-        signInDialog.setBackGroundColor(signDayNum);
+        signInDialog.setBackGroundColor(num);
         signInDialog.setDialogResultListener(new SignInDialog.DialogResultListener() {
             @Override
             public void getResult(int resultCode) {
                 switch (resultCode){
                     case 0:
-                        signInDialog.setBackGroundColor(signDayNum);
-                        MyToast.getToast(MainActivity.this,"签到第"+getSignDayNum(signDayNum)+"天");
-                        getSignSuccessDialog();
+                        //MyToast.getToast(MainActivity.this,"签到第"+getSignDayNum(signDayNum)+"天");
+                        getUserSign(UserUtils.USER_ID,"1");
                         break;
-                    case 1:
-
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-
-                        break;
-                    case 4:
-
-                        break;
-                    case 5:
-
-                        break;
-                    case 6:
-
-                        break;
-                    case 7:
-
+                    default:
                         break;
                 }
             }
         });
     }
 
-    private int[] getSignDayNum(int[] signNum){
-        int j=0;
-        for(int i=0;i<signNum.length;i++){
-            if(signNum[i]==1){
-                j+=1;
-            }
-        }
-        for(int i=0;i<j+1&&i<signNum.length;i++){
-            signNum[i]=1;
-        }
-        return signNum;
-    }
-
     private void getSignSuccessDialog(){
         SignSuccessDialog signSuccessDialog=new SignSuccessDialog(this,R.style.easy_dialog_style);
-        signSuccessDialog.setCancelable(false);
+        signSuccessDialog.setCancelable(true);
         signSuccessDialog.show();
         signSuccessDialog.setDialogResultListener(new SignSuccessDialog.DialogResultListener() {
             @Override
             public void getResult(int resultCode) {
+
+            }
+        });
+    }
+
+    //签到请求
+    private void getUserSign(String userId, final String signType){
+        HttpManager.getInstance().getUserSign(userId,signType, new RequestSubscriber<Result<LoginInfo>>() {
+            @Override
+            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+                Utils.showLogE(TAG,"签到="+loginInfoResult.getMsg());
+                if(loginInfoResult.getMsg().equals("success")){
+                    if(signType.equals("0")) {
+                        //查询处理
+                        isSign=loginInfoResult.getData().getSign().getSIGN_TAG();
+                        signNumber = Integer.parseInt(loginInfoResult.getData().getSign().getCSDATE());
+                        Utils.showLogE(TAG,"签到天数="+signNumber);
+                        for (int i = 0; i < 7; i++) {
+                            if (i < signNumber) {
+                                signDayNum[i] = 1;
+                            } else {
+                                signDayNum[i] = 0;
+                            }
+                        }
+                        if(isSign.equals("0")) {
+                            setSignInDialog(signDayNum);
+                        }
+                    }else {
+                        //签到处理
+                        getSignSuccessDialog();
+                    }
+                }
+            }
+
+            @Override
+            public void _onError(Throwable e) {
 
             }
         });

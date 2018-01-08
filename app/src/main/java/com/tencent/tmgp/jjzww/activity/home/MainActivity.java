@@ -471,7 +471,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void doServcerConnect() {
-        String ip = "47.100.8.129";//"106.75.142.42";//"47.100.8.129";//172.16.7.222测试
+        String ip = "123.206.120.46";
         AppClient.getInstance().setHost(ip);
         AppClient.getInstance().setPort(8580);
         if (!AppProperties.initProperties(getResources())) {

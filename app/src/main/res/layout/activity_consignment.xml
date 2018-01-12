@@ -218,12 +218,14 @@
             android:layout_toRightOf="@+id/text_tv"
             android:layout_marginLeft="10dp"
             android:background="@null"
-            android:hint="选填,对本次发货的说明"
+            android:hint="选填,对本次发货的说明(20字以内)"
             android:textColorHint="#848484"
             android:textSize="12sp"
             android:textColor="#848484"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:maxLength="20"
+            />
 
     </RelativeLayout>
 

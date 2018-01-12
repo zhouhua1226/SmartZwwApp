@@ -69,7 +69,6 @@ public class NewAddressActivity extends BaseActivity {
             int lenght=sh.length;
             if (lenght>0)
             newaddressNameEt.setText(sh[0]);
-            newaddressNameEt.setSelection(sh[0].length());
             if (lenght>1)
             newaddressPhoneEt.setText(sh[1]);
             if (lenght>2)
@@ -93,12 +92,16 @@ public class NewAddressActivity extends BaseActivity {
                 initData();
                 if(Utils.isEmpty(name)||Utils.isEmpty(phone)||Utils.isEmpty(address)){
                     MyToast.getToast(this, "请将信息填写完整！").show();
-                }else {
-                    information=name+"  "+phone+"  "+address;
-                    UserUtils.UserAddress=information;
-                    getConsignee(name,phone,address,UserUtils.USER_ID);
 
-                    //finish();
+                }else {
+                    if(Utils.isSpecialChar(name)||Utils.isSpecialChar(phone)||Utils.isSpecialChar(address)){
+                        MyToast.getToast(this, "您输入了特殊字符！").show();
+                    }else {
+                        information=name+"  "+phone+"  "+address;
+                        UserUtils.UserAddress=information;
+                        getConsignee(name,phone,address,UserUtils.USER_ID);
+                    }
+
                 }
 
 

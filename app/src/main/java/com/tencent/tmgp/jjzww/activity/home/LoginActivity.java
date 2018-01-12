@@ -28,10 +28,10 @@ import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.GifView;
 import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.ysdk.framework.common.ePlatform;
-
 import org.json.JSONObject;
 
 
+import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

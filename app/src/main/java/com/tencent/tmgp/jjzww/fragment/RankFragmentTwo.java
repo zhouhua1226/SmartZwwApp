@@ -18,6 +18,7 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.adapter.ListRankAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.ListRankBean;
+import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.UserBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -93,6 +94,7 @@ public class RankFragmentTwo extends BaseFragment {
     private UserBean secondBean=new UserBean();
     private UserBean thirdBean=new UserBean();
     private String myNum = "";
+    private boolean isOutTen=true;
 
 
     @Override
@@ -127,12 +129,11 @@ public class RankFragmentTwo extends BaseFragment {
                 list = listRankBeanResult.getData().getAppUser();
                 Utils.showLogE(TAG + "看看...", list.size() + "");
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getUSER_ID().equals(YsdkUtils.loginResult.getData().getAppUser().getUSER_ID())&&i>9) {
-                        myBean = list.get(i);
-                        myNum = (i + 1) + "";
-                        Log.e(TAG,"我的排名="+myNum);
+                    if (list.get(i).getUSER_ID().equals(YsdkUtils.loginResult.getData().getAppUser().getUSER_ID())) {
+                        isOutTen=false;
                     }
                 }
+
                 int length=list.size();
                 if(length>=1)
                     firstBean=list.get(0);
@@ -152,9 +153,13 @@ public class RankFragmentTwo extends BaseFragment {
                 } else {
                     rankList=list;
                 }
-                Utils.showLogE(TAG + "看看？？", rankList.size() + "");
+                Utils.showLogE(TAG + "看看？？", rankList.size() + "我的="+myNum);
                 listRankAdapter.notify(rankList);
-                setViewDate(myNum);
+                if(isOutTen){
+                    getNumRankList(UserUtils.USER_ID);   //如果当前用户在前十以外，则查询当前用户排名
+                }else {
+                    setViewDate(myNum);
+                }
 
             }
 
@@ -164,6 +169,26 @@ public class RankFragmentTwo extends BaseFragment {
             }
         });
 
+    }
+
+    private void getNumRankList(String userId){
+        HttpManager.getInstance().getNumRankList(userId, new RequestSubscriber<Result<LoginInfo>>() {
+            @Override
+            public void _onSuccess(Result<LoginInfo> result) {
+                Log.e(TAG,"我的排行="+result.getMsg());
+                if(result.getMsg().equals("success")){
+                    myBean=result.getData().getAppUser();
+                    myNum=myBean.getRANK();
+                    Log.e(TAG,"我的排名="+myNum);
+                    setViewDate(myNum);
+                }
+            }
+
+            @Override
+            public void _onError(Throwable e) {
+
+            }
+        });
     }
 
     public void OnClick() {

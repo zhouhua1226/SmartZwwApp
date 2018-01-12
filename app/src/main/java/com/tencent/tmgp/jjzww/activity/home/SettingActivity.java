@@ -179,7 +179,9 @@ public class SettingActivity extends BaseActivity {
                 Toast.makeText(context, "退出登录", Toast.LENGTH_SHORT).show();
                 loginOut();
                 SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT, true);
-                ;
+                SPUtils.put(getApplicationContext(), YsdkUtils.AUTH_TOKEN, "");
+                SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_USERID, "");
+                SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_LOGIN, false);
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;

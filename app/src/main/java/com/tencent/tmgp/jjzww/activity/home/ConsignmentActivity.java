@@ -97,21 +97,11 @@ public class ConsignmentActivity extends BaseActivity {
     }
 
     private void initData() {
-//        videoBackBean = (VideoBackBean) getIntent().getExtras().getSerializable("sqfh");
-//        nameTv.setText(videoBackBean.getDOLL_NAME());
-//        timesTv.setText(Utils.getTime(videoBackBean.getCAMERA_DATE()));
         if (!Utils.isEmpty(UserUtils.UserAddress)) {
             informationTv.setText(UserUtils.UserAddress);
         } else {
             informationTv.setText("新增收货地址");
         }
-//        Glide.with(this)
-//                .load(UrlUtils.PICTUREURL + videoBackBean.getDOLL_URL())
-//                .dontAnimate()
-//                .transform(new GlideCircleTransform(this))
-//                .into(titleImg);
-
-
         list = (List<VideoBackBean>) getIntent().getSerializableExtra("record");//获取list方式
         Log.e(TAG, "发货娃娃集合长度=" + list.size());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -160,8 +150,14 @@ public class ConsignmentActivity extends BaseActivity {
                 startActivity(new Intent(this, NewAddressActivity.class));
                 break;
             case R.id.shipping_button:
-                information = UserUtils.UserAddress.replace(" ", ",");
+                if(!Utils.isEmpty(UserUtils.UserAddress)){
+                    information = UserUtils.UserAddress.replace(" ", ",");
+                }
                 String remark = remarkEt.getText().toString();
+                if(Utils.isSpecialChar(remark)){
+                    MyToast.getToast(this, "您输入了特殊字符！").show();
+                    return;
+                }
                 final int length = list.size();
                 if (length > 1) {
                     for (int i = 0; i < length; i++) {
@@ -196,7 +192,7 @@ public class ConsignmentActivity extends BaseActivity {
                 }
                 break;
             case R.id.consignment_hdfk_layout:
-                //选货到付款  免邮：0 金币抵扣 ：1 货到付款 ：2
+                //选货到付款  免邮：0  金币抵扣 ：1  货到付款 ：2
                 fhType = "2";
                 setYJType(fhType);
                 break;

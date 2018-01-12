@@ -5,24 +5,25 @@
     android:layout_height="wrap_content"
     android:id="@+id/zwwadapter_item_parent_layout">
     <!-- android:background="@drawable/center_item" -->
-    <ImageView
+    <com.tencent.tmgp.jjzww.view.RoundRoomImageView
         android:id="@+id/moppet_image"
         android:layout_width="wrap_content"
         android:layout_height="165dp"
+        android:src="@drawable/loading"
         />
 
     <ImageView
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="155dp"
          />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/line"
+        android:layout_below="@+id/moppet_image"
         android:background="@drawable/zwwadapter_item_bottom_bg"
         >
         <TextView

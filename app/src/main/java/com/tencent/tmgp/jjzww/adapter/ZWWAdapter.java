@@ -51,7 +51,7 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
         holder.name.setText(bean.getDollName());
         Glide.with(mContext).load(UrlUtils.APPPICTERURL + bean.getDollUrl())
                 .error(R.drawable.loading).placeholder(R.drawable.loading)
-                .transform(new GlideRoundTransform(mContext,10)).into(holder.imageView);
+                .into(holder.imageView);
         holder.itemView.setEnabled(true);
         if (bean.getDollState().equals("11")) {
             holder.connectIv.setImageResource(R.drawable.ctrl_work_icon);

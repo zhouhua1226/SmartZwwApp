@@ -305,9 +305,17 @@ public interface SmartService {
             @Field(UrlUtils.SIGNTYPE) String signType
     );
 
-    //获取房间列表
+    //获取轮播列表
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @GET(UrlUtils.BANNERURL)
     Observable<Result<LoginInfo>> getBannerList();
+
+    //排行榜前十以及个人排名
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.RANKLISTURL)
+    Observable<Result<LoginInfo>> getNumRankList(
+            @Field(UrlUtils.USERID) String userId
+    );
 
 }

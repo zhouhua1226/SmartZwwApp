@@ -349,5 +349,13 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
+    //新排行榜接口
+    public void getNumRankList(String userId,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getNumRankList(userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
 }

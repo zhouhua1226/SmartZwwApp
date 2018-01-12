@@ -167,6 +167,9 @@ public class UrlUtils {
     //签到接口
     public static final String USERSIGNURL=URL+"/pooh-web/app/sign";
 
+    //轮播接口
     public static final String BANNERURL=URL+"/pooh-web/app/getRunImage";
+
+    public static final String RANKLISTURL=URL+"/pooh-web/rank/rankSelfList";
 
 }

@@ -676,8 +676,8 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void _onError(Throwable e) {
-                zwwjFragment.showError();
-                Utils.showLogE(TAG, "getLogin::::" + e.getMessage());
+                if(zwwjFragment != null)
+                    zwwjFragment.showError();
             }
         });
     }

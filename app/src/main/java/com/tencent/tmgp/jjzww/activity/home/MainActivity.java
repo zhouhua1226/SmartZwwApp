@@ -228,7 +228,7 @@ public class MainActivity extends BaseActivity {
                 if (zwwjFragment != null) {
                     zwwjFragment.showError();
                 }
-                Utils.showLogE(TAG, "logIn::::" + e.getMessage());
+               //Utils.showLogE(TAG, "logIn::::" + e.getMessage());
             }
         });
     }
@@ -331,8 +331,9 @@ public class MainActivity extends BaseActivity {
 
                 @Override
                 public void _onError(Throwable e) {
-                    zwwjFragment.showError();
-                    Utils.showLogE(TAG, "getLogin::::" + e.getMessage());
+                    if (zwwjFragment != null) {
+                        zwwjFragment.showError();
+                    }
                 }
             });
         }
@@ -378,7 +379,7 @@ public class MainActivity extends BaseActivity {
             setFocuse();
             ivTabZww.setBackgroundResource(R.drawable.zww_icon);
             //一定要记得提交
-            fragmentTransaction.commit();
+            fragmentTransaction.commitAllowingStateLoss();
         }
 
     }
@@ -395,7 +396,7 @@ public class MainActivity extends BaseActivity {
             setFocuse();
             ivTabList.setBackgroundResource(R.drawable.rank_icon);
             //一定要记得提交
-            fragmentTransaction.commit();
+            fragmentTransaction.commitAllowingStateLoss();
         }
 
     }
@@ -416,7 +417,7 @@ public class MainActivity extends BaseActivity {
             setFocuse();
             ivTabMy.setBackgroundResource(R.drawable.mycenter_icon);
             //一定要记得提交
-            fragmentTransaction.commit();
+            fragmentTransaction.commitAllowingStateLoss();
         }
 
     }

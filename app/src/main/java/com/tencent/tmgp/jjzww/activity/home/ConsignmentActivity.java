@@ -229,7 +229,7 @@ public class ConsignmentActivity extends BaseActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("record", (Serializable) list);
                 intent.putExtras(bundle);
-                setResult(1, intent);
+                setResult(0, intent);
                 finish();
             }
 

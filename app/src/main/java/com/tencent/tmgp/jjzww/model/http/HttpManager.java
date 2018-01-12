@@ -340,4 +340,14 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
+    //获取轮播列表
+    public void getBannerList(Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getBannerList();
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
 }

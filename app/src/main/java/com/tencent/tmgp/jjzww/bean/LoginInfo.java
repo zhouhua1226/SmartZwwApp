@@ -22,7 +22,15 @@ public class LoginInfo implements Serializable{
     private List<PayCardBean> paycard;
     private List<UserPaymentBean> paymentList;
     private SignBean sign;
+    private List<BannerBean> runImage;
 
+    public List<BannerBean> getRunImage() {
+        return runImage;
+    }
+
+    public void setRunImage(List<BannerBean> runImage) {
+        this.runImage = runImage;
+    }
 
     public SRStoken getSrsToken() {
         return srsToken;

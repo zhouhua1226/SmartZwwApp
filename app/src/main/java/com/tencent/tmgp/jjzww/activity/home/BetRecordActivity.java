@@ -82,16 +82,21 @@ public class BetRecordActivity extends BaseActivity {
                 public void _onSuccess(Result<BetRecordBean> loginInfoResult) {
                     if (loginInfoResult.getMsg().equals("success")){
                         list=loginInfoResult.getData().getDataList();
-                        for (int i=0;i<list.size();i++){
-                            if (list.get(i).getSETTLEMENT_FLAG().equals("Y")){
+                        if(list.size()>0) {
+                            for (int i = 0; i < list.size(); i++) {
+                                if (list.get(i).getSETTLEMENT_FLAG().equals("Y")) {
                                     mylist.add(list.get(i));
-                                if (mylist.size()>0){
-                                    betRecordAdapter.notify(mylist);
-                                }else {
-                                    betrecodeRecyclerview.setVisibility(View.GONE);
-                                    betcecordFailTv.setVisibility(View.VISIBLE);
+                                    if (mylist.size() > 0) {
+                                        betRecordAdapter.notify(mylist);
+                                    } else {
+                                        betrecodeRecyclerview.setVisibility(View.GONE);
+                                        betcecordFailTv.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
+                        }else {
+                            betrecodeRecyclerview.setVisibility(View.GONE);
+                            betcecordFailTv.setVisibility(View.VISIBLE);
                         }
                     }
                 }

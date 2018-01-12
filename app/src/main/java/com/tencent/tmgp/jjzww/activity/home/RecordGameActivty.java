@@ -26,6 +26,10 @@ import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
 import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.tmgp.jjzww.view.SureCancelDialog;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -78,6 +82,7 @@ public class RecordGameActivty extends BaseActivity {
 
     private String TAG="RecordGameActivty--";
     private VideoBackBean videoBackBean;
+    private List<VideoBackBean> list=new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -88,6 +93,7 @@ public class RecordGameActivty extends BaseActivity {
     protected void afterCreate(Bundle savedInstanceState) {
         initView();
         videoBackBean = (VideoBackBean) getIntent().getExtras().getSerializable("record");
+        list.add(videoBackBean);
     }
 
 
@@ -99,7 +105,7 @@ public class RecordGameActivty extends BaseActivity {
         mydollIdTv.setText(videoBackBean.getID() + "");
         getViewChange();
         Glide.with(this)
-                .load(UrlUtils.PICTUREURL + videoBackBean.getDOLL_URL())
+                .load(UrlUtils.APPPICTERURL + videoBackBean.getDOLL_URL())
                 .dontAnimate()
                 .transform(new GlideCircleTransform(this))
                 .into(titleImg);
@@ -156,9 +162,11 @@ public class RecordGameActivty extends BaseActivity {
                 //申请发货
                 Intent intent = new Intent(this, ConsignmentActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("sqfh", videoBackBean);
+                //bundle.putSerializable("sqfh", videoBackBean);
+                bundle.putSerializable("record", (Serializable) list);
                 intent.putExtras(bundle);
                 startActivityForResult(intent,0);
+                finish();
                 break;
         }
     }
@@ -199,7 +207,10 @@ public class RecordGameActivty extends BaseActivity {
         if (data == null) {
             return;
         }
-        videoBackBean= (VideoBackBean) data.getExtras().getSerializable("record");
+        list= (List<VideoBackBean>) data.getExtras().getSerializable("record");
+        if(list.size()>0){
+            videoBackBean=list.get(0);
+        }
         // 根据返回码的不同，设置参数
         if (requestCode == 0) {
             getViewChange();

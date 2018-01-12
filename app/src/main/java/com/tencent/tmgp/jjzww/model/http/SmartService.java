@@ -105,7 +105,8 @@ public interface SmartService {
     //ListRank
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @GET(UrlUtils.LISTRANKURL)
-    Observable<Result<ListRankBean>> getListRank();
+    Observable<Result<ListRankBean>> getListRank(
+    );
 
     //视屏上传
     @Headers("Content-Type: application/x-www-form-urlencoded")
@@ -303,5 +304,10 @@ public interface SmartService {
             @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.SIGNTYPE) String signType
     );
+
+    //获取房间列表
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @GET(UrlUtils.BANNERURL)
+    Observable<Result<LoginInfo>> getBannerList();
 
 }

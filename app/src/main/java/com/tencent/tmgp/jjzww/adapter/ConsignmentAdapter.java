@@ -55,7 +55,7 @@ public class ConsignmentAdapter extends RecyclerView.Adapter<ConsignmentAdapter.
             holder.times_tv.setText(getTime(mDatas.get(position).getCAMERA_DATE()));
         holder.results_tv.setText("抓取成功");
         Glide.with(mContext)
-                .load(UrlUtils.PICTUREURL+mDatas.get(position).getDOLL_URL())
+                .load(UrlUtils.APPPICTERURL+mDatas.get(position).getDOLL_URL())
                 .dontAnimate()
                 .transform(new GlideCircleTransform(mContext))
                 .into(holder.title_img);

@@ -52,77 +52,121 @@ public class UrlUtils {
     public static final String WXQQ_AMOUNT="amount";
     //签到接口
     public static final String SIGNTYPE="signType";
-    public static final String URL = "http://47.100.15.18:8080";
+
+    public static final String URL = "http://115.159.58.231:18081";
+    //http://115.159.58.231:18081(壕鑫腾讯云)   http://47.100.15.18:8080(阿里云)
+//    public static final String URL="http://106.75.142.42:8080/";
     //壕鑫客服链接
     public static final String SERVICEURL="http://chat10.live800.com/live800/chatClient/chatbox.jsp?companyID=924464&configID=234256&jid=9174122739";
+
     //getSmsCode
-    public static final String GETSMSCODE = "http://47.100.15.18:8080/pooh-web/sms/getRegSMSCode";//"http://controller.ngrok.cc/m/sms/getSMSCodeLogin";
+    public static final String GETSMSCODE = URL + "/pooh-web/sms/getRegSMSCode";//"http://controller.ngrok.cc/m/sms/getSMSCodeLogin";
     //login
-    public static final String LOGIN = "http://47.100.15.18:8080/pooh-web/sms/getSMSCodeLogin";//"http://controller.ngrok.cc/m/sms/getRegSMSCode";
+    public static final String LOGIN = URL + "/pooh-web/sms/getSMSCodeLogin";//"http://controller.ngrok.cc/m/sms/getRegSMSCode";
     //login without code
-    public static final String LOGINWITHOUTCODE = "http://47.100.15.18:8080/pooh-web/sms/getDoll";
+    public static final String LOGINWITHOUTCODE = URL + "/pooh-web/sms/getDoll";
+    //完整的URL：http://106.75.142.42:8080/pooh-web/uploadFiles/DollImage/A002201710310002.jpg
     //娃娃图url
-    public static final String PICTUREURL = "http://47.100.15.18:8080/pooh-web/uploadFiles/DollImage/";
+    public static final String PICTUREURL = URL + "/pooh-web/uploadFiles/DollImage/";
+
     //充值卡url
-    public static final String PAYCARDTPURL = "http://47.100.15.18:8080/pooh-web/uploadFiles/paycard/";
+    public static final String PAYCARDTPURL = URL + "/pooh-web/uploadFiles/paycard/";
     //退出登录
     public static final String LOGOUT=URL+"/pooh-web/app/logout";
+
     //头像上传http://47.100.15.18:8080/pooh-web/api/updateUser
-    public static final String FACEIMAGEURL = "http://47.100.15.18:8080/pooh-web/api/updateUser";
+    public static final String FACEIMAGEURL = URL + "/pooh-web/api/updateUser";
+
     //修改昵称
-    public static final String UserNickNameURL = "http;//47100.15.18:8080/faceImage";
+    public static final String UserNickNameURL = URL + "/faceImage";
+
     //修改用户名  11/21 13：10
     public static final String USERNAMEURL = URL + "/pooh-web/api/updateUserName";
+
     //头像上传成功返回的http://106.75.142.42:8080/faceImage/15335756655.png
-    public static final String USERFACEIMAGEURL = "http://47.100.15.18:8080/faceImage";
+    public static final String USERFACEIMAGEURL = URL + "/faceImage";
+
     //充值接口
     public static final String USERPAYURL = URL + "/pooh-web/pay/balance";
+
     //消费接口
     public static final String USERPLAYURL = URL + "/pooh-web/pay/costBalance";
+
     //listRank
     public static final String LISTRANKURL = URL + "/pooh-web/rank/rankList";
+
     //视屏上传upload
-    public static final String UPLOADURL = "http://47.100.15.18:8080/pooh-web/play/regPlayBack";
+    public static final String UPLOADURL = URL + "/pooh-web/play/regPlayBack";
+
     //获取视频回放列表
-    public static final String VIDEOBACKURL = "http://47.100.15.18:8080/pooh-web/play/getPlayRecord";
+    public static final String VIDEOBACKURL = URL + "/pooh-web/play/getPlayRecord";
+
     //获取房间用户头像
-    public static final String CTRLUSERIMAGE = "http://47.100.15.18:8080/pooh-web/api/getUser";
+    public static final String CTRLUSERIMAGE = URL + "/pooh-web/api/getUser";
+
+
     //跑马灯l
-    public static final String getUserList = "http://47.100.15.18:8080/pooh-web/play/getUserList";
+
+    public static final String getUserList = URL + "/pooh-web/play/getUserList";
+
+
     //下注接口
-    public static final String BETSURL = "http://47.100.15.18:8080/pooh-web/app/bets";
+    public static final String BETSURL = URL + "/pooh-web/app/bets";
+
     //围观群众分发游戏场次
-    public static final String PLAYIDURL = "http://47.100.15.18:8080/pooh-web/app/getPlayId";
+
+    public static final String PLAYIDURL = URL + "/pooh-web/app/getPlayId";
+
     //开始游戏分发场次
-    public static final String CREATPLAYLISTURL = "http://47.100.15.18:8080/pooh-web/pay/creatPlayList";
+    public static final String CREATPLAYLISTURL = URL + "/pooh-web/pay/creatPlayList";
+
     //获取下注人数对比
-    public static final String GETPONDURL="http://47.100.15.18:8080/pooh-web/app/getPond";
+    public static final String GETPONDURL=URL + "/pooh-web/app/getPond";
+
     //发货接口
     public static final String SENDGOODSURL=URL+"/pooh-web/app/sendGoods";
+
     //收货人信息设置
     public static final String CONSIGNEEURL=URL+"/pooh-web/app/cnsignee";
+
     //兑换接口
     public static final String EXCHANGEURL=URL+"/pooh-web/app/conversionGoods";
+
     //兑换列表接口
     public static final String EXCHANGELISTURL=URL+"/pooh-web/app/getConList";
+
     //获取用户信息接口
     public static final String GETUSERDATEURL=URL+"/pooh-web/api/getUserInfo";    //参数：userId 获取用户信息
+
     //微信QQ登录创建用户接口
     public static final String YSDKLOGINURL=URL+"/pooh-web/app/tencentLogin";
+
     //YSDK支付创建订单接口
     public static final String YSDKPAYORDERURL=URL+"/pooh-web/pay/getTradeOrder";
+
     //YSDK版自动登录
     public static final String YSDKAUTHLOGINURL=URL+"/pooh-web/app/tencentAutoLogin";
+
     //获取充值卡列表
     public static final String PAYCARDLISTURL=URL+"/pooh-web/pay/getPaycard";
+
     //用户竞猜记录
+//    http://192.168.1.21:8080/pooh-web/app/getGuessDetailTop10
     public static final String GETGUESSDETAIL=URL+"/pooh-web/app/getGuessDetailTop10";
+
     //金币流水接口
     public static final String CURRENTACCOUNTURL=URL+"/pooh-web/app/getPaymenlist";
+
     //房间列表接口
     public static final String DOLLLISTURL=URL+"/pooh-web/app/doll/getDollList";
+
     //APP图片拼接url
-    public static final String APPPICTERURL="http://47.100.15.18:8888/";
+    public static final String APPPICTERURL="http://115.159.58.231:8888/";
+    //http://47.100.15.18:8888/(阿里云)   http://115.159.58.231:8888/(壕鑫腾讯云)
+
     //签到接口
     public static final String USERSIGNURL=URL+"/pooh-web/app/sign";
+
+    public static final String BANNERURL=URL+"/pooh-web/app/getRunImage";
+
 }

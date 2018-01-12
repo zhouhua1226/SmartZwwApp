@@ -55,6 +55,7 @@ public class NewAddressActivity extends BaseActivity {
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         initView();
+        initAddress();
     }
 
     @Override
@@ -62,14 +63,25 @@ public class NewAddressActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
+    private void initAddress(){
+        if(!UserUtils.UserAddress.equals("")){
+           String[] sh=UserUtils.UserAddress.split(" ");
+            int lenght=sh.length;
+            if (lenght>0)
+            newaddressNameEt.setText(sh[0]);
+            newaddressNameEt.setSelection(sh[0].length());
+            if (lenght>1)
+            newaddressPhoneEt.setText(sh[1]);
+            if (lenght>2)
+            newaddressDetailEt.setText(sh[2]);
+        }
+    }
 
     private void initData(){
         name=newaddressNameEt.getText().toString();
         phone=newaddressPhoneEt.getText().toString();
         address=newaddressDetailEt.getText().toString();
     }
-
-
 
     @OnClick({R.id.image_back, R.id.preserve_button})
     public void onViewClicked(View view) {

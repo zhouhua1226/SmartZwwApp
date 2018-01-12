@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,10 +26,8 @@ import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.tmgp.jjzww.view.QuizInstrictionDialog;
-import com.tencent.tmgp.jjzww.view.SpaceItemDecoration;
 import com.tencent.tmgp.jjzww.view.SureCancelDialog;
 
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,19 +72,23 @@ public class MyCtachRecordActivity extends BaseActivity {
     TextView mycatchrecodSelectnumTv;
     @BindView(R.id.mycatchrecod_bottom_layout)
     RelativeLayout mycatchrecodBottomLayout;
+    @BindView(R.id.mycatchrecod_selectgold_tv)
+    TextView mycatchrecodSelectgoldTv;
 
     private String TAG = "MyCtachRecordActivity";
     private Context context = MyCtachRecordActivity.this;
-    private boolean isSelest=false;
+    private boolean isSelest = false;
     private QuizInstrictionDialog quizInstrictionDialog;
     private MyCenterAdapter myCenterAdapter;
-    private List<Boolean> isList=new ArrayList<>();
-    private List<Boolean> islist=new ArrayList<>();
-    private List<Integer> num=new ArrayList<>();
+    private List<Boolean> isList = new ArrayList<>();
+    private List<Boolean> islist = new ArrayList<>();
+    private List<Integer> isSelect=new ArrayList<>();  //-1为已发货或已兑换  0为未选中  1为已选中
+    private List<Integer> num = new ArrayList<>();
     private List<VideoBackBean> videoList = new ArrayList<>();
-    private List<VideoBackBean> selectList=new ArrayList<>();
+    private List<VideoBackBean> selectList = new ArrayList<>();
     private StringBuffer stringId = new StringBuffer("");
     private StringBuffer stringDollId = new StringBuffer("");
+    private int gold=0;
 
     @Override
     protected int getLayoutId() {
@@ -98,13 +99,19 @@ public class MyCtachRecordActivity extends BaseActivity {
     protected void afterCreate(Bundle savedInstanceState) {
         initView();
         initData();
-        getVideoBackList(UserUtils.USER_ID);
         onClick();
     }
 
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG,"游戏记录查询userId="+UserUtils.USER_ID);
+        getVideoBackList(UserUtils.USER_ID);
     }
 
     private void initData() {
@@ -127,29 +134,37 @@ public class MyCtachRecordActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
 
-                if(islist.get(position)){
+                if (isSelect.get(position)== -1) {
                     Intent intent = new Intent(context, RecordGameActivty.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("record", videoList.get(position));
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }else {
+                } else {
 //                    view.setBackgroundResource(R.drawable.mycatchrecord_select);
 //                    num.add(position);
 //                    selectList.add(videoList.get(position));
 //                    mycatchrecodSelectnumTv.setText("已选中"+selectList.size()+"个娃娃");
-                    if(isList.get(position)){
-//                        view.setBackgroundResource(R.drawable.mycatchrecord_unselect);
-//                        isList.set(position,false);
-//                        num.remove(num.indexOf(position));
-//                        selectList.remove(num.indexOf(position));
-//                        mycatchrecodSelectnumTv.setText("已选中"+selectList.size()+"个娃娃");
-                    }else {
+                    if (isSelect.get(position)==1) {
+                        isSelect.set(position,0);
+                        view.setBackgroundResource(R.drawable.mycatchrecord_unselect);
+                        isList.set(position,false);
+                        Log.e(TAG,"位置"+position);
+                        Log.e(TAG,"移除的位置"+num.indexOf(position));
+                        gold-=Integer.parseInt(selectList.get(num.indexOf(position)).getCONVERSIONGOLD());
+                        selectList.remove(num.indexOf(position));
+                        num.remove(num.indexOf(position));
+                        mycatchrecodSelectnumTv.setText("已选中"+selectList.size()+"个娃娃");
+                        mycatchrecodSelectgoldTv.setText("一共可兑换"+gold+"金币");
+                    } else {
+                        isSelect.set(position,1);
                         view.setBackgroundResource(R.drawable.mycatchrecord_select);
-                        isList.set(position,true);
+                        isList.set(position, true);
                         num.add(position);
                         selectList.add(videoList.get(position));
-                        mycatchrecodSelectnumTv.setText("已选中"+selectList.size()+"个娃娃");
+                        mycatchrecodSelectnumTv.setText("已选中" + selectList.size() + "个娃娃");
+                        gold+=Integer.parseInt(selectList.get(num.indexOf(position)).getCONVERSIONGOLD());
+                        mycatchrecodSelectgoldTv.setText("一共可兑换"+gold+"金币");
                     }
 
 
@@ -175,13 +190,15 @@ public class MyCtachRecordActivity extends BaseActivity {
                     mycatchrecodFailTv.setVisibility(View.GONE);
                     //myCenterAdapter.notify(getCatchNum(removeDuplicate(videoList),videoReList));
                     myCenterAdapter.notify(videoList);
-                    for (int i=0;i<videoList.size();i++){
-                        if(videoList.get(i).getPOST_STATE().equals("0")){
+                    for (int i = 0; i < videoList.size(); i++) {
+                        if (videoList.get(i).getPOST_STATE().equals("0")) {
                             islist.add(false);
                             isList.add(false);
-                        }else {
+                            isSelect.add(0);
+                        } else {
                             islist.add(true);
                             isList.add(true);
+                            isSelect.add(-1);
 
                         }
                     }
@@ -208,8 +225,8 @@ public class MyCtachRecordActivity extends BaseActivity {
     }
 
     @OnClick({R.id.mycatchrecod_dialog_image, R.id.mycatchrecod_fx_layout,
-                R.id.mycatchrecod_qx_layout, R.id.mycatchrecod_fhsure_image,
-                R.id.mycatchrecod_dhsure_image})
+            R.id.mycatchrecod_qx_layout, R.id.mycatchrecod_fhsure_image,
+            R.id.mycatchrecod_dhsure_image})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mycatchrecod_dialog_image:
@@ -227,24 +244,24 @@ public class MyCtachRecordActivity extends BaseActivity {
                 break;
             case R.id.mycatchrecod_fhsure_image:
                 //发货
-                final int lengths=selectList.size();
-                Log.e(TAG,"发货娃娃数量="+lengths);
-                if(lengths>0) {
+                final int lengths = selectList.size();
+                Log.e(TAG, "发货娃娃数量=" + lengths);
+                if (lengths > 0) {
                     Intent intent = new Intent(this, ConsignmentActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("record", (Serializable) selectList);//序列化,要注意转化(Serializable)
                     intent.putExtras(bundle);//发送数据
-                    startActivityForResult(intent,1);
+                    startActivityForResult(intent, 1);
                     finish();
-                }else {
-                    MyToast.getToast(getApplicationContext(),"请至少选择一个娃娃！").show();
+                } else {
+                    MyToast.getToast(getApplicationContext(), "请至少选择一个娃娃！").show();
                 }
                 break;
             case R.id.mycatchrecod_dhsure_image:
                 //兑换
-                final int length=selectList.size();
-                Log.e(TAG,"兑换娃娃数量="+length);
-                if(length>0) {
+                final int length = selectList.size();
+                Log.e(TAG, "兑换娃娃数量=" + length);
+                if (length > 0) {
                     SureCancelDialog sureCancelDialog = new SureCancelDialog(this, R.style.easy_dialog_style);
                     sureCancelDialog.setCancelable(false);
                     sureCancelDialog.show();
@@ -253,24 +270,24 @@ public class MyCtachRecordActivity extends BaseActivity {
                         @Override
                         public void getResult(int resultCode) {
                             if (1 == resultCode) {// 确定
-                                for(int i=0;i<length;i++){
-                                    if(i==0){
+                                for (int i = 0; i < length; i++) {
+                                    if (i == 0) {
                                         stringId.append(selectList.get(i).getID());
                                         stringDollId.append(selectList.get(i).getDOLLID());
-                                    }else {
-                                        stringId.append(","+selectList.get(i).getID());
+                                    } else {
+                                        stringId.append("," + selectList.get(i).getID());
                                         stringDollId.append(selectList.get(i).getDOLLID());
                                     }
                                 }
-                                Log.e(TAG,"兑换娃娃编号="+stringId);
-                                getExChangeWWB(String.valueOf(stringId),String.valueOf(stringDollId), length+"", UserUtils.USER_ID);
+                                Log.e(TAG, "兑换娃娃编号=" + stringId);
+                                getExChangeWWB(String.valueOf(stringId), String.valueOf(stringDollId), length + "", UserUtils.USER_ID);
                             } else {
                                 MyToast.getToast(getApplicationContext(), "兑换取消!").show();
                             }
                         }
                     });
-                }else {
-                    MyToast.getToast(getApplicationContext(),"请至少选择一个娃娃！").show();
+                } else {
+                    MyToast.getToast(getApplicationContext(), "请至少选择一个娃娃！").show();
                 }
 
                 break;
@@ -281,13 +298,13 @@ public class MyCtachRecordActivity extends BaseActivity {
         }
     }
 
-    private void getExChangeWWB(String id,String dollId,String number,String userId){
+    private void getExChangeWWB(String id, String dollId, String number, String userId) {
         HttpManager.getInstance().getExChangeWWB(id, dollId, number, userId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-                Log.e(TAG,"兑换结果="+loginInfoResult.getMsg());
-                if(loginInfoResult.getMsg().equals("success")) {
-                    UserUtils.UserBalance=loginInfoResult.getData().getAppUser().getBALANCE();
+                Log.e(TAG, "兑换结果=" + loginInfoResult.getMsg());
+                if (loginInfoResult.getMsg().equals("success")) {
+                    UserUtils.UserBalance = loginInfoResult.getData().getAppUser().getBALANCE();
 //                    videoList=loginInfoResult.getData().getPlayback();
 //                    myCenterAdapter.notify(videoList);
                     MyToast.getToast(getApplicationContext(), "兑换成功!").show();
@@ -305,14 +322,14 @@ public class MyCtachRecordActivity extends BaseActivity {
 
     /*****
      * 接受发货返回的数据时调用
-     * ****/
+     ****/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data == null) {
             return;
         }
-        videoList= (List<VideoBackBean>) data.getExtras().getSerializable("record");
+        videoList = (List<VideoBackBean>) data.getExtras().getSerializable("record");
         // 根据返回码的不同，设置参数
         if (requestCode == 1) {
             myCenterAdapter.notify(videoList);

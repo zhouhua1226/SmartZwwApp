@@ -23,7 +23,8 @@
     <application
         android:name="com.tencent.tmgp.jjzww.base.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/app_jj_icon"
+        android:largeHeap="true"
+        android:icon="@drawable/app_jj_icon_tencent"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -44,17 +45,17 @@
         <!--=============================友盟相关=============================================-->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5a0550308f4a9d33ac0000af">
-        </meta-data>
+            android:value="5a547230b27b0a6a19000132" />
+        <!-- Umeng 街机抓娃娃   5a547230b27b0a6a19000132-->
+        <!-- 打包value区分 360  tencent alibaba vivo  oppo  huawei  等各个渠道  Umeng   -->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="tencent"></meta-data>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="d318f4fe099226d45d73978c710c1bb4">
         </meta-data>
 
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="Channel ID" >
-        </meta-data>
         <!--=============================友盟相关=============================================-->
         <activity
             android:name="com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity"
@@ -184,7 +185,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/jjLoginTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -317,6 +318,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             />
+
+        <!-- ###################添加UmengAppkey ###################### -->
 
 
     </application>

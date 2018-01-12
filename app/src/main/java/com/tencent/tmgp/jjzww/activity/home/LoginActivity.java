@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,19 +58,11 @@ public class LoginActivity extends BaseActivity {
     TextView loginQqTv;
     @BindView(R.id.login_wx_tv)
     TextView loginWxTv;
-    @BindView(R.id.login_fx_tv)
-    TextView loginFxTv;
-    @BindView(R.id.login_zf_tv)
-    TextView loginZfTv;
-    @BindView(R.id.login_logout_tv)
-    TextView loginLogoutTv;
     @BindView(R.id.login_loading_gv)
     GifView loginLoadingGv;
 
     private String TAG = "LoginActivity--";
     private long mBackPressed;
-    private static final int TIME_INTERVAL = 2000;
-    private ProgressDialogs progressDialog;
     private String antuToken;
     private String uid;
 
@@ -130,15 +123,12 @@ public class LoginActivity extends BaseActivity {
         loginLoadingGv.setMovieResource(R.raw.login_loadinggif);
     }
 
-    @OnClick({R.id.login_qq_tv, R.id.login_wx_tv, R.id.login_fx_tv,
-            R.id.login_zf_tv, R.id.login_logout_tv, R.id.login_auth_tv})
+    @OnClick({R.id.login_qq_tv, R.id.login_wx_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_qq_tv:
                 //MyToast.getToast(getApplicationContext(), "点击qq登录！").show();
                 if (Utils.isNetworkAvailable(this)) {
-//                    progressDialog = new ProgressDialogs(LoginActivity.this, R.style.easy_dialog_style);
-//                    progressDialog.show();
                     loginLoadingGv.setVisibility(View.VISIBLE);
                     qqLogin();
                 } else {
@@ -148,25 +138,13 @@ public class LoginActivity extends BaseActivity {
             case R.id.login_wx_tv:
                 //MyToast.getToast(getApplicationContext(), "点击微信登录！").show();
                 if (Utils.isNetworkAvailable(this)) {
-//                    progressDialog = new ProgressDialogs(LoginActivity.this, R.style.easy_dialog_style);
-//                    progressDialog.show();
                     loginLoadingGv.setVisibility(View.VISIBLE);
                     weixinLogin();
                 } else {
                     MyToast.getToast(getApplicationContext(), "请检查网络！").show();
                 }
                 break;
-            case R.id.login_fx_tv:
-                share();
-                break;
-            case R.id.login_zf_tv:
-                pay();
-                break;
-            case R.id.login_logout_tv:
-                loginOut();
-                break;
-            case R.id.login_auth_tv:
-
+            default:
                 break;
         }
     }
@@ -185,18 +163,9 @@ public class LoginActivity extends BaseActivity {
         RobustApi.init(this, initParams);
 
         //分享初始化
-        FlamigoJApi.getInstance().setConfig(true);
-        FlamigoJApi.getInstance().init(this, FlamigoPlaform.DOMESTIC);
-        SecurityApi.getInstance().installation(this, "sqwoinjzdmhekzpzyvd7eqB6Vr_avatar");
-
-        //YSDK支付通知失败监听回调
-        EasyYSDKApi.setNotifyListener(new NotifyListener() {
-            @Override
-            public void onResult(int code, String msg) {
-                Log.e(TAG, "支付通知失败原因=" + msg);
-            }
-        });
-
+//        FlamigoJApi.getInstance().setConfig(true);
+//        FlamigoJApi.getInstance().init(this, FlamigoPlaform.DOMESTIC);
+//        SecurityApi.getInstance().installation(this, "sqwoinjzdmhekzpzyvd7eqB6Vr_avatar");
 
     }
 
@@ -212,36 +181,10 @@ public class LoginActivity extends BaseActivity {
         RobustApi.getInstance().startLogin();
     }
 
-    private void share() {
-        RobustApi.getInstance().shareWx(this, new ShareInfo(YsdkUtils.uid));
-    }
-
-    private void pay() {
-        //开始封装支付参数
-        Bundle payInfo = new Bundle();
-        payInfo.putString(PayKey.USER_ID, YsdkUtils.uid);//用户id，登录接口中返回给游戏的uid
-        payInfo.putInt(PayKey.AMOUNT, 100);//支付金额，单位 : 分 ,最小单位10
-        //TODO 此交易号生成仅为测试，接入方应定义自己的 外部交易号规则，保证唯一 ↓↓↓
-        payInfo.putString(PayKey.OUT_TRADE_NO, UUID.randomUUID().toString().replaceAll("-", ""));//调用方生成的交易号，作为查询订单的唯一依据，必须唯一(服务端回调会透传),最大长度32位
-        payInfo.putString(PayKey.SUBJECT, "测试商品");//订单主题
-        payInfo.putString(PayKey.EXTRA, "透传参数");//附加透传参数，服务端回调会完整透传.没有可不传
-
-        payInfo.putString(PayKey.ZONEID, "1");  //账户分区ID_角色ID。每个应用都有一个分区ID为1的默认分区，分区可以在cpay.qq.com/mpay上自助配置。如果应用选择支持角色，则角色ID接在分区ID号后用"_"连接，角色ID需要进行urlencode。
-        payInfo.putInt(PayKey.PAY_ICON_RESID, R.drawable.app_jj_icon);  //支付时显示的icon
-        payInfo.putString(PayKey.ACCESS_TOKEN, YsdkUtils.access_token);  //登录后获取到的用户访问token
-        //调用支付接口
-        RobustApi.getInstance().startPay(payInfo, new GamePayCallback());
-
-    }
 
     //判断是否登录
     private boolean isLogin() {
         return RobustApi.getInstance().isLogin();
-    }
-
-    //退出登录
-    private void loginOut() {
-        EasyYSDKApi.logout();
     }
 
     class GameLoginCallback implements LoginCallback {
@@ -272,28 +215,6 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    class GamePayCallback implements PayCallback {
-        @Override
-        public void onCompelete(int code, JSONObject data) {
-            Toast.makeText(LoginActivity.this, "LoginActivity:" + code + ":" + data.toString(), Toast.LENGTH_SHORT).show();
-            switch (code) {
-                case PayCallback.FAIL:
-                    Toast.makeText(getBaseContext(), "支付失败", Toast.LENGTH_SHORT).show();
-                    break;
-
-                case PayCallback.SUCCESS:
-                    Toast.makeText(getBaseContext(), "支付成功！", Toast.LENGTH_SHORT).show();
-                    break;
-
-                default:
-                    //erroInfo
-                    Toast.makeText(LoginActivity.this, "erro:" + data == null ? "" : data.toString(), Toast.LENGTH_SHORT).show();
-                    break;
-            }
-
-
-        }
-    }
 
     private void getYSDKLogin(String uid, String accessToken, String nickName, String imageUrl) {
         HttpManager.getInstance().getYSDKLogin(uid, accessToken, nickName, imageUrl, new RequestSubscriber<Result<LoginInfo>>() {
@@ -327,8 +248,6 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void _onError(Throwable e) {
-                if (progressDialog != null)
-                    progressDialog.dismiss();
                 MyToast.getToast(getApplicationContext(), "网络请求异常!").show();
             }
         });

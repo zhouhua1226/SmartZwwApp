@@ -51,15 +51,12 @@ public class BetRecordAdapter extends RecyclerView.Adapter<BetRecordAdapter.MyVi
                 String s=bean.getGUESS_ID();
                 holder.periodsNum_tv.setText(s.substring(5,12));
 
-
-                if (bean.getGUESS_TYPE().equals("1")){
+                //1 抓中   0没抓中   -流局判断标识，有-表示流局，无-标识不是流局
+                if (bean.getGUESS_TYPE().contains("1")){
                     holder.results_tv.setText("抓中");
-
-                }else if (bean.getGUESS_TYPE().equals("0")){
+                }else if (bean.getGUESS_TYPE().contains("0")){
                     holder.results_tv.setText("没抓中");
-
                 }
-
 
                 if (bean.getGUESS_KEY().equals("1")){
                 holder.bettingResults_tv.setText("中");
@@ -68,13 +65,18 @@ public class BetRecordAdapter extends RecyclerView.Adapter<BetRecordAdapter.MyVi
                     holder.bettingResults_tv.setText("不中");
                 }
 
-
                 if (bean.getGUESS_KEY().equals(bean.getGUESS_TYPE())){
                     holder.bettingResults_tv1.setText("/对");
-                }else {
-                    holder.bettingResults_tv1.setText("/错");
                     holder.bettingResults_tv.setTextColor(mContext.getResources().getColor(R.color.betrecordcolor1));
                     holder.bettingResults_tv1.setTextColor(mContext.getResources().getColor(R.color.betrecordcolor1));
+                }else if(bean.getGUESS_TYPE().contains("-")) {
+                    holder.bettingResults_tv1.setText("/流局");
+                    holder.bettingResults_tv.setTextColor(mContext.getResources().getColor(R.color.apptheme_bg));
+                    holder.bettingResults_tv1.setTextColor(mContext.getResources().getColor(R.color.apptheme_bg));
+                }else {
+                    holder.bettingResults_tv1.setText("/错");
+                    holder.bettingResults_tv.setTextColor(mContext.getResources().getColor(R.color.betrecordcolor));
+                    holder.bettingResults_tv1.setTextColor(mContext.getResources().getColor(R.color.betrecordcolor));
                 }
             }
 

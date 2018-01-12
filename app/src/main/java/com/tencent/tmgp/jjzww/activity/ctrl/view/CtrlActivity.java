@@ -1,6 +1,8 @@
 package com.tencent.tmgp.jjzww.activity.ctrl.view;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -57,6 +59,7 @@ import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.tmgp.jjzww.view.QuizInstrictionDialog;
 import com.tencent.tmgp.jjzww.view.TimeCircleProgressView;
 import com.tencent.tmgp.jjzww.view.VibratorView;
+import com.umeng.analytics.game.UMGameAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -191,6 +194,8 @@ public class CtrlActivity extends Activity implements IctrlView {
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         afterCreate();
+        UMGameAgent.setDebugMode(true);//设置输出运行时日志
+        UMGameAgent.init( this );
     }
 
     private int getLayoutId() {
@@ -929,6 +934,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     @Override
     protected void onResume() {
         super.onResume();
+        UMGameAgent.onResume(this);
         if(!Utils.isEmpty(UserUtils.USER_ID)) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -938,6 +944,12 @@ public class CtrlActivity extends Activity implements IctrlView {
             },2000);
 
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        UMGameAgent.onPause(this);
     }
 
     /*************************************************
@@ -1079,7 +1091,15 @@ public class CtrlActivity extends Activity implements IctrlView {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                catchDollResultDialog.dismiss();
+                if(catchDollResultDialog.isShowing()) {
+                    Context context = ((ContextWrapper)catchDollResultDialog.getContext()).getBaseContext();
+                    if(context instanceof Activity) {
+                        if(!((Activity)context).isFinishing() && !((Activity)context).isDestroyed())
+                            catchDollResultDialog.dismiss();
+                    } else {
+                        catchDollResultDialog.dismiss();
+                    }
+                }
             }
         },3000);
 

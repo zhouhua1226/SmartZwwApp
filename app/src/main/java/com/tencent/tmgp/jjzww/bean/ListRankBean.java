@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class ListRankBean implements Serializable {
 
+    private List<UserBean> appUser;
+
     public List<UserBean> getAppUser() {
         return appUser;
     }
@@ -16,6 +18,6 @@ public class ListRankBean implements Serializable {
         this.appUser = appUser;
     }
 
-    private List<UserBean> appUser;
+
 
 }

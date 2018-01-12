@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.view.GuessingSuccessDialog;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.game.UMGameAgent;
 import com.umeng.message.PushAgent;
 
 
@@ -31,11 +34,17 @@ public abstract class BaseActivity extends AppCompatActivity{
         afterCreate(savedInstanceState);
         MyApplication.getInstance().activities.add(this);
         PushAgent.getInstance(this).onAppStart();
-        RxBus.get().register(this);
-        //initDialog();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(UserUtils.ACTION_LOTTERY);
-        this.registerReceiver(LotteryReceiver, intentFilter);
+//        RxBus.get().register(this);
+//        //initDialog();
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(UserUtils.ACTION_LOTTERY);
+//        this.registerReceiver(LotteryReceiver, intentFilter);
+        //友盟统计
+        MobclickAgent.setDebugMode(true);
+        MobclickAgent.openActivityDurationTrack(false);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType. E_UM_GAME);  //游戏场景
+        UMGameAgent.setDebugMode(true);//设置输出运行时日志
+        UMGameAgent.init( this );
     }
 
     protected abstract int getLayoutId();
@@ -47,8 +56,8 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.get().unregister(this);
-        this.unregisterReceiver(LotteryReceiver);
+//        RxBus.get().unregister(this);
+//        this.unregisterReceiver(LotteryReceiver);
     }
 
     private void initDialog() {
@@ -57,33 +66,63 @@ public abstract class BaseActivity extends AppCompatActivity{
         }
     }
 
-    private BroadcastReceiver LotteryReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String roomId = intent.getStringExtra(UserUtils.LOTTERY_ROOMID);
-            String pId = intent.getStringExtra(UserUtils.LOTTERY_PERIODSNUM);
-            Utils.showLogE(TAG, "房间号:" + roomId + "第" + pId + "期开奖了.......");
-            //showLotteryDialog();
-        }
-    };
+//    private BroadcastReceiver LotteryReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            String roomId = intent.getStringExtra(UserUtils.LOTTERY_ROOMID);
+//            String pId = intent.getStringExtra(UserUtils.LOTTERY_PERIODSNUM);
+//            Utils.showLogE(TAG, "房间号:" + roomId + "第" + pId + "期开奖了.......");
+//            //showLotteryDialog();
+//        }
+//    };
+//
+//    private void showLotteryDialog() {
+//        initDialog();
+//        guessingSuccessDialog.setCancelable(true);
+//        guessingSuccessDialog.show();
+//        guessingSuccessDialog.setDialogResultListener(new GuessingSuccessDialog.DialogResultListener() {
+//            @Override
+//            public void getResult(int resultCode) {
+//                if(resultCode==0){
+//                    guessingSuccessDialog.dismiss();
+//                }
+//            }
+//        });
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                guessingSuccessDialog.dismiss();
+//            }
+//        },3000);
+//    }
 
-    private void showLotteryDialog() {
-        initDialog();
-        guessingSuccessDialog.setCancelable(true);
-        guessingSuccessDialog.show();
-        guessingSuccessDialog.setDialogResultListener(new GuessingSuccessDialog.DialogResultListener() {
-            @Override
-            public void getResult(int resultCode) {
-                if(resultCode==0){
-                    guessingSuccessDialog.dismiss();
-                }
-            }
-        });
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                guessingSuccessDialog.dismiss();
-            }
-        },3000);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG);
+        MobclickAgent.onResume(this);
+        UMGameAgent.onResume(this);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
+        MobclickAgent.onPause(this);
+        UMGameAgent.onPause(this);
+    }
+
+    /** 重写getResources方法，使app字体大小不受手机设置字体大小的影响  */
+    @Override
+    public Resources getResources() {
+        //获取到resources对象
+        Resources res = super.getResources();
+        //修改configuration的fontScale属性
+        res.getConfiguration().fontScale = 1;
+        //将修改后的值更新到metrics.scaledDensity属性上
+        res.updateConfiguration(null,null);
+        return res;
+    }
+
+
 }

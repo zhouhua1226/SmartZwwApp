@@ -84,7 +84,7 @@
         android:id="@+id/betcecord_fail_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="暂竞猜记录"
+        android:text="暂无竞猜记录"
         android:textColor="@color/gray"
         android:background="#fbfbfb"
         android:gravity="center_horizontal"

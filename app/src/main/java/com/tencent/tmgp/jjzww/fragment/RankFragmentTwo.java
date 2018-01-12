@@ -102,9 +102,14 @@ public class RankFragmentTwo extends BaseFragment {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        initlist();
         initData();
         //OnClick();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initlist();
 
     }
 

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.hwangjr.rxbus.RxBus;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
@@ -45,6 +46,7 @@ import com.iot.game.pooh.server.entity.json.GetStatusResponse;
 import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.tmgp.jjzww.view.SignInDialog;
 import com.tencent.tmgp.jjzww.view.SignSuccessDialog;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -107,14 +109,13 @@ public class MainActivity extends BaseActivity {
         initNetty();
         showZwwFg();
         getDollList();                  //获取房间列表
-        getLoginBackDate();             //登录信息返回
-        getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
         //setSignInDialog();
         settings = getSharedPreferences("app_user", 0);// 获取SharedPreference对象
         editor = settings.edit();// 获取编辑对象。
         editor.putBoolean("isVibrator",true);
         editor.putBoolean("isOpenMusic",true);
         editor.commit();
+        RxBus.get().register(this);
     }
 
 //    private void initWelcome() {
@@ -172,6 +173,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getLoginBackDate();             //登录信息返回
+        getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
     }
 
     @Override
@@ -180,7 +183,7 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         Utils.isExit = true;
         stopTimer();
-        //RxBus.get().unregister(this);
+        RxBus.get().unregister(this);
     }
 
     private void logIn(String phone, boolean isShow) {
@@ -231,7 +234,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void getLoginBackDate(){
-        loginInfoResult= (Result<LoginInfo>) getIntent().getExtras().getSerializable("loginback");
+        //loginInfoResult= (Result<LoginInfo>) getIntent().getExtras().getSerializable("loginback");
+        loginInfoResult=YsdkUtils.loginResult;
         if(loginInfoResult!=null&&!loginInfoResult.equals("")){
             if (loginInfoResult.getMsg().equals(Utils.HTTP_OK)) {
                 Utils.showLogE(TAG, "logIn::::" + loginInfoResult.getMsg());
@@ -465,13 +469,15 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
             mExitTime = System.currentTimeMillis();
         } else {
+            MobclickAgent.onKillProcess(this);
             finish();
             System.exit(0);
         }
     }
 
     private void doServcerConnect() {
-        String ip = "123.206.120.46";
+        String ip = "123.206.120.46";    //123.206.120.46(正式)   47.100.8.129(测试)
+
         AppClient.getInstance().setHost(ip);
         AppClient.getInstance().setPort(8580);
         if (!AppProperties.initProperties(getResources())) {
@@ -561,8 +567,7 @@ public class MainActivity extends BaseActivity {
                                     String url1 = bean.getCameras().get(0).getRtmpUrl();
                                     String url2 = bean.getCameras().get(1).getRtmpUrl();
                                     String statu1 = bean.getCameras().get(0).getDeviceState();  //第一个摄像头状态 0可以  1不可以
-                                    String statu2 = bean.getCameras().get(1).getDeviceState();
-                                    ; //第二个摄像头状态 0可以  1不可以
+                                    String statu2 = bean.getCameras().get(1).getDeviceState();  //第二个摄像头状态 0可以  1不可以
                                     if (stats.equals(Utils.FREE) && statu1.equals("0") && statu2.equals("0")) {
                                         bean.setDollState("11");
                                     } else if (stats.equals(Utils.BUSY) && statu1.equals("0") && statu2.equals("0")) {
@@ -712,6 +717,7 @@ public class MainActivity extends BaseActivity {
 
     //签到请求
     private void getUserSign(String userId, final String signType){
+        Log.e("<<<<<<<<<<<<<Sign",userId);
         HttpManager.getInstance().getUserSign(userId,signType, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {

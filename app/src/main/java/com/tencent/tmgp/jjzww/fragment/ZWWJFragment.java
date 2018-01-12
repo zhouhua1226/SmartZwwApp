@@ -14,6 +14,7 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
+import com.tencent.tmgp.jjzww.bean.BannerBean;
 import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Marquee;
 import com.tencent.tmgp.jjzww.bean.Result;
@@ -62,7 +63,9 @@ public class ZWWJFragment extends BaseFragment {
     private EmptyLayout.OnClickReTryListener onClickReTryListener;
     private List<VideoBackBean> playBackBeanList = new ArrayList<>();
     private List<Marquee> marquees = new ArrayList<>();
-    private List<String> mListImage;
+    private List<BannerBean> bannerList=new ArrayList<>();
+    private List<String> list=new ArrayList<>();
+    private List<Integer> mListImage;
 
     @Override
     protected int getLayoutId() {
@@ -75,7 +78,7 @@ public class ZWWJFragment extends BaseFragment {
         initData();
         onClick();
         getUserList();
-        initBanner();
+        getBannerList();
 
     }
 
@@ -118,6 +121,8 @@ public class ZWWJFragment extends BaseFragment {
         zwwAdapter = new ZWWAdapter(getActivity(), roomBeens);
         zwwRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
         zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(15));
+        zwwRecyclerview.setHasFixedSize(true);
+        zwwRecyclerview.setNestedScrollingEnabled(false);
         zwwRecyclerview.setAdapter(zwwAdapter);
         if (onClickReTryListener != null) {
             zwwEmptylayout.setOnClickReTryListener(onClickReTryListener);
@@ -208,7 +213,6 @@ public class ZWWJFragment extends BaseFragment {
         startActivity(intent);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -216,20 +220,12 @@ public class ZWWJFragment extends BaseFragment {
     }
 
     //banner轮播
-    private void initBanner() {
+    private void initBanner(List<?> list) {
         //设置Banner样式
         zwwBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
         zwwBanner.setImageLoader(new GlideImageLoader());
-        //实例化图片集合
-        mListImage = new ArrayList<>();
-        //将图片放入集合中
-        mListImage.add("http://a3.qpic.cn/psb?/V129YDsp1WxQ4t/JPdMtHPJ*9Ehg5LKWWxZbWXmc98vnPzfulfPKHLjLCw!/m/dPIAAAAAAAAAnull&bo=9AH6AAAAAAARBz8!&rf=photolist&t=5");
-        mListImage.add("http://a3.qpic.cn/psb?/V129YDsp1WxQ4t/GGGISYZ.XKSTzPGVG0kOo4jc7ZDcb0K323iC3XGkfAA!/m/dF4BAAAAAAAAnull&bo=9AH6AAAAAAARBz8!&rf=photolist&t=5");
-        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/wPy6vTwbGOlxclqMS0R.zbKpks0osTMhrLiwaLYuuwU!/m/dFsBAAAAAAAAnull&bo=9AH6AAAAAAARBz8!&rf=photolist&t=5");
-        mListImage.add("http://a4.qpic.cn/psb?/V129YDsp1WxQ4t/ZbySEUy6wQCzcHo8Up7.COU4zwFY10tJ0mV.riA.0fM!/c/dPMAAAAAAAAA&ek=1&kp=1&pt=0&bo=vAJeAQAAAAARF8E!&t=5&vuin=2422172415&tm=1514440800&sce=60-2-2&rf=newphoto&t=5");
-        //设置Banner图片集合
-        zwwBanner.setImages(mListImage);
+        zwwBanner.setImages(list);
         //设置Banner动画效果
         zwwBanner.setBannerAnimation(Transformer.DepthPage);
         //设置轮播时间
@@ -241,7 +237,30 @@ public class ZWWJFragment extends BaseFragment {
         zwwBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                MyToast.getToast(getContext(), "您点击了第" + (position + 1) + "张图片").show();
+                //MyToast.getToast(getContext(), "您点击了第" + (position + 1) + "张图片").show();
+            }
+        });
+    }
+
+    private void getBannerList(){
+        HttpManager.getInstance().getBannerList(new RequestSubscriber<Result<LoginInfo>>() {
+            @Override
+            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+                Utils.showLogE(TAG,"获取轮播列表="+loginInfoResult.getMsg());
+                if(loginInfoResult.getMsg().equals("success")){
+                    bannerList=loginInfoResult.getData().getRunImage();
+                    if(bannerList.size()>0){
+                        for(int i=0;i<bannerList.size();i++){
+                            list.add(UrlUtils.APPPICTERURL+bannerList.get(i).getIMAGE_URL());
+                        }
+                        initBanner(list);
+                    }
+                }
+            }
+
+            @Override
+            public void _onError(Throwable e) {
+
             }
         });
     }

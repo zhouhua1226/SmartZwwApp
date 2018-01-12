@@ -109,55 +109,23 @@ public class MainActivity extends BaseActivity {
         initNetty();
         showZwwFg();
         getDollList();                  //获取房间列表
-        //setSignInDialog();
         settings = getSharedPreferences("app_user", 0);// 获取SharedPreference对象
         editor = settings.edit();// 获取编辑对象。
         editor.putBoolean("isVibrator",true);
         editor.putBoolean("isOpenMusic",true);
         editor.commit();
         RxBus.get().register(this);
+        if ((YsdkUtils.loginResult != null) && (zwwjFragment != null)){
+            zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
+        }
     }
 
-//    private void initWelcome() {
-//        setContentView(R.layout.activity_welcome);//闪屏
-//        new Handler().postDelayed(initRunnable, 2000);
-//    }
-//
-//    private Runnable initRunnable = new Runnable() {
-//        @Override
-//        public void run() {
-//            View MainView = getLayoutInflater().inflate(R.layout.activity_main, null);
-//            setContentView(MainView);
-//            initView();
-//            showZwwFg();
-//            initData();
-//        }
-//    };
 
     @Override
     protected void initView() {
         ButterKnife.bind(this);
         fragmentAll = getSupportFragmentManager().findFragmentById(
                 R.id.main_center);
-    }
-
-    private void initData() {
-        //RxBus.get().register(this);
-//        loginDialog = new LoginDialog(this, R.style.easy_dialog_style);
-//        loginDialog.setDialogClickListener(idialogClick);
-//        if ((boolean) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_LOGIN, false)) {
-//            //用户已经注册
-//            ph = (String) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_PHONE, "");
-//            if (Utils.isEmpty(ph)) {
-//                return;
-//            }
-//            if (Utils.isNetworkAvailable(getApplicationContext())) {
-//                logIn(ph, false);
-//            }
-//        } else {
-//            loginDialog.setCanceledOnTouchOutside(false);
-//            loginDialog.show();
-//        }
     }
 
     private void initNetty() {
@@ -179,62 +147,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        Utils.showLogE(TAG, "onDestroyonDestroyonDestroyonDestroy");
         super.onDestroy();
         Utils.isExit = true;
         stopTimer();
         RxBus.get().unregister(this);
     }
 
-    private void logIn(String phone, boolean isShow) {
-        if (isShow) {
-            zwwjFragment.showLoading();
-        }
-        Utils.showLogE(TAG, "logIn::::" + phone);
-        String str = Base64.encodeToString(phone.getBytes(), Base64.DEFAULT);
-        HttpManager.getInstance().getLoginWithoutCode(str, new RequestSubscriber<Result<LoginInfo>>() {
-            @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-                //zwwjFragment.dismissEmptyLayout();
-                Utils.showLogE(TAG, "logIn::::" + loginInfoResult.getMsg());
-                Utils.token = loginInfoResult.getData().getAccessToken();
-                dollLists = loginInfoResult.getData().getDollList();
-                //用户手机号
-                UserUtils.UserPhone = loginInfoResult.getData().getAppUser().getPHONE();
-                //UserUtils.UserNickName = loginInfoResult.getData().getAppUser().getPHONE();
-                //用户名  11/22 13：25
-                UserUtils.UserName = loginInfoResult.getData().getAppUser().getUSERNAME();
-                UserUtils.NickName = loginInfoResult.getData().getAppUser().getNICKNAME();
-                //用户余额
-                UserUtils.UserBalance = loginInfoResult.getData().getAppUser().getBALANCE();
-                //用户头像  11/22 13：25
-                UserUtils.UserImage = UrlUtils.USERFACEIMAGEURL + loginInfoResult.getData().getAppUser().getIMAGE_URL();
-                UserUtils.UserCatchNum=loginInfoResult.getData().getAppUser().getDOLLTOTAL();
-                UserUtils.DOLL_ID = loginInfoResult.getData().getAppUser().getDOLL_ID();
-                UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();
-                UserUtils.UserAddress=loginInfoResult.getData().getAppUser().getCNEE_NAME()+" "+
-                                      loginInfoResult.getData().getAppUser().getCNEE_PHONE()+" "+
-                                      loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
-                zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID(), false);
-                if (dollLists.size() != 0) {
-                    zwwjFragment.notifyAdapter(roomList);
-                }
-                getDeviceStates();
-                startTimer();
-            }
-
-            @Override
-            public void _onError(Throwable e) {
-                if (zwwjFragment != null) {
-                    zwwjFragment.showError();
-                }
-               //Utils.showLogE(TAG, "logIn::::" + e.getMessage());
-            }
-        });
-    }
-
     private void getLoginBackDate(){
-        //loginInfoResult= (Result<LoginInfo>) getIntent().getExtras().getSerializable("loginback");
         loginInfoResult=YsdkUtils.loginResult;
         if(loginInfoResult!=null&&!loginInfoResult.equals("")){
             if (loginInfoResult.getMsg().equals(Utils.HTTP_OK)) {
@@ -244,7 +163,6 @@ public class MainActivity extends BaseActivity {
                 UserUtils.SRSToken=loginInfoResult.getData().getSRStoken();
                 //用户手机号
                 UserUtils.UserPhone = loginInfoResult.getData().getAppUser().getPHONE();
-                //UserUtils.UserNickName = loginInfoResult.getData().getAppUser().getPHONE();
                 //用户名  11/22 13：25
                 UserUtils.UserName = loginInfoResult.getData().getAppUser().getUSERNAME();
                 UserUtils.NickName = loginInfoResult.getData().getAppUser().getNICKNAME();
@@ -258,12 +176,8 @@ public class MainActivity extends BaseActivity {
                 UserUtils.UserAddress = loginInfoResult.getData().getAppUser().getCNEE_NAME() + " " +
                         loginInfoResult.getData().getAppUser().getCNEE_PHONE() + " " +
                         loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
-                if (zwwjFragment != null) {
-                    zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID(), false);
-                }
-                //Log.e(TAG,"房间长度=" + dollLists.size() + "======" + UserUtils.UserAddress);
-                getDeviceStates();
-                startTimer();
+                //getDeviceStates();
+                //startTimer();
             }
         }else {
             if (zwwjFragment != null) {
@@ -271,79 +185,6 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
-
-    private LoginDialog.IdialogClick idialogClick = new LoginDialog.IdialogClick() {
-        @Override
-        public void getAuthCode(String phone) {
-            //TODO 获取验证码
-            String str = Base64.encodeToString(phone.getBytes(), Base64.DEFAULT);
-            HttpManager.getInstance().getCode(str, new RequestSubscriber<Result<Token>>() {
-                @Override
-                public void _onSuccess(Result<Token> result) {
-                    Utils.showLogE(TAG, "getAuthCode::::" + result.toString());
-                }
-
-                @Override
-                public void _onError(Throwable e) {
-                    Utils.showLogE(TAG, "getAuthCode::::" + e.getMessage());
-                }
-            });
-        }
-
-        @Override
-        public void login(final String phone, String code) {
-            zwwjFragment.showLoading();
-            String str = Base64.encodeToString(phone.getBytes(), Base64.DEFAULT);
-            String str1 = Base64.encodeToString(code.getBytes(), Base64.DEFAULT);
-            //TODO 登录
-            HttpManager.getInstance().getLogin(str, str1, new RequestSubscriber<Result<LoginInfo>>() {
-                @Override
-                public void _onSuccess(Result<LoginInfo> result) {
-                    zwwjFragment.dismissEmptyLayout();
-                    if (result.getMsg().equals(Utils.HTTP_OK)) {
-                        Utils.showLogE(TAG, "logInWithSMS::::" + result.getMsg());
-                        dollLists = result.getData().getDollList();
-                        Utils.token = result.getData().getAccessToken();
-                        SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_LOGIN, true);
-                        SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_PHONE, phone);
-                        UserUtils.UserPhone = phone;
-                        UserUtils.UserName = result.getData().getAppUser().getUSERNAME();
-                        UserUtils.NickName = result.getData().getAppUser().getNICKNAME();
-                        UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
-                        UserUtils.UserImage = UrlUtils.APPPICTERURL + result.getData().getAppUser().getIMAGE_URL();
-                        UserUtils.UserCatchNum=result.getData().getAppUser().getDOLLTOTAL();
-                        UserUtils.DOLL_ID=result.getData().getAppUser().getDOLL_ID();
-                        UserUtils.USER_ID=result.getData().getAppUser().getUSER_ID();
-                        UserUtils.UserAddress=result.getData().getAppUser().getCNEE_NAME()+" "+
-                                              result.getData().getAppUser().getCNEE_PHONE()+" "+
-                                              result.getData().getAppUser().getCNEE_ADDRESS();
-                        zwwjFragment.setSessionId(result.getData().getSessionID(), false);
-                        if (dollLists.size() == 0) {
-                            zwwjFragment.showError();
-                        } else {
-                            zwwjFragment.notifyAdapter(roomList);
-                        }
-                        getDeviceStates();
-                        startTimer();
-                        Utils.showLogE(TAG, "afterCreate:::::>>>>" + dollLists.size());
-                    }
-                }
-
-                @Override
-                public void _onError(Throwable e) {
-                    if (zwwjFragment != null) {
-                        zwwjFragment.showError();
-                    }
-                }
-            });
-        }
-
-        @Override
-        public void dialogMiss() {
-            finish();
-            System.exit(0);
-        }
-    };
 
     /**
      * 设置未选中状态
@@ -353,15 +194,6 @@ public class MainActivity extends BaseActivity {
         ivTabList.setBackgroundResource(R.drawable.rank_unicon);
         ivTabMy.setBackgroundResource(R.drawable.mycenter_unicon);
     }
-
-    private EmptyLayout.OnClickReTryListener onClickReTryListener = new EmptyLayout.OnClickReTryListener() {
-        @Override
-        public void onClickReTry(View view) {
-            if (Utils.isNetworkAvailable(getApplicationContext())) {
-                logIn(ph, false);
-            }
-        }
-    };
 
     private void showZwwFg() {
         if (!(fragmentAll instanceof ZWWJFragment)) {
@@ -478,7 +310,6 @@ public class MainActivity extends BaseActivity {
 
     private void doServcerConnect() {
         String ip = "123.206.120.46";    //123.206.120.46(正式)   47.100.8.129(测试)
-
         AppClient.getInstance().setHost(ip);
         AppClient.getInstance().setPort(8580);
         if (!AppProperties.initProperties(getResources())) {
@@ -525,7 +356,6 @@ public class MainActivity extends BaseActivity {
             getDeviceStates();
         } else if (state.equals(Utils.TAG_SESSION_INVALID)) {
             Utils.showLogE(TAG, "TAG_SESSION_INVALID");
-            //logIn((String) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_PHONE, "0"), false);
             //TODO 重连后重新连接 QQ/WEIXIN 模式检测
             getYSDKAuthLogin(UserUtils.USER_ID, YsdkUtils.access_token);
         } else if (state.equals(Utils.TAG_GATEWAT_USING)) {
@@ -564,8 +394,6 @@ public class MainActivity extends BaseActivity {
                                 if (length<2){
                                     bean.setDollState("0");  //表示当前房间缺失摄像头
                                 }else {
-                                    String url1 = bean.getCameras().get(0).getRtmpUrl();
-                                    String url2 = bean.getCameras().get(1).getRtmpUrl();
                                     String statu1 = bean.getCameras().get(0).getDeviceState();  //第一个摄像头状态 0可以  1不可以
                                     String statu2 = bean.getCameras().get(1).getDeviceState();  //第二个摄像头状态 0可以  1不可以
                                     if (stats.equals(Utils.FREE) && statu1.equals("0") && statu2.equals("0")) {

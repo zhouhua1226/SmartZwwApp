@@ -172,7 +172,6 @@ public class CtrlActivity extends Activity implements IctrlView {
     private QuizInstrictionDialog quizInstrictionDialog;
     private String dollId;
     private String zt = "";
-    private Boolean isOpenSucess = false; //以第一个摄像头为标准
     //播放地址流
     private String playUrlMain = "";
     private String playUrlSecond = "";
@@ -183,6 +182,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     private String periodsNum;
     private MediaPlayer mediaPlayer;
     private MediaPlayer btn_mediaPlayer;
+    //显示的用户的name
+    private String showName;
 
     static {
         System.loadLibrary("SmartPlayer");
@@ -195,7 +196,9 @@ public class CtrlActivity extends Activity implements IctrlView {
         ButterKnife.bind(this);
         afterCreate();
         UMGameAgent.setDebugMode(true);//设置输出运行时日志
-        UMGameAgent.init( this );
+        UMGameAgent.init(this);
+        Glide.with(this).load(UserUtils.UserImage).asBitmap().
+                transform(new GlideCircleTransform(this)).into(playerMainIv);
     }
 
     private int getLayoutId() {
@@ -295,7 +298,6 @@ public class CtrlActivity extends Activity implements IctrlView {
         int counter = userInfos.size();
         if (counter > 0) {
             playerCounterIv.setText(String.format(getString(R.string.player_counter_text), counter));
-            Glide.with(this).load(UserUtils.UserImage).asBitmap().transform(new GlideCircleTransform(this)).into(playerMainIv);
             if (counter == 1) {
                 playerSecondIv.setVisibility(View.INVISIBLE);
             } else {
@@ -305,7 +307,10 @@ public class CtrlActivity extends Activity implements IctrlView {
                 //显示另外一个人
                 for (int i = 0; i < counter; i++) {
                     if (!userInfos.get(i).equals(UserUtils.NickName)) {
-                        getCtrlUserImage(userInfos.get(i));
+                        if (!userInfos.get(i).equals(showName)) {
+                            showName = userInfos.get(i);
+                            getCtrlUserImage(showName);
+                        }
                         break;
                     }
                 }
@@ -1000,9 +1005,14 @@ public class CtrlActivity extends Activity implements IctrlView {
         HttpManager.getInstance().getCtrlUserImage(name, new RequestSubscriber<Result<AppUserBean>>() {
             @Override
             public void _onSuccess(Result<AppUserBean> appUserBeanResult) {
-                UserUtils.UserImage1 = UrlUtils.USERFACEIMAGEURL + appUserBeanResult.getData().getAppUser().getIMAGE_URL();
-                Glide.with(getApplicationContext()).load(UserUtils.UserImage1)
-                        .asBitmap().transform(new GlideCircleTransform(CtrlActivity.this)).into(playerSecondIv);
+                if (appUserBeanResult != null) {
+                    AppUserBean bean = appUserBeanResult.getData();
+                    if (bean != null) {
+                        UserUtils.UserImage1 = UrlUtils.USERFACEIMAGEURL + bean.getAppUser().getIMAGE_URL();
+                        Glide.with(getApplicationContext()).load(UserUtils.UserImage1)
+                                .asBitmap().transform(new GlideCircleTransform(CtrlActivity.this)).into(playerSecondIv);
+                    }
+                }
             }
 
             @Override
@@ -1102,7 +1112,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 }
             }
         },3000);
-
     }
+
 
 }

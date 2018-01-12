@@ -110,7 +110,6 @@ public class RankFragmentTwo extends BaseFragment {
     public void onResume() {
         super.onResume();
         initlist();
-
     }
 
     private void initData() {

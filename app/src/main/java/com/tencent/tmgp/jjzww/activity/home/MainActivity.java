@@ -502,7 +502,6 @@ public class MainActivity extends BaseActivity {
         startTimer();
         getDeviceStates();
         NettyUtils.pingRequest();
-        Utils.showLogE(TAG, "onRestartonRestartonRestart");
     }
 
     @Override

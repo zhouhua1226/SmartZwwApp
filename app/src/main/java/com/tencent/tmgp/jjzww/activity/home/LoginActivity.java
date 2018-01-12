@@ -5,23 +5,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easy.ysdk.EasyYSDKApi;
-import com.easy.ysdk.pay.NotifyListener;
 import com.easy.ysdk.pay.PayReviewer;
-import com.easy.ysdk.share.ShareInfo;
-import com.flamigo.jsdk.FlamigoPlaform;
-import com.flamigo.jsdk.api.FlamigoJApi;
-import com.proto.security.SecurityApi;
 import com.robust.sdk.api.CompatibleApi;
 import com.robust.sdk.api.LoginCallback;
-import com.robust.sdk.api.PayCallback;
 import com.robust.sdk.api.RobustApi;
 import com.robust.sdk.avatar.AutoAccessCallback;
-import com.robust.sdk.data.PayKey;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.base.MyApplication;
@@ -35,12 +27,10 @@ import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.GifView;
 import com.tencent.tmgp.jjzww.view.MyToast;
-import com.tencent.tmgp.jjzww.view.ProgressDialogs;
 import com.tencent.ysdk.framework.common.ePlatform;
 
 import org.json.JSONObject;
 
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

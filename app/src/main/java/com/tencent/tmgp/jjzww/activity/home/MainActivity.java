@@ -488,13 +488,16 @@ public class MainActivity extends BaseActivity {
             @Override
             public void _onSuccess(RoomListBean roomListBean) {
                 Utils.showLogE(TAG,"房间列表结果="+roomListBean.getMsg());
+                if(zwwjFragment != null)
                 zwwjFragment.dismissEmptyLayout();
                 if(roomListBean.getMsg().equals("success")){
                     roomList=roomListBean.getDollList();
                     Utils.showLogE(TAG,"摄像头数组长度="+roomList.get(0).getCameras().size());
                     if (roomList.size() == 0) {
+                        if(zwwjFragment != null)
                         zwwjFragment.showError();
                     } else {
+                        if(zwwjFragment != null)
                         zwwjFragment.notifyAdapter(roomList);
                     }
                     getDeviceStates();

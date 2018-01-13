@@ -170,6 +170,7 @@ public class UrlUtils {
     //轮播接口
     public static final String BANNERURL=URL+"/pooh-web/app/getRunImage";
 
+    //排行榜前十接口
     public static final String RANKLISTURL=URL+"/pooh-web/rank/rankSelfList";
 
 }

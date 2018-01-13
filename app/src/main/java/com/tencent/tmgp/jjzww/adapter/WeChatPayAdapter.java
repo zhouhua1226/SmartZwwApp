@@ -47,7 +47,7 @@ public class WeChatPayAdapter extends RecyclerView.Adapter<WeChatPayAdapter.WeCh
     public void onBindViewHolder(final WeChatPayHolder holder, final int position) {
 
         Glide.with(mContext)
-                .load(UrlUtils.APPPICTERURL+mDatas.get(position).getIMAGEURL())
+                .load(UrlUtils.PAYCARDTPURL+mDatas.get(position).getIMAGEURL())
                 .dontAnimate()
                 .into(holder.paycard_image);
 

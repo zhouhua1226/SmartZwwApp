@@ -83,6 +83,8 @@
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold"
+                        android:singleLine="true"
+                        android:ellipsize="end"
                         />
                     <View
                         android:layout_width="match_parent"
@@ -154,6 +156,8 @@
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold"
+                        android:singleLine="true"
+                        android:ellipsize="end"
                         />
                     <View
                         android:layout_width="match_parent"
@@ -225,6 +229,8 @@
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold"
+                        android:singleLine="true"
+                        android:ellipsize="end"
                         />
                     <View
                         android:layout_width="match_parent"

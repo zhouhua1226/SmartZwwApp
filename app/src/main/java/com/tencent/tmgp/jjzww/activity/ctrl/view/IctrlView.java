@@ -10,7 +10,7 @@ public interface IctrlView {
     void getTime(int time);
     void getTimeFinish();
 
-    void getUserInfos(List<String> list);
+    void getUserInfos(List<String> list, boolean is);
 
     void getRecordErrCode(int code);
     void getRecordSuecss();

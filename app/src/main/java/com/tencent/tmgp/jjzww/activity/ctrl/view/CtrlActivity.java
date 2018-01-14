@@ -183,7 +183,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     private MediaPlayer mediaPlayer;
     private MediaPlayer btn_mediaPlayer;
     //显示的用户的name
-    private String showName;
+    private String showName = "";
 
     static {
         System.loadLibrary("SmartPlayer");
@@ -292,7 +292,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     @Override
-    public void getUserInfos(List<String> list) {
+    public void getUserInfos(List<String> list, boolean is) {
         //当前房屋的人数
         userInfos = list;
         int counter = userInfos.size();
@@ -301,17 +301,17 @@ public class CtrlActivity extends Activity implements IctrlView {
             if (counter == 1) {
                 playerSecondIv.setVisibility(View.INVISIBLE);
             } else {
-                //先显示默认图片
-                Glide.with(getApplicationContext()).load(R.drawable.ctrl_default_user_bg)
+                if (is) {
+                    //先显示默认图片
+                    Glide.with(getApplicationContext()).load(R.drawable.ctrl_default_user_bg)
                         .asBitmap().transform(new GlideCircleTransform(CtrlActivity.this)).into(playerSecondIv);
-                //显示另外一个人
-                for (int i = 0; i < counter; i++) {
-                    if (!userInfos.get(i).equals(UserUtils.NickName)) {
-                        if (!userInfos.get(i).equals(showName)) {
+                    //显示另外一个人
+                    for (int i = 0; i < counter; i++) {
+                        if (!userInfos.get(i).equals(UserUtils.NickName)) {
                             showName = userInfos.get(i);
                             getCtrlUserImage(showName);
+                            break;
                         }
-                        break;
                     }
                 }
                 //显示第二个人
@@ -791,7 +791,11 @@ public class CtrlActivity extends Activity implements IctrlView {
             long seq = appOutRoomResponse.getSeq();
             if (seq == -2) {
                 userInfos.remove(appOutRoomResponse.getNickName());
-                getUserInfos(userInfos);
+                if (appOutRoomResponse.getNickName().equals(showName)) {
+                    getUserInfos(userInfos, true);
+                } else {
+                    getUserInfos(userInfos, false);
+                }
             }
         } else if (response instanceof AppInRoomResponse) {
             AppInRoomResponse appInRoomResponse = (AppInRoomResponse) response;
@@ -802,10 +806,10 @@ public class CtrlActivity extends Activity implements IctrlView {
             long seq = appInRoomResponse.getSeq();
             if ((seq != -2) && (!Utils.isEmpty(allUsers))) {
                 //TODO  我本人进来了
-                ctrlCompl.sendGetUserInfos(allUsers);
+                ctrlCompl.sendGetUserInfos(allUsers, true);
             } else {
                 userInfos.add(appInRoomResponse.getNickName());
-                getUserInfos(userInfos);
+                getUserInfos(userInfos, false);
             }
         }
     }
@@ -1008,8 +1012,8 @@ public class CtrlActivity extends Activity implements IctrlView {
                 if (appUserBeanResult != null) {
                     AppUserBean bean = appUserBeanResult.getData();
                     if (bean != null) {
-                        UserUtils.UserImage1 = UrlUtils.USERFACEIMAGEURL + bean.getAppUser().getIMAGE_URL();
-                        Glide.with(getApplicationContext()).load(UserUtils.UserImage1)
+                        String showImage = UrlUtils.USERFACEIMAGEURL + bean.getAppUser().getIMAGE_URL();
+                        Glide.with(getApplicationContext()).load(showImage)
                                 .asBitmap().transform(new GlideCircleTransform(CtrlActivity.this)).into(playerSecondIv);
                     }
                 }

@@ -14,7 +14,6 @@ import com.tencent.tmgp.jjzww.bean.SRStoken;
 public class UserUtils {
     //SP_TAG
     public static final String SP_TAG_LOGIN = "SP_TAG_LOGIN";
-    public static final String SP_TAG_PHONE = "SP_TAG_PHONE";
     public static final String SP_TAG_USERID="SP_TAG_USERID";
     public static final String SP_TAG_ISLOGOUT="SP_TAG_ISLOGOUT";
     public static final String SP_TAG_ISOPENMUSIC="SP_TAG_ISOPENMUSIC";
@@ -23,21 +22,16 @@ public class UserUtils {
     public static String UserPhone="";    //用户手机号
     public static String UserName="";    //用户名
     public static String UserImage="";    //用户头像
-    public static String UserImage1="";    //用户头像
     public static String UserBalance="";    //用户余额（游戏币）
     public static String UserCatchNum="";   //用户累积抓住次数
     public static String UserAddress="";
     public static String USER_ID="";
     public static String DOLL_ID="";
     public static int id;
-    public static boolean isLogout=false;
     public static SRStoken SRSToken;
 
     public static final String RECODE_URL = Environment.getExternalStorageDirectory().getPath()
             + "/SmartRemoteApp/";
-    public static final int RECODE_ERR_CODE_SDCARD_DISABLE = 201001;
-    public static final int RECODE_ERR_CODE_SDCARD_FAIL_FOR_MEMORY = 201002;
-    public static final int RECODE_ERR_CODE_EZPLAY_NULL = 201003;
 
     public static final String ACTION_LOTTERY = "LotteryReceiver";
     public static final String LOTTERY_ROOMID = "lottery_roomId";

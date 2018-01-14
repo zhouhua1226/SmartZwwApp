@@ -110,13 +110,13 @@ public class CtrlCompl implements BasePresenter, ICtrlPresenter {
     }
 
     @Override
-    public void sendGetUserInfos(String o) {
+    public void sendGetUserInfos(String o, boolean isMe) {
         List<String> list = new ArrayList<>();
         String[] os = o.split(";");
         for(int i = 0; i < os.length; i++) {
             list.add(os[i]);
         }
-        ictrlView.getUserInfos(list);
+        ictrlView.getUserInfos(list, isMe);
     }
 
     @Override

@@ -88,8 +88,8 @@ public class MainActivity extends BaseActivity {
     private long mExitTime;
     private List<ZwwRoomBean> dollLists = new ArrayList<>();
     private List<RoomBean> roomList=new ArrayList<>();
-    private String ph;
-    private String userID;
+    //private String ph;
+    //private String userID;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
     private Result<LoginInfo> loginInfoResult;
@@ -115,7 +115,10 @@ public class MainActivity extends BaseActivity {
         editor.putBoolean("isOpenMusic",true);
         editor.commit();
         RxBus.get().register(this);
+        //doconnect处理
         if ((YsdkUtils.loginResult != null) && (zwwjFragment != null)){
+            UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
+            UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
             zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
         }
     }

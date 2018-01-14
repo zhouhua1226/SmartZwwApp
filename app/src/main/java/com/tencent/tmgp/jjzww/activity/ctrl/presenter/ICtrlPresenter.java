@@ -12,7 +12,7 @@ public interface ICtrlPresenter {
     void startTimeCounter();
     void stopTimeCounter();
     void sendCmdOutRoom();
-    void sendGetUserInfos(String o);
+    void sendGetUserInfos(String o, boolean isMe);
 
     void startRecordVideo();
     void stopRecordView();

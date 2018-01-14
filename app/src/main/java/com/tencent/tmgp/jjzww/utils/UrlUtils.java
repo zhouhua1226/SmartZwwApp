@@ -53,12 +53,14 @@ public class UrlUtils {
     //签到接口
     public static final String SIGNTYPE="signType";
 
+
     public static final String URL = "http://115.159.58.231:18081";
     //http://115.159.58.231:18081(壕鑫腾讯云)   http://47.100.15.18:8080(阿里云)
-//    public static final String URL="http://106.75.142.42:8080/";
+    //APP图片拼接url
+    public static final String APPPICTERURL="http://115.159.58.231:8888/";
+    //http://47.100.15.18:8888/(阿里云)   http://115.159.58.231:8888/(壕鑫腾讯云)
     //壕鑫客服链接
     public static final String SERVICEURL="http://chat10.live800.com/live800/chatClient/chatbox.jsp?companyID=924464&configID=234256&jid=9174122739";
-
     //getSmsCode
     public static final String GETSMSCODE = URL + "/pooh-web/sms/getRegSMSCode";//"http://controller.ngrok.cc/m/sms/getSMSCodeLogin";
     //login
@@ -84,7 +86,7 @@ public class UrlUtils {
     public static final String USERNAMEURL = URL + "/pooh-web/api/updateUserName";
 
     //头像上传成功返回的http://106.75.142.42:8080/faceImage/15335756655.png
-    public static final String USERFACEIMAGEURL = URL + "/faceImage";
+    public static final String USERFACEIMAGEURL = APPPICTERURL;//+ "faceImage/";
 
     //充值接口
     public static final String USERPAYURL = URL + "/pooh-web/pay/balance";
@@ -104,17 +106,13 @@ public class UrlUtils {
     //获取房间用户头像
     public static final String CTRLUSERIMAGE = URL + "/pooh-web/api/getUser";
 
-
     //跑马灯l
-
     public static final String getUserList = URL + "/pooh-web/play/getUserList";
-
 
     //下注接口
     public static final String BETSURL = URL + "/pooh-web/app/bets";
 
     //围观群众分发游戏场次
-
     public static final String PLAYIDURL = URL + "/pooh-web/app/getPlayId";
 
     //开始游戏分发场次
@@ -159,10 +157,6 @@ public class UrlUtils {
 
     //房间列表接口
     public static final String DOLLLISTURL=URL+"/pooh-web/app/doll/getDollList";
-
-    //APP图片拼接url
-    public static final String APPPICTERURL="http://115.159.58.231:8888/";
-    //http://47.100.15.18:8888/(阿里云)   http://115.159.58.231:8888/(壕鑫腾讯云)
 
     //签到接口
     public static final String USERSIGNURL=URL+"/pooh-web/app/sign";

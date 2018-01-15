@@ -14,4 +14,12 @@
     <string name="company_name">壕鑫互联(北京)网络科技有限公司</string>
     <string name="company_web">http://www.halcyongame.cn/</string>
 
+    <!-- 刷新 -->
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">松开后刷新</string>
+    <string name="pull_to_refresh_refreshing_label">刷新中...</string>
+    <string name="pull_to_refresh_footer_release_label">松开后加载</string>
+    <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
+    <string name="pull_to_refresh_footer_refreshing_label">加载中…</string>
+
 </resources>

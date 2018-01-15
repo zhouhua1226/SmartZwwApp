@@ -68,6 +68,8 @@ public class ListRankAdapter extends RecyclerView.Adapter<ListRankAdapter.ListRa
         }
         Glide.with(mContext)
                 .load(UrlUtils.APPPICTERURL + mDatas.get(position).getIMAGE_URL())
+                .error(R.drawable.ctrl_default_user_bg)
+                .placeholder(R.drawable.ctrl_default_user_bg)
                 .dontAnimate()
                 .transform(new GlideCircleTransform(mContext))
                 .into(holder.rank_userImag);

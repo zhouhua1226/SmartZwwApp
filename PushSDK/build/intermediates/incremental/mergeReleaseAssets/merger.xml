@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\smartzww\workspace\sdk_rtmp\SmartZwwApp\PushSDK\assets"/><source path="D:\smartzww\workspace\sdk_rtmp\SmartZwwApp\PushSDK\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="D:\smartzww\workspace\sdk_rtmp\SmartZwwApp\PushSDK\build-types\release\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\zwwApp\SmartZwwApp\PushSDK\assets"/><source path="D:\zwwApp\SmartZwwApp\PushSDK\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="D:\zwwApp\SmartZwwApp\PushSDK\build-types\release\assets"/></dataSet></merger>

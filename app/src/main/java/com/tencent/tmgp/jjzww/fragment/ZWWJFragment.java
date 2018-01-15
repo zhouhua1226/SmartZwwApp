@@ -1,13 +1,13 @@
 package com.tencent.tmgp.jjzww.fragment;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
@@ -19,9 +19,7 @@ import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Marquee;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
-import com.tencent.tmgp.jjzww.bean.RoomListBean;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
-import com.tencent.tmgp.jjzww.bean.ZwwRoomBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
@@ -31,21 +29,25 @@ import com.tencent.tmgp.jjzww.view.EmptyLayout;
 import com.tencent.tmgp.jjzww.view.GlideImageLoader;
 import com.tencent.tmgp.jjzww.view.MarqueeView;
 import com.tencent.tmgp.jjzww.view.MyToast;
+import com.tencent.tmgp.jjzww.view.PullToRefreshView;
 import com.tencent.tmgp.jjzww.view.SpaceItemDecoration;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
 /**
  * Created by hongxiu on 2017/9/25.
  */
-public class ZWWJFragment extends BaseFragment {
+public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterRefreshListener {
     private static final String TAG = "ZWWJFragment";
     @BindView(R.id.zww_recyclerview)
     RecyclerView zwwRecyclerview;
@@ -56,6 +58,9 @@ public class ZWWJFragment extends BaseFragment {
     MarqueeView marqueeview;
     @BindView(R.id.zww_banner)
     Banner zwwBanner;
+    @BindView(R.id.mPullToRefreshView)
+    PullToRefreshView mPullToRefreshView;
+    Unbinder unbinder1;
 
     private List<RoomBean> roomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
@@ -63,8 +68,8 @@ public class ZWWJFragment extends BaseFragment {
     private EmptyLayout.OnClickReTryListener onClickReTryListener;
     private List<VideoBackBean> playBackBeanList = new ArrayList<>();
     private List<Marquee> marquees = new ArrayList<>();
-    private List<BannerBean> bannerList=new ArrayList<>();
-    private List<String> list=new ArrayList<>();
+    private List<BannerBean> bannerList = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
     private List<Integer> mListImage;
 
     @Override
@@ -117,6 +122,8 @@ public class ZWWJFragment extends BaseFragment {
 
     private void initData() {
         Utils.showLogE(TAG, "afterCreate:::::>>>>" + roomBeens.size());
+        mPullToRefreshView.setOnHeaderRefreshListener(this);
+        mPullToRefreshView.setOnFooterRefreshListener(this);
         dismissEmptyLayout();
         zwwAdapter = new ZWWAdapter(getActivity(), roomBeens);
         zwwRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -175,21 +182,21 @@ public class ZWWJFragment extends BaseFragment {
                         }
                         String rtmpUrl1 = roomBeens.get(position).getCameras().get(0).getRtmpUrl();
                         String rtmpUrl2 = roomBeens.get(position).getCameras().get(1).getRtmpUrl();
-                        String serviceName1=roomBeens.get(position).getCameras().get(0).getServerName();
-                        String serviceName2=roomBeens.get(position).getCameras().get(1).getServerName();
-                        String liveStream1=roomBeens.get(position).getCameras().get(0).getLivestream();
-                        String liveStream2=roomBeens.get(position).getCameras().get(1).getLivestream();
-                        String idToken="?token="+UserUtils.SRSToken.getToken()
-                                         +"&expire="+UserUtils.SRSToken.getExpire()
-                                         +"&tid="+UserUtils.SRSToken.getTid()
-                                         +"&time="+UserUtils.SRSToken.getTime()
-                                         +"&type="+UserUtils.SRSToken.getType()
-                                         +"/";
-                        String url1=rtmpUrl1+serviceName1+idToken+liveStream1;
-                        String url2=rtmpUrl2+serviceName2+idToken+liveStream2;
-                        Utils.showLogE(TAG,"房间推流地址1="+url1);
-                        Utils.showLogE(TAG,"房间推流地址2="+url2);
-                        if (!TextUtils.isEmpty(url2)&&!TextUtils.isEmpty(url1)) {
+                        String serviceName1 = roomBeens.get(position).getCameras().get(0).getServerName();
+                        String serviceName2 = roomBeens.get(position).getCameras().get(1).getServerName();
+                        String liveStream1 = roomBeens.get(position).getCameras().get(0).getLivestream();
+                        String liveStream2 = roomBeens.get(position).getCameras().get(1).getLivestream();
+                        String idToken = "?token=" + UserUtils.SRSToken.getToken()
+                                + "&expire=" + UserUtils.SRSToken.getExpire()
+                                + "&tid=" + UserUtils.SRSToken.getTid()
+                                + "&time=" + UserUtils.SRSToken.getTime()
+                                + "&type=" + UserUtils.SRSToken.getType()
+                                + "/";
+                        String url1 = rtmpUrl1 + serviceName1 + idToken + liveStream1;
+                        String url2 = rtmpUrl2 + serviceName2 + idToken + liveStream2;
+                        Utils.showLogE(TAG, "房间推流地址1=" + url1);
+                        Utils.showLogE(TAG, "房间推流地址2=" + url2);
+                        if (!TextUtils.isEmpty(url2) && !TextUtils.isEmpty(url1)) {
                             enterNext(roomBeens.get(position).getDollName(),
                                     url1, url2,
                                     room_status,
@@ -242,16 +249,16 @@ public class ZWWJFragment extends BaseFragment {
         });
     }
 
-    private void getBannerList(){
+    private void getBannerList() {
         HttpManager.getInstance().getBannerList(new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-                Utils.showLogE(TAG,"获取轮播列表="+loginInfoResult.getMsg());
-                if(loginInfoResult.getMsg().equals("success")){
-                    bannerList=loginInfoResult.getData().getRunImage();
-                    if(bannerList.size()>0){
-                        for(int i=0;i<bannerList.size();i++){
-                            list.add(UrlUtils.APPPICTERURL+bannerList.get(i).getIMAGE_URL());
+                Utils.showLogE(TAG, "获取轮播列表=" + loginInfoResult.getMsg());
+                if (loginInfoResult.getMsg().equals("success")) {
+                    bannerList = loginInfoResult.getData().getRunImage();
+                    if (bannerList.size() > 0) {
+                        for (int i = 0; i < bannerList.size(); i++) {
+                            list.add(UrlUtils.APPPICTERURL + bannerList.get(i).getIMAGE_URL());
                         }
                         initBanner(list);
                     }
@@ -281,5 +288,49 @@ public class ZWWJFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void onFooterRefresh(PullToRefreshView view) {
+        mPullToRefreshView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (Utils.isNetworkAvailable(getContext())) {
+                   // MyToast.getToast(getContext(), "上拉加载下一页").show();
+                } else {
+                    MyToast.getToast(getContext(), "网络连接异常，请检查网络").show();
+                }
+                mPullToRefreshView.onFooterRefreshComplete();
+            }
+        }, 1500);
+    }
 
+    @Override
+    public void onHeaderRefresh(PullToRefreshView view) {
+        if(mPullToRefreshView!=null)
+            mPullToRefreshView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (Utils.isNetworkAvailable(getContext())) {
+
+                    } else {
+                        MyToast.getToast(getContext(), "网络连接异常，请检查网络").show();
+                    }
+                    mPullToRefreshView.onHeaderRefreshComplete();
+                }
+            }, 1500);
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder1.unbind();
+    }
 }

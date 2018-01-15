@@ -213,6 +213,7 @@ public class RankFragmentTwo extends BaseFragment {
             rankitemOrdinalnum.setText("第"+myNum+"名");
             Glide.with(getContext())
                     .load(UrlUtils.APPPICTERURL + myBean.getIMAGE_URL())
+                    .error(R.drawable.ctrl_default_user_bg)
                     .dontAnimate()
                     .transform(new GlideCircleTransform(getContext()))
                     .into(rankUserImag);
@@ -228,6 +229,7 @@ public class RankFragmentTwo extends BaseFragment {
         rankFirstNumTv.setText(firstBean.getDOLLTOTAL());
         Glide.with(getContext())
                 .load(UrlUtils.APPPICTERURL + firstBean.getIMAGE_URL())
+                .error(R.drawable.ctrl_default_user_bg)
                 .dontAnimate()
                 .centerCrop()
                 .transform(new GlideCircleTransform(getContext()))
@@ -241,6 +243,7 @@ public class RankFragmentTwo extends BaseFragment {
         rankSecondNumTv.setText(secondBean.getDOLLTOTAL());
         Glide.with(getContext())
                 .load(UrlUtils.APPPICTERURL + secondBean.getIMAGE_URL())
+                .error(R.drawable.ctrl_default_user_bg)
                 .dontAnimate()
                 .centerCrop()
                 .transform(new GlideCircleTransform(getContext()))
@@ -254,6 +257,7 @@ public class RankFragmentTwo extends BaseFragment {
         rankThirdNumTv.setText(thirdBean.getDOLLTOTAL());
         Glide.with(getContext())
                 .load(UrlUtils.APPPICTERURL + thirdBean.getIMAGE_URL())
+                .error(R.drawable.ctrl_default_user_bg)
                 .dontAnimate()
                 .centerCrop()
                 .transform(new GlideCircleTransform(getContext()))

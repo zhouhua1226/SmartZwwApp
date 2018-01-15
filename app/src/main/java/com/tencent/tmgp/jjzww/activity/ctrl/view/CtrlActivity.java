@@ -214,6 +214,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         initData();
         coinTv.setText("  " + UserUtils.UserBalance+" 充值");
         setVibrator();   //初始化振动器
+        Utils.showLogE("<<<<<<<<<<<<<","userId="+UserUtils.USER_ID);
     }
 
     protected void initView() {
@@ -1027,7 +1028,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     private void updataTime(String time, String state) {
-
+        Utils.showLogE("<<<<<<<<<<<<<","userId2="+UserUtils.USER_ID);
         HttpManager.getInstance().getRegPlayBack(time, UserUtils.USER_ID, state, dollId, periodsNum, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
@@ -1043,6 +1044,7 @@ public class CtrlActivity extends Activity implements IctrlView {
 
     //获取用户信息接口
     private void getUserDate(String userId) {
+
         HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {

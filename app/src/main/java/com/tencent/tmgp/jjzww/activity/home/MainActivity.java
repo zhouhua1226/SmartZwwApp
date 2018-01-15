@@ -1,11 +1,10 @@
 package com.tencent.tmgp.jjzww.activity.home;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,21 +20,16 @@ import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
 import com.tencent.tmgp.jjzww.bean.RoomListBean;
-import com.tencent.tmgp.jjzww.bean.SRStoken;
-import com.tencent.tmgp.jjzww.bean.Token;
 import com.tencent.tmgp.jjzww.bean.ZwwRoomBean;
 import com.tencent.tmgp.jjzww.fragment.MyCenterFragment;
 import com.tencent.tmgp.jjzww.fragment.RankFragmentTwo;
 import com.tencent.tmgp.jjzww.fragment.ZWWJFragment;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
-import com.tencent.tmgp.jjzww.utils.SPUtils;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.utils.YsdkUtils;
-import com.tencent.tmgp.jjzww.view.EmptyLayout;
-import com.tencent.tmgp.jjzww.view.LoginDialog;
 import com.gatz.netty.AppClient;
 import com.gatz.netty.utils.AppProperties;
 import com.gatz.netty.utils.NettyUtils;
@@ -43,7 +37,6 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.iot.game.pooh.server.entity.json.GetStatusResponse;
-import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.tmgp.jjzww.view.SignInDialog;
 import com.tencent.tmgp.jjzww.view.SignSuccessDialog;
 import com.umeng.analytics.MobclickAgent;
@@ -75,10 +68,7 @@ public class MainActivity extends BaseActivity {
     ImageView ivTabMy;//我的图标
     @BindView(R.id.layout_tab_my)
     LinearLayout layoutTabMy;//我的图标布局
-//    @BindView(R.id.main_center)
-//    FrameLayout mainCenter;
 
-    //private LoginDialog loginDialog;
     private Timer timer;
     private TimerTask timerTask;
     private MyCenterFragment myCenterFragment;//个人中心
@@ -88,8 +78,6 @@ public class MainActivity extends BaseActivity {
     private long mExitTime;
     private List<ZwwRoomBean> dollLists = new ArrayList<>();
     private List<RoomBean> roomList=new ArrayList<>();
-    //private String ph;
-    //private String userID;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
     private Result<LoginInfo> loginInfoResult;
@@ -120,6 +108,7 @@ public class MainActivity extends BaseActivity {
             UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
             zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
         }
+        UserUtils.isUserChanger = false;
     }
 
 
@@ -178,8 +167,6 @@ public class MainActivity extends BaseActivity {
                 UserUtils.UserAddress = loginInfoResult.getData().getAppUser().getCNEE_NAME() + " " +
                         loginInfoResult.getData().getAppUser().getCNEE_PHONE() + " " +
                         loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
-                //getDeviceStates();
-                //startTimer();
             }
         }else {
             if (zwwjFragment != null) {
@@ -215,7 +202,6 @@ public class MainActivity extends BaseActivity {
             //一定要记得提交
             fragmentTransaction.commitAllowingStateLoss();
         }
-
     }
 
     private void showRankFg() {
@@ -333,7 +319,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(getIntent().getBooleanExtra("newUser", false)) {
+        if(UserUtils.isUserChanger) {
+            UserUtils.isUserChanger = false;
             UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
             UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
             zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);

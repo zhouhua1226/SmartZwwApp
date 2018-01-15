@@ -31,7 +31,6 @@ import com.tencent.ysdk.framework.common.ePlatform;
 import org.json.JSONObject;
 
 
-import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -219,12 +218,8 @@ public class LoginActivity extends BaseActivity {
                     SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_LOGIN, true);
                     SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT, false);
                     MyToast.getToast(getApplicationContext(), "登录成功！").show();
+                    UserUtils.isUserChanger = true;
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("newUser", true);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("loginback", loginInfoResult);
-//                    bundle.putSerializable("newUser", true);
-//                    intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
                 } else {
@@ -249,11 +244,8 @@ public class LoginActivity extends BaseActivity {
                     MyToast.getToast(getApplicationContext(), "自动登录成功！").show();
                     YsdkUtils.loginResult = loginInfoResult;
                     UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();
+                    UserUtils.isUserChanger = true;
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("loginback", loginInfoResult);
-//                    intent.putExtras(bundle);
-                    intent.putExtra("newUser", true);
                     startActivity(intent);
                     finish();
                 }

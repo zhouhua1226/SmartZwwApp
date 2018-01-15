@@ -29,6 +29,7 @@ public class UserUtils {
     public static String DOLL_ID="";
     public static int id;
     public static SRStoken SRSToken;
+    public static boolean isUserChanger = false;  //是否切换
 
     public static final String RECODE_URL = Environment.getExternalStorageDirectory().getPath()
             + "/SmartRemoteApp/";

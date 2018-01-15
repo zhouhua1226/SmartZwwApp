@@ -263,7 +263,7 @@ public class MainActivity extends BaseActivity {
         switch (view.getId()) {
             //抓娃娃大厅
             case R.id.layout_tab_zww:
-                getDeviceStates();
+                //getDeviceStates();
                 showZwwFg();
                 break;
             //排行榜大厅

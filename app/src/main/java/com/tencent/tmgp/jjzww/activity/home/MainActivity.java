@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity {
 //    @BindView(R.id.main_center)
 //    FrameLayout mainCenter;
 
-    private LoginDialog loginDialog;
+    //private LoginDialog loginDialog;
     private Timer timer;
     private TimerTask timerTask;
     private MyCenterFragment myCenterFragment;//个人中心
@@ -104,7 +104,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        Utils.showLogE(TAG, "afterCreate");
         initView();
         initNetty();
         showZwwFg();
@@ -334,9 +333,15 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        startTimer();
-        getDeviceStates();
-        NettyUtils.pingRequest();
+        if(getIntent().getBooleanExtra("newUser", false)) {
+            UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
+            UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
+            zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
+        } else {
+            startTimer();
+            getDeviceStates();
+            NettyUtils.pingRequest();
+        }
     }
 
     @Override

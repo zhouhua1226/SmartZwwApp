@@ -85,8 +85,6 @@ public class LoginActivity extends BaseActivity {
                 }
                 if (Utils.isNetworkAvailable(getApplicationContext())) {
                     antuToken = (String) SPUtils.get(getApplicationContext(), YsdkUtils.AUTH_TOKEN, "");
-                    Log.e(TAG, "uid=" + uid + "<<<<<authToken=" + antuToken);
-                    Log.e(TAG, "新token=" + antuToken);
                     getAccessToken(antuToken);    //获取token自动登录
                 }
             } else {
@@ -210,23 +208,23 @@ public class LoginActivity extends BaseActivity {
         HttpManager.getInstance().getYSDKLogin(uid, accessToken, nickName, imageUrl, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-                Log.e(TAG, "wxlogin=" + loginInfoResult.getMsg());
                 if (loginInfoResult.getMsg().equals("success")) {
                     PayReviewer.reviewer();   //通知失败进行重发
                     //progressDialog.dismiss();
                     loginLoadingGv.setVisibility(View.GONE);
                     YsdkUtils.loginResult = loginInfoResult;
                     UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();
-                    Log.e("<<<<<<<<<<<<", "登录userId=" + UserUtils.USER_ID);
                     SPUtils.put(getApplicationContext(), YsdkUtils.AUTH_TOKEN, YsdkUtils.auth_token);
                     SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_USERID, YsdkUtils.uid);
                     SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_LOGIN, true);
                     SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT, false);
                     MyToast.getToast(getApplicationContext(), "登录成功！").show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("loginback", loginInfoResult);
-                    intent.putExtras(bundle);
+                    intent.putExtra("newUser", true);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("loginback", loginInfoResult);
+//                    bundle.putSerializable("newUser", true);
+//                    intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
                 } else {
@@ -247,17 +245,15 @@ public class LoginActivity extends BaseActivity {
         HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
-                Log.e(TAG, "wxauthlogin=" + loginInfoResult.getMsg());
                 if (loginInfoResult.getMsg().equals("success")) {
-                    //PayReviewer.reviewer();   //通知失败进行重发
                     MyToast.getToast(getApplicationContext(), "自动登录成功！").show();
                     YsdkUtils.loginResult = loginInfoResult;
                     UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();
-                    Log.e("<<<<<<<<<<<<", "自动登录userId=" + UserUtils.USER_ID);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("loginback", loginInfoResult);
-                    intent.putExtras(bundle);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("loginback", loginInfoResult);
+//                    intent.putExtras(bundle);
+                    intent.putExtra("newUser", true);
                     startActivity(intent);
                     finish();
                 }
@@ -274,15 +270,12 @@ public class LoginActivity extends BaseActivity {
         EasyYSDKApi.autoAccess(authToken, new AutoAccessCallback() {
             @Override
             public void onSuccess(String accessToken) {
-
                 YsdkUtils.access_token = accessToken;
-                Log.e("YsdkUtils--", "获取AccessToken=" + YsdkUtils.access_token);
                 getYSDKAuthLogin(uid, accessToken);  //自动登录
             }
 
             @Override
             public void onFail(int code, String message) {
-                Log.e("YsdkUtils--", "获取AccessToken失败原因=" + message);
                 MyToast.getToast(LoginActivity.this, "登录过期，请重新登录！").show();
                 initCreatView();
             }

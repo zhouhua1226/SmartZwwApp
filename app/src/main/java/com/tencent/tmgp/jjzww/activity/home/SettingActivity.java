@@ -18,6 +18,8 @@ import com.easy.ysdk.EasyYSDKApi;
 import com.easy.ysdk.share.ShareInfo;
 import com.flamigo.jsdk.FlamigoPlaform;
 import com.flamigo.jsdk.api.FlamigoJApi;
+import com.gatz.netty.manager.SendManager;
+import com.gatz.netty.utils.NettyUtils;
 import com.proto.security.SecurityApi;
 import com.robust.sdk.api.RobustApi;
 import com.tencent.tmgp.jjzww.R;
@@ -182,6 +184,7 @@ public class SettingActivity extends BaseActivity {
                 SPUtils.put(getApplicationContext(), YsdkUtils.AUTH_TOKEN, "");
                 SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_USERID, "");
                 SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_LOGIN, false);
+                NettyUtils.destoryConnect();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;

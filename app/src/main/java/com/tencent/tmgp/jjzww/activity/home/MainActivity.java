@@ -93,24 +93,22 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         initView();
-        initNetty();
         showZwwFg();
+        initNetty();
         getDollList();                  //获取房间列表
+        RxBus.get().register(this);
+        initData();
+    }
+
+    private void initData() {
         settings = getSharedPreferences("app_user", 0);// 获取SharedPreference对象
         editor = settings.edit();// 获取编辑对象。
         editor.putBoolean("isVibrator",true);
         editor.putBoolean("isOpenMusic",true);
         editor.commit();
-        RxBus.get().register(this);
-        //doconnect处理
-        if ((YsdkUtils.loginResult != null) && (zwwjFragment != null)){
-            UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
-            UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
-            zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
-        }
         UserUtils.isUserChanger = false;
+        getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
     }
-
 
     @Override
     protected void initView() {
@@ -122,6 +120,12 @@ public class MainActivity extends BaseActivity {
     private void initNetty() {
         doServcerConnect();
         NettyUtils.registerAppManager();
+        //doconnect处理
+        if ((YsdkUtils.loginResult != null) && (zwwjFragment != null)){
+            UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
+            UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
+            zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
+        }
     }
 
     @Override
@@ -133,7 +137,6 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         getLoginBackDate();             //登录信息返回
-        getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
     }
 
     @Override
@@ -324,6 +327,7 @@ public class MainActivity extends BaseActivity {
             UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
             UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
             zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
+            getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
         } else {
             startTimer();
             getDeviceStates();
@@ -482,20 +486,18 @@ public class MainActivity extends BaseActivity {
         HttpManager.getInstance().getDollList(new RequestSubscriber<RoomListBean>() {
             @Override
             public void _onSuccess(RoomListBean roomListBean) {
-                Utils.showLogE(TAG,"房间列表结果="+roomListBean.getMsg());
-                if(zwwjFragment != null)
-                zwwjFragment.dismissEmptyLayout();
-                if(roomListBean.getMsg().equals("success")){
-                    roomList=roomListBean.getDollList();
-                    Utils.showLogE(TAG,"摄像头数组长度="+roomList.get(0).getCameras().size());
+                if (zwwjFragment != null)
+                    zwwjFragment.dismissEmptyLayout();
+                if (roomListBean.getMsg().equals("success")) {
+                    roomList = roomListBean.getDollList();
+                    Utils.showLogE(TAG, "摄像头数组长度=" + roomList.get(0).getCameras().size());
                     if (roomList.size() == 0) {
-                        if(zwwjFragment != null)
-                        zwwjFragment.showError();
+                        if (zwwjFragment != null)
+                            zwwjFragment.showError();
                     } else {
-                        if(zwwjFragment != null)
-                        zwwjFragment.notifyAdapter(roomList);
+                        if (zwwjFragment != null)
+                            zwwjFragment.notifyAdapter(roomList);
                     }
-                    getDeviceStates();
                     startTimer();
                     Utils.showLogE(TAG, "afterCreate:::::>>>>" + roomList.size());
                 }

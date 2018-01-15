@@ -264,7 +264,6 @@ public class CtrlActivity extends Activity implements IctrlView {
         ctrlCompl.sendCmdCtrl(MoveType.CATCH);
         ctrlCompl.stopTimeCounter();
         ctrlCompl.sendCmdOutRoom();
-        NettyUtils.sendGetDeviceStatesCmd();
         ctrlCompl = null;
         RxBus.get().unregister(this);
 
@@ -739,7 +738,6 @@ public class CtrlActivity extends Activity implements IctrlView {
     public void getKnxConnectStates(Object response) {
         if (response instanceof MoveControlResponse) {
             MoveControlResponse moveControlResponse = (MoveControlResponse) response;
-            Utils.showLogE(TAG, moveControlResponse.toString());
             if ((moveControlResponse.getSeq() == -2)) {
                 if (moveControlResponse.getMoveType() == null) {
                     return;

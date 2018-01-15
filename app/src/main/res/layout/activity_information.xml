@@ -115,7 +115,9 @@
         android:id="@+id/password_rl"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone"
+        >
 
         <ImageButton
             android:id="@+id/pwd_test"

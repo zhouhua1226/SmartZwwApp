@@ -105,12 +105,13 @@ public class RankFragmentTwo extends BaseFragment {
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         initData();
+        initlist();
         //OnClick();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
         initlist();
     }
 
@@ -175,7 +176,6 @@ public class RankFragmentTwo extends BaseFragment {
         HttpManager.getInstance().getNumRankList(userId, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> result) {
-                Log.e(TAG,"我的排行="+result.getMsg());
                 if(result.getMsg().equals("success")){
                     myBean=result.getData().getAppUser();
                     myNum=myBean.getRANK();

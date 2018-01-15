@@ -100,9 +100,20 @@ public class MyCenterFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("<<<<<<<<<<<<", "个人中心userId=" + UserUtils.USER_ID);
-        if (YsdkUtils.loginResult != null)
-            getUserDate(YsdkUtils.loginResult.getData().getAppUser().getUSER_ID());
+        Log.e("mycenter_onResume", "个人中心userId=" + UserUtils.USER_ID);
+        if (!Utils.isEmpty(UserUtils.USER_ID))
+            getUserDate(UserUtils.USER_ID);
+    }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            Log.e("mycenter_onHidden", "个人中心userId=" + UserUtils.USER_ID);
+            if (!Utils.isEmpty(UserUtils.USER_ID))
+                getUserDate(UserUtils.USER_ID);
+        }
     }
 
     private void getUserImageAndName() {
@@ -135,10 +146,15 @@ public class MyCenterFragment extends BaseFragment {
                 UserUtils.UserCatchNum = result.getData().getAppUser().getDOLLTOTAL();
                 UserUtils.NickName = result.getData().getAppUser().getNICKNAME();
                 UserUtils.UserImage = UrlUtils.APPPICTERURL + result.getData().getAppUser().getIMAGE_URL();
+                String name=result.getData().getAppUser().getCNEE_NAME();
+                String phone=result.getData().getAppUser().getCNEE_PHONE();
+                String address=result.getData().getAppUser().getCNEE_ADDRESS();
+                UserUtils.UserAddress=name+" "+phone+" "+address;
                 Log.e(TAG, "个人信息刷新结果=" + result.getMsg() + "余额=" + result.getData().getAppUser().getBALANCE()
-                        + "抓取次数=" + result.getData().getAppUser().getDOLLTOTAL()
-                        + "昵称=" + result.getData().getAppUser().getNICKNAME()
-                        + "头像=" + UserUtils.UserImage);
+                        + " 抓取次数=" + result.getData().getAppUser().getDOLLTOTAL()
+                        + " 昵称=" + result.getData().getAppUser().getNICKNAME()
+                        + " 头像=" + UserUtils.UserImage
+                        + " 发货地址=" + UserUtils.UserAddress);
                 getUserImageAndName();
             }
 

@@ -98,7 +98,7 @@ public class NewAddressActivity extends BaseActivity {
                         MyToast.getToast(this, "您输入了特殊字符！").show();
                     }else {
                         information=name+"  "+phone+"  "+address;
-                        UserUtils.UserAddress=information;
+                        //UserUtils.UserAddress=information;
                         getConsignee(name,phone,address,UserUtils.USER_ID);
                     }
 

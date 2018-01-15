@@ -121,7 +121,7 @@ public class ConsignmentActivity extends BaseActivity {
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         initView();
-        initData();
+        //initData();
 
     }
 

@@ -38,7 +38,9 @@
         android:hint="输入邀请码"
         android:paddingStart="10dp"
         android:singleLine="true"
-        android:textColorHint="#5b5b5b" />
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray" />
 
     <Button
         android:id="@+id/submit_bt"

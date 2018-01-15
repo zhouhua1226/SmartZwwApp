@@ -214,8 +214,12 @@ public class MainActivity extends BaseActivity {
             //如果所有的fragment都不为空的话，把所有的fragment都进行隐藏。最开始进入应用程序，fragment为空时，此方法不执行
             hideFragment(fragmentTransaction);
             //如果这个fragment为空的话，就创建一个fragment，并且把它加到ft中去.如果不为空，就把它直接给显示出来
-            rankFragment = new RankFragmentTwo();
-            fragmentTransaction.add(R.id.main_center, rankFragment);
+            if(rankFragment==null) {
+                rankFragment = new RankFragmentTwo();
+                fragmentTransaction.add(R.id.main_center, rankFragment);
+            }else {
+                fragmentTransaction.show(rankFragment);
+            }
             setFocuse();
             ivTabList.setBackgroundResource(R.drawable.rank_icon);
             //一定要记得提交

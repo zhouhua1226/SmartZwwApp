@@ -112,7 +112,7 @@
                     android:background="@drawable/mycenter_gamecurrency_bg"
                     >
                     <TextView
-                        android:text="0人"
+                        android:text="0人在线"
                         android:layout_marginEnd="10dp"
                         android:layout_toStartOf="@+id/player2_iv"
                         android:layout_gravity="center_vertical"

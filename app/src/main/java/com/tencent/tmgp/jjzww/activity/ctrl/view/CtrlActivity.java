@@ -297,7 +297,8 @@ public class CtrlActivity extends Activity implements IctrlView {
         userInfos = list;
         int counter = userInfos.size();
         if (counter > 0) {
-            playerCounterIv.setText(String.format(getString(R.string.player_counter_text), counter));
+            String s = counter + "人在线";
+            playerCounterIv.setText(s);
             if (counter == 1) {
                 playerSecondIv.setVisibility(View.INVISIBLE);
             } else {

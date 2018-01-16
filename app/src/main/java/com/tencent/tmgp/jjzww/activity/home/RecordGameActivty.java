@@ -184,10 +184,14 @@ public class RecordGameActivty extends BaseActivity {
             sendLayout.setVisibility(View.VISIBLE);
             exchangedTv.setVisibility(View.GONE);
             ConsigneeBean consigneeBean=Utils.getConsigneeBean(videoBackBean.getSENDGOODS());
-            sendnameTv.setText("收货人："+consigneeBean.getName());
-            sendphotoTv.setText(consigneeBean.getPhone());
-            sendaddressTv.setText("地址："+consigneeBean.getAddress());
-            sendremarkTv.setText("备注："+consigneeBean.getRemark());
+            if (consigneeBean != null) {
+                sendnameTv.setText("收货人：" + consigneeBean.getName());
+                sendphotoTv.setText(consigneeBean.getPhone());
+                sendaddressTv.setText("地址：" + consigneeBean.getAddress());
+                if (consigneeBean.getRemark() != null) {
+                    sendremarkTv.setText("备注：" + consigneeBean.getRemark());
+                }
+            }
 
         } else if(videoBackBean.getPOST_STATE().equals("2")){
             mydollStateTv.setText("已兑换");

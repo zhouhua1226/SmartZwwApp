@@ -236,15 +236,18 @@ public class Utils {
      * 收发货信息拆分
      * 2017/12/05 11：11
      */
-    public static ConsigneeBean getConsigneeBean(String s){
-        ConsigneeBean consigneeBean=new ConsigneeBean();
-        String ss[]=s.split(",");
-        if(ss.length<5){
+    public static ConsigneeBean getConsigneeBean(String s) {
+        ConsigneeBean consigneeBean = new ConsigneeBean();
+        String ss[] = s.split(",");
+        if (ss.length == 0) {
+            return null;
+        }
+        if ((ss.length == 3) || (ss.length == 4)) {
             consigneeBean.setName(ss[0]);
             consigneeBean.setPhone(ss[1]);
             consigneeBean.setAddress(ss[2]);
             consigneeBean.setRemark("");
-            if(ss.length>3){
+            if (ss.length == 4) {
                 consigneeBean.setRemark(ss[3]);
             }
         }

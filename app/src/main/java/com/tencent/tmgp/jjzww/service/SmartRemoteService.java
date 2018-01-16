@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 
 
 import com.iot.game.pooh.server.entity.json.announce.LotteryDrawAnnounceMessage;
-import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.gatz.netty.global.ConnectResultEvent;
 import com.gatz.netty.observer.HandlerObserver;
@@ -22,9 +21,6 @@ import com.iot.game.pooh.server.entity.json.announce.GatewayPoohStatusMessage;
 import com.iot.game.pooh.server.entity.json.app.AppInRoomResponse;
 import com.iot.game.pooh.server.entity.json.app.AppOutRoomResponse;
 import com.iot.game.pooh.server.entity.json.enums.PoohAbnormalStatus;
-
-import rx.Observable;
-import rx.Subscriber;
 
 public class SmartRemoteService extends Service {
     private static final String TAG = "SmartRemoteService";

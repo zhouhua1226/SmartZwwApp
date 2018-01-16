@@ -70,7 +70,6 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     private List<Marquee> marquees = new ArrayList<>();
     private List<BannerBean> bannerList = new ArrayList<>();
     private List<String> list = new ArrayList<>();
-    private List<Integer> mListImage;
 
     @Override
     protected int getLayoutId() {

@@ -334,7 +334,7 @@ public class MainActivity extends BaseActivity {
             getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
         } else {
             startTimer();
-            getDeviceStates();
+            //getDeviceStates();
             NettyUtils.pingRequest();
         }
     }

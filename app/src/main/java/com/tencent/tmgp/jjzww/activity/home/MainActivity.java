@@ -472,7 +472,7 @@ public class MainActivity extends BaseActivity {
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
                 Log.e(TAG, "断开重连 重新获取相关参数" + loginInfoResult.getMsg());
                 if(loginInfoResult.getMsg().equals("success")) {
-                    if (zwwjFragment != null) {
+                    if ((zwwjFragment != null) && (loginInfoResult.getData() != null)) {
                         zwwjFragment.setSessionId(loginInfoResult.getData().getSessionID(), true);
                     }
                 }

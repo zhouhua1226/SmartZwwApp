@@ -245,12 +245,12 @@ public class LoginActivity extends BaseActivity {
         HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+                if (loginInfoResult == null || loginInfoResult.getData() == null
+                        || loginInfoResult.getData().getAppUser() == null) {
+                    MyToast.getToast(getApplicationContext(), "登录失败！").show();
+                    return;
+                }
                 if (loginInfoResult.getMsg().equals("success")) {
-                    if(loginInfoResult==null||loginInfoResult.getData()==null
-                            ||loginInfoResult.getData().getAppUser()==null){
-                        MyToast.getToast(getApplicationContext(), "自动登录失败！").show();
-                        return;
-                    }
                     MyToast.getToast(getApplicationContext(), "自动登录成功！").show();
                     YsdkUtils.loginResult = loginInfoResult;
                     UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();

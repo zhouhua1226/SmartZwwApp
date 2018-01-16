@@ -328,9 +328,11 @@ public class MainActivity extends BaseActivity {
         super.onRestart();
         if(UserUtils.isUserChanger) {
             UserUtils.isUserChanger = false;
-            UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
-            UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
-            zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
+            if(YsdkUtils.loginResult.getData() != null) {
+                UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
+                UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
+                zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
+            }
             getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
         } else {
             startTimer();
@@ -424,18 +426,18 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    //监控单个网关连接区
-    @Subscribe(thread = EventThread.MAIN_THREAD,
-            tags = {@Tag(Utils.TAG_GATEWAY_SINGLE_DISCONNECT)})
-    public void getSingleGatwayDisConnect(String id) {
-        Utils.showLogE(TAG, "getSingleGatwayDisConnect id" + id);
-    }
-
-    @Subscribe(thread = EventThread.MAIN_THREAD,
-            tags = {@Tag(Utils.TAG_GATEWAY_SINGLE_CONNECT)})
-    public void getSingleGatwayConnect(String id) {
-        Utils.showLogE(TAG, "getSingleGatwayConnect id" + id);
-    }
+//    //监控单个网关连接区
+//    @Subscribe(thread = EventThread.MAIN_THREAD,
+//            tags = {@Tag(Utils.TAG_GATEWAY_SINGLE_DISCONNECT)})
+//    public void getSingleGatwayDisConnect(String id) {
+//        Utils.showLogE(TAG, "getSingleGatwayDisConnect id" + id);
+//    }
+//
+//    @Subscribe(thread = EventThread.MAIN_THREAD,
+//            tags = {@Tag(Utils.TAG_GATEWAY_SINGLE_CONNECT)})
+//    public void getSingleGatwayConnect(String id) {
+//        Utils.showLogE(TAG, "getSingleGatwayConnect id" + id);
+//    }
 
     private void startTimer() {
         if (timer == null) {

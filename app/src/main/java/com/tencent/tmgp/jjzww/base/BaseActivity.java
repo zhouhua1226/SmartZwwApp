@@ -6,10 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
+
 import com.hwangjr.rxbus.RxBus;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
@@ -34,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         afterCreate(savedInstanceState);
         MyApplication.getInstance().activities.add(this);
         PushAgent.getInstance(this).onAppStart();
+        setStatusBarColor();
 //        RxBus.get().register(this);
 //        //initDialog();
 //        IntentFilter intentFilter = new IntentFilter();
@@ -124,5 +129,18 @@ public abstract class BaseActivity extends AppCompatActivity{
         return res;
     }
 
+    //设置状态栏
+    private  void setStatusBarColor(){
+        Window window =getWindow();
+        //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        //设置状态栏颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.apptheme_bg));
+        }
+
+    }
 
 }

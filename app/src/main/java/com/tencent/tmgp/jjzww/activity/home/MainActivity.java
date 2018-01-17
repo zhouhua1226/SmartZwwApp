@@ -120,7 +120,9 @@ public class MainActivity extends BaseActivity {
     private void initNetty() {
         doServcerConnect();
         NettyUtils.registerAppManager();
-        //doconnect处理
+    }
+
+    private void initDoConnect() {
         if ((YsdkUtils.loginResult != null) && (zwwjFragment != null)){
             UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
             UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
@@ -505,6 +507,7 @@ public class MainActivity extends BaseActivity {
                             zwwjFragment.notifyAdapter(roomList);
                     }
                     startTimer();
+                    initDoConnect();
                     Utils.showLogE(TAG, "afterCreate:::::>>>>" + roomList.size());
                 }
             }

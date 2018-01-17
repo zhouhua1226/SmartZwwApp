@@ -123,16 +123,22 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"/>
 
-        <EditText
-            android:id="@+id/newaddress_dq_et"
+        <TextView
+            android:id="@+id/newaddress_dq_tv"
             android:layout_toRightOf="@+id/text_tv"
             android:layout_marginLeft="10dp"
             android:background="@null"
             android:textColorHint="#848484"
             android:textSize="12sp"
-            android:textColor="#848484"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:drawableRight="@drawable/right_arrow"
+            android:hint="请选择地区"
+            android:gravity="center_vertical"
+            android:paddingRight="15dp"
+            />
+
 
     </RelativeLayout>
 

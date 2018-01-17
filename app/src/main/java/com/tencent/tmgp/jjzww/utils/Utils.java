@@ -65,6 +65,9 @@ public class Utils {
     public static final String TAG_URL_MASTER = "url_master";
     public static final String TAG_URL_SECOND = "url_second";
 
+    public static final int PROVINCE_TYPE = 2;
+    public static final int CITY_TYPE = 3;
+
     public static boolean isExit = false;
 
     public static String token = "";

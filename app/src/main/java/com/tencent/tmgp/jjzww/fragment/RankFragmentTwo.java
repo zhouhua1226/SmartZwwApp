@@ -112,7 +112,9 @@ public class RankFragmentTwo extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        initlist();
+        if(!hidden) {
+            initlist();
+        }
     }
 
     private void initData() {

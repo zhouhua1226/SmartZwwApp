@@ -4,13 +4,14 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.tencent.tmgp.jjzww.R;
 import com.youth.banner.loader.ImageLoader;
 
 /**
  * Created by yincong on 2017/12/18 14:09
  * 修改人：
  * 修改时间：
- * 类描述：
+ * 类描述：轮播图片加载器
  */
 public class GlideImageLoader extends ImageLoader {
     @Override
@@ -23,7 +24,7 @@ public class GlideImageLoader extends ImageLoader {
          切记不要胡乱强转！
          */
 
-        //第一种方法：Glide 加载图片简单用法
+        //第一种方法：Glide 加载图片简单用法 .placeholder(R.raw.banner_loading)
         Glide.with(context).load(path).into(imageView);
 
         //第二种方法：Picasso 加载图片简单用法

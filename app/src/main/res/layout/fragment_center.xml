@@ -60,6 +60,7 @@
         android:layout_height="150dp"
         android:background="@drawable/mycenter_bg">
 
+
         <ImageView
             android:id="@+id/user_image"
             android:layout_width="70dp"

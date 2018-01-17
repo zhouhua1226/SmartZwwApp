@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wechatpay_background">
+    android:background="@color/midle_white">
 
     <RelativeLayout
-        android:id="@+id/wechatpay_top_layout"
+        android:id="@+id/newsweb_top_layout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/apptheme_bg" >
@@ -24,23 +24,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="金币充值"
+            android:text="图片活动"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/wechatpay_recyclerview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:overScrollMode="never"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_centerInParent="true"/>
+    <WebView
+        android:id="@+id/newsweb_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/newsweb_top_layout"
+        ></WebView>
+
+    <TextView
+        android:id="@+id/newsweb_none_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/newsweb_top_layout"
+        android:gravity="center"
+        android:text="暂无内容"
+        android:textSize="15sp"
+        android:textColor="@color/gray"
+        android:visibility="gone"
+        />
 
     <com.tencent.tmgp.jjzww.view.GifView
-        android:id="@+id/wechatpay_gif_view"
+        android:id="@+id/newsweb_gif_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
+import com.tencent.tmgp.jjzww.activity.home.NewsWebActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.BannerBean;
@@ -244,6 +245,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
             @Override
             public void OnBannerClick(int position) {
                 //MyToast.getToast(getContext(), "您点击了第" + (position + 1) + "张图片").show();
+                //startActivity(new Intent(getContext(), NewsWebActivity.class));
             }
         });
     }

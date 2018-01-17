@@ -415,6 +415,8 @@ public class MainActivity extends BaseActivity {
                             roomList.set(j, bean);
                         }
                     }
+                }
+                if(zwwjFragment != null) {
                     //TODO 按照规则重新排序
                     Collections.sort(roomList, new Comparator<RoomBean>() {
                         @Override
@@ -422,6 +424,7 @@ public class MainActivity extends BaseActivity {
                             return t2.getDollState().compareTo(t1.getDollState());
                         }
                     });
+                    Utils.showLogE(TAG, "getDeviceStates and notifyAdapter roomList.");
                     zwwjFragment.notifyAdapter(roomList);
                 }
             }

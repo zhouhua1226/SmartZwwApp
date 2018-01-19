@@ -71,7 +71,11 @@ public class LogisticsAdapter extends RecyclerView.Adapter<LogisticsAdapter.MyVi
             holder.wl_remark_tv.setText(getRemarks(mDatas.get(position).getPOST_REMARK()));
 
         }
-
+        if(mDatas.get(position).getMODE_DESPATCH().equals("0")){
+            holder.type_tv.setText("免邮");
+        }else if(mDatas.get(position).getMODE_DESPATCH().equals("1")){
+            holder.type_tv.setText("金币抵扣");
+        }
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,10 +96,12 @@ public class LogisticsAdapter extends RecyclerView.Adapter<LogisticsAdapter.MyVi
 
         RelativeLayout send_layout,wl_layout;
         TextView title_tv,times_tv,results_tv,sendname_tv,sendphone_tv,
-                  sendaddress_tv,sendremark_tv,wl_dnum_tv,wl_name_tv,wl_remark_tv,wl_time_tv;
+                 sendaddress_tv,sendremark_tv,wl_dnum_tv,wl_name_tv,
+                 wl_remark_tv,wl_time_tv,type_tv;
 
         public MyViewHolder1(View itemView) {
             super(itemView);
+            type_tv= (TextView) itemView.findViewById(R.id.type_tv);
             title_tv= (TextView) itemView.findViewById(R.id.title_tv);
             times_tv= (TextView) itemView.findViewById(R.id.times_tv);
             results_tv= (TextView) itemView.findViewById(R.id.value_tv);

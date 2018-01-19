@@ -54,10 +54,10 @@ public class UrlUtils {
     public static final String SIGNTYPE="signType";
 
 
-    public static final String URL = "http://47.100.15.18:8080";
+    public static final String URL = "http://115.159.58.231:18081";
     //http://115.159.58.231:18081(壕鑫腾讯云)   http://47.100.15.18:8080(阿里云)
     //APP图片拼接url
-    public static final String APPPICTERURL="http://47.100.15.18:8888/";
+    public static final String APPPICTERURL="http://115.159.58.231:8888/";
     //http://115.159.58.231:8888/(壕鑫腾讯云)   http://47.100.15.18:8888/(阿里云)
     //壕鑫客服链接
     public static final String SERVICEURL="http://chat10.live800.com/live800/chatClient/chatbox.jsp?companyID=924464&configID=234256&jid=9174122739";

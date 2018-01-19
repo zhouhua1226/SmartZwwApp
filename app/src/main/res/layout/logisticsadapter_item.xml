@@ -23,18 +23,19 @@
             android:layout_marginLeft="15dp"
             android:textSize="14sp"
             android:textColor="@color/black"
-            tools:text="10001"/>
+            tools:text="订单号：10001"/>
 
         <TextView
             android:id="@+id/type_tv"
-            android:layout_toRightOf="@+id/title_tv"
+            android:layout_toRightOf="@+id/times_tv"
+            android:layout_below="@+id/title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:layout_marginTop="11dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
             android:textColor="#848484"
-            tools:text="免邮"/>
+            tools:text="付款方式：免邮"/>
 
         <TextView
             android:id="@+id/times_tv"
@@ -152,7 +153,7 @@
             android:layout_below="@+id/wl_dnum_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="物流公司:顺丰速递"/>
+            tools:text="物流名称:顺丰速递"/>
 
         <TextView
             android:id="@+id/wl_time_tv"

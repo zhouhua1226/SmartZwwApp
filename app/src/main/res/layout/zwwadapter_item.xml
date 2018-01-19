@@ -9,7 +9,7 @@
         android:id="@+id/moppet_image"
         android:layout_width="wrap_content"
         android:layout_height="165dp"
-        android:src="@drawable/loading"
+        android:background="@drawable/loading"
         />
 
     <ImageView

@@ -14,6 +14,7 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.bean.LogisticsBean;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
+import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
 
 import java.util.List;
@@ -49,7 +50,10 @@ public class LogisticsAdapter extends RecyclerView.Adapter<LogisticsAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder1 holder, final int position) {
-        holder.title_tv.setText(mDatas.get(position).getID());
+        if (!mDatas.get(position).getID().equals("")&&!mDatas.get(position).getCREATE_TIME().equals("")
+                &&mDatas.get(position).getCREATE_TIME().length()>10) {
+            holder.title_tv.setText("订单号："+getNumOrder(mDatas.get(position).getID(),mDatas.get(position).getCREATE_TIME()));
+        }
         holder.times_tv.setText(mDatas.get(position).getCREATE_TIME());
         holder.sendname_tv.setText("收货人："+mDatas.get(position).getCNEE_NAME());
         holder.sendphone_tv.setText(mDatas.get(position).getCNEE_PHONE());
@@ -66,15 +70,17 @@ public class LogisticsAdapter extends RecyclerView.Adapter<LogisticsAdapter.MyVi
             holder.results_tv.setText("已发货");
             holder.wl_layout.setVisibility(View.VISIBLE);
             holder.wl_dnum_tv.setText("物流单号："+mDatas.get(position).getFMS_ORDER_NO());
-            holder.wl_name_tv.setText("物流公司："+mDatas.get(position).getFMS_NAME());
+            holder.wl_name_tv.setText("物流名称："+mDatas.get(position).getFMS_NAME());
             holder.wl_time_tv.setText("发货时间："+mDatas.get(position).getFMS_TIME());
             holder.wl_remark_tv.setText(getRemarks(mDatas.get(position).getPOST_REMARK()));
 
         }
         if(mDatas.get(position).getMODE_DESPATCH().equals("0")){
-            holder.type_tv.setText("免邮");
+            holder.type_tv.setText("付款方式：免邮");
         }else if(mDatas.get(position).getMODE_DESPATCH().equals("1")){
-            holder.type_tv.setText("金币抵扣");
+            holder.type_tv.setText("付款方式：金币抵扣");
+        }else if(mDatas.get(position).getMODE_DESPATCH().equals("2")){
+            holder.type_tv.setText("付款方式：货到付款");
         }
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +146,20 @@ public class LogisticsAdapter extends RecyclerView.Adapter<LogisticsAdapter.MyVi
 
     private String getRemarks(String remark){
         return remark.replace("数量为：","").replace("，","个 ");
+    }
+
+    private String getNumOrder(String num,String ddtime){
+        //订单号拼接格式2018011500000897   16位
+        int ii=num.length()+8;
+        StringBuffer sBuffer = new StringBuffer();
+        for(int i=0;i<(16-ii);i++){
+            sBuffer.append("0");
+        }
+        return getTimeNum(ddtime)+sBuffer+num;
+    }
+
+    private String getTimeNum(String time){
+        return time.substring(0,10).replace("-","");
     }
 
 }

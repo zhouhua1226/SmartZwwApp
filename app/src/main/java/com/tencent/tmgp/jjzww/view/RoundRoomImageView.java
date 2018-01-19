@@ -71,6 +71,11 @@ public class RoundRoomImageView extends ImageView {
 
     @Override
     public void draw(Canvas canvas) {
+        int width=getWidth();
+        int height=getHeight();
+        if((width<=0)||(height<=0)){
+            return;
+        }
         Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas2 = new Canvas(bitmap);
         super.draw(canvas2);

@@ -349,9 +349,18 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
-    //新排行榜接口
+    //排行榜当前用户排名接口
     public void getNumRankList(String userId,Subscriber<Result<LoginInfo>> subscriber){
         Observable<Result<LoginInfo>> o =smartService.getNumRankList(userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //物流订单接口
+    public void getLogisticsOrder(String userId,Subscriber<Result<LoginInfo>> subscriber){
+        Observable<Result<LoginInfo>> o =smartService.getLogisticsOrder(userId);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

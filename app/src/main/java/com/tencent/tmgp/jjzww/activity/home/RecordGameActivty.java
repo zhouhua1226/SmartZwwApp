@@ -179,7 +179,7 @@ public class RecordGameActivty extends BaseActivity {
             sendLayout.setVisibility(View.GONE);
             exchangedTv.setVisibility(View.GONE);
         } else if(videoBackBean.getPOST_STATE().equals("1")){
-            mydollStateTv.setText("已发货");
+            mydollStateTv.setText("待发货");
             nonesendLayout.setVisibility(View.GONE);
             sendLayout.setVisibility(View.VISIBLE);
             exchangedTv.setVisibility(View.GONE);

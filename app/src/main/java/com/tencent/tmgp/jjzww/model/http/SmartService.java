@@ -310,11 +310,19 @@ public interface SmartService {
     @GET(UrlUtils.BANNERURL)
     Observable<Result<LoginInfo>> getBannerList();
 
-    //排行榜前十以及个人排名
+    //个人排名
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.RANKLISTURL)
     Observable<Result<LoginInfo>> getNumRankList(
+            @Field(UrlUtils.USERID) String userId
+    );
+
+    //物流订单查询
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.LOGISTICSORDERURL)
+    Observable<Result<LoginInfo>> getLogisticsOrder(
             @Field(UrlUtils.USERID) String userId
     );
 

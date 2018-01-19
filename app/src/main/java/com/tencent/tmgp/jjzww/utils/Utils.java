@@ -185,7 +185,7 @@ public class Utils {
      * @return true为包含，false为不包含
      */
     public static boolean isSpecialChar(String str) {
-        String regEx = "[ _`~!@#$%^&*()+=|{}''\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘”“’？]|\n|\r|\t";
+        String regEx = "[ _`~!@#$%^&*()+=|{}''\\[\\].<>/~@#￥%……&*（）——+|{}【】‘”“’]|\n|\r|\t";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(str);
         return m.find();

@@ -81,7 +81,7 @@ public class MyCenterAdapter extends RecyclerView.Adapter<MyCenterAdapter.Center
         }else if(mDatas.get(position).getPOST_STATE().equals("1")){
             holder.select_image.setVisibility(View.GONE);
             holder.type.setVisibility(View.VISIBLE);
-            holder.type.setText("已发货");
+            holder.type.setText("待发货");
         }else if(mDatas.get(position).getPOST_STATE().equals("2")){
             holder.select_image.setVisibility(View.GONE);
             holder.type.setVisibility(View.VISIBLE);

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#e8e8e8"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/center_item"
+        >
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            tools:text="10001"/>
+        <TextView
+            android:id="@+id/times_tv"
+            android:layout_below="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="#848484"
+            tools:text="2017/10/17 14:12"/>
+
+        <TextView
+            android:id="@+id/value_tv"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#fb7e50"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            tools:text="待发货"/>
+
+        <RelativeLayout
+            android:id="@+id/send_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/times_tv"
+            android:visibility="visible"
+            android:layout_marginRight="5dp"
+            >
+
+            <ImageView
+                android:id="@+id/text_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dingwei"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:textSize="13sp"
+                android:textColor="#5b5b5b"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_toRightOf="@+id/text_image"
+                android:id="@+id/sendname_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="收货人:花花"/>
+
+            <TextView
+                android:textSize="13sp"
+                android:textColor="#5b5b5b"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/text_image"
+                android:layout_below="@+id/sendname_tv"
+                android:id="@+id/sendaddress_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="地址:上海市虹口区吴淞路218号"/>
+
+            <TextView
+                android:textSize="13sp"
+                android:textColor="#5b5b5b"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/text_image"
+                android:layout_below="@+id/sendaddress_tv"
+                android:id="@+id/sendremark_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                tools:text="备注:尽快发货！"/>
+
+
+            <TextView
+                android:layout_marginTop="6dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:id="@+id/sendphoto_tv"
+                android:textSize="14sp"
+                android:textColor="#5b5b5b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="15335756655"/>
+
+
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/wl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/send_layout"
+        android:visibility="visible"
+        android:layout_marginRight="5dp"
+        >
+        <TextView
+            android:textSize="12sp"
+            android:textColor="#5b5b5b"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/wl_dnum_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="物流单号:122432542423"/>
+
+        <TextView
+            android:id="@+id/wl_name_tv"
+            android:textSize="12sp"
+            android:textColor="#5b5b5b"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/wl_dnum_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="物流公司:顺丰速递"/>
+
+        <TextView
+            android:id="@+id/wl_time_tv"
+            android:textSize="12sp"
+            android:textColor="#5b5b5b"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/wl_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发货时间:2018/1/18 13:30:33"/>
+
+        <TextView
+            android:id="@+id/wl_remark_tv"
+            android:textSize="12sp"
+            android:textColor="#5b5b5b"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/wl_time_tv"
+            android:layout_toRightOf="@+id/wl_remark_tvs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            tools:text="皮卡丘一只，妙蛙三只"/>
+
+        <TextView
+            android:id="@+id/wl_remark_tvs"
+            android:textSize="12sp"
+            android:textColor="#5b5b5b"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/wl_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="发货明细："/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

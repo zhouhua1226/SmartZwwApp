@@ -23,6 +23,16 @@ public class LoginInfo implements Serializable{
     private List<UserPaymentBean> paymentList;
     private SignBean sign;
     private List<BannerBean> runImage;
+    private List<LogisticsBean> logistics;
+
+
+    public List<LogisticsBean> getLogistics() {
+        return logistics;
+    }
+
+    public void setLogistics(List<LogisticsBean> logistics) {
+        this.logistics = logistics;
+    }
 
     public List<BannerBean> getRunImage() {
         return runImage;

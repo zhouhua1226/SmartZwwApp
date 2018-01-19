@@ -18,6 +18,7 @@ import com.tencent.tmgp.jjzww.activity.home.BetRecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.GameCurrencyActivity;
 import com.tencent.tmgp.jjzww.activity.home.InformationActivity;
 import com.tencent.tmgp.jjzww.activity.home.MyCtachRecordActivity;
+import com.tencent.tmgp.jjzww.activity.home.MyLogisticsOrderActivity;
 import com.tencent.tmgp.jjzww.activity.home.RecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.ServiceActivity;
 import com.tencent.tmgp.jjzww.activity.home.SettingActivity;
@@ -31,7 +32,6 @@ import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
-import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
 
 import java.util.ArrayList;
@@ -83,6 +83,8 @@ public class MyCenterFragment extends BaseFragment {
     RelativeLayout mycenterCurrencyrecordLayout;
     @BindView(R.id.mycenter_guessrecord_layout)
     RelativeLayout mycenterGuessrecordLayout;
+    @BindView(R.id.mycenter_logisticsorder_layout)
+    RelativeLayout mycenterLogisticsorderLayout;
 
     private List<VideoBackBean> videoList = new ArrayList<>();
 
@@ -109,7 +111,7 @@ public class MyCenterFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(!hidden){
+        if (!hidden) {
             Log.e("mycenter_onHidden", "个人中心userId=" + UserUtils.USER_ID);
             if (!Utils.isEmpty(UserUtils.USER_ID))
                 getUserDate(UserUtils.USER_ID);
@@ -146,10 +148,10 @@ public class MyCenterFragment extends BaseFragment {
                 UserUtils.UserCatchNum = result.getData().getAppUser().getDOLLTOTAL();
                 UserUtils.NickName = result.getData().getAppUser().getNICKNAME();
                 UserUtils.UserImage = UrlUtils.APPPICTERURL + result.getData().getAppUser().getIMAGE_URL();
-                String name=result.getData().getAppUser().getCNEE_NAME();
-                String phone=result.getData().getAppUser().getCNEE_PHONE();
-                String address=result.getData().getAppUser().getCNEE_ADDRESS();
-                UserUtils.UserAddress=name+" "+phone+" "+address;
+                String name = result.getData().getAppUser().getCNEE_NAME();
+                String phone = result.getData().getAppUser().getCNEE_PHONE();
+                String address = result.getData().getAppUser().getCNEE_ADDRESS();
+                UserUtils.UserAddress = name + " " + phone + " " + address;
                 Log.e(TAG, "个人信息刷新结果=" + result.getMsg() + "余额=" + result.getData().getAppUser().getBALANCE()
                         + " 抓取次数=" + result.getData().getAppUser().getDOLLTOTAL()
                         + " 昵称=" + result.getData().getAppUser().getNICKNAME()
@@ -167,7 +169,7 @@ public class MyCenterFragment extends BaseFragment {
     @OnClick({R.id.mycenter_kefu_layout, R.id.mycenter_setting_layout, R.id.user_image,
             R.id.mycenter_pay_layout, R.id.user_name, R.id.mycenter_catchrecord_layout,
             R.id.mycenter_videoback_layout, R.id.mycenter_currencyrecord_layout,
-            R.id.mycenter_guessrecord_layout})
+            R.id.mycenter_guessrecord_layout,R.id.mycenter_logisticsorder_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mycenter_kefu_layout:
@@ -199,6 +201,9 @@ public class MyCenterFragment extends BaseFragment {
                 break;
             case R.id.mycenter_guessrecord_layout:
                 startActivity(new Intent(getContext(), BetRecordActivity.class));
+                break;
+            case R.id.mycenter_logisticsorder_layout:
+                startActivity(new Intent(getContext(), MyLogisticsOrderActivity.class));
                 break;
             default:
                 break;

@@ -51,8 +51,7 @@ public class ConsignmentAdapter extends RecyclerView.Adapter<ConsignmentAdapter.
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.name_tv.setText(mDatas.get(position).getDOLL_NAME());
-        if(mDatas.get(position).getCAMERA_DATE().length()>=14)
-            holder.times_tv.setText(getTime(mDatas.get(position).getCAMERA_DATE()));
+        holder.times_tv.setText(mDatas.get(position).getCREATE_DATE().replace("-","/"));
         holder.results_tv.setText("抓取成功");
         Glide.with(mContext)
                 .load(UrlUtils.APPPICTERURL+mDatas.get(position).getDOLL_URL())

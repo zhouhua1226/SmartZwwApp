@@ -24,6 +24,15 @@ public class LogisticsBean implements Serializable{
     private String CNEE_ADDRESS;    //地址
     private String POST_REMARK;     //发货明细
     private String REMARK;          //备注
+    private String SEND_NUM_ID;     //订单号
+
+    public String getSEND_NUM_ID() {
+        return SEND_NUM_ID;
+    }
+
+    public void setSEND_NUM_ID(String SEND_NUM_ID) {
+        this.SEND_NUM_ID = SEND_NUM_ID;
+    }
 
     public String getMODE_DESPATCH() {
         return MODE_DESPATCH;

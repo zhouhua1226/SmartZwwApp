@@ -2,6 +2,7 @@ package com.tencent.tmgp.jjzww.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -99,7 +100,7 @@ public class RecordGameActivty extends BaseActivity {
 
     private void initData() {
         nameTv.setText(videoBackBean.getDOLL_NAME());
-        timesTv.setText(Utils.getTime(videoBackBean.getCAMERA_DATE()));
+        timesTv.setText(videoBackBean.getCREATE_DATE().replace("-","/"));
         mydollNumTv.setText("1");
         mydollExchangenumTv.setText(videoBackBean.getCONVERSIONGOLD() + "");
         mydollIdTv.setText(videoBackBean.getID() + "");
@@ -172,14 +173,23 @@ public class RecordGameActivty extends BaseActivity {
     }
 
     private void getViewChange(){
-        //0:寄存   1:发货   2:兑换游戏币
+        //0:寄存   1:待发货   2:兑换游戏币  3:已发货
         if (videoBackBean.getPOST_STATE().equals("0")) {
             mydollStateTv.setText("寄存中");
             nonesendLayout.setVisibility(View.VISIBLE);
             sendLayout.setVisibility(View.GONE);
             exchangedTv.setVisibility(View.GONE);
-        } else if(videoBackBean.getPOST_STATE().equals("1")){
+        }else if(videoBackBean.getPOST_STATE().equals("1")) {
             mydollStateTv.setText("待发货");
+            nonesendLayout.setVisibility(View.VISIBLE);
+            sendLayout.setVisibility(View.GONE);
+            exchangedTv.setVisibility(View.GONE);
+        }else if(videoBackBean.getPOST_STATE().equals("3")){
+            if(!videoBackBean.getSEND_ORDER_ID().equals("")) {
+                mydollStateTv.setText(Html.fromHtml("<font color='#848484'>(订单号:" + videoBackBean.getSEND_ORDER_ID() + ")</font>" + " 已发货"));
+            }else {
+                mydollStateTv.setText("已发货");
+            }
             nonesendLayout.setVisibility(View.GONE);
             sendLayout.setVisibility(View.VISIBLE);
             exchangedTv.setVisibility(View.GONE);

@@ -330,4 +330,111 @@ public class Utils {
         return (boolean)SPUtils.get(context, UserUtils.SP_TAG_ISOPENMUSIC, true);
     }
 
+    /**
+     * 根据不通省份调整金币抵扣金额
+     * @param address
+     * @return
+     */
+    public static String getJBDKNum(String address) {
+        String money = "";
+        if (address.contains("上海") || address.contains("江苏")
+                || address.contains("浙江") || address.contains("安徽")) {
+            money = "80";
+        } else if (address.contains("江西") || address.contains("山东")
+                || address.contains("湖北") || address.contains("湖南")
+                || address.contains("广东") || address.contains("福建")
+                || address.contains("北京") || address.contains("天津")) {
+            money = "120";
+        } else if (address.contains("河北") || address.contains("山西")
+                || address.contains("河南") || address.contains("广西")
+                || address.contains("海南") || address.contains("重庆")
+                || address.contains("四川") || address.contains("贵州")
+                || address.contains("云南") || address.contains("陕西")
+                || address.contains("黑龙江") || address.contains("吉林")
+                || address.contains("辽宁")) {
+            money = "150";
+        } else if (address.contains("内蒙古") || address.contains("宁夏")
+                || address.contains("青海") || address.contains("甘肃")) {
+            money = "180";
+        } else if (address.contains("新疆") || address.contains("西藏")) {
+            money = "250";
+        }
+        return money;
+    }
+
+    /**
+     * 与后台约定省份对应编号(港澳台暂不支持)
+     * @param provinceCity
+     * @return
+     */
+    public static String getProvinceNum(String provinceCity){
+        String costNum="";
+        if(provinceCity.contains("黑龙江")){
+            costNum="1";
+        }else if(provinceCity.contains("吉林")){
+            costNum="2";
+        }else if(provinceCity.contains("辽宁")){
+            costNum="3";
+        }else if(provinceCity.contains("北京")){
+            costNum="4";
+        }else if(provinceCity.contains("天津")){
+            costNum="5";
+        }else if(provinceCity.contains("河北")){
+            costNum="6";
+        }else if(provinceCity.contains("山西")){
+            costNum="7";
+        }else if(provinceCity.contains("内蒙古")){
+            costNum="8";
+        }else if(provinceCity.contains("上海")){
+            costNum="9";
+        }else if(provinceCity.contains("江苏")){
+            costNum="10";
+        }else if(provinceCity.contains("浙江")){
+            costNum="11";
+        }else if(provinceCity.contains("安徽")){
+            costNum="12";
+        }else if(provinceCity.contains("江西")){
+            costNum="13";
+        }else if(provinceCity.contains("山东")){
+            costNum="14";
+        }else if(provinceCity.contains("河南")){
+            costNum="15";
+        }else if(provinceCity.contains("湖北")){
+            costNum="16";
+        }else if(provinceCity.contains("湖南")){
+            costNum="17";
+        }else if(provinceCity.contains("广东")){
+            costNum="18";
+        }else if(provinceCity.contains("广西")){
+            costNum="19";
+        }else if(provinceCity.contains("海南")){
+            costNum="20";
+        }else if(provinceCity.contains("甘肃")){
+            costNum="21";
+        }else if(provinceCity.contains("青海")){
+            costNum="22";
+        }else if(provinceCity.contains("宁夏")){
+            costNum="23";
+        }else if(provinceCity.contains("新疆")){
+            costNum="24";
+        }else if(provinceCity.contains("重庆")){
+            costNum="25";
+        }else if(provinceCity.contains("四川")){
+            costNum="26";
+        }else if(provinceCity.contains("贵州")){
+            costNum="27";
+        }else if(provinceCity.contains("云南")){
+            costNum="28";
+        }else if(provinceCity.contains("西藏")){
+            costNum="29";
+        }else if(provinceCity.contains("福建")){
+            costNum="30";
+        }else if(provinceCity.contains("陕西")){
+            costNum="31";
+        }
+
+        return costNum;
+    }
+
+
 }

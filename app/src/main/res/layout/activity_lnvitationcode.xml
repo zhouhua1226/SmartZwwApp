@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backcolor"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/midle_white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -29,29 +30,118 @@
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/code_et"
+    <TextView
+        android:id="@+id/invitationcode_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="输入邀请码"
+        android:textColor="@color/main_gray"
+        android:textSize="18sp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <RelativeLayout
+        android:id="@+id/invitationcode_submit_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:hint="输入邀请码"
-        android:paddingStart="10dp"
-        android:singleLine="true"
-        android:textSize="15sp"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/code_et"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:background="@drawable/invitationcode_et_bg"
+            android:gravity="center_vertical"
+            android:hint="请输入邀请码"
+            android:paddingStart="30dp"
+            android:singleLine="true"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            />
+
+        <Button
+            android:id="@+id/submit_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/code_et"
+            android:layout_centerVertical="true"
+            android:background="@drawable/setting_logout_btn_bg"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="邀请码规则"
+        android:textColor="@color/main_gray"
+        android:textSize="17sp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/invitationcode_rule_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="1.每邀请一位好友，双方均可获得30金币"
+        android:textColor="@color/main_gray"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/invitationcode_hasnum_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="已邀请0人获得100金币"
         android:textColor="@color/black"
-        android:textColorHint="@color/gray" />
+        android:textSize="16sp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的邀请码"
+        android:textColor="@color/main_gray"
+        android:textSize="18sp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/invitationcode_mycode_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AT46DU71"
+        android:textColor="@color/my_ranknumtv_bg"
+        android:textSize="15sp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        />
 
     <Button
-        android:id="@+id/submit_bt"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/setting_logout_btn_bg"
-        android:text="提交"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:id="@+id/invitationcode_share_btn"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:text="分享"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/invitationcode_et_bg"
+        />
 
 </LinearLayout>

@@ -17,8 +17,10 @@ import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
+import com.tencent.tmgp.jjzww.utils.SPUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
+import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.MyBankSpinner;
 import com.tencent.tmgp.jjzww.view.MyToast;
 
@@ -58,7 +60,9 @@ public class NewAddressActivity extends BaseActivity {
     private String  bankInProvinceId;
     private String name="";
     private String phone="";
-    private String address="";
+    private String detailaddress="";
+    private String provinceCity="";
+    private String totaladdress="";
     private String information="";
     public int province_index = -1;
     public int city_index = -1;
@@ -82,22 +86,36 @@ public class NewAddressActivity extends BaseActivity {
     }
 
     private void initAddress(){
+        provinceCity=(String) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_PROVINCECITY, "");
         if(!UserUtils.UserAddress.equals("")){
            String[] sh=UserUtils.UserAddress.split(" ");
             int lenght=sh.length;
-            if (lenght>0)
-            newaddressNameEt.setText(sh[0]);
-            if (lenght>1)
-            newaddressPhoneEt.setText(sh[1]);
-            if (lenght>2)
-            newaddressDetailEt.setText(sh[2]);
+            if (lenght>0) {
+                newaddressNameEt.setText(sh[0]);
+            }
+            if (lenght>1) {
+                newaddressPhoneEt.setText(sh[1]);
+            }
+            if (lenght>2) {
+                if(sh[2].contains(provinceCity)){
+                    newaddressDetailEt.setText(sh[2].replace(provinceCity,""));
+                }
+            }
+
+        }
+        if(Utils.isEmpty(provinceCity)){
+            newaddressDqTv.setText("");
+        }else {
+            newaddressDqTv.setText(provinceCity);
         }
     }
 
     private void initData(){
         name=newaddressNameEt.getText().toString();
         phone=newaddressPhoneEt.getText().toString();
-        address=newaddressDetailEt.getText().toString();
+        detailaddress=newaddressDetailEt.getText().toString();
+        provinceCity=newaddressDqTv.getText().toString();
+        totaladdress=provinceCity+detailaddress;
     }
 
     @OnClick({R.id.image_back, R.id.preserve_button,R.id.newaddress_dq_tv})
@@ -108,16 +126,18 @@ public class NewAddressActivity extends BaseActivity {
                 break;
             case R.id.preserve_button:
                 initData();
-                if(Utils.isEmpty(name)||Utils.isEmpty(phone)||Utils.isEmpty(address)){
+                if(Utils.isEmpty(name)||Utils.isEmpty(phone)||Utils.isEmpty(provinceCity)||Utils.isEmpty(detailaddress)){
                     MyToast.getToast(this, "请将信息填写完整！").show();
-
                 }else {
-                    if(Utils.isSpecialChar(name)||Utils.isSpecialChar(phone)||Utils.isSpecialChar(address)){
-                        MyToast.getToast(this, "您输入了特殊字符！").show();
+                    if(detailaddress.contains(provinceCity)){
+                        MyToast.getToast(this, "详细地址请勿重复填写省市地区！").show();
+                        return;
+                    }
+                    if(Utils.isSpecialChar(name)||Utils.isSpecialChar(phone) ||Utils.isSpecialChar(provinceCity)||Utils.isSpecialChar(detailaddress)){
+                        MyToast.getToast(this, "请勿输入特殊字符！").show();
                     }else {
-                        information=name+"  "+phone+"  "+address;
-                        //UserUtils.UserAddress=information;
-                        getConsignee(name,phone,address,UserUtils.USER_ID);
+                        information=name+"  "+phone+"  "+totaladdress;
+                        getConsignee(name,phone,totaladdress,UserUtils.USER_ID);
                     }
 
                 }
@@ -140,8 +160,9 @@ public class NewAddressActivity extends BaseActivity {
                 Log.e(TAG,"收货信息结果="+loginInfoResult.getMsg());
                 String name=loginInfoResult.getData().getAppUser().getCNEE_NAME();
                 String phone=loginInfoResult.getData().getAppUser().getCNEE_PHONE();
-                String address=loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
-                UserUtils.UserAddress=name+" "+phone+" "+address;
+                String backaddress=loginInfoResult.getData().getAppUser().getCNEE_ADDRESS();
+                UserUtils.UserAddress=name+" "+phone+" "+backaddress;
+                SPUtils.put(getApplicationContext(), UserUtils.SP_TAG_PROVINCECITY, provinceCity);
                 MyToast.getToast(getApplicationContext(), "保存成功！").show();
                 finish();
             }

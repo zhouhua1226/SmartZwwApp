@@ -50,10 +50,7 @@ public class LogisticsAdapter extends RecyclerView.Adapter<LogisticsAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder1 holder, final int position) {
-        if (!mDatas.get(position).getID().equals("")&&!mDatas.get(position).getCREATE_TIME().equals("")
-                &&mDatas.get(position).getCREATE_TIME().length()>10) {
-            holder.title_tv.setText("订单号："+getNumOrder(mDatas.get(position).getID(),mDatas.get(position).getCREATE_TIME()));
-        }
+        holder.title_tv.setText("订单号："+mDatas.get(position).getSEND_NUM_ID());
         holder.times_tv.setText(mDatas.get(position).getCREATE_TIME());
         holder.sendname_tv.setText("收货人："+mDatas.get(position).getCNEE_NAME());
         holder.sendphone_tv.setText(mDatas.get(position).getCNEE_PHONE());

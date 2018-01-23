@@ -71,7 +71,7 @@ public class MyCenterAdapter extends RecyclerView.Adapter<MyCenterAdapter.Center
 //            //view被recycled了，重新设置view
 //        }
         holder.name.setText(mDatas.get(position).getDOLL_NAME());
-        holder.times.setText(Utils.getTime(mDatas.get(position).getCAMERA_DATE()));
+        holder.times.setText(mDatas.get(position).getCREATE_DATE().replace("-","/"));
         holder.gold_tv.setText("可兑换金币:"+mDatas.get(position).getCONVERSIONGOLD());
         if(mDatas.get(position).getPOST_STATE().equals("0")){
             holder.select_image.setVisibility(View.VISIBLE);
@@ -86,6 +86,10 @@ public class MyCenterAdapter extends RecyclerView.Adapter<MyCenterAdapter.Center
             holder.select_image.setVisibility(View.GONE);
             holder.type.setVisibility(View.VISIBLE);
             holder.type.setText("已兑换");
+        }else if(mDatas.get(position).getPOST_STATE().equals("3")){
+            holder.select_image.setVisibility(View.GONE);
+            holder.type.setVisibility(View.VISIBLE);
+            holder.type.setText("已发货");
         }
 
         Glide.with(mContext)

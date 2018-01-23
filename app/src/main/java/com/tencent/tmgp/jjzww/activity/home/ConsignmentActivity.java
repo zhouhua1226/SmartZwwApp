@@ -99,8 +99,10 @@ public class ConsignmentActivity extends BaseActivity {
     private void initData() {
         if (!Utils.isEmpty(UserUtils.UserAddress)) {
             informationTv.setText(UserUtils.UserAddress);
+            consignmentWwbdkyfTv.setText(Utils.getJBDKNum(UserUtils.UserAddress)+"娃娃币抵扣邮费");
         } else {
             informationTv.setText("新增收货地址");
+            consignmentWwbdkyfTv.setText("娃娃币抵扣邮费");
         }
         list = (List<VideoBackBean>) getIntent().getSerializableExtra("record");//获取list方式
         Log.e(TAG, "发货娃娃集合长度=" + list.size());
@@ -174,7 +176,7 @@ public class ConsignmentActivity extends BaseActivity {
                     if (Utils.isEmpty(information)) {
                         MyToast.getToast(this, "请设置收货信息！").show();
                     } else {
-                        getSendGoods(String.valueOf(stringId), length + "", information, remark, UserUtils.USER_ID, "0");
+                        getSendGoods(String.valueOf(stringId), length + "", information, remark, UserUtils.USER_ID, "0",Utils.getProvinceNum(UserUtils.UserAddress));
                         //finish();
                     }
                 } else {
@@ -183,7 +185,8 @@ public class ConsignmentActivity extends BaseActivity {
                         } else {
                             if (fhType.equals("1") || fhType.equals("2")) {
                                 Log.e(TAG, "单个娃娃id" + list.get(0).getID()+fhType);
-                                getSendGoods(list.get(0).getID()+",", "1", information, remark, UserUtils.USER_ID, fhType);
+                                //getSendGoods(list.get(0).getID()+",", "1", information, remark, UserUtils.USER_ID, fhType);
+                                getSendGoods(list.get(0).getID()+",", "1", information, remark, UserUtils.USER_ID, fhType,Utils.getProvinceNum(UserUtils.UserAddress));
                             }else {
                                 MyToast.getToast(this,"请选择邮寄付款方式！").show();
                             }
@@ -214,8 +217,9 @@ public class ConsignmentActivity extends BaseActivity {
         }
     }
 
-    private void getSendGoods(String dollID, String number, String consignee, String remark, String userID, String mode) {
-        HttpManager.getInstance().getSendGoods(dollID, number, consignee, remark, userID, mode, new RequestSubscriber<Result<LoginInfo>>() {
+    private void getSendGoods(String dollID, String number, String consignee, String remark, String userID, String mode,String costNum) {
+        //Log.e(TAG, "发货参数=" + costNum);
+        HttpManager.getInstance().getSendGoods(dollID, number, consignee, remark, userID, mode,costNum, new RequestSubscriber<Result<LoginInfo>>() {
             @Override
             public void _onSuccess(Result<LoginInfo> loginInfoResult) {
                 Log.e(TAG, "发货结果=" + loginInfoResult.getMsg());
@@ -235,6 +239,7 @@ public class ConsignmentActivity extends BaseActivity {
             }
         });
     }
+
 
     @Override
     protected void onDestroy() {

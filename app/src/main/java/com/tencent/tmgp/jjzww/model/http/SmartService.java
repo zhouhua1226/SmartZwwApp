@@ -202,8 +202,10 @@ public interface SmartService {
             @Field(UrlUtils.SENDGOODSSHXX) String consignee,
             @Field(UrlUtils.SENDGOODSREMARK) String remark,
             @Field(UrlUtils.SENDGOODSUSERID) String userId,
-            @Field(UrlUtils.SENDGOODSMODE) String mode
+            @Field(UrlUtils.SENDGOODSMODE) String mode,
+            @Field(UrlUtils.SENDGOODSCOSTNUM) String costNum
     );
+
 
     //兑换游戏币
     @Headers("Content-Type: application/x-www-form-urlencoded")

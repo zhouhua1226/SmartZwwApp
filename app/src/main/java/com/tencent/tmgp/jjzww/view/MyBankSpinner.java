@@ -107,7 +107,7 @@ public class MyBankSpinner extends Dialog {
                     if (activity.city_index != position) {
                         activity.newaddressDqTv.setText("");
                     }
-                    activity.newaddressDqTv.setText(province + "-" + str);
+                    activity.newaddressDqTv.setText(province + "" + str);
                     activity.city_index = position;
                     break;
                 default:

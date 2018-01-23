@@ -26,6 +26,24 @@ public class VideoBackBean implements Serializable{
     private String GUESS_ID;
     private String CONVERSIONGOLD;
     private String POST_STATE;
+    private String SEND_ORDER_ID;
+    private String CREATE_DATE;
+
+    public String getCREATE_DATE() {
+        return CREATE_DATE;
+    }
+
+    public void setCREATE_DATE(String CREATE_DATE) {
+        this.CREATE_DATE = CREATE_DATE;
+    }
+
+    public String getSEND_ORDER_ID() {
+        return SEND_ORDER_ID;
+    }
+
+    public void setSEND_ORDER_ID(String SEND_ORDER_ID) {
+        this.SEND_ORDER_ID = SEND_ORDER_ID;
+    }
 
     public String getCAMERA_DATE() {
         return CAMERA_DATE;

@@ -170,4 +170,7 @@ public class UrlUtils {
 
     //物流订单
     public static final String LOGISTICSORDERURL=URL+"/pooh-web/app/getLogistics";
+
+    //分类列表种类
+    public static final String GETTOYTYPE = URL + "/pooh-web/app/doll/getAllToyTypeList";
 }

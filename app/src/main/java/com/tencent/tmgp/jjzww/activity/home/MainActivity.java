@@ -1,6 +1,5 @@
 package com.tencent.tmgp.jjzww.activity.home;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -330,7 +329,7 @@ public class MainActivity extends BaseActivity {
         super.onRestart();
         if(UserUtils.isUserChanger) {
             UserUtils.isUserChanger = false;
-            if(YsdkUtils.loginResult.getData() != null) {
+            if((YsdkUtils.loginResult.getData() != null) && (zwwjFragment != null)) {
                 UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
                 UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
                 zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);

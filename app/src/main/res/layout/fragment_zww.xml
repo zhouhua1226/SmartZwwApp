@@ -1,136 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#eceaea"
     android:orientation="vertical">
-
-    <com.tencent.tmgp.jjzww.view.PullToRefreshView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/mPullToRefreshView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="vertical" >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/apptheme_bg"
-        >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/app_text_logo"
-            android:layout_gravity="center_horizontal"
-            android:padding="10dp"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="160dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:paddingLeft="-10dp"
-            android:visibility="gone"
-            android:background="@drawable/zww_top_png1" />
-
-        <com.youth.banner.Banner
-            android:id="@+id/zww_banner"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            ></com.youth.banner.Banner>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
             android:background="@color/apptheme_bg"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="3dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <!--<ImageView-->
-            <!--android:layout_width="21dp"-->
-            <!--android:layout_height="21dp"-->
-            <!--android:background="@drawable/zww_broadcast_image1"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginLeft="15dp"/>-->
-
-            <com.tencent.tmgp.jjzww.view.MarqueeView
-                android:id="@+id/marqueeview"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mvAnimDuration="500"
-                app:mvInterval="2000"
-                app:mvTextSize="14sp"/>
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:src="@drawable/app_text_logo" />
 
-            <!--<com.tencent.tmgp.jjzww.view.MyTextSwitcher-->
-            <!--android:id="@+id/rolling_tv"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="15dp"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:background="@color/apptheme_bg"-->
-            <!--android:focusable="true"-->
-            <!--android:focusableInTouchMode="true"-->
-            <!--android:singleLine="true"-->
-            <!--android:clickable="true"-->
-            <!--/>-->
-            <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:background="#efefef"&ndash;&gt;-->
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/type_tly"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:tabIndicatorColor="@color/common_red_text_color"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabSelectedTextColor="@color/common_red_text_color"
+                    app:tabTextAppearance="@style/MyTableyoutTextAppearance"
+                    app:tabTextColor="@color/black"/>
 
+                <com.youth.banner.Banner
+                    android:id="@+id/zww_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"></com.youth.banner.Banner>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@color/apptheme_bg"
+                    android:orientation="horizontal">
+
+                    <com.tencent.tmgp.jjzww.view.MarqueeView
+                        android:id="@+id/marqueeview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mvAnimDuration="500"
+                        app:mvInterval="2000"
+                        app:mvTextSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dcdcdc" />
+
+                <com.tencent.tmgp.jjzww.view.EmptyLayout
+                    android:id="@+id/zww_emptylayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#eceaea">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/zww_recyclerview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="#eceaea"
+                        android:overScrollMode="never"
+                        android:scrollbars="none" />
+                </com.tencent.tmgp.jjzww.view.EmptyLayout>
         </LinearLayout>
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#dcdcdc" />
-
-        <com.tencent.tmgp.jjzww.view.EmptyLayout
-            android:id="@+id/zww_emptylayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#eceaea"
-            >
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/zww_recyclerview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:background="#eceaea"
-                android:scrollbars="none"
-                android:layout_centerHorizontal="true"
-                >
-            </android.support.v7.widget.RecyclerView>
-
-        </com.tencent.tmgp.jjzww.view.EmptyLayout>
-
-    </LinearLayout>
-
     </ScrollView>
-
-    </com.tencent.tmgp.jjzww.view.PullToRefreshView>
 
 </LinearLayout>

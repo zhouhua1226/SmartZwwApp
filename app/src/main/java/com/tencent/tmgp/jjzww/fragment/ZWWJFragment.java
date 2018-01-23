@@ -2,17 +2,14 @@ package com.tencent.tmgp.jjzww.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
-import com.tencent.tmgp.jjzww.activity.home.NewsWebActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.BannerBean;
@@ -29,8 +26,6 @@ import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.view.EmptyLayout;
 import com.tencent.tmgp.jjzww.view.GlideImageLoader;
 import com.tencent.tmgp.jjzww.view.MarqueeView;
-import com.tencent.tmgp.jjzww.view.MyToast;
-import com.tencent.tmgp.jjzww.view.PullToRefreshView;
 import com.tencent.tmgp.jjzww.view.SpaceItemDecoration;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -41,27 +36,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 /**
  * Created by hongxiu on 2017/9/25.
  */
-public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterRefreshListener {
+public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelectedListener{
     private static final String TAG = "ZWWJFragment";
     @BindView(R.id.zww_recyclerview)
     RecyclerView zwwRecyclerview;
     @BindView(R.id.zww_emptylayout)
     EmptyLayout zwwEmptylayout;
-    Unbinder unbinder;
     @BindView(R.id.marqueeview)
     MarqueeView marqueeview;
     @BindView(R.id.zww_banner)
     Banner zwwBanner;
-    @BindView(R.id.mPullToRefreshView)
-    PullToRefreshView mPullToRefreshView;
-    Unbinder unbinder1;
+    @BindView(R.id.type_tly)
+    TabLayout typeTabLayout;
 
     private List<RoomBean> roomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
@@ -71,6 +62,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     private List<Marquee> marquees = new ArrayList<>();
     private List<BannerBean> bannerList = new ArrayList<>();
     private List<String> list = new ArrayList<>();
+    private String[] typeRooms = {"全部", "爆款", "特价", "实惠"};
 
     @Override
     protected int getLayoutId() {
@@ -79,20 +71,10 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        init();
         initData();
         onClick();
         getUserList();
         getBannerList();
-
-    }
-
-    private void init() {
-
-//        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//
-//        }
     }
 
     private void getUserList() {
@@ -121,9 +103,6 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
 
 
     private void initData() {
-        Utils.showLogE(TAG, "afterCreate:::::>>>>" + roomBeens.size());
-        mPullToRefreshView.setOnHeaderRefreshListener(this);
-        mPullToRefreshView.setOnFooterRefreshListener(this);
         dismissEmptyLayout();
         zwwAdapter = new ZWWAdapter(getActivity(), roomBeens);
         zwwRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -134,6 +113,12 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         if (onClickReTryListener != null) {
             zwwEmptylayout.setOnClickReTryListener(onClickReTryListener);
         }
+
+        typeTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        for (int i = 0; i < typeRooms.length; i++) {
+            typeTabLayout.addTab(typeTabLayout.newTab().setText(typeRooms[i]), i);
+        }
+        typeTabLayout.addOnTabSelectedListener(this);
     }
 
     private void onClick() {
@@ -145,16 +130,8 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         zwwAdapter.notify(roomBeens);
     }
 
-    public void setOnClickEmptyListener(EmptyLayout.OnClickReTryListener o) {
-        this.onClickReTryListener = o;
-    }
-
     public void showError() {
         zwwEmptylayout.showEmpty();
-    }
-
-    public void showLoading() {
-        zwwEmptylayout.showLoading();
     }
 
     public void dismissEmptyLayout() {
@@ -288,37 +265,18 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         zwwBanner.stopAutoPlay();
     }
 
-
     @Override
-    public void onFooterRefresh(PullToRefreshView view) {
-        mPullToRefreshView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (Utils.isNetworkAvailable(getContext())) {
-                   // MyToast.getToast(getContext(), "上拉加载下一页").show();
-                } else {
-                    MyToast.getToast(getContext(), "网络连接异常，请检查网络").show();
-                }
-                mPullToRefreshView.onFooterRefreshComplete();
-            }
-        }, 1500);
+    public void onTabSelected(TabLayout.Tab tab) {
+        Utils.showLogE(TAG, "==============" + tab.getPosition());
     }
 
     @Override
-    public void onHeaderRefresh(PullToRefreshView view) {
-        if(mPullToRefreshView!=null)
-            mPullToRefreshView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (Utils.isNetworkAvailable(getContext())) {
+    public void onTabUnselected(TabLayout.Tab tab) {
 
-                    } else {
-                        MyToast.getToast(getContext(), "网络连接异常，请检查网络").show();
-                    }
-                    mPullToRefreshView.onHeaderRefreshComplete();
-                }
-            }, 1500);
     }
 
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
 
+    }
 }

@@ -1,23 +1,14 @@
 package com.tencent.tmgp.jjzww.base;
 
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.hwangjr.rxbus.RxBus;
 import com.tencent.tmgp.jjzww.R;
-import com.tencent.tmgp.jjzww.utils.UserUtils;
-import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.view.GuessingSuccessDialog;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;

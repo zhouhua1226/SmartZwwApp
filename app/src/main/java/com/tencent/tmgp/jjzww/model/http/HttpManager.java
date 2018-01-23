@@ -367,4 +367,13 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
+    //获取类型
+    public void getToyType(Subscriber<Result<LoginInfo>> subscriber) {
+        Observable<Result<LoginInfo>> o =smartService.getToyType();
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }

@@ -328,4 +328,7 @@ public interface SmartService {
             @Field(UrlUtils.USERID) String userId
     );
 
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @GET(UrlUtils.GETTOYTYPE)
+    Observable<Result<LoginInfo>> getToyType();
 }

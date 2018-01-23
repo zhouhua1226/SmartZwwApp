@@ -8,6 +8,7 @@ import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.tencent.tmgp.jjzww.service.SmartRemoteService;
+import com.tencent.tmgp.jjzww.utils.Utils;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
@@ -25,6 +26,7 @@ public class MyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Utils.showLogE("MyApplication", "onCreate");
         myApplication = this;
         startCoreService();
         getPushAgent();

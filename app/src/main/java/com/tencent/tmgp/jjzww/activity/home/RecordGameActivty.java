@@ -181,9 +181,18 @@ public class RecordGameActivty extends BaseActivity {
             exchangedTv.setVisibility(View.GONE);
         }else if(videoBackBean.getPOST_STATE().equals("1")) {
             mydollStateTv.setText("待发货");
-            nonesendLayout.setVisibility(View.VISIBLE);
-            sendLayout.setVisibility(View.GONE);
+            nonesendLayout.setVisibility(View.GONE);
+            sendLayout.setVisibility(View.VISIBLE);
             exchangedTv.setVisibility(View.GONE);
+            ConsigneeBean consigneeBean=Utils.getConsigneeBean(videoBackBean.getSENDGOODS());
+            if (consigneeBean != null) {
+                sendnameTv.setText("收货人：" + consigneeBean.getName());
+                sendphotoTv.setText(consigneeBean.getPhone());
+                sendaddressTv.setText("地址：" + consigneeBean.getAddress());
+                if (consigneeBean.getRemark() != null) {
+                    sendremarkTv.setText("备注：" + consigneeBean.getRemark());
+                }
+            }
         }else if(videoBackBean.getPOST_STATE().equals("3")){
             if(!videoBackBean.getSEND_ORDER_ID().equals("")) {
                 mydollStateTv.setText(Html.fromHtml("<font color='#848484'>(订单号:" + videoBackBean.getSEND_ORDER_ID() + ")</font>" + " 已发货"));

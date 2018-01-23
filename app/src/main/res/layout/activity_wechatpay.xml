@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/wechatpay_background">
 
     <RelativeLayout
@@ -27,7 +28,36 @@
             android:text="金币充值"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/image_kf"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/kf1" />
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_below="@+id/wechatpay_top_layout"
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal">
+
+        <com.tencent.tmgp.jjzww.view.MarqueeView
+            android:id="@+id/marqueeview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            app:mvAnimDuration="500"
+            app:mvInterval="2000"
+            app:mvTextSize="14sp"/>
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/wechatpay_recyclerview"

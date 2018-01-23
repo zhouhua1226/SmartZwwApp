@@ -31,7 +31,7 @@
     <row id="29" provincename="云南" ></row>
     <row id="30" provincename="浙江" ></row>
     <row id="31" provincename="重庆" ></row>
-    <row id="32" provincename="香港" ></row>
-    <row id="33" provincename="澳门" ></row>
-    <row id="34"  provincename="台湾" ></row>
+    <!--<row id="32" provincename="香港" ></row>-->
+    <!--<row id="33" provincename="澳门" ></row>-->
+    <!--<row id="34"  provincename="台湾" ></row>-->
 </province>

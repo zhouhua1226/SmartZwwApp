@@ -176,7 +176,11 @@ public class ConsignmentActivity extends BaseActivity {
                     if (Utils.isEmpty(information)) {
                         MyToast.getToast(this, "请设置收货信息！").show();
                     } else {
-                        getSendGoods(String.valueOf(stringId), length + "", information, remark, UserUtils.USER_ID, "0",Utils.getProvinceNum(UserUtils.UserAddress));
+                        if(isEnough()) {
+                            getSendGoods(String.valueOf(stringId), length + "", information, remark, UserUtils.USER_ID, "0", Utils.getProvinceNum(UserUtils.UserAddress));
+                        }else {
+                            MyToast.getToast(getApplicationContext(),"您的余额不足！").show();
+                        }
                         //finish();
                     }
                 } else {
@@ -185,8 +189,12 @@ public class ConsignmentActivity extends BaseActivity {
                         } else {
                             if (fhType.equals("1") || fhType.equals("2")) {
                                 Log.e(TAG, "单个娃娃id" + list.get(0).getID()+fhType);
-                                //getSendGoods(list.get(0).getID()+",", "1", information, remark, UserUtils.USER_ID, fhType);
-                                getSendGoods(list.get(0).getID()+",", "1", information, remark, UserUtils.USER_ID, fhType,Utils.getProvinceNum(UserUtils.UserAddress));
+                                if(isEnough()) {
+                                    //getSendGoods(list.get(0).getID()+",", "1", information, remark, UserUtils.USER_ID, fhType);
+                                    getSendGoods(list.get(0).getID() + ",", "1", information, remark, UserUtils.USER_ID, fhType, Utils.getProvinceNum(UserUtils.UserAddress));
+                                }else {
+                                    MyToast.getToast(getApplicationContext(),"您的余额不足！").show();
+                                }
                             }else {
                                 MyToast.getToast(this,"请选择邮寄付款方式！").show();
                             }
@@ -238,6 +246,20 @@ public class ConsignmentActivity extends BaseActivity {
 
             }
         });
+    }
+
+    /**
+     * 判断用户余额是否够付邮费
+     * @return
+     */
+    private boolean isEnough(){
+        int yf= Integer.parseInt(Utils.getJBDKNum(UserUtils.UserAddress));
+        int ye= Integer.parseInt(UserUtils.UserBalance);
+        if(ye>=yf){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 

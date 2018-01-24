@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.adapter.MyCenterAdapter;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -181,9 +181,9 @@ public class MyCtachRecordActivity extends BaseActivity {
 
     private void getVideoBackList(String userId) {
         Utils.showLogE(TAG, "抓取记录参数userId=" + userId);
-        HttpManager.getInstance().getVideoBackList(userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getVideoBackList(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> result) {
+            public void _onSuccess(Result<HttpDataInfo> result) {
                 videoList = result.getData().getPlayback();
                 Utils.showLogE(TAG, "抓取记录result=" + result.getMsg() + "=" + videoList.size());
                 if (videoList.size() != 0) {
@@ -299,9 +299,9 @@ public class MyCtachRecordActivity extends BaseActivity {
     }
 
     private void getExChangeWWB(String id, String dollId, String number, String userId) {
-        HttpManager.getInstance().getExChangeWWB(id, dollId, number, userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getExChangeWWB(id, dollId, number, userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG, "兑换结果=" + loginInfoResult.getMsg());
                 if (loginInfoResult.getMsg().equals("success")) {
                     UserUtils.UserBalance = loginInfoResult.getData().getAppUser().getBALANCE();

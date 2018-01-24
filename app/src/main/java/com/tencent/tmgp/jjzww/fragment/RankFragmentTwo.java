@@ -5,9 +5,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,7 +16,7 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.adapter.ListRankAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.ListRankBean;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.UserBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -33,8 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by hongxiu on 2017/11/23.
@@ -175,9 +171,9 @@ public class RankFragmentTwo extends BaseFragment {
     }
 
     private void getNumRankList(String userId){
-        HttpManager.getInstance().getNumRankList(userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getNumRankList(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> result) {
+            public void _onSuccess(Result<HttpDataInfo> result) {
                 if(result.getMsg().equals("success")){
                     myBean=result.getData().getAppUser();
                     myNum=myBean.getRANK();

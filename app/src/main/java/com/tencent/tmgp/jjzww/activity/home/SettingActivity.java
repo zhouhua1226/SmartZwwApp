@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,13 +17,12 @@ import com.easy.ysdk.EasyYSDKApi;
 import com.easy.ysdk.share.ShareInfo;
 import com.flamigo.jsdk.FlamigoPlaform;
 import com.flamigo.jsdk.api.FlamigoJApi;
-import com.gatz.netty.manager.SendManager;
 import com.gatz.netty.utils.NettyUtils;
 import com.proto.security.SecurityApi;
 import com.robust.sdk.api.RobustApi;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
@@ -32,7 +30,6 @@ import com.tencent.tmgp.jjzww.utils.SPUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.utils.YsdkUtils;
-import com.tencent.tmgp.jjzww.view.CatchDollResultDialog;
 import com.tencent.tmgp.jjzww.view.MyToast;
 
 import butterknife.BindView;
@@ -269,9 +266,9 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void getLogout(String userId) {
-        HttpManager.getInstance().getLogout(userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getLogout(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG, "退出登录结果=" + loginInfoResult.getMsg());
                 if (loginInfoResult.getMsg().equals("success")) {
                     Toast.makeText(context, "退出登录", Toast.LENGTH_SHORT).show();

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.adapter.RecordAdapter;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -93,9 +93,9 @@ public class RecordActivity extends BaseActivity {
 
 
     private void getVideoBackList(String userId) {
-        HttpManager.getInstance().getVideoBackList(userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getVideoBackList(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> result) {
+            public void _onSuccess(Result<HttpDataInfo> result) {
                 listVideo = result.getData().getPlayback();
                 Utils.showLogE("video记录列表", "result=" + result.getMsg()+"="+listVideo.size());
                 if(listVideo.size()!=0) {

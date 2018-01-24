@@ -53,6 +53,9 @@ public class UrlUtils {
     public static final String WXQQ_AMOUNT="amount";
     //签到接口
     public static final String SIGNTYPE="signType";
+    //分类
+    public static final String NEXTPAGE = "nextPage";
+    public static final String CURRENTTYPE = "currentType";
 
 
     public static final String URL = "http://115.159.58.231:18081";
@@ -173,4 +176,7 @@ public class UrlUtils {
 
     //分类列表种类
     public static final String GETTOYTYPE = URL + "/pooh-web/app/doll/getAllToyTypeList";
+
+    //分类娃娃机
+    public static final String GETTOYSBYTYPE = URL + "/pooh-web/app/doll/getDollPage";
 }

@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.bean.ConsigneeBean;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -241,9 +241,9 @@ public class RecordGameActivty extends BaseActivity {
     }
 
     private void getExChangeWWB(String id,String dollId,String number,String userId){
-        HttpManager.getInstance().getExChangeWWB(id, dollId, number, userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getExChangeWWB(id, dollId, number, userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG,"兑换结果="+loginInfoResult.getMsg());
                 if(loginInfoResult.getMsg().equals("success")) {
                     UserUtils.UserBalance=loginInfoResult.getData().getAppUser().getBALANCE();

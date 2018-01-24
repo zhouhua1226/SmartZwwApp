@@ -1,6 +1,5 @@
 package com.tencent.tmgp.jjzww.activity.home;
 
-import android.content.Intent;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,15 +11,13 @@ import android.widget.TextView;
 
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
-import com.tencent.tmgp.jjzww.bean.ConsigneeBean;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.SPUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
-import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.MyBankSpinner;
 import com.tencent.tmgp.jjzww.view.MyToast;
 
@@ -154,9 +151,9 @@ public class NewAddressActivity extends BaseActivity {
     }
 
     private void getConsignee(String name,String phone,String address,String userID){
-        HttpManager.getInstance().getConsignee(name, phone, address, userID, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getConsignee(name, phone, address, userID, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG,"收货信息结果="+loginInfoResult.getMsg());
                 String name=loginInfoResult.getData().getAppUser().getCNEE_NAME();
                 String phone=loginInfoResult.getData().getAppUser().getCNEE_PHONE();

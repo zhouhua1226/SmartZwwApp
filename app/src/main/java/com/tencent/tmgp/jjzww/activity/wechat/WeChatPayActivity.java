@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.easy.ysdk.EasyYSDKApi;
 import com.easy.ysdk.pay.NotifyListener;
 import com.easy.ysdk.pay.PayReviewer;
@@ -24,7 +23,7 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.home.ServiceActivity;
 import com.tencent.tmgp.jjzww.adapter.WeChatPayAdapter;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Marquee;
 import com.tencent.tmgp.jjzww.bean.PayCardBean;
 import com.tencent.tmgp.jjzww.bean.Result;
@@ -169,9 +168,9 @@ public class WeChatPayActivity extends BaseActivity {
     }
 
     private void getYSDKPay(String userId, String accessToken, String amount) {
-        HttpManager.getInstance().getYSDKPay(userId, accessToken, amount, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getYSDKPay(userId, accessToken, amount, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG, "订单生成结果=" + loginInfoResult.getMsg());
                 String uid = loginInfoResult.getData().getOrder().getUSER_ID();
                 String order = loginInfoResult.getData().getOrder().getORDER_ID();
@@ -189,9 +188,9 @@ public class WeChatPayActivity extends BaseActivity {
 
     //获取充值卡列表
     public void getPayCardList() {
-        HttpManager.getInstance().getPayCardList(new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getPayCardList(new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG, "充值卡列表获取结果=" + loginInfoResult.getMsg());
                 if (loginInfoResult.getMsg().equals("success")) {
                     wechatpayGifView.setVisibility(View.GONE);
@@ -211,9 +210,9 @@ public class WeChatPayActivity extends BaseActivity {
     }
 
     private void getUserList() {
-        HttpManager.getInstance().getUserList(new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getUserList(new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> listRankBeanResult) {
+            public void _onSuccess(Result<HttpDataInfo> listRankBeanResult) {
                 playBackBeanList = listRankBeanResult.getData().getPlayback();
                 for (int i = 0; i < playBackBeanList.size(); i++) {
                     Marquee marquee = new Marquee();

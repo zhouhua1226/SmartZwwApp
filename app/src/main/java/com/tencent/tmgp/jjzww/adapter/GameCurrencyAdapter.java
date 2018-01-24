@@ -8,13 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tencent.tmgp.jjzww.R;
-import com.tencent.tmgp.jjzww.bean.ExChangeMoneyBean;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
-import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.UserPaymentBean;
-import com.tencent.tmgp.jjzww.bean.VideoBackBean;
-import com.tencent.tmgp.jjzww.model.http.HttpManager;
-import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 
 import java.util.List;
 

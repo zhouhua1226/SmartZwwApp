@@ -17,7 +17,7 @@ import com.robust.sdk.avatar.AutoAccessCallback;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.base.MyApplication;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
@@ -204,9 +204,9 @@ public class LoginActivity extends BaseActivity {
 
 
     private void getYSDKLogin(String uid, String accessToken, String nickName, String imageUrl) {
-        HttpManager.getInstance().getYSDKLogin(uid, accessToken, nickName, imageUrl, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getYSDKLogin(uid, accessToken, nickName, imageUrl, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 if(loginInfoResult==null||loginInfoResult.getData()==null
                         ||loginInfoResult.getData().getAppUser()==null){
                     MyToast.getToast(getApplicationContext(), "登录失败！").show();
@@ -242,9 +242,9 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void getYSDKAuthLogin(String userId, String accessToken) {
-        HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 if (loginInfoResult == null || loginInfoResult.getData() == null
                         || loginInfoResult.getData().getAppUser() == null) {
                     MyToast.getToast(getApplicationContext(), "登录失败！").show();

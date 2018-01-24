@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.hwangjr.rxbus.RxBus;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
 import com.tencent.tmgp.jjzww.bean.RoomListBean;
@@ -75,11 +75,11 @@ public class MainActivity extends BaseActivity {
     private ZWWJFragment zwwjFragment;//抓娃娃
     private Fragment fragmentAll;
     private long mExitTime;
-    private List<ZwwRoomBean> dollLists = new ArrayList<>();
+    //private List<ZwwRoomBean> dollLists = new ArrayList<>();
     private List<RoomBean> roomList=new ArrayList<>();
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
-    private Result<LoginInfo> loginInfoResult;
+    private Result<HttpDataInfo> loginInfoResult;
     private int signNumber = 0;
     private int[] signDayNum=new int[7];
     private String isSign="";
@@ -107,6 +107,7 @@ public class MainActivity extends BaseActivity {
         editor.commit();
         UserUtils.isUserChanger = false;
         getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
+
     }
 
     @Override
@@ -154,7 +155,7 @@ public class MainActivity extends BaseActivity {
             if (loginInfoResult.getMsg().equals(Utils.HTTP_OK)) {
                 Utils.showLogE(TAG, "logIn::::" + loginInfoResult.getMsg());
                 Utils.token = loginInfoResult.getData().getAccessToken();
-                dollLists = loginInfoResult.getData().getDollList();
+                //dollLists = loginInfoResult.getData().getDollList();
                 UserUtils.SRSToken=loginInfoResult.getData().getSRStoken();
                 //用户手机号
                 UserUtils.UserPhone = loginInfoResult.getData().getAppUser().getPHONE();
@@ -399,7 +400,7 @@ public class MainActivity extends BaseActivity {
                                 int length=bean.getCameras().size();
                                 if (length<2){
                                     bean.setDollState("0");  //表示当前房间缺失摄像头
-                                }else {
+                                } else {
                                     String statu1 = bean.getCameras().get(0).getDeviceState();  //第一个摄像头状态 0可以  1不可以
                                     String statu2 = bean.getCameras().get(1).getDeviceState();  //第二个摄像头状态 0可以  1不可以
                                     if (stats.equals(Utils.FREE) && statu1.equals("0") && statu2.equals("0")) {
@@ -473,9 +474,9 @@ public class MainActivity extends BaseActivity {
 
     //自动登录
     private void getYSDKAuthLogin(String userId, String accessToken){
-        HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG, "断开重连 重新获取相关参数" + loginInfoResult.getMsg());
                 if(loginInfoResult.getMsg().equals("success")) {
                     if ((zwwjFragment != null) && (loginInfoResult.getData() != null)) {
@@ -557,9 +558,9 @@ public class MainActivity extends BaseActivity {
     //签到请求
     private void getUserSign(String userId, final String signType){
         Log.e("<<<<<<<<<<<<<Sign",userId);
-        HttpManager.getInstance().getUserSign(userId,signType, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getUserSign(userId,signType, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Utils.showLogE(TAG,"签到="+loginInfoResult.getMsg());
                 if(loginInfoResult.getMsg().equals("success")){
                     if(signType.equals("0")) {
@@ -590,5 +591,4 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
 }

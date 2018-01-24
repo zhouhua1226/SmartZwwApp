@@ -1,13 +1,7 @@
 package com.tencent.tmgp.jjzww.utils;
 
-import android.content.Context;
-import android.util.Log;
-
-import com.easy.ysdk.EasyYSDKApi;
-import com.robust.sdk.avatar.AutoAccessCallback;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
-import com.tencent.tmgp.jjzww.view.MyToast;
 
 /**
  * Created by yincong on 2017/12/13 11:49
@@ -24,7 +18,7 @@ public class YsdkUtils {
     public static String imageUrl="";        //用户头像(只有微信或QQ登录，并且用户有头像时才会有效)
     public static final String AUTH_TOKEN="AUTH_TOKEN";
     public static boolean isShare=false;
-    public static Result<LoginInfo> loginResult;    //登录信息返回类
+    public static Result<HttpDataInfo> loginResult;    //登录信息返回类
 
 
 }

@@ -11,21 +11,17 @@ import android.widget.TextView;
 import com.easy.ysdk.EasyYSDKApi;
 import com.easy.ysdk.pay.NotifyListener;
 import com.easy.ysdk.pay.PayReviewer;
-import com.flamigo.jsdk.FlamigoPlaform;
-import com.flamigo.jsdk.api.FlamigoJApi;
-import com.proto.security.SecurityApi;
 import com.robust.sdk.api.RobustApi;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.wechat.WeChatPayActivity;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.view.FillingCurrencyDialog;
-import com.tencent.tmgp.jjzww.view.MyToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,9 +128,9 @@ public class SelectRechargeTypeActiivty extends BaseActivity {
     }
 
     private void getUserDate(String userId) {
-        HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> result) {
+            public void _onSuccess(Result<HttpDataInfo> result) {
                 UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
                 Log.e(TAG, "充值后获取余额结果=" + result.getMsg()+"余额="+result.getData().getAppUser().getBALANCE());
                 getUserNameAndBalance();

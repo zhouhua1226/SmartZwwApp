@@ -2,11 +2,10 @@ package com.tencent.tmgp.jjzww.model.http;
 
 import com.tencent.tmgp.jjzww.bean.AppUserBean;
 import com.tencent.tmgp.jjzww.bean.BetRecordBean;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.ListRankBean;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
 import com.tencent.tmgp.jjzww.bean.PondResponseBean;
 import com.tencent.tmgp.jjzww.bean.Result;
-import com.tencent.tmgp.jjzww.bean.RoomBean;
 import com.tencent.tmgp.jjzww.bean.RoomListBean;
 import com.tencent.tmgp.jjzww.bean.Token;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
@@ -16,7 +15,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -35,7 +33,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.LOGIN)
-    Observable<Result<LoginInfo>> getLogin(
+    Observable<Result<HttpDataInfo>> getLogin(
             @Field(UrlUtils.PHONE) String phone,
             @Field(UrlUtils.SMSCODE) String code
     );
@@ -52,7 +50,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.LOGINWITHOUTCODE)
-    Observable<Result<LoginInfo>> getLoginWithOutCode(
+    Observable<Result<HttpDataInfo>> getLoginWithOutCode(
             @Field(UrlUtils.PHONE) String phone);
 
     //头像上传
@@ -86,7 +84,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.USERPAYURL)
-    Observable<Result<LoginInfo>> getUserPay(
+    Observable<Result<HttpDataInfo>> getUserPay(
             @Field(UrlUtils.PHONE) String phone,
             @Field(UrlUtils.USEPAYMONEY) String money
     );
@@ -95,7 +93,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.USERPLAYURL)
-    Observable<Result<LoginInfo>> getUserPlayNum(
+    Observable<Result<HttpDataInfo>> getUserPlayNum(
             @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.USERPLAYNUM) String gold,
             @Field(UrlUtils.DOLLID) String dollId
@@ -112,7 +110,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.UPLOADURL)
-    Observable<Result<LoginInfo>> getRegPlayBack(
+    Observable<Result<HttpDataInfo>> getRegPlayBack(
             @Field(UrlUtils.TIME) String time,
             @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.STATE) String state,
@@ -126,7 +124,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.VIDEOBACKURL)
-    Observable<Result<LoginInfo>> getVideoBackList(
+    Observable<Result<HttpDataInfo>> getVideoBackList(
             @Field(UrlUtils.USERID) String userId
     );
 
@@ -153,13 +151,13 @@ public interface SmartService {
         //跑马灯
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @GET(UrlUtils.getUserList)
-    Observable<Result<LoginInfo>> getUserList();
+    Observable<Result<HttpDataInfo>> getUserList();
 
     //开始游戏分发场次
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.CREATPLAYLISTURL)
-    Observable<Result<LoginInfo>> getCreatPlayList(
+    Observable<Result<HttpDataInfo>> getCreatPlayList(
             @Field(UrlUtils.NICKNANME) String nickName,
             @Field(UrlUtils.DOLLNAME) String dollName
     );
@@ -168,7 +166,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.PLAYIDURL)
-    Observable<Result<LoginInfo>> getPlayId(
+    Observable<Result<HttpDataInfo>> getPlayId(
             @Field(UrlUtils.DOLLID) String dollId
     );
 
@@ -185,7 +183,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.CONSIGNEEURL)
-    Observable<Result<LoginInfo>>getConsignee(
+    Observable<Result<HttpDataInfo>>getConsignee(
             @Field(UrlUtils.CONSIGNEENAME) String name,
             @Field(UrlUtils.CONSIGNEEPHONE) String phone,
             @Field(UrlUtils.CONSIGNEEADDRESS) String address,
@@ -196,7 +194,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.SENDGOODSURL)
-    Observable<Result<LoginInfo>>getSendGoods(
+    Observable<Result<HttpDataInfo>>getSendGoods(
             @Field(UrlUtils.SENDGOODSID) String id,
             @Field(UrlUtils.SENDGOODSNUM) String number,
             @Field(UrlUtils.SENDGOODSSHXX) String consignee,
@@ -211,7 +209,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.EXCHANGEURL)
-    Observable<Result<LoginInfo>>getExchangeWWB(
+    Observable<Result<HttpDataInfo>>getExchangeWWB(
             @Field(UrlUtils.SENDGOODSID) String id,
             @Field(UrlUtils.DOLLID) String dollId,
             @Field(UrlUtils.SENDGOODSNUM) String number,
@@ -222,7 +220,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.EXCHANGELISTURL)
-    Observable<Result<LoginInfo>>getExchangeList(
+    Observable<Result<HttpDataInfo>>getExchangeList(
             @Field(UrlUtils.USERID) String userID
     );
 
@@ -230,7 +228,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.LOGOUT)
-    Observable<Result<LoginInfo>>getLogout(
+    Observable<Result<HttpDataInfo>>getLogout(
             @Field(UrlUtils.USERID) String userID
     );
 
@@ -238,7 +236,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.GETUSERDATEURL)
-    Observable<Result<LoginInfo>>getUserDate(
+    Observable<Result<HttpDataInfo>>getUserDate(
             @Field(UrlUtils.USERID) String userId
     );
 
@@ -246,7 +244,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.YSDKLOGINURL)
-    Observable<Result<LoginInfo>>getYSDKLogin(
+    Observable<Result<HttpDataInfo>>getYSDKLogin(
             @Field(UrlUtils.WXQQ_UID) String uid,
             @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken,
             @Field(UrlUtils.WXQQ_NICKNAME) String nickName,
@@ -257,7 +255,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.YSDKPAYORDERURL)
-    Observable<Result<LoginInfo>>getYSDKPay(
+    Observable<Result<HttpDataInfo>>getYSDKPay(
             @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken,
             @Field(UrlUtils.WXQQ_AMOUNT) String amount
@@ -267,7 +265,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.YSDKAUTHLOGINURL)
-    Observable<Result<LoginInfo>>getYSDKAuthLogin(
+    Observable<Result<HttpDataInfo>>getYSDKAuthLogin(
             @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken
     );
@@ -275,7 +273,7 @@ public interface SmartService {
     //获取充值卡列表
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @GET(UrlUtils.PAYCARDLISTURL)
-    Observable<Result<LoginInfo>> getPayCardList();
+    Observable<Result<HttpDataInfo>> getPayCardList();
 
     //用户竞猜记录
     @Headers("Content-Type: application/x-www-form-urlencoded")
@@ -289,7 +287,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.CURRENTACCOUNTURL)
-    Observable<Result<LoginInfo>> getPaymenList(
+    Observable<Result<HttpDataInfo>> getPaymenList(
             @Field(UrlUtils.USERID) String userId
     );
 
@@ -302,7 +300,7 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.USERSIGNURL)
-    Observable<Result<LoginInfo>> getUserSign(
+    Observable<Result<HttpDataInfo>> getUserSign(
             @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.SIGNTYPE) String signType
     );
@@ -310,13 +308,13 @@ public interface SmartService {
     //获取轮播列表
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @GET(UrlUtils.BANNERURL)
-    Observable<Result<LoginInfo>> getBannerList();
+    Observable<Result<HttpDataInfo>> getBannerList();
 
     //个人排名
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.RANKLISTURL)
-    Observable<Result<LoginInfo>> getNumRankList(
+    Observable<Result<HttpDataInfo>> getNumRankList(
             @Field(UrlUtils.USERID) String userId
     );
 
@@ -324,11 +322,20 @@ public interface SmartService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.LOGISTICSORDERURL)
-    Observable<Result<LoginInfo>> getLogisticsOrder(
+    Observable<Result<HttpDataInfo>> getLogisticsOrder(
             @Field(UrlUtils.USERID) String userId
     );
 
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @GET(UrlUtils.GETTOYTYPE)
-    Observable<Result<LoginInfo>> getToyType();
+    Observable<Result<HttpDataInfo>> getToyType();
+
+    //物流订单查询
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETTOYSBYTYPE)
+    Observable<Result<RoomListBean>> getToysByType(
+            @Field(UrlUtils.CURRENTTYPE) String currentType,
+            @Field(UrlUtils.NEXTPAGE) Integer nextPage
+    );
 }

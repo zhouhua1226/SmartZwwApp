@@ -43,7 +43,7 @@ import com.tencent.tmgp.jjzww.activity.ctrl.presenter.CtrlCompl;
 import com.tencent.tmgp.jjzww.activity.home.BetRecordActivity;
 import com.tencent.tmgp.jjzww.activity.wechat.WeChatPayActivity;
 import com.tencent.tmgp.jjzww.bean.AppUserBean;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.PondResponseBean;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -1028,9 +1028,9 @@ public class CtrlActivity extends Activity implements IctrlView {
 
     private void updataTime(String time, String state) {
         Utils.showLogE("<<<<<<<<<<<<<","userId2="+UserUtils.USER_ID);
-        HttpManager.getInstance().getRegPlayBack(time, UserUtils.USER_ID, state, dollId, periodsNum, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getRegPlayBack(time, UserUtils.USER_ID, state, dollId, periodsNum, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Utils.showLogE(TAG, "游戏记录上传结果=" + loginInfoResult.getMsg());
             }
 
@@ -1044,9 +1044,9 @@ public class CtrlActivity extends Activity implements IctrlView {
     //获取用户信息接口
     private void getUserDate(String userId) {
 
-        HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG, "获取结果=" + loginInfoResult.getMsg());
                 if (loginInfoResult.getMsg().equals("success")) {
                     if (loginInfoResult.getData().getAppUser() != null) {

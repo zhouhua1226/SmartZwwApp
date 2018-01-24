@@ -24,7 +24,7 @@ import com.tencent.tmgp.jjzww.activity.home.ServiceActivity;
 import com.tencent.tmgp.jjzww.activity.home.SettingActivity;
 import com.tencent.tmgp.jjzww.activity.wechat.WeChatPayActivity;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -141,9 +141,9 @@ public class MyCenterFragment extends BaseFragment {
     }
 
     private void getUserDate(String userId) {
-        HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> result) {
+            public void _onSuccess(Result<HttpDataInfo> result) {
                 UserUtils.UserBalance = result.getData().getAppUser().getBALANCE();
                 UserUtils.UserCatchNum = result.getData().getAppUser().getDOLLTOTAL();
                 UserUtils.NickName = result.getData().getAppUser().getNICKNAME();

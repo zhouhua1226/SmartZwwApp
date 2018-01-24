@@ -12,8 +12,7 @@ import android.widget.TextView;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.adapter.GameCurrencyAdapter;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
-import com.tencent.tmgp.jjzww.bean.ExChangeMoneyBean;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.UserPaymentBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -87,9 +86,9 @@ public class GameCurrencyActivity extends BaseActivity {
     }
 
     private void getPaymenList(String userId){
-        HttpManager.getInstance().getPaymenList(userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getPaymenList(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG,"金币流水列表="+loginInfoResult.getMsg());
                 list=loginInfoResult.getData().getPaymentList();
                 if(list.size()>0){
@@ -107,9 +106,9 @@ public class GameCurrencyActivity extends BaseActivity {
     }
 
 //    private void getExChangeList(String userId){
-//        HttpManager.getInstance().getExChangeList(userId, new RequestSubscriber<Result<LoginInfo>>() {
+//        HttpManager.getInstance().getExChangeList(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
 //            @Override
-//            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+//            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
 //                Log.e(TAG,"兑换列表="+loginInfoResult.getMsg());
 //                list=loginInfoResult.getData().getConversionList();
 //                if(list.size()>0){

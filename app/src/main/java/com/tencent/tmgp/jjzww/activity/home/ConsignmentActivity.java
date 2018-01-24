@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.adapter.ConsignmentAdapter;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -227,9 +227,9 @@ public class ConsignmentActivity extends BaseActivity {
 
     private void getSendGoods(String dollID, String number, String consignee, String remark, String userID, String mode,String costNum) {
         //Log.e(TAG, "发货参数=" + costNum);
-        HttpManager.getInstance().getSendGoods(dollID, number, consignee, remark, userID, mode,costNum, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getSendGoods(dollID, number, consignee, remark, userID, mode,costNum, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG, "发货结果=" + loginInfoResult.getMsg());
                 list = loginInfoResult.getData().getPlayback();
                 MyToast.getToast(getApplicationContext(), "发货成功，请耐心等待！").show();

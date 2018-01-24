@@ -10,9 +10,8 @@ import android.widget.TextView;
 
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.adapter.LogisticsAdapter;
-import com.tencent.tmgp.jjzww.adapter.RecordAdapter;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.LogisticsBean;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
@@ -90,9 +89,9 @@ public class MyLogisticsOrderActivity extends BaseActivity {
             logisticsorderFailTv.setVisibility(View.VISIBLE);
             return;
         }
-        HttpManager.getInstance().getLogisticsOrder(userId, new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getLogisticsOrder(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 if(loginInfoResult.getMsg().equals("success")){
                     list=loginInfoResult.getData().getLogistics();
                     if(list.size()>0){

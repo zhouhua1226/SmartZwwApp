@@ -13,10 +13,12 @@ import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.BannerBean;
-import com.tencent.tmgp.jjzww.bean.LoginInfo;
+import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Marquee;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
+import com.tencent.tmgp.jjzww.bean.RoomListBean;
+import com.tencent.tmgp.jjzww.bean.ToyTypeBean;
 import com.tencent.tmgp.jjzww.bean.VideoBackBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
@@ -41,7 +43,7 @@ import butterknife.BindView;
 /**
  * Created by hongxiu on 2017/9/25.
  */
-public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelectedListener{
+public class ZWWJFragment extends BaseFragment {
     private static final String TAG = "ZWWJFragment";
     @BindView(R.id.zww_recyclerview)
     RecyclerView zwwRecyclerview;
@@ -54,7 +56,8 @@ public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelecte
     @BindView(R.id.type_tly)
     TabLayout typeTabLayout;
 
-    private List<RoomBean> roomBeens = new ArrayList<>();
+    private List<RoomBean> allRoomBeans = new ArrayList<>();
+    private List<RoomBean> currentRoomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
     private String sessionId;
     private EmptyLayout.OnClickReTryListener onClickReTryListener;
@@ -62,7 +65,10 @@ public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelecte
     private List<Marquee> marquees = new ArrayList<>();
     private List<BannerBean> bannerList = new ArrayList<>();
     private List<String> list = new ArrayList<>();
-    private String[] typeRooms = {"全部", "爆款", "特价", "实惠"};
+    //分类参数
+    private int currentPage = 1;
+    private List<ToyTypeBean> toyTypeBeanList;
+    private String currentType = "110000";
 
     @Override
     protected int getLayoutId() {
@@ -75,12 +81,13 @@ public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelecte
         onClick();
         getUserList();
         getBannerList();
+        getToyType();
     }
 
     private void getUserList() {
-        HttpManager.getInstance().getUserList(new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getUserList(new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> listRankBeanResult) {
+            public void _onSuccess(Result<HttpDataInfo> listRankBeanResult) {
                 playBackBeanList = listRankBeanResult.getData().getPlayback();
                 for (int i = 0; i < playBackBeanList.size(); i++) {
                     Marquee marquee = new Marquee();
@@ -104,7 +111,7 @@ public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelecte
 
     private void initData() {
         dismissEmptyLayout();
-        zwwAdapter = new ZWWAdapter(getActivity(), roomBeens);
+        zwwAdapter = new ZWWAdapter(getActivity(), currentRoomBeens);
         zwwRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
         zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(15));
         zwwRecyclerview.setHasFixedSize(true);
@@ -115,10 +122,7 @@ public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelecte
         }
 
         typeTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        for (int i = 0; i < typeRooms.length; i++) {
-            typeTabLayout.addTab(typeTabLayout.newTab().setText(typeRooms[i]), i);
-        }
-        typeTabLayout.addOnTabSelectedListener(this);
+        typeTabLayout.addOnTabSelectedListener(tabSelectedListener);
     }
 
     private void onClick() {
@@ -126,8 +130,11 @@ public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelecte
     }
 
     public void notifyAdapter(List<RoomBean> rooms) {
-        roomBeens = rooms;
-        zwwAdapter.notify(roomBeens);
+        allRoomBeans = rooms;
+        if (currentType.equals("110000")) {
+            currentRoomBeens = allRoomBeans;
+            zwwAdapter.notify(currentRoomBeens);
+        }
     }
 
     public void showError() {
@@ -148,21 +155,21 @@ public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelecte
             new ZWWAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-                    if ((roomBeens.size() > 0) && (!Utils.isEmpty(sessionId))) {
-                        String room_id = roomBeens.get(position).getDollId();
+                    if ((currentRoomBeens.size() > 0) && (!Utils.isEmpty(sessionId))) {
+                        String room_id = currentRoomBeens.get(position).getDollId();
                         boolean room_status = false;
                         UserUtils.setNettyInfo(sessionId, UserUtils.USER_ID, room_id, false);
-                        if (roomBeens.get(position).getDollState().equals("0")) {
+                        if (currentRoomBeens.get(position).getDollState().equals("0")) {
                             room_status = true;
-                        } else if (roomBeens.get(position).getDollState().equals("1")) {
+                        } else if (currentRoomBeens.get(position).getDollState().equals("1")) {
                             room_status = false;
                         }
-                        String rtmpUrl1 = roomBeens.get(position).getCameras().get(0).getRtmpUrl();
-                        String rtmpUrl2 = roomBeens.get(position).getCameras().get(1).getRtmpUrl();
-                        String serviceName1 = roomBeens.get(position).getCameras().get(0).getServerName();
-                        String serviceName2 = roomBeens.get(position).getCameras().get(1).getServerName();
-                        String liveStream1 = roomBeens.get(position).getCameras().get(0).getLivestream();
-                        String liveStream2 = roomBeens.get(position).getCameras().get(1).getLivestream();
+                        String rtmpUrl1 = currentRoomBeens.get(position).getCameras().get(0).getRtmpUrl();
+                        String rtmpUrl2 = currentRoomBeens.get(position).getCameras().get(1).getRtmpUrl();
+                        String serviceName1 = currentRoomBeens.get(position).getCameras().get(0).getServerName();
+                        String serviceName2 = currentRoomBeens.get(position).getCameras().get(1).getServerName();
+                        String liveStream1 = currentRoomBeens.get(position).getCameras().get(0).getLivestream();
+                        String liveStream2 = currentRoomBeens.get(position).getCameras().get(1).getLivestream();
                         String idToken = "?token=" + UserUtils.SRSToken.getToken()
                                 + "&expire=" + UserUtils.SRSToken.getExpire()
                                 + "&tid=" + UserUtils.SRSToken.getTid()
@@ -174,11 +181,11 @@ public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelecte
                         Utils.showLogE(TAG, "房间推流地址1=" + url1);
                         Utils.showLogE(TAG, "房间推流地址2=" + url2);
                         if (!TextUtils.isEmpty(url2) && !TextUtils.isEmpty(url1)) {
-                            enterNext(roomBeens.get(position).getDollName(),
+                            enterNext(currentRoomBeens.get(position).getDollName(),
                                     url1, url2,
                                     room_status,
-                                    String.valueOf(roomBeens.get(position).getDollGold()),
-                                    roomBeens.get(position).getDollId());
+                                    String.valueOf(currentRoomBeens.get(position).getDollGold()),
+                                    currentRoomBeens.get(position).getDollId());
                         } else {
                             Utils.showLogE(TAG, "当前设备没有配置摄像头!");
                         }
@@ -228,9 +235,9 @@ public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelecte
     }
 
     private void getBannerList() {
-        HttpManager.getInstance().getBannerList(new RequestSubscriber<Result<LoginInfo>>() {
+        HttpManager.getInstance().getBannerList(new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<LoginInfo> loginInfoResult) {
+            public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Utils.showLogE(TAG, "获取轮播列表=" + loginInfoResult.getMsg());
                 if (loginInfoResult.getMsg().equals("success")) {
                     bannerList = loginInfoResult.getData().getRunImage();
@@ -265,18 +272,76 @@ public class ZWWJFragment extends BaseFragment implements TabLayout.OnTabSelecte
         zwwBanner.stopAutoPlay();
     }
 
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        Utils.showLogE(TAG, "==============" + tab.getPosition());
+    private void getToyType() {
+        HttpManager.getInstance().getToyType(new RequestSubscriber<Result<HttpDataInfo>>() {
+            @Override
+            public void _onSuccess(Result<HttpDataInfo> result) {
+                if (result.getMsg().equals("success")) {
+                    if (result.getData() != null) {
+                        toyTypeBeanList = result.getData().getToyTypeList();
+                        typeTabLayout.addTab(typeTabLayout.newTab().
+                                setText("全部"), 0);  //保证一定会有全部按钮
+                        if (toyTypeBeanList != null) {
+                            for (int i = 0; i < toyTypeBeanList.size(); i++) {
+                                typeTabLayout.addTab(typeTabLayout.newTab().
+                                        setText(toyTypeBeanList.get(i).getTOY_TYPE()), i + 1);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void _onError(Throwable e) {
+
+            }
+        });
     }
 
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
+    private void getToysByType(String type, int page) {
+        HttpManager.getInstance().getToyListByType(type, page, new RequestSubscriber<Result<RoomListBean>>() {
+            @Override
+            public void _onSuccess(Result<RoomListBean> loginInfoResult) {
+                if (loginInfoResult.getMsg().equals("success")) {
+                    if (loginInfoResult.getData() != null) {
+                        currentRoomBeens = loginInfoResult.getData().getDollList();
+                        zwwAdapter.notify(currentRoomBeens);
+                    }
+                }
+            }
 
+            @Override
+            public void _onError(Throwable e) {
+
+            }
+        });
     }
 
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
+    private TabLayout.OnTabSelectedListener tabSelectedListener
+            = new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            int pos = tab.getPosition();
+            currentPage = 1;
+            if (pos == 0) {
+                currentRoomBeens = allRoomBeans;
+                currentType = "110000";
+                zwwAdapter.notify(allRoomBeans);
+            } else {
+                currentType = String.valueOf(toyTypeBeanList.get(pos - 1).getID());
+                Utils.showLogE(TAG, "=======" + currentType + "============" + toyTypeBeanList.get(pos - 1).getID());
+                getToysByType(currentType, currentPage);
+            }
+        }
 
-    }
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    };
 }

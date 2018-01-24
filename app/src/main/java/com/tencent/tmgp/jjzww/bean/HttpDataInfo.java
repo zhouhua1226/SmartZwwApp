@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by zhouh on 2017/11/1.
  */
-public class LoginInfo implements Serializable{
+public class HttpDataInfo implements Serializable{
     private String accessToken;
     private String sessionID;
     private UserBean appUser;
@@ -24,6 +24,7 @@ public class LoginInfo implements Serializable{
     private SignBean sign;
     private List<BannerBean> runImage;
     private List<LogisticsBean> logistics;
+    private List<ToyTypeBean> toyTypeList;
 
 
     public List<LogisticsBean> getLogistics() {
@@ -169,5 +170,13 @@ public class LoginInfo implements Serializable{
 
     public UserBean getAppUser() {
         return appUser;
+    }
+
+    public void setToyTypeList(List<ToyTypeBean> toyTypeList) {
+        this.toyTypeList = toyTypeList;
+    }
+
+    public List<ToyTypeBean> getToyTypeList() {
+        return toyTypeList;
     }
 }

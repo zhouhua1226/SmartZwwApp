@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
+import com.tencent.tmgp.jjzww.activity.home.NewsWebActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.BannerBean;
@@ -113,7 +114,7 @@ public class ZWWJFragment extends BaseFragment {
         dismissEmptyLayout();
         zwwAdapter = new ZWWAdapter(getActivity(), currentRoomBeens);
         zwwRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(15));
+        zwwRecyclerview.addItemDecoration(new SpaceItemDecoration((int) getContext().getResources().getDimension(R.dimen.PX_10)));
         zwwRecyclerview.setHasFixedSize(true);
         zwwRecyclerview.setNestedScrollingEnabled(false);
         zwwRecyclerview.setAdapter(zwwAdapter);
@@ -121,7 +122,7 @@ public class ZWWJFragment extends BaseFragment {
             zwwEmptylayout.setOnClickReTryListener(onClickReTryListener);
         }
 
-        typeTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        typeTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         typeTabLayout.addOnTabSelectedListener(tabSelectedListener);
     }
 
@@ -211,7 +212,7 @@ public class ZWWJFragment extends BaseFragment {
     }
 
     //banner轮播
-    private void initBanner(List<?> list) {
+    private void initBanner(final List<?> list, final List<BannerBean> bannerList) {
         //设置Banner样式
         zwwBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
@@ -221,7 +222,7 @@ public class ZWWJFragment extends BaseFragment {
         zwwBanner.setBannerAnimation(Transformer.DepthPage);
         //设置轮播时间
         zwwBanner.setDelayTime(2000);
-        //设置指示器位置（当banner模式中有指示器时）
+        //设置指示器位置(当banner模式中有指示器时)
         zwwBanner.setIndicatorGravity(BannerConfig.CENTER);
         //Banner设置方法全部调用完毕时最后调用
         zwwBanner.start();
@@ -229,7 +230,12 @@ public class ZWWJFragment extends BaseFragment {
             @Override
             public void OnBannerClick(int position) {
                 //MyToast.getToast(getContext(), "您点击了第" + (position + 1) + "张图片").show();
-                //startActivity(new Intent(getContext(), NewsWebActivity.class));
+                if(!bannerList.get(position).getHREF_ST().equals("")) {
+                    Intent intent = new Intent(getContext(), NewsWebActivity.class);
+                    intent.putExtra("newsurl", bannerList.get(position).getHREF_ST().replace("\"","/"));
+                    intent.putExtra("newstitle",bannerList.get(position).getRUN_NAME());
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -245,7 +251,7 @@ public class ZWWJFragment extends BaseFragment {
                         for (int i = 0; i < bannerList.size(); i++) {
                             list.add(UrlUtils.APPPICTERURL + bannerList.get(i).getIMAGE_URL());
                         }
-                        initBanner(list);
+                        initBanner(list,bannerList);
                     }
                 }
             }

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
 import com.tencent.tmgp.jjzww.view.GifView;
+import com.tencent.tmgp.jjzww.view.MyToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +57,7 @@ public class NewsWebActivity extends BaseActivity {
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         initView();
+        initDateView();
         fresh();
 
     }
@@ -63,10 +65,30 @@ public class NewsWebActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        newswebGifView.setEnabled(false);
+        newswebGifView.setMovieResource(R.raw.waitloadinggif);
+        newswebGifView.setVisibility(View.VISIBLE);
+    }
+
+    private void initDateView(){
+        String title=getIntent().getStringExtra("newstitle");
+        if(!title.equals("")){
+            tvTitle.setText(title);
+        }else {
+            tvTitle.setText("图片新闻");
+        }
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void loadUrl(){
-        webView.loadUrl("http://www.baidu.com");
+        String path=getIntent().getStringExtra("newsurl");
+        Log.e(TAG,"图片新闻url="+path);
+        webView.loadUrl(path);
         webView.reload();
     }
 
@@ -87,7 +109,7 @@ public class NewsWebActivity extends BaseActivity {
         webView.requestFocus();
         webView.setWebViewClient(new WebViewClient());
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        webView.addJavascriptInterface(this,"Native");
+        //webView.addJavascriptInterface(this,"Native");
 
         webView.setWebViewClient(new WebViewClient()
         {
@@ -116,6 +138,8 @@ public class NewsWebActivity extends BaseActivity {
             @Override
             public void onReceivedError(WebView webView, int i, String s, String s1) {
                 super.onReceivedError(webView, i, s, s1);
+                newswebGifView.setVisibility(View.GONE);
+                MyToast.getToast(getApplicationContext(),"加载出错，请重试！");
             }
         });
 
@@ -123,7 +147,7 @@ public class NewsWebActivity extends BaseActivity {
             public void onProgressChanged(WebView view, int progress) {
                 //当进度走到100的时候做自己的操作，我这边是弹出dialog
                 if(progress == 100){
-
+                    newswebGifView.setVisibility(View.GONE);
                 }
             }
         });

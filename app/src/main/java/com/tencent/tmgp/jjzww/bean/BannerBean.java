@@ -15,6 +15,15 @@ public class BannerBean implements Serializable{
     private String CONTENT;
     private String RUNIMAGE_ID;
     private String IMAGE_URL;
+    private String HREF_ST;
+
+    public String getHREF_ST() {
+        return HREF_ST;
+    }
+
+    public void setHREF_ST(String HREF_ST) {
+        this.HREF_ST = HREF_ST;
+    }
 
     public String getRUN_NAME() {
         return RUN_NAME;

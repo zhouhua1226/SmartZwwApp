@@ -33,19 +33,21 @@
                 <android.support.design.widget.TabLayout
                     android:id="@+id/type_tly"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="35dp"
                     app:tabIndicatorColor="@color/common_red_text_color"
                     app:tabIndicatorHeight="0dp"
                     app:tabSelectedTextColor="@color/common_red_text_color"
                     app:tabTextAppearance="@style/MyTableyoutTextAppearance"
-                    app:tabTextColor="@color/black"/>
+                    app:tabTextColor="@color/black"
+
+                    />
+                <!-- android:layout_height="?attr/actionBarSize"  @drawable/tablayout_select_bg -->
 
                 <com.youth.banner.Banner
                     android:id="@+id/zww_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"></com.youth.banner.Banner>
+                    android:layout_height="160dp">
+                </com.youth.banner.Banner>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -69,6 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#dcdcdc" />
+
+
 
                 <com.tencent.tmgp.jjzww.view.EmptyLayout
                     android:id="@+id/zww_emptylayout"

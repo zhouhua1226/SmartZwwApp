@@ -1,11 +1,13 @@
 package com.tencent.tmgp.jjzww.utils;
 
 import android.os.Environment;
+import android.text.TextUtils;
 
 import com.gatz.netty.AppClient;
 import com.gatz.netty.UserInfo;
 import com.gatz.netty.global.AppGlobal;
 import com.gatz.netty.utils.NettyUtils;
+import com.tencent.tmgp.jjzww.bean.RoomBean;
 import com.tencent.tmgp.jjzww.bean.SRStoken;
 
 /**
@@ -34,10 +36,6 @@ public class UserUtils {
 
     public static final String RECODE_URL = Environment.getExternalStorageDirectory().getPath()
             + "/SmartRemoteApp/";
-
-    public static final String ACTION_LOTTERY = "LotteryReceiver";
-    public static final String LOTTERY_ROOMID = "lottery_roomId";
-    public static final String LOTTERY_PERIODSNUM = "lottery_periodsNum";
 
     public static void setNettyInfo(String sessionId, String userId, String roomId, boolean isReconnect) {
         UserInfo userInfo = new UserInfo();
@@ -87,4 +85,25 @@ public class UserUtils {
         }).start();
     }
 
+    public static RoomBean dealWithRoomStatus(RoomBean bean, String stats) {
+        if (TextUtils.isEmpty(stats)) {
+            bean.setDollState("0");
+            return bean;
+        }
+        int length = bean.getCameras().size();
+        if (length < 2) {
+            bean.setDollState("0");  //表示当前房间缺失摄像头
+        } else {
+            String statu1 = bean.getCameras().get(0).getDeviceState();  //第一个摄像头状态 0可以  1不可以
+            String statu2 = bean.getCameras().get(1).getDeviceState();  //第二个摄像头状态 0可以  1不可以
+            if (stats.equals(Utils.FREE) && statu1.equals("0") && statu2.equals("0")) {
+                bean.setDollState("11");
+            } else if (stats.equals(Utils.BUSY) && statu1.equals("0") && statu2.equals("0")) {
+                bean.setDollState("10");
+            } else {
+                bean.setDollState("0");  //摄像头状态错误
+            }
+        }
+        return bean;
+    }
 }

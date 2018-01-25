@@ -278,6 +278,16 @@ public class ZWWJFragment extends BaseFragment {
         zwwBanner.stopAutoPlay();
     }
 
+    private void dealWithRoomStatus() {
+        if (currentRoomBeens.size() == 0) {
+            return;
+        }
+        for(int i = 0; i < currentRoomBeens.size(); i ++) {
+            RoomBean bean = currentRoomBeens.get(i);
+            currentRoomBeens.set(i, UserUtils.dealWithRoomStatus(bean, bean.getDollState()));
+        }
+    }
+
     private void getToyType() {
         HttpManager.getInstance().getToyType(new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
@@ -311,6 +321,7 @@ public class ZWWJFragment extends BaseFragment {
                 if (loginInfoResult.getMsg().equals("success")) {
                     if (loginInfoResult.getData() != null) {
                         currentRoomBeens = loginInfoResult.getData().getDollList();
+                        dealWithRoomStatus();
                         zwwAdapter.notify(currentRoomBeens);
                     }
                 }

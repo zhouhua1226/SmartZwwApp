@@ -105,7 +105,6 @@ public class CtrlModel implements SmartEventCallback {
         smartPlayer.SmartPlayerSetFastStartup(playerHandle, 1);
         smartPlayer.SmartPlayerSetLowLatencyMode(playerHandle, 1);
         smartPlayer.SmartPlayerSetBuffer(playerHandle, 0);
-        //int hwChecking = smartPlayer.SetSmartPlayerVideoHWDecoder(playerHandle, 0);  //娃娃机一定需要软解码
         int iPlaybackRet = smartPlayer.SmartPlayerStartPlayback(playerHandle, url);
         Utils.showLogE(TAG, "当前播放url:::::::" + iPlaybackRet + "===========" + url);
         if (iPlaybackRet != 0) {

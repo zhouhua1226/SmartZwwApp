@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/zwwadapter_item_parent_layout"
     android:layout_width="@dimen/PX_335"
-    android:layout_height="wrap_content"
-    android:id="@+id/zwwadapter_item_parent_layout">
+    android:layout_height="wrap_content">
     <!-- android:background="@drawable/center_item" -->
     <com.tencent.tmgp.jjzww.view.RoundRoomImageView
         android:id="@+id/moppet_image"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/PX_335"
-        android:background="@drawable/loading"
-        />
+        android:background="@drawable/loading" />
 
     <ImageView
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:visibility="gone"
         android:layout_marginTop="155dp"
-         />
+        android:visibility="gone" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/moppet_image"
-        android:background="@drawable/zwwadapter_item_bottom_bg"
-        >
+        android:background="@drawable/zwwadapter_item_bottom_bg">
+
         <TextView
             android:id="@+id/moppet_name_tv"
             android:layout_width="wrap_content"
@@ -33,9 +31,9 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="11dp"
             android:paddingBottom="5dp"
-            tools:text="未知"
             android:textColor="#683B20"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:text="未知" />
 
         <ImageView
             android:id="@+id/monet_image"
@@ -52,23 +50,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="3dp"
-            android:text="19"
             android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="10dp"
+            android:text="19"
             android:textColor="#683B20"
             android:textSize="12sp" />
-
     </RelativeLayout>
-
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="24dp"
-        >
-        <!-- android:background="@drawable/zww_adapter_item_topbg -->
+        android:layout_height="24dp">
 
         <ImageView
             android:id="@+id/moppet_connect_iv"
@@ -77,22 +71,20 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:src="@drawable/ctrl_idling_icon"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
         <TextView
-        android:id="@+id/moppet_connect_tv"
-        android:layout_width="60dp"
-        android:layout_height="17dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="3dp"
-        android:layout_toEndOf="@+id/moppet_connect_iv"
-        tools:text="维护中"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        android:background="@drawable/room_statue_sleep_bg"
-            />
+            android:id="@+id/moppet_connect_tv"
+            android:layout_width="60dp"
+            android:layout_height="17dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/moppet_connect_iv"
+            android:background="@drawable/room_statue_sleep_bg"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            tools:text="维护中" />
     </RelativeLayout>
 </RelativeLayout>
 

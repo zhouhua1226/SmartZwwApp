@@ -397,20 +397,7 @@ public class MainActivity extends BaseActivity {
                                 //设备异常了
                                 bean.setDollState("0");
                             } else {
-                                int length=bean.getCameras().size();
-                                if (length<2){
-                                    bean.setDollState("0");  //表示当前房间缺失摄像头
-                                } else {
-                                    String statu1 = bean.getCameras().get(0).getDeviceState();  //第一个摄像头状态 0可以  1不可以
-                                    String statu2 = bean.getCameras().get(1).getDeviceState();  //第二个摄像头状态 0可以  1不可以
-                                    if (stats.equals(Utils.FREE) && statu1.equals("0") && statu2.equals("0")) {
-                                        bean.setDollState("11");
-                                    } else if (stats.equals(Utils.BUSY) && statu1.equals("0") && statu2.equals("0")) {
-                                        bean.setDollState("10");
-                                    } else {
-                                        bean.setDollState("0");  //摄像头状态错误
-                                    }
-                                }
+                                bean = UserUtils.dealWithRoomStatus(bean, stats);
                             }
                             roomList.set(j, bean);
                         }
@@ -430,19 +417,6 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
-
-//    //监控单个网关连接区
-//    @Subscribe(thread = EventThread.MAIN_THREAD,
-//            tags = {@Tag(Utils.TAG_GATEWAY_SINGLE_DISCONNECT)})
-//    public void getSingleGatwayDisConnect(String id) {
-//        Utils.showLogE(TAG, "getSingleGatwayDisConnect id" + id);
-//    }
-//
-//    @Subscribe(thread = EventThread.MAIN_THREAD,
-//            tags = {@Tag(Utils.TAG_GATEWAY_SINGLE_CONNECT)})
-//    public void getSingleGatwayConnect(String id) {
-//        Utils.showLogE(TAG, "getSingleGatwayConnect id" + id);
-//    }
 
     private void startTimer() {
         if (timer == null) {
@@ -533,7 +507,6 @@ public class MainActivity extends BaseActivity {
             public void getResult(int resultCode) {
                 switch (resultCode){
                     case 0:
-                        //MyToast.getToast(MainActivity.this,"签到第"+getSignDayNum(signDayNum)+"天");
                         getUserSign(UserUtils.USER_ID,"1");
                         break;
                     default:
@@ -557,11 +530,9 @@ public class MainActivity extends BaseActivity {
 
     //签到请求
     private void getUserSign(String userId, final String signType){
-        Log.e("<<<<<<<<<<<<<Sign",userId);
         HttpManager.getInstance().getUserSign(userId,signType, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
             public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
-                Utils.showLogE(TAG,"签到="+loginInfoResult.getMsg());
                 if(loginInfoResult.getMsg().equals("success")){
                     if(signType.equals("0")) {
                         //查询处理

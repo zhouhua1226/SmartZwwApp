@@ -101,6 +101,7 @@ public class ZWWJFragment extends BaseFragment {
                     return;
                 }
                 getToysByType(currentType, currentPage);
+
             }
         });
     }

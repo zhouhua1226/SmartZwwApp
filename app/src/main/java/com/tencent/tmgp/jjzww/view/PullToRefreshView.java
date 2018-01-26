@@ -704,5 +704,13 @@ public class PullToRefreshView extends LinearLayout {
 		public  void onHeaderRefresh(PullToRefreshView view);
 	}
 
+	public void setIsFooterView(boolean isRe){
+		if(isRe){
+			mFooterView.setVisibility(VISIBLE);
+		}else {
+			mFooterView.setVisibility(GONE);
+		}
+	}
+
 
 }

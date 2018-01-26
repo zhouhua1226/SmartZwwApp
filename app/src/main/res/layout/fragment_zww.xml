@@ -6,6 +6,15 @@
     android:background="#eceaea"
     android:orientation="vertical">
 
+    <com.tencent.tmgp.jjzww.view.PullToRefreshView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mPullToRefreshView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+         >
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -90,7 +99,8 @@
                         android:overScrollMode="never"
                         android:scrollbars="none" />
                 </com.tencent.tmgp.jjzww.view.EmptyLayout>
+
         </LinearLayout>
     </ScrollView>
-
+    </com.tencent.tmgp.jjzww.view.PullToRefreshView>
 </LinearLayout>

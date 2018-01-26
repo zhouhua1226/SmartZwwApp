@@ -330,7 +330,7 @@ public interface SmartService {
     @GET(UrlUtils.GETTOYTYPE)
     Observable<Result<HttpDataInfo>> getToyType();
 
-    //物流订单查询
+    //房间列表下一页接口
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST(UrlUtils.GETTOYSBYTYPE)

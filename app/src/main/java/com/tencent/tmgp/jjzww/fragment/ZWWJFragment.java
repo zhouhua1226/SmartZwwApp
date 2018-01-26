@@ -6,6 +6,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,6 +35,8 @@ import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.view.EmptyLayout;
 import com.tencent.tmgp.jjzww.view.GlideImageLoader;
 import com.tencent.tmgp.jjzww.view.MarqueeView;
+import com.tencent.tmgp.jjzww.view.MyToast;
+import com.tencent.tmgp.jjzww.view.PullToRefreshView;
 import com.tencent.tmgp.jjzww.view.SpaceItemDecoration;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -44,12 +49,14 @@ import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /**
  * Created by hongxiu on 2017/9/25.
  */
-public class ZWWJFragment extends BaseFragment {
+public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHeaderRefreshListener,PullToRefreshView.OnFooterRefreshListener{
     private static final String TAG = "ZWWJFragment";
     @BindView(R.id.zww_recyclerview)
     RecyclerView zwwRecyclerview;
@@ -61,8 +68,10 @@ public class ZWWJFragment extends BaseFragment {
     Banner zwwBanner;
     @BindView(R.id.type_tly)
     TabLayout typeTabLayout;
-    @BindView(R.id.nextPage_iv)
-    ImageView nextPageIv;
+    Unbinder unbinder;
+    @BindView(R.id.mPullToRefreshView)
+    PullToRefreshView mPullToRefreshView;
+
 
     private List<RoomBean> currentRoomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
@@ -91,19 +100,19 @@ public class ZWWJFragment extends BaseFragment {
         getBannerList();
         getToyType();
 
-        //TODO 测试下拉刷新按钮
-        nextPageIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentPage ++;
-                if (currentPage > currentSumPage) {
-                    //TODO 无更多了
-                    return;
-                }
-                getToysByType(currentType, currentPage);
-
-            }
-        });
+//        //TODO 测试下拉刷新按钮
+//        nextPageIv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                currentPage ++;
+//                if (currentPage > currentSumPage) {
+//                    //TODO 无更多了
+//                    return;
+//                }
+//                getToysByType(currentType, currentPage);
+//
+//            }
+//        });
     }
 
     private void getUserList() {
@@ -143,12 +152,14 @@ public class ZWWJFragment extends BaseFragment {
             zwwEmptylayout.setOnClickReTryListener(onClickReTryListener);
         }
 
-        typeTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         typeTabLayout.addOnTabSelectedListener(tabSelectedListener);
+
     }
 
     private void onClick() {
         zwwAdapter.setmOnItemClickListener(onItemClickListener);
+        mPullToRefreshView.setOnHeaderRefreshListener(this);
+        mPullToRefreshView.setOnFooterRefreshListener(this);
     }
 
     public void notifyAdapter(List<RoomBean> rooms, int page) {
@@ -249,10 +260,10 @@ public class ZWWJFragment extends BaseFragment {
             @Override
             public void OnBannerClick(int position) {
                 //MyToast.getToast(getContext(), "您点击了第" + (position + 1) + "张图片").show();
-                if(!bannerList.get(position).getHREF_ST().equals("")) {
+                if (!bannerList.get(position).getHREF_ST().equals("")) {
                     Intent intent = new Intent(getContext(), NewsWebActivity.class);
-                    intent.putExtra("newsurl", bannerList.get(position).getHREF_ST().replace("\"","/"));
-                    intent.putExtra("newstitle",bannerList.get(position).getRUN_NAME());
+                    intent.putExtra("newsurl", bannerList.get(position).getHREF_ST().replace("\"", "/"));
+                    intent.putExtra("newstitle", bannerList.get(position).getRUN_NAME());
                     startActivity(intent);
                 }
             }
@@ -270,7 +281,7 @@ public class ZWWJFragment extends BaseFragment {
                         for (int i = 0; i < bannerList.size(); i++) {
                             list.add(UrlUtils.APPPICTERURL + bannerList.get(i).getIMAGE_URL());
                         }
-                        initBanner(list,bannerList);
+                        initBanner(list, bannerList);
                     }
                 }
             }
@@ -323,6 +334,12 @@ public class ZWWJFragment extends BaseFragment {
                                 typeTabLayout.addTab(typeTabLayout.newTab().
                                         setText(toyTypeBeanList.get(i).getTOY_TYPE()), i + 1);
                             }
+                            if(toyTypeBeanList.size()>5){
+                                typeTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+                            }else {
+                                typeTabLayout.setTabMode(TabLayout.MODE_FIXED);
+                            }
+
                         }
                     }
                 }
@@ -356,6 +373,11 @@ public class ZWWJFragment extends BaseFragment {
                         });
                         zwwAdapter.notify(currentRoomBeens);
                         currentSumPage = loginInfoResult.getData().getPd().getTotalPage();
+                        if(currentRoomBeens.size()>2){
+                            mPullToRefreshView.setIsFooterView(true);
+                        }else {
+                            mPullToRefreshView.setIsFooterView(false);
+                        }
                     }
                 }
             }
@@ -372,6 +394,7 @@ public class ZWWJFragment extends BaseFragment {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             int pos = tab.getPosition();
+            MyToast.getToast(getContext(),"您点击了"+pos).show();
             currentPage = 1;
             if (pos == 0) {
                 currentType = "";
@@ -392,4 +415,44 @@ public class ZWWJFragment extends BaseFragment {
 
         }
     };
+
+
+    @Override
+    public void onFooterRefresh(PullToRefreshView view) {
+        mPullToRefreshView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (Utils.isNetworkAvailable(getContext())) {
+                    currentPage ++;
+                    if (currentPage > currentSumPage) {
+                        //TODO 无更多了
+                        MyToast.getToast(getContext(), "没有更多啦！").show();
+                        mPullToRefreshView.onFooterRefreshComplete();
+                        return;
+                    }
+                    getToysByType(currentType, currentPage);
+                } else {
+                    MyToast.getToast(getContext(), "网络连接异常，请检查网络").show();
+                }
+                mPullToRefreshView.onFooterRefreshComplete();
+            }
+        }, 1500);
+    }
+
+    @Override
+    public void onHeaderRefresh(PullToRefreshView view) {
+        mPullToRefreshView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (Utils.isNetworkAvailable(getContext())) {
+
+                } else {
+                    MyToast.getToast(getContext(), "网络连接异常，请检查网络").show();
+                }
+                mPullToRefreshView.onHeaderRefreshComplete();
+            }
+        }, 1500);
+    }
+
+
 }

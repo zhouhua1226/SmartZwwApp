@@ -41,9 +41,9 @@
 
     <style name="Widget_GifView" />
 
-    <style name="MyTableyoutTextAppearance" 
-        parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+    <style name="MyTableyoutTextAppearance" >
         <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">false</item>
+        <!-- parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"  加粗 -->
     </style>
 </resources>

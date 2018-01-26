@@ -3,6 +3,7 @@ package com.tencent.tmgp.jjzww.activity.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -63,7 +64,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        initSDK();
         initWelcome();
     }
 
@@ -72,6 +72,11 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        initSDK();
+        super.onCreate(savedInstanceState);
+    }
 
     private void initWelcome() {
         if (!(boolean) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT, false)) {

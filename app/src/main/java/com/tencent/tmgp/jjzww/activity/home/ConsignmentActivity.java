@@ -176,12 +176,7 @@ public class ConsignmentActivity extends BaseActivity {
                     if (Utils.isEmpty(information)) {
                         MyToast.getToast(this, "请设置收货信息！").show();
                     } else {
-                        if(isEnough()) {
-                            getSendGoods(String.valueOf(stringId), length + "", information, remark, UserUtils.USER_ID, "0", Utils.getProvinceNum(UserUtils.UserAddress));
-                        }else {
-                            MyToast.getToast(getApplicationContext(),"您的余额不足！").show();
-                        }
-                        //finish();
+                        getSendGoods(String.valueOf(stringId), length + "", information, remark, UserUtils.USER_ID, "0", Utils.getProvinceNum(UserUtils.UserAddress));
                     }
                 } else {
                     if (Utils.isEmpty(information)) {

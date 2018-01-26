@@ -76,11 +76,11 @@ public class WeChatPayActivity extends BaseActivity {
     protected void afterCreate(Bundle savedInstanceState) {
         //Glide.get(this).clearMemory();
         initView();
-        initSDK();
         initData();
         getPayCardList();
         getUserList();
     }
+
 
     private void initData() {
         mylist = new ArrayList<PayCardBean>();
@@ -251,9 +251,8 @@ public class WeChatPayActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initSDK();
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
 

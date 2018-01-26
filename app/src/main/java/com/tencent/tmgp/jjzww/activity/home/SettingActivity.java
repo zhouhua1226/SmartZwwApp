@@ -103,10 +103,8 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
         initSDK();
+        super.onCreate(savedInstanceState);
     }
 
     //初始化sdk

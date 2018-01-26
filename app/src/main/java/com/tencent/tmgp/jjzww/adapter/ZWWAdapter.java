@@ -50,7 +50,7 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
         holder.money.setText(bean.getDollGold()+"");
         holder.name.setText(bean.getDollName());
         Glide.with(mContext).load(UrlUtils.APPPICTERURL + bean.getDollUrl())
-                .error(R.drawable.loading).placeholder(R.drawable.loading)
+                .error(R.drawable.loading)
                 .into(holder.imageView);
         holder.itemView.setEnabled(true);
         if (bean.getDollState().equals("11")) {

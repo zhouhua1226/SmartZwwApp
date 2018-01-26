@@ -14,6 +14,7 @@ public class RoomListBean implements Serializable{
     private List<RoomBean> dollList;
     private String code;
     private String msg;
+    private PageBean pd;
 
     public List<RoomBean> getDollList() {
         return dollList;
@@ -37,5 +38,52 @@ public class RoomListBean implements Serializable{
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public void setPd(PageBean pd) {
+        this.pd = pd;
+    }
+
+    public PageBean getPd() {
+        return pd;
+    }
+
+    public class PageBean {
+        private int showCount;
+        private String currentType;
+        private int totalPage;
+        private int currentPage;
+
+        public void setCurrentPage(int currentPage) {
+            this.currentPage = currentPage;
+        }
+
+        public void setCurrentType(String currentType) {
+            this.currentType = currentType;
+        }
+
+        public void setShowCount(int showCount) {
+            this.showCount = showCount;
+        }
+
+        public void setTotalPage(int totalPage) {
+            this.totalPage = totalPage;
+        }
+
+        public int getCurrentPage() {
+            return currentPage;
+        }
+
+        public int getShowCount() {
+            return showCount;
+        }
+
+        public int getTotalPage() {
+            return totalPage;
+        }
+
+        public String getCurrentType() {
+            return currentType;
+        }
     }
 }

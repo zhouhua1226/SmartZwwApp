@@ -482,8 +482,8 @@ public class MainActivity extends BaseActivity {
                         if (zwwjFragment != null)
                             zwwjFragment.showError();
                     } else {
-                        if (zwwjFragment != null)
-                            for (int i = 0; i < roomList.size(); i ++) {
+                        if (zwwjFragment != null) {
+                            for (int i = 0; i < roomList.size(); i++) {
                                 RoomBean bean = roomList.get(i);
                                 bean = UserUtils.dealWithRoomStatus(bean, bean.getDollState());
                                 roomList.set(i, bean);
@@ -495,9 +495,9 @@ public class MainActivity extends BaseActivity {
                                     return t2.getDollState().compareTo(t1.getDollState());
                                 }
                             });
-                            zwwjFragment.notifyAdapter(roomList);
+                            zwwjFragment.notifyAdapter(roomList, roomListBean.getData().getPd().getTotalPage());
+                        }
                     }
-                    //startTimer();
                     initDoConnect();
                 }
             }

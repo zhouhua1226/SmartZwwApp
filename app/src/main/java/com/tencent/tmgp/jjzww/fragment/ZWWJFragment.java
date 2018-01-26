@@ -7,6 +7,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
@@ -59,8 +61,9 @@ public class ZWWJFragment extends BaseFragment {
     Banner zwwBanner;
     @BindView(R.id.type_tly)
     TabLayout typeTabLayout;
+    @BindView(R.id.nextPage_iv)
+    ImageView nextPageIv;
 
-    private List<RoomBean> allRoomBeans = new ArrayList<>();
     private List<RoomBean> currentRoomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
     private String sessionId;
@@ -70,9 +73,10 @@ public class ZWWJFragment extends BaseFragment {
     private List<BannerBean> bannerList = new ArrayList<>();
     private List<String> list = new ArrayList<>();
     //分类参数
+    private int currentSumPage = 1;
     private int currentPage = 1;
     private List<ToyTypeBean> toyTypeBeanList;
-    private String currentType = "110000";
+    private String currentType = "";  //首页
 
     @Override
     protected int getLayoutId() {
@@ -86,6 +90,19 @@ public class ZWWJFragment extends BaseFragment {
         getUserList();
         getBannerList();
         getToyType();
+
+        //TODO 测试下拉刷新按钮
+        nextPageIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentPage ++;
+                if (currentPage > currentSumPage) {
+                    //TODO 无更多了
+                    return;
+                }
+                getToysByType(currentType, currentPage);
+            }
+        });
     }
 
     private void getUserList() {
@@ -133,12 +150,10 @@ public class ZWWJFragment extends BaseFragment {
         zwwAdapter.setmOnItemClickListener(onItemClickListener);
     }
 
-    public void notifyAdapter(List<RoomBean> rooms) {
-        allRoomBeans = rooms;
-        if (currentType.equals("110000")) {
-            currentRoomBeens = allRoomBeans;
-            zwwAdapter.notify(currentRoomBeens);
-        }
+    public void notifyAdapter(List<RoomBean> rooms, int page) {
+        currentRoomBeens = rooms;
+        currentSumPage = page;
+        zwwAdapter.notify(currentRoomBeens);
     }
 
     public void showError() {
@@ -281,15 +296,16 @@ public class ZWWJFragment extends BaseFragment {
         zwwBanner.stopAutoPlay();
     }
 
-    private void dealWithRoomStatus() {
-        if (currentRoomBeens.size() == 0) {
-            return;
+    private List<RoomBean> dealWithRoomStats(List<RoomBean> beens) {
+        if (beens.size() == 0) {
+            return beens;
         }
-        for(int i = 0; i < currentRoomBeens.size(); i ++) {
-            RoomBean bean = currentRoomBeens.get(i);
+        for(int i = 0; i < beens.size(); i ++) {
+            RoomBean bean = beens.get(i);
             bean = UserUtils.dealWithRoomStatus(bean, bean.getDollState());
-            currentRoomBeens.set(i, bean);
+            beens.set(i, bean);
         }
+        return beens;
     }
 
     private void getToyType() {
@@ -324,8 +340,13 @@ public class ZWWJFragment extends BaseFragment {
             public void _onSuccess(Result<RoomListBean> loginInfoResult) {
                 if (loginInfoResult.getMsg().equals("success")) {
                     if (loginInfoResult.getData() != null) {
-                        currentRoomBeens = loginInfoResult.getData().getDollList();
-                        dealWithRoomStatus();
+                        List<RoomBean> roomBeens = dealWithRoomStats(loginInfoResult.getData().getDollList());
+                        if (currentRoomBeens.size() == 0) {
+                            currentRoomBeens = roomBeens;
+                        } else {
+                            //TODO 增加的
+                            currentRoomBeens.addAll(roomBeens);
+                        }
                         Collections.sort(currentRoomBeens, new Comparator<RoomBean>() {
                             @Override
                             public int compare(RoomBean t1, RoomBean t2) {
@@ -333,6 +354,7 @@ public class ZWWJFragment extends BaseFragment {
                             }
                         });
                         zwwAdapter.notify(currentRoomBeens);
+                        currentSumPage = loginInfoResult.getData().getPd().getTotalPage();
                     }
                 }
             }
@@ -351,14 +373,12 @@ public class ZWWJFragment extends BaseFragment {
             int pos = tab.getPosition();
             currentPage = 1;
             if (pos == 0) {
-                currentRoomBeens = allRoomBeans;
-                currentType = "110000";
-                zwwAdapter.notify(allRoomBeans);
+                currentType = "";
             } else {
                 currentType = String.valueOf(toyTypeBeanList.get(pos - 1).getID());
-                Utils.showLogE(TAG, "=======" + currentType + "============" + toyTypeBeanList.get(pos - 1).getID());
-                getToysByType(currentType, currentPage);
             }
+            currentRoomBeens.clear();
+            getToysByType(currentType, currentPage);
         }
 
         @Override

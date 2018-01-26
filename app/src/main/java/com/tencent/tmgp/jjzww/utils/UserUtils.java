@@ -2,6 +2,7 @@ package com.tencent.tmgp.jjzww.utils;
 
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.gatz.netty.AppClient;
 import com.gatz.netty.UserInfo;

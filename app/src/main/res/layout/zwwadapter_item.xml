@@ -4,12 +4,11 @@
     android:id="@+id/zwwadapter_item_parent_layout"
     android:layout_width="@dimen/PX_335"
     android:layout_height="wrap_content">
-    <!-- android:background="@drawable/center_item" -->
+
     <com.tencent.tmgp.jjzww.view.RoundRoomImageView
         android:id="@+id/moppet_image"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/PX_335"
-        android:background="@drawable/loading" />
+        android:layout_height="@dimen/PX_335" />
 
     <ImageView
         android:id="@+id/line"

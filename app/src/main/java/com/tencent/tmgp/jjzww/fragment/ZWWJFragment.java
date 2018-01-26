@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
@@ -36,6 +37,8 @@ import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -284,7 +287,8 @@ public class ZWWJFragment extends BaseFragment {
         }
         for(int i = 0; i < currentRoomBeens.size(); i ++) {
             RoomBean bean = currentRoomBeens.get(i);
-            currentRoomBeens.set(i, UserUtils.dealWithRoomStatus(bean, bean.getDollState()));
+            bean = UserUtils.dealWithRoomStatus(bean, bean.getDollState());
+            currentRoomBeens.set(i, bean);
         }
     }
 
@@ -322,6 +326,12 @@ public class ZWWJFragment extends BaseFragment {
                     if (loginInfoResult.getData() != null) {
                         currentRoomBeens = loginInfoResult.getData().getDollList();
                         dealWithRoomStatus();
+                        Collections.sort(currentRoomBeens, new Comparator<RoomBean>() {
+                            @Override
+                            public int compare(RoomBean t1, RoomBean t2) {
+                                return t2.getDollState().compareTo(t1.getDollState());
+                            }
+                        });
                         zwwAdapter.notify(currentRoomBeens);
                     }
                 }

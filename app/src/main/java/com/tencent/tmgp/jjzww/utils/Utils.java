@@ -54,8 +54,8 @@ public class Utils {
 
     public static final String TAG_LOTTERY_DRAW = "TAG_LOTTERY_DRAW";
 
-    public static final String FREE  = "free";
-    public static final String BUSY= "using";
+    public static final String FREE  = "FREE";
+    public static final String BUSY= "USING";
     public static final String OK = "正常";
 
     public static final String TAG_ROOM_NAME = "room_name";

@@ -6,17 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
-import com.tencent.tmgp.jjzww.bean.ZwwRoomBean;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
-import com.tencent.tmgp.jjzww.utils.UserUtils;
-import com.tencent.tmgp.jjzww.utils.Utils;
-import com.tencent.tmgp.jjzww.view.GlideRoundTransform;
 
 import java.util.List;
 
@@ -75,30 +70,6 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
                 }
             });
         }
-//        RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-//        if(position % 2 == 0){
-//            layoutParams.setMargins(20,15,0,0);
-//        }else {
-//            layoutParams.setMargins(15,20,20,0);
-//        }
-//          holder.parent_layout.setLayoutParams(layoutParams);
-//        String rtmpUrl1 = bean.getCameras().get(0).getRtmpUrl();
-//        String rtmpUrl2 = bean.getCameras().get(1).getRtmpUrl();
-//        String serviceName1=bean.getCameras().get(0).getServerName();
-//        String serviceName2=bean.getCameras().get(1).getServerName();
-//        String liveStream1=bean.getCameras().get(0).getLivestream();
-//        String liveStream2=bean.getCameras().get(1).getLivestream();
-//        String idToken="?token="+ UserUtils.SRSToken.getToken()
-//                +"&expire="+UserUtils.SRSToken.getExpire()
-//                +"&tid="+UserUtils.SRSToken.getTid()
-//                +"&time="+UserUtils.SRSToken.getTime()
-//                +"&type="+UserUtils.SRSToken.getType()
-//                +"/";
-//        String url1=rtmpUrl1+serviceName1+idToken+liveStream1;
-//        String url2=rtmpUrl2+serviceName2+idToken+liveStream2;
-//        Utils.showLogE("<<<<<<<<<<<<<<<<","房间推流地址1="+url1);
-//        Utils.showLogE("<<<<<<<<<<<<<<<<","房间推流地址2="+url2);
-
     }
 
     @Override
@@ -111,7 +82,6 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
         private TextView name;
         private TextView money,connectTv;
         private ImageView connectIv;
-        private RelativeLayout parent_layout;
 
         public ZWWViewHolder(View itemView) {
             super(itemView);
@@ -120,7 +90,6 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
             money = (TextView) itemView.findViewById(R.id.moppet_money_tv);
             connectIv = (ImageView) itemView.findViewById(R.id.moppet_connect_iv);
             connectTv= (TextView) itemView.findViewById(R.id.moppet_connect_tv);
-            parent_layout= (RelativeLayout) itemView.findViewById(R.id.zwwadapter_item_parent_layout);
         }
     }
 

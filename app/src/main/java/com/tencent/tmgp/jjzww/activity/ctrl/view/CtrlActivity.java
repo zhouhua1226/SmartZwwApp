@@ -300,7 +300,10 @@ public class CtrlActivity extends Activity implements IctrlView {
             String s = counter + "人在线";
             playerCounterIv.setText(s);
             if (counter == 1) {
-                playerSecondIv.setVisibility(View.INVISIBLE);
+                //显示自己
+                //playerSecondIv.setVisibility(View.INVISIBLE);
+                Glide.with(this).load(UserUtils.UserImage).asBitmap().
+                        transform(new GlideCircleTransform(this)).into(playerSecondIv);
             } else {
                 if (is) {
                     //先显示默认图片
@@ -316,7 +319,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                     }
                 }
                 //显示第二个人
-                playerSecondIv.setVisibility(View.VISIBLE);
+                //playerSecondIv.setVisibility(View.VISIBLE);
             }
         }
     }

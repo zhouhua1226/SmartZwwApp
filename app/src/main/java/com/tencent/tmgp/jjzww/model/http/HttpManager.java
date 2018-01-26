@@ -321,8 +321,8 @@ public class HttpManager {
     }
 
     //获取房间列表
-    public void getDollList(Subscriber<RoomListBean> subscriber){
-        Observable<RoomListBean> o =smartService.getDollList();
+    public void getDollList(Subscriber<Result<RoomListBean>> subscriber){
+        Observable<Result<RoomListBean>> o =smartService.getToysByType("", 1);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

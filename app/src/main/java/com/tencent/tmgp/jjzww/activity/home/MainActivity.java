@@ -68,8 +68,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.layout_tab_my)
     LinearLayout layoutTabMy;//我的图标布局
 
-    private Timer timer;
-    private TimerTask timerTask;
+//    private Timer timer;
+//    private TimerTask timerTask;
     private MyCenterFragment myCenterFragment;//个人中心
     private RankFragmentTwo rankFragment;//排行榜
     private ZWWJFragment zwwjFragment;//抓娃娃
@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         Utils.isExit = true;
-        stopTimer();
+        //stopTimer();
         RxBus.get().unregister(this);
     }
 
@@ -321,9 +321,9 @@ public class MainActivity extends BaseActivity {
         }).start();
     }
 
-    private void getDeviceStates() {
-        UserUtils.doGetDollStatus();
-    }
+//    private void getDeviceStates() {
+//        UserUtils.doGetDollStatus();
+//    }
 
     @Override
     protected void onRestart() {
@@ -337,7 +337,7 @@ public class MainActivity extends BaseActivity {
             }
             getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
         } else {
-            startTimer();
+            //startTimer();
             //getDeviceStates();
             NettyUtils.pingRequest();
         }
@@ -346,7 +346,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        stopTimer();
+        //stopTimer();
     }
 
     //监控网关区
@@ -360,7 +360,7 @@ public class MainActivity extends BaseActivity {
             Utils.showLogE(TAG, "TAG_CONNECT_ERR");
         } else if (state.equals(Utils.TAG_CONNECT_SUCESS)) {
             Utils.showLogE(TAG, "TAG_CONNECT_SUCESS");
-            getDeviceStates();
+            //getDeviceStates();
         } else if (state.equals(Utils.TAG_SESSION_INVALID)) {
             Utils.showLogE(TAG, "TAG_SESSION_INVALID");
             //TODO 重连后重新连接 QQ/WEIXIN 模式检测
@@ -370,79 +370,79 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    //监控全部设备状态区
-    @Subscribe(thread = EventThread.MAIN_THREAD, tags = {
-            @Tag(Utils.TAG_GET_DEVICE_STATUS)})
-    public void getDeviceStates(Object response) {
-        if (response instanceof GetStatusResponse) {
-            GetStatusResponse getStatusResponse = (GetStatusResponse) response;
-            Utils.showLogE(TAG, "getStatusResponse=====" + getStatusResponse.getStatus());
-            if (Utils.isEmpty(getStatusResponse.getStatus())) {
-                return;
-            }
-            if ((getStatusResponse.getSeq() != -2)) {
-                if (Utils.isEmpty(getStatusResponse.getStatus())) {
-                    return;
-                }
-                String[] devices = getStatusResponse.getStatus().split(";");
-                for (int i = 0; i < devices.length; i++) {
-                    String[] status = devices[i].split("-");
-                    String address = status[0];
-                    String poohType = status[1];
-                    String stats = status[2];
-                    for (int j = 0; j < roomList.size(); j++) {
-                        RoomBean bean = roomList.get(j);
-                        if (bean.getDollId().equals(address)) {
-                            if (!poohType.equals(Utils.OK)) {
-                                //设备异常了
-                                bean.setDollState("0");
-                            } else {
-                                bean = UserUtils.dealWithRoomStatus(bean, stats);
-                            }
-                            roomList.set(j, bean);
-                        }
-                    }
-                }
-                if(zwwjFragment != null) {
-                    //TODO 按照规则重新排序
-                    Collections.sort(roomList, new Comparator<RoomBean>() {
-                        @Override
-                        public int compare(RoomBean t1, RoomBean t2) {
-                            return t2.getDollState().compareTo(t1.getDollState());
-                        }
-                    });
-                    Utils.showLogE(TAG, "getDeviceStates and notifyAdapter roomList.");
-                    zwwjFragment.notifyAdapter(roomList);
-                }
-            }
-        }
-    }
-
-    private void startTimer() {
-        if (timer == null) {
-            timer = new Timer();
-            timerTask = new timeTask();
-            timer.schedule(timerTask, Utils.GET_STATUS_DELAY_TIME, Utils.GET_STATUS_PRE_TIME);
-        }
-    }
-
-    private void stopTimer() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-            timerTask.cancel();
-            timerTask = null;
-        }
-    }
-
-    //定时器区
-    class timeTask extends TimerTask {
-
-        @Override
-        public void run() {
-            NettyUtils.sendGetDeviceStatesCmd();
-        }
-    }
+//    //监控全部设备状态区
+//    @Subscribe(thread = EventThread.MAIN_THREAD, tags = {
+//            @Tag(Utils.TAG_GET_DEVICE_STATUS)})
+//    public void getDeviceStates(Object response) {
+//        if (response instanceof GetStatusResponse) {
+//            GetStatusResponse getStatusResponse = (GetStatusResponse) response;
+//            Utils.showLogE(TAG, "getStatusResponse=====" + getStatusResponse.getStatus());
+//            if (Utils.isEmpty(getStatusResponse.getStatus())) {
+//                return;
+//            }
+//            if ((getStatusResponse.getSeq() != -2)) {
+//                if (Utils.isEmpty(getStatusResponse.getStatus())) {
+//                    return;
+//                }
+//                String[] devices = getStatusResponse.getStatus().split(";");
+//                for (int i = 0; i < devices.length; i++) {
+//                    String[] status = devices[i].split("-");
+//                    String address = status[0];
+//                    String poohType = status[1];
+//                    String stats = status[2];
+//                    for (int j = 0; j < roomList.size(); j++) {
+//                        RoomBean bean = roomList.get(j);
+//                        if (bean.getDollId().equals(address)) {
+//                            if (!poohType.equals(Utils.OK)) {
+//                                //设备异常了
+//                                bean.setDollState("0");
+//                            } else {
+//                                bean = UserUtils.dealWithRoomStatus(bean, stats);
+//                            }
+//                            roomList.set(j, bean);
+//                        }
+//                    }
+//                }
+//                if(zwwjFragment != null) {
+//                    //TODO 按照规则重新排序
+//                    Collections.sort(roomList, new Comparator<RoomBean>() {
+//                        @Override
+//                        public int compare(RoomBean t1, RoomBean t2) {
+//                            return t2.getDollState().compareTo(t1.getDollState());
+//                        }
+//                    });
+//                    Utils.showLogE(TAG, "getDeviceStates and notifyAdapter roomList.");
+//                    zwwjFragment.notifyAdapter(roomList);
+//                }
+//            }
+//        }
+//    }
+//
+//    private void startTimer() {
+//        if (timer == null) {
+//            timer = new Timer();
+//            timerTask = new timeTask();
+//            timer.schedule(timerTask, Utils.GET_STATUS_DELAY_TIME, Utils.GET_STATUS_PRE_TIME);
+//        }
+//    }
+//
+//    private void stopTimer() {
+//        if (timer != null) {
+//            timer.cancel();
+//            timer = null;
+//            timerTask.cancel();
+//            timerTask = null;
+//        }
+//    }
+//
+//    //定时器区
+//    class timeTask extends TimerTask {
+//
+//        @Override
+//        public void run() {
+//            NettyUtils.sendGetDeviceStatesCmd();
+//        }
+//    }
 
     /** ####################### 网络请求区 #########################  **/
 
@@ -468,24 +468,37 @@ public class MainActivity extends BaseActivity {
 
     //房间列表
     private void getDollList(){
-        HttpManager.getInstance().getDollList(new RequestSubscriber<RoomListBean>() {
+        HttpManager.getInstance().getDollList(new RequestSubscriber<Result<RoomListBean>>() {
             @Override
-            public void _onSuccess(RoomListBean roomListBean) {
+            public void _onSuccess(Result<RoomListBean> roomListBean) {
                 if (zwwjFragment != null)
                     zwwjFragment.dismissEmptyLayout();
                 if (roomListBean.getMsg().equals("success")) {
-                    roomList = roomListBean.getDollList();
-                    Utils.showLogE(TAG, "摄像头数组长度=" + roomList.get(0).getCameras().size());
+                    if (roomListBean.getData() == null) {
+                        return;
+                    }
+                    roomList = roomListBean.getData().getDollList();
                     if (roomList.size() == 0) {
                         if (zwwjFragment != null)
                             zwwjFragment.showError();
                     } else {
                         if (zwwjFragment != null)
+                            for (int i = 0; i < roomList.size(); i ++) {
+                                RoomBean bean = roomList.get(i);
+                                bean = UserUtils.dealWithRoomStatus(bean, bean.getDollState());
+                                roomList.set(i, bean);
+                            }
+                            //TODO 按照规则重新排序
+                            Collections.sort(roomList, new Comparator<RoomBean>() {
+                                @Override
+                                public int compare(RoomBean t1, RoomBean t2) {
+                                    return t2.getDollState().compareTo(t1.getDollState());
+                                }
+                            });
                             zwwjFragment.notifyAdapter(roomList);
                     }
-                    startTimer();
+                    //startTimer();
                     initDoConnect();
-                    Utils.showLogE(TAG, "afterCreate:::::>>>>" + roomList.size());
                 }
             }
 

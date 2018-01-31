@@ -19,7 +19,6 @@ import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
 import com.tencent.tmgp.jjzww.bean.RoomListBean;
-import com.tencent.tmgp.jjzww.bean.ZwwRoomBean;
 import com.tencent.tmgp.jjzww.fragment.MyCenterFragment;
 import com.tencent.tmgp.jjzww.fragment.RankFragmentTwo;
 import com.tencent.tmgp.jjzww.fragment.ZWWJFragment;
@@ -35,7 +34,6 @@ import com.gatz.netty.utils.NettyUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
-import com.iot.game.pooh.server.entity.json.GetStatusResponse;
 import com.tencent.tmgp.jjzww.view.SignInDialog;
 import com.tencent.tmgp.jjzww.view.SignSuccessDialog;
 import com.umeng.analytics.MobclickAgent;
@@ -44,8 +42,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,14 +64,11 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.layout_tab_my)
     LinearLayout layoutTabMy;//我的图标布局
 
-//    private Timer timer;
-//    private TimerTask timerTask;
     private MyCenterFragment myCenterFragment;//个人中心
     private RankFragmentTwo rankFragment;//排行榜
     private ZWWJFragment zwwjFragment;//抓娃娃
     private Fragment fragmentAll;
     private long mExitTime;
-    //private List<ZwwRoomBean> dollLists = new ArrayList<>();
     private List<RoomBean> roomList=new ArrayList<>();
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
@@ -333,7 +326,8 @@ public class MainActivity extends BaseActivity {
             if((YsdkUtils.loginResult.getData() != null) && (zwwjFragment != null)) {
                 UserUtils.NickName = YsdkUtils.loginResult.getData().getAppUser().getNICKNAME();
                 UserUtils.USER_ID = YsdkUtils.loginResult.getData().getAppUser().getUSER_ID();
-                zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
+                if(YsdkUtils.loginResult.getData().getSessionID() != null)
+                    zwwjFragment.setSessionId(YsdkUtils.loginResult.getData().getSessionID(), false);
             }
             getUserSign(UserUtils.USER_ID,"0"); //签到请求 0 查询签到信息 1签到
         } else {

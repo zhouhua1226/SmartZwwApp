@@ -121,4 +121,5 @@ dependencies {
     //最新版本
     compile files('libs/socket_api_release_v1.0.2.jar')
     compile files('libs/umeng-analytics-v6.1.0.jar')
+
 }

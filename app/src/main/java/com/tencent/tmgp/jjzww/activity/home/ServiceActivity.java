@@ -128,7 +128,8 @@ public class ServiceActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                kefuWebview.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                if (kefuWebview != null)
+                    kefuWebview.setLayerType(View.LAYER_TYPE_HARDWARE, null);
                 //移除动画或者删除背景图片
 
             }

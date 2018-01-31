@@ -248,11 +248,15 @@ public class ConsignmentActivity extends BaseActivity {
      * @return
      */
     private boolean isEnough(){
-        int yf= Integer.parseInt(Utils.getJBDKNum(UserUtils.UserAddress));
-        int ye= Integer.parseInt(UserUtils.UserBalance);
-        if(ye>=yf){
-            return true;
-        }else {
+        if (!Utils.getJBDKNum(UserUtils.UserAddress).equals("")) {
+            int yf = Integer.parseInt(Utils.getJBDKNum(UserUtils.UserAddress));
+            int ye = Integer.parseInt(UserUtils.UserBalance);
+            if (ye >= yf) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
             return false;
         }
     }

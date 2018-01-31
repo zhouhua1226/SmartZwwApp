@@ -1,8 +1,8 @@
 package com.tencent.tmgp.jjzww.view;
 
-        import android.graphics.Rect;
-        import android.support.v7.widget.RecyclerView;
-        import android.view.View;
+import android.graphics.Rect;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 /**
  * Created by zhouh on 2017/1/9.

@@ -99,20 +99,6 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         getUserList();
         getBannerList();
         getToyType();
-
-//        //TODO 测试下拉刷新按钮
-//        nextPageIv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                currentPage ++;
-//                if (currentPage > currentSumPage) {
-//                    //TODO 无更多了
-//                    return;
-//                }
-//                getToysByType(currentType, currentPage);
-//
-//            }
-//        });
     }
 
     private void getUserList() {
@@ -144,7 +130,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         dismissEmptyLayout();
         zwwAdapter = new ZWWAdapter(getActivity(), currentRoomBeens);
         zwwRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        zwwRecyclerview.addItemDecoration(new SpaceItemDecoration((int) getContext().getResources().getDimension(R.dimen.PX_10)));
+        zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(10));
         zwwRecyclerview.setHasFixedSize(true);
         zwwRecyclerview.setNestedScrollingEnabled(false);
         zwwRecyclerview.setAdapter(zwwAdapter);

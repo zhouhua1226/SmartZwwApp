@@ -130,7 +130,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         dismissEmptyLayout();
         zwwAdapter = new ZWWAdapter(getActivity(), currentRoomBeens);
         zwwRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(10));
+        zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.PX_10)));
         zwwRecyclerview.setHasFixedSize(true);
         zwwRecyclerview.setNestedScrollingEnabled(false);
         zwwRecyclerview.setAdapter(zwwAdapter);

@@ -62,14 +62,15 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
             holder.connectTv.setText("维护中");
             holder.connectTv.setBackgroundResource(R.drawable.room_statue_sleep_bg);
         }
-        if (mOnItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
                     mOnItemClickListener.onItemClick(position);
                 }
-            });
-        }
+            }
+        });
     }
 
     @Override

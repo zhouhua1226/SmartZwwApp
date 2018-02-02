@@ -129,6 +129,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     private void initData() {
         dismissEmptyLayout();
         zwwAdapter = new ZWWAdapter(getActivity(), currentRoomBeens);
+        zwwAdapter.setmOnItemClickListener(onItemClickListener);
         zwwRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
         zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.PX_10)));
         zwwRecyclerview.setHasFixedSize(true);
@@ -143,7 +144,6 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     }
 
     private void onClick() {
-        zwwAdapter.setmOnItemClickListener(onItemClickListener);
         mPullToRefreshView.setOnHeaderRefreshListener(this);
         mPullToRefreshView.setOnFooterRefreshListener(this);
     }

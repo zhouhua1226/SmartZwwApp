@@ -24,7 +24,7 @@
         android:name="com.tencent.tmgp.jjzww.base.MyApplication"
         android:allowBackup="true"
         android:largeHeap="true"
-        android:icon="@drawable/app_jj_icon_tencent"
+        android:icon="@drawable/app_jjicon_tencent"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
@@ -298,7 +298,7 @@
 
         <meta-data
             android:name="MANIFEST_META_CID"
-            android:value="6f456783a0fe44e28771c08ab63a52f7" />
+            android:value="d701017f820d4c94aee7d3bd3ca96edb" />
         <!-- 正式环境cid= 6f456783a0fe44e28771c08ab63a52f7-->
         <!-- 测试环境cid= d701017f820d4c94aee7d3bd3ca96edb-->
         <!--配置hx_ysdk组件——End-->

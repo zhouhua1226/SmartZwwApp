@@ -13,6 +13,15 @@ public class SignBean implements Serializable{
     private String CSDATE;
     private String SIGNTIME;
     private String SIGN_TAG;
+    private String SIGNGOLD;
+
+    public String getSIGNGOLD() {
+        return SIGNGOLD;
+    }
+
+    public void setSIGNGOLD(String SIGNGOLD) {
+        this.SIGNGOLD = SIGNGOLD;
+    }
 
     public String getSIGN_TAG() {
         return SIGN_TAG;

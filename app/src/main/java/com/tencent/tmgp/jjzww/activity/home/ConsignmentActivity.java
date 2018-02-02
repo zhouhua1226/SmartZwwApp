@@ -80,6 +80,7 @@ public class ConsignmentActivity extends BaseActivity {
     private List<VideoBackBean> list = new ArrayList<>();
     private String information = "";
     private String fhType = "0";
+    private boolean isFormalAddress=true;
     private StringBuffer stringId = new StringBuffer("");
     private StringBuffer stringDollId = new StringBuffer("");
     private String consignee = "尹聪,13687632490,上海市虹口区欧阳路196号10楼612,";
@@ -188,7 +189,11 @@ public class ConsignmentActivity extends BaseActivity {
                                     //getSendGoods(list.get(0).getID()+",", "1", information, remark, UserUtils.USER_ID, fhType);
                                     getSendGoods(list.get(0).getID() + ",", "1", information, remark, UserUtils.USER_ID, fhType, Utils.getProvinceNum(UserUtils.UserAddress));
                                 }else {
-                                    MyToast.getToast(getApplicationContext(),"您的余额不足！").show();
+                                    if(isFormalAddress) {
+                                        MyToast.getToast(getApplicationContext(), "您的余额不足！").show();
+                                    }else {
+                                        MyToast.getToast(getApplicationContext(), "暂不支持您所填写的地区！").show();
+                                    }
                                 }
                             }else {
                                 MyToast.getToast(this,"请选择邮寄付款方式！").show();
@@ -257,6 +262,7 @@ public class ConsignmentActivity extends BaseActivity {
                 return false;
             }
         } else {
+            isFormalAddress=false;
             return false;
         }
     }

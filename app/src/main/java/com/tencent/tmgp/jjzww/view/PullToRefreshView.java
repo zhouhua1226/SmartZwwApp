@@ -356,7 +356,7 @@ public class PullToRefreshView extends LinearLayout {
 			int deltaY = y - mLastMotionY;
 			if (mPullState == PULL_DOWN_STATE) {
 				// PullToRefreshView执行下拉
-				headerPrepareToRefresh(deltaY);
+//				headerPrepareToRefresh(deltaY);     //暂时隐藏下拉
 				// setHeaderPadding(-mHeaderViewHeight);
 			} else if (mPullState == PULL_UP_STATE) {
 				// PullToRefreshView执行上拉

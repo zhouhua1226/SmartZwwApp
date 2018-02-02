@@ -9,4 +9,5 @@
     <dimen name="update_btn_height">100dp</dimen>
 
     <dimen name="PX_10">10px</dimen>
+    <dimen name="PX_335">335px</dimen>
 </resources>

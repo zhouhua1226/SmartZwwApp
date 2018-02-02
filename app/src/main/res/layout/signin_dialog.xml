@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
         android:background="@drawable/sign_dialog_bg"
         >
         <ImageView
@@ -24,7 +24,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/sign_dialog_logo_imag"
             android:layout_marginTop="25dp"
-
+            android:visibility="gone"
             >
 
             <LinearLayout
@@ -135,7 +135,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/sign_dialog_first_layout"
             android:layout_marginTop="15dp"
-
+            android:visibility="gone"
             >
 
             <LinearLayout
@@ -219,7 +219,7 @@
             android:id="@+id/sign_dialog_sure_imag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/sign_dialog_second_layout"
             android:src="@drawable/sign_dialog_sure_unselect"

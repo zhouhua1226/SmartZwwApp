@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,7 +14,19 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="7"
-            ></RelativeLayout>
+            >
+            <TextView
+                android:id="@+id/sign_success_dialog_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="恭喜您获得3金币!"
+                android:layout_centerInParent="true"
+                android:textColor="@color/main_gray"
+                android:textSize="17sp"
+                />
+
+
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

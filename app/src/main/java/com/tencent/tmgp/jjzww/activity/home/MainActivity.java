@@ -299,7 +299,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void doServcerConnect() {
-        String ip = "123.206.120.46";    //123.206.120.46(正式)   47.100.8.129(测试)
+        String ip = "47.100.8.129";    //123.206.120.46(正式)   47.100.8.129(测试)
         AppClient.getInstance().setHost(ip);
         AppClient.getInstance().setPort(8580);
         if (!AppProperties.initProperties(getResources())) {
@@ -523,10 +523,11 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private void getSignSuccessDialog(){
+    private void getSignSuccessDialog(String gold){
         SignSuccessDialog signSuccessDialog=new SignSuccessDialog(this,R.style.easy_dialog_style);
         signSuccessDialog.setCancelable(true);
         signSuccessDialog.show();
+        signSuccessDialog.setTextView(gold);
         signSuccessDialog.setDialogResultListener(new SignSuccessDialog.DialogResultListener() {
             @Override
             public void getResult(int resultCode) {
@@ -558,7 +559,9 @@ public class MainActivity extends BaseActivity {
                         }
                     }else {
                         //签到处理
-                        getSignSuccessDialog();
+                        String signgold=loginInfoResult.getData().getSign().getSIGNGOLD();
+                        Utils.showLogE(TAG,"签到赠送金币"+signgold);
+                        getSignSuccessDialog(signgold);
                     }
                 }
             }

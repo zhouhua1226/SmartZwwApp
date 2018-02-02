@@ -19,8 +19,8 @@ android {
         applicationId "com.tencent.tmgp.jjzww"
         minSdkVersion 17
         targetSdkVersion 22  //后期完善加入6.0
-        versionCode 8
-        versionName "1.1.8"
+        versionCode 7
+        versionName "1.1.7"
         multiDexEnabled true
         signingConfig signingConfigs.release
     }

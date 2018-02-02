@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<resources>
+    <dimen name="PX_10">6px</dimen>
+    <dimen name="PX_335">223px</dimen>
+    
+</resources>

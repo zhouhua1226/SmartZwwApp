@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tencent.tmgp.jjzww.R;
+import com.tencent.tmgp.jjzww.utils.Utils;
 
 /**
  * Created by yincong on 2018/1/5 18:26
@@ -20,6 +21,7 @@ import com.tencent.tmgp.jjzww.R;
 public class SignSuccessDialog extends Dialog implements View.OnClickListener{
 
     private ImageView sure_imag;
+    private TextView textView;
 
     public SignSuccessDialog(Context context) {
         super(context);
@@ -43,7 +45,16 @@ public class SignSuccessDialog extends Dialog implements View.OnClickListener{
 
 
     public void findView() {
+        textView= (TextView) findViewById(R.id.sign_success_dialog_tv);
         sure_imag= (ImageView) findViewById(R.id.sign_success_dialog_imag);
+    }
+
+    public void setTextView(String num){
+        if(!Utils.isEmpty(num)) {
+            textView.setText("恭喜您获得" + num + "金币!");
+        }else {
+            textView.setText("恭喜您获得签到金币!");
+        }
     }
 
     /**

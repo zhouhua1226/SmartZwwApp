@@ -156,15 +156,6 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
-    //获取房间用户头像
-    public void getCtrlUserImage(String phone,Subscriber<Result<AppUserBean>> subscriber){
-        Observable<Result<AppUserBean>> o= smartService.getCtrlUserImage(phone);
-        o.subscribeOn(Schedulers.newThread())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-    }
-
     //下注
     public void getBets(String userId,int wager,String guessKey,String guessId,
                         String dollID,Subscriber<Result<AppUserBean>> subscriber){

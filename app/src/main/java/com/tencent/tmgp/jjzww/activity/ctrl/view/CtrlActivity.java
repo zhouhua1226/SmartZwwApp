@@ -46,6 +46,7 @@ import com.tencent.tmgp.jjzww.bean.AppUserBean;
 import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.PondResponseBean;
 import com.tencent.tmgp.jjzww.bean.Result;
+import com.tencent.tmgp.jjzww.bean.UserBean;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
@@ -183,7 +184,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     private MediaPlayer mediaPlayer;
     private MediaPlayer btn_mediaPlayer;
     //显示的用户的name
-    private String showName = "";
+    private String showUserId = "";
 
     static {
         System.loadLibrary("SmartPlayer");
@@ -301,25 +302,20 @@ public class CtrlActivity extends Activity implements IctrlView {
             playerCounterIv.setText(s);
             if (counter == 1) {
                 //显示自己
-                //playerSecondIv.setVisibility(View.INVISIBLE);
                 Glide.with(this).load(UserUtils.UserImage).asBitmap().
                         transform(new GlideCircleTransform(this)).into(playerSecondIv);
             } else {
                 if (is) {
-                    //先显示默认图片
-                    Glide.with(getApplicationContext()).load(R.drawable.ctrl_default_user_bg)
-                        .asBitmap().transform(new GlideCircleTransform(CtrlActivity.this)).into(playerSecondIv);
                     //显示另外一个人
                     for (int i = 0; i < counter; i++) {
-                        if (!userInfos.get(i).equals(UserUtils.NickName)) {
-                            showName = userInfos.get(i);
-                            getCtrlUserImage(showName);
+                        if (!userInfos.get(i).equals(UserUtils.USER_ID)) {
+                            showUserId = userInfos.get(i);
+                            Utils.showLogE(TAG, "显示观察者的userId::::" + showUserId);
+                            getCtrlUserImage(showUserId);
                             break;
                         }
                     }
                 }
-                //显示第二个人
-                //playerSecondIv.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -793,8 +789,8 @@ public class CtrlActivity extends Activity implements IctrlView {
             Utils.showLogE(TAG, appOutRoomResponse.toString());
             long seq = appOutRoomResponse.getSeq();
             if (seq == -2) {
-                userInfos.remove(appOutRoomResponse.getNickName());
-                if (appOutRoomResponse.getNickName().equals(showName)) {
+                userInfos.remove(appOutRoomResponse.getUserId());
+                if (appOutRoomResponse.getUserId().equals(showUserId)) {
                     getUserInfos(userInfos, true);
                 } else {
                     getUserInfos(userInfos, false);
@@ -803,7 +799,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         } else if (response instanceof AppInRoomResponse) {
             AppInRoomResponse appInRoomResponse = (AppInRoomResponse) response;
             Utils.showLogE(TAG, "=====" + appInRoomResponse.toString());
-            String allUsers = appInRoomResponse.getAllUserInRoom(); //返回的昵称
+            String allUsers = appInRoomResponse.getAllUserInRoom(); //返回的UserId
             Boolean free = appInRoomResponse.getFree();
             setStartMode(free);
             long seq = appInRoomResponse.getSeq();
@@ -811,8 +807,12 @@ public class CtrlActivity extends Activity implements IctrlView {
                 //TODO  我本人进来了
                 ctrlCompl.sendGetUserInfos(allUsers, true);
             } else {
-                userInfos.add(appInRoomResponse.getNickName());
-                getUserInfos(userInfos, false);
+                boolean is = false;
+                if (userInfos.size() == 1) {
+                    is = true;
+                }
+                userInfos.add(appInRoomResponse.getUserId());
+                getUserInfos(userInfos, is);
             }
         }
     }
@@ -1008,23 +1008,30 @@ public class CtrlActivity extends Activity implements IctrlView {
         });
     }
 
-    public void getCtrlUserImage(String name) {
-        HttpManager.getInstance().getCtrlUserImage(name, new RequestSubscriber<Result<AppUserBean>>() {
+    public void getCtrlUserImage(String userId) {
+        HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
-            public void _onSuccess(Result<AppUserBean> appUserBeanResult) {
-                if (appUserBeanResult != null) {
-                    AppUserBean bean = appUserBeanResult.getData();
-                    if (bean != null) {
-                        String showImage = UrlUtils.USERFACEIMAGEURL + bean.getAppUser().getIMAGE_URL();
-                        Glide.with(getApplicationContext()).load(showImage)
+            public void _onSuccess(Result<HttpDataInfo> httpDataInfoResult) {
+                if (httpDataInfoResult.getCode().equals("0")) {
+                    UserBean bean = httpDataInfoResult.getData().getAppUser();
+                     if ((bean != null) && (!Utils.isEmpty(bean.getIMAGE_URL()))) {
+                         String showImage = UrlUtils.USERFACEIMAGEURL + bean.getIMAGE_URL();
+                         Glide.with(getApplicationContext()).load(showImage)
                                 .asBitmap().transform(new GlideCircleTransform(CtrlActivity.this)).into(playerSecondIv);
-                    }
+                     } else {
+                         Glide.with(getApplicationContext()).load(R.drawable.ctrl_default_user_bg)
+                                 .asBitmap().transform(new GlideCircleTransform(CtrlActivity.this)).into(playerSecondIv);
+                     }
+                } else {
+                    Glide.with(getApplicationContext()).load(R.drawable.ctrl_default_user_bg)
+                            .asBitmap().transform(new GlideCircleTransform(CtrlActivity.this)).into(playerSecondIv);
                 }
             }
 
             @Override
             public void _onError(Throwable e) {
-
+                Glide.with(getApplicationContext()).load(R.drawable.ctrl_default_user_bg)
+                        .asBitmap().transform(new GlideCircleTransform(CtrlActivity.this)).into(playerSecondIv);
             }
         });
     }

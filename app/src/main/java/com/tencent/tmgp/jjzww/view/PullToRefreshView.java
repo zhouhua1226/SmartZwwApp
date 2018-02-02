@@ -464,7 +464,7 @@ public class PullToRefreshView extends LinearLayout {
 		int newTopMargin = changingHeaderViewTopMargin(deltaY);
 		// 当header view的topMargin>=0时，说明已经完全显示出来了,修改header view 的提示状态
 		if (newTopMargin >= 0 && mHeaderState != RELEASE_TO_REFRESH) {
-			mHeaderTextView.setText(R.string.pull_to_refresh_release_label);
+			mHeaderTextView.setText("松开后刷新");
 			mHeaderUpdateTextView.setVisibility(View.VISIBLE);
 			mHeaderImageView.clearAnimation();
 			mHeaderImageView.startAnimation(mFlipAnimation);
@@ -473,7 +473,7 @@ public class PullToRefreshView extends LinearLayout {
 			mHeaderImageView.clearAnimation();
 			mHeaderImageView.startAnimation(mFlipAnimation);
 			// mHeaderImageView.
-			mHeaderTextView.setText(R.string.pull_to_refresh_pull_label);
+			mHeaderTextView.setText("下拉刷新");
 			mHeaderState = PULL_TO_REFRESH;
 		}
 	}
@@ -492,14 +492,14 @@ public class PullToRefreshView extends LinearLayout {
 		if (Math.abs(newTopMargin) >= (mHeaderViewHeight + mFooterViewHeight)
 				&& mFooterState != RELEASE_TO_REFRESH) {
 			mFooterTextView
-					.setText(R.string.pull_to_refresh_footer_release_label);
+					.setText("松开后加载");
 			mFooterImageView.clearAnimation();
 			mFooterImageView.startAnimation(mFlipAnimation);
 			mFooterState = RELEASE_TO_REFRESH;
 		} else if (Math.abs(newTopMargin) < (mHeaderViewHeight + mFooterViewHeight)) {
 			mFooterImageView.clearAnimation();
 			mFooterImageView.startAnimation(mFlipAnimation);
-			mFooterTextView.setText(R.string.pull_to_refresh_footer_pull_label);
+			mFooterTextView.setText("上拉加载更多");
 			mFooterState = PULL_TO_REFRESH;
 		}
 	}
@@ -541,7 +541,7 @@ public class PullToRefreshView extends LinearLayout {
 		mHeaderImageView.clearAnimation();
 		mHeaderImageView.setImageDrawable(null);
 		mHeaderProgressBar.setVisibility(View.VISIBLE);
-		mHeaderTextView.setText(R.string.pull_to_refresh_refreshing_label);
+		mHeaderTextView.setText("松开后加载");
 		if (mOnHeaderRefreshListener != null) {
 			mOnHeaderRefreshListener.onHeaderRefresh(this);
 		}
@@ -561,7 +561,7 @@ public class PullToRefreshView extends LinearLayout {
 		mFooterImageView.setImageDrawable(null);
 		mFooterProgressBar.setVisibility(View.VISIBLE);
 		mFooterTextView
-				.setText(R.string.pull_to_refresh_footer_refreshing_label);
+				.setText("加载中…");
 		if (mOnFooterRefreshListener != null) {
 			mOnFooterRefreshListener.onFooterRefresh(this);
 		}
@@ -591,7 +591,7 @@ public class PullToRefreshView extends LinearLayout {
 		setHeaderTopMargin(-mHeaderViewHeight);
 		mHeaderImageView.setVisibility(View.VISIBLE);
 		mHeaderImageView.setImageResource(R.drawable.ic_pulltorefresh_arrow);
-		mHeaderTextView.setText(R.string.pull_to_refresh_pull_label);
+		mHeaderTextView.setText("下拉刷新");
 		mHeaderProgressBar.setVisibility(View.GONE);
 		SimpleDateFormat sdf=new SimpleDateFormat("MM-dd HH:mm:ss");
 		preRefreshTime=sdf.format(new Date());
@@ -619,7 +619,7 @@ public class PullToRefreshView extends LinearLayout {
 		setHeaderTopMargin(-mHeaderViewHeight);
 		mFooterImageView.setVisibility(View.VISIBLE);
 		mFooterImageView.setImageResource(R.drawable.ic_pulltorefresh_arrow_up);
-		mFooterTextView.setText(R.string.pull_to_refresh_footer_pull_label);
+		mFooterTextView.setText("上拉加载更多");
 		mFooterProgressBar.setVisibility(View.GONE);
 		// mHeaderUpdateTextView.setText("");
 		mFooterState = PULL_TO_REFRESH;

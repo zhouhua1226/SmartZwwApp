@@ -7,4 +7,6 @@
     <dimen name="crtl_bottom_height">110dp</dimen>
     <dimen name="update_btn_widght">100dp</dimen>
     <dimen name="update_btn_height">100dp</dimen>
+
+    <dimen name="PX_10">10px</dimen>
 </resources>

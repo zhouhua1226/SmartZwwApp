@@ -48,11 +48,11 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
                 .error(R.drawable.loading)
                 .into(holder.imageView);
         holder.itemView.setEnabled(true);
-        if (bean.getDollState().equals("11")) {
+        if (bean.getDollState().equals("10")) {
             holder.connectIv.setImageResource(R.drawable.ctrl_work_icon);
             holder.connectTv.setBackgroundResource(R.drawable.room_statue_free_bg);
             holder.connectTv.setText("空闲中");
-        } else if (bean.getDollState().equals("10")) {
+        } else if (bean.getDollState().equals("11")) {
             holder.connectIv.setImageResource(R.drawable.ctrl_idling_icon);
             holder.connectTv.setBackgroundResource(R.drawable.room_statue_busy_bg);
             holder.connectTv.setText("游戏中");

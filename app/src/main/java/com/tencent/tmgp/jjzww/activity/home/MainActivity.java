@@ -358,7 +358,7 @@ public class MainActivity extends BaseActivity {
         } else if (state.equals(Utils.TAG_SESSION_INVALID)) {
             Utils.showLogE(TAG, "TAG_SESSION_INVALID");
             //TODO 重连后重新连接 QQ/WEIXIN 模式检测
-            getYSDKAuthLogin(UserUtils.USER_ID, YsdkUtils.access_token);
+            getYSDKAuthLogin(UserUtils.USER_ID, YsdkUtils.access_token, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL);
         } else if (state.equals(Utils.TAG_GATEWAT_USING)) {
             Utils.showLogE(TAG, "TAG_GATEWAT_USING");
         }
@@ -441,8 +441,8 @@ public class MainActivity extends BaseActivity {
     /** ####################### 网络请求区 #########################  **/
 
     //自动登录
-    private void getYSDKAuthLogin(String userId, String accessToken){
-        HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<HttpDataInfo>>() {
+    private void getYSDKAuthLogin(String userId, String accessToken,String ctype,String channel){
+        HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken,ctype,channel, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
             public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG, "断开重连 重新获取相关参数" + loginInfoResult.getMsg());

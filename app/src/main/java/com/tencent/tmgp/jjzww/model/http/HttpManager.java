@@ -257,7 +257,7 @@ public class HttpManager {
     }
 
     //WXQQ登录
-    public void getYSDKLogin(String uid,String accessToken,String nickName,String imageUrl,Subscriber<Result<HttpDataInfo>> subscriber){
+    public void getYSDKLogin(String uid,String accessToken,String nickName,String imageUrl,String ctype,String channel,Subscriber<Result<HttpDataInfo>> subscriber){
         Observable<Result<HttpDataInfo>> o =smartService.getYSDKLogin(uid,accessToken,nickName,imageUrl);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
@@ -275,7 +275,7 @@ public class HttpManager {
     }
 
     //YSDK自动登录接口
-    public void getYSDKAuthLogin(String userId,String accessToken,Subscriber<Result<HttpDataInfo>> subscriber){
+    public void getYSDKAuthLogin(String userId,String accessToken,String ctype,String channel,Subscriber<Result<HttpDataInfo>> subscriber){
         Observable<Result<HttpDataInfo>> o =smartService.getYSDKAuthLogin(userId,accessToken);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())

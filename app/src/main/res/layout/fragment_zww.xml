@@ -59,7 +59,7 @@
                     android:layout_height="160dp">
                 </com.youth.banner.Banner>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="37dp"
                     android:layout_marginBottom="3dp"
@@ -71,10 +71,20 @@
                         android:id="@+id/marqueeview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:paddingEnd="50dp"
                         app:mvAnimDuration="500"
                         app:mvInterval="2000"
-                        app:mvTextSize="14sp" />
-                </LinearLayout>
+                        app:mvTextSize="13sp" />
+
+                    <ImageButton
+                        android:id="@+id/zww_guess_btn"
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:background="@drawable/zww_guess_imag"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="8dp"
+                        />
+                </RelativeLayout>
             </LinearLayout>
 
             <ImageView

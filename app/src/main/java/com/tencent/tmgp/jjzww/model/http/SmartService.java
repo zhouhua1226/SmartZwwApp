@@ -249,6 +249,8 @@ public interface SmartService {
             @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken,
             @Field(UrlUtils.WXQQ_NICKNAME) String nickName,
             @Field(UrlUtils.WXQQ_IMAGEURL) String imageUrl
+//            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+//            @Field(UrlUtils.WXQQ_CHANNEL) String channel
     );
 
     //YSDK支付接口
@@ -268,6 +270,8 @@ public interface SmartService {
     Observable<Result<HttpDataInfo>>getYSDKAuthLogin(
             @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken
+//            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+//            @Field(UrlUtils.WXQQ_CHANNEL) String channel
     );
 
     //获取充值卡列表

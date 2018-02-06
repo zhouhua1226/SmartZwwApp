@@ -49,21 +49,11 @@ public class BetRecordAdapter extends RecyclerView.Adapter<BetRecordAdapter.MyVi
             BetRecordBean.DataListBean bean=mDatas.get(position);
                 holder.amount_tv.setText(String.valueOf(bean.getSETTLEMENT_GOLD()));
                 String s=bean.getGUESS_ID();
-                holder.periodsNum_tv.setText(s.substring(5,12));
-
+                //holder.periodsNum_tv.setText(s.substring(5,12));
+                holder.periodsNum_tv.setText(s);
                 //1 抓中   0没抓中   -流局判断标识，有-表示流局，无-标识不是流局
-                if (bean.getGUESS_TYPE().contains("1")){
-                    holder.results_tv.setText("抓中");
-                }else if (bean.getGUESS_TYPE().contains("0")){
-                    holder.results_tv.setText("没抓中");
-                }
-
-                if (bean.getGUESS_KEY().equals("1")){
-                holder.bettingResults_tv.setText("中");
-
-                }else {
-                    holder.bettingResults_tv.setText("不中");
-                }
+                holder.results_tv.setText(bean.getGUESS_TYPE());
+                holder.bettingResults_tv.setText(bean.getGUESS_KEY());
 
                 if (bean.getGUESS_KEY().equals(bean.getGUESS_TYPE())){
                     holder.bettingResults_tv1.setText("/对");
@@ -78,6 +68,9 @@ public class BetRecordAdapter extends RecyclerView.Adapter<BetRecordAdapter.MyVi
                     holder.bettingResults_tv.setTextColor(mContext.getResources().getColor(R.color.betrecordcolor));
                     holder.bettingResults_tv1.setTextColor(mContext.getResources().getColor(R.color.betrecordcolor));
                 }
+
+
+
             }
 
     @Override
@@ -87,7 +80,7 @@ public class BetRecordAdapter extends RecyclerView.Adapter<BetRecordAdapter.MyVi
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView periodsNum_tv,results_tv,bettingResults_tv,bettingResults_tv1,amount_tv;
+        TextView periodsNum_tv,results_tv,bettingResults_tv,bettingResults_tv1,amount_tv,guessnum_tv;
 
         public MyViewHolder(View view){
             super(view);
@@ -96,6 +89,7 @@ public class BetRecordAdapter extends RecyclerView.Adapter<BetRecordAdapter.MyVi
             bettingResults_tv= (TextView) view.findViewById(R.id.bettingResults_tv);//投注结果
             amount_tv= (TextView) view.findViewById(R.id.amount_tv);//我的奖金
             bettingResults_tv1= (TextView) view.findViewById(R.id.bettingResults_tv1);
+            guessnum_tv= (TextView) view.findViewById(R.id.guessnum_tv);
         }
 
     }

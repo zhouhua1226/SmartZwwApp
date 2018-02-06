@@ -9,9 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 
 import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
@@ -56,7 +54,7 @@ import butterknife.Unbinder;
 /**
  * Created by hongxiu on 2017/9/25.
  */
-public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHeaderRefreshListener,PullToRefreshView.OnFooterRefreshListener{
+public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterRefreshListener {
     private static final String TAG = "ZWWJFragment";
     @BindView(R.id.zww_recyclerview)
     RecyclerView zwwRecyclerview;
@@ -71,6 +69,9 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     Unbinder unbinder;
     @BindView(R.id.mPullToRefreshView)
     PullToRefreshView mPullToRefreshView;
+    @BindView(R.id.zww_guess_btn)
+    ImageButton zwwGuessBtn;
+    Unbinder unbinder1;
 
 
     private List<RoomBean> currentRoomBeens = new ArrayList<>();
@@ -131,7 +132,11 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         zwwAdapter = new ZWWAdapter(getActivity(), currentRoomBeens);
         zwwAdapter.setmOnItemClickListener(onItemClickListener);
         zwwRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.PX_10)));
+        if(Utils.getWidthSize(getContext())<720){
+            zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(6));
+        }else {
+            zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.PX_10)));
+        }
         zwwRecyclerview.setHasFixedSize(true);
         zwwRecyclerview.setNestedScrollingEnabled(false);
         zwwRecyclerview.setAdapter(zwwAdapter);
@@ -146,6 +151,12 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     private void onClick() {
         mPullToRefreshView.setOnHeaderRefreshListener(this);
         mPullToRefreshView.setOnFooterRefreshListener(this);
+        zwwGuessBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpRoom(0);
+            }
+        });
     }
 
     public void notifyAdapter(List<RoomBean> rooms, int page) {
@@ -172,45 +183,11 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
             new ZWWAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-                    if ((currentRoomBeens.size() > 0) && (!Utils.isEmpty(sessionId))) {
-                        String room_id = currentRoomBeens.get(position).getDollId();
-                        boolean room_status = false;
-                        UserUtils.setNettyInfo(sessionId, UserUtils.USER_ID, room_id, false);
-                        if (currentRoomBeens.get(position).getDollState().equals("0")) {
-                            room_status = true;
-                        } else if (currentRoomBeens.get(position).getDollState().equals("1")) {
-                            room_status = false;
-                        }
-                        String rtmpUrl1 = currentRoomBeens.get(position).getCameras().get(0).getRtmpUrl();
-                        String rtmpUrl2 = currentRoomBeens.get(position).getCameras().get(1).getRtmpUrl();
-                        String serviceName1 = currentRoomBeens.get(position).getCameras().get(0).getServerName();
-                        String serviceName2 = currentRoomBeens.get(position).getCameras().get(1).getServerName();
-                        String liveStream1 = currentRoomBeens.get(position).getCameras().get(0).getLivestream();
-                        String liveStream2 = currentRoomBeens.get(position).getCameras().get(1).getLivestream();
-                        String idToken = "?token=" + UserUtils.SRSToken.getToken()
-                                + "&expire=" + UserUtils.SRSToken.getExpire()
-                                + "&tid=" + UserUtils.SRSToken.getTid()
-                                + "&time=" + UserUtils.SRSToken.getTime()
-                                + "&type=" + UserUtils.SRSToken.getType()
-                                + "/";
-                        String url1 = rtmpUrl1 + serviceName1 + idToken + liveStream1;
-                        String url2 = rtmpUrl2 + serviceName2 + idToken + liveStream2;
-                        Utils.showLogE(TAG, "房间推流地址1=" + url1);
-                        Utils.showLogE(TAG, "房间推流地址2=" + url2);
-                        if (!TextUtils.isEmpty(url2) && !TextUtils.isEmpty(url1)) {
-                            enterNext(currentRoomBeens.get(position).getDollName(),
-                                    url1, url2,
-                                    room_status,
-                                    String.valueOf(currentRoomBeens.get(position).getDollGold()),
-                                    currentRoomBeens.get(position).getDollId());
-                        } else {
-                            Utils.showLogE(TAG, "当前设备没有配置摄像头!");
-                        }
-                    }
+                    jumpRoom(position);
                 }
             };
 
-    private void enterNext(String name, String camera1, String camera2, boolean status, String gold, String id) {
+    private void enterNext(String name, String camera1, String camera2, boolean status, String gold, String id, String prob, String reward) {
         Intent intent = new Intent(getActivity(), CtrlActivity.class);
         intent.putExtra(Utils.TAG_ROOM_NAME, name);
         intent.putExtra(Utils.TAG_URL_MASTER, camera1);
@@ -218,7 +195,53 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         intent.putExtra(Utils.TAG_ROOM_STATUS, status);
         intent.putExtra(Utils.TAG_DOLL_GOLD, gold);
         intent.putExtra(Utils.TAG_DOLL_Id, id);
+        intent.putExtra(Utils.TAG_ROOM_PROB, prob);
+        intent.putExtra(Utils.TAG_ROOM_REWARD, reward);
         startActivity(intent);
+    }
+
+    /**
+     * 房间跳转方法
+     * @param po
+     */
+    private void jumpRoom(int po){
+        if ((currentRoomBeens.size() > 0) && (!Utils.isEmpty(sessionId))) {
+            String room_id = currentRoomBeens.get(po).getDollId();
+            boolean room_status = false;
+            UserUtils.setNettyInfo(sessionId, UserUtils.USER_ID, room_id, false);
+            if (currentRoomBeens.get(po).getDollState().equals("0")) {
+                room_status = true;
+            } else if (currentRoomBeens.get(po).getDollState().equals("1")) {
+                room_status = false;
+            }
+            String rtmpUrl1 = currentRoomBeens.get(po).getCameras().get(0).getRtmpUrl();
+            String rtmpUrl2 = currentRoomBeens.get(po).getCameras().get(1).getRtmpUrl();
+            String serviceName1 = currentRoomBeens.get(po).getCameras().get(0).getServerName();
+            String serviceName2 = currentRoomBeens.get(po).getCameras().get(1).getServerName();
+            String liveStream1 = currentRoomBeens.get(po).getCameras().get(0).getLivestream();
+            String liveStream2 = currentRoomBeens.get(po).getCameras().get(1).getLivestream();
+            String idToken = "?token=" + UserUtils.SRSToken.getToken()
+                    + "&expire=" + UserUtils.SRSToken.getExpire()
+                    + "&tid=" + UserUtils.SRSToken.getTid()
+                    + "&time=" + UserUtils.SRSToken.getTime()
+                    + "&type=" + UserUtils.SRSToken.getType()
+                    + "/";
+            String url1 = rtmpUrl1 + serviceName1 + idToken + liveStream1;
+            String url2 = rtmpUrl2 + serviceName2 + idToken + liveStream2;
+            Utils.showLogE(TAG, "房间推流地址1=" + url1);
+            Utils.showLogE(TAG, "房间推流地址2=" + url2);
+            if (!TextUtils.isEmpty(url2) && !TextUtils.isEmpty(url1)) {
+                enterNext(currentRoomBeens.get(po).getDollName(),
+                        url1, url2,
+                        room_status,
+                        String.valueOf(currentRoomBeens.get(po).getDollGold()),
+                        currentRoomBeens.get(po).getDollId(),
+                        currentRoomBeens.get(po).getProb(),
+                        currentRoomBeens.get(po).getReward());
+            } else {
+                Utils.showLogE(TAG, "当前设备没有配置摄像头!");
+            }
+        }
     }
 
     @Override
@@ -298,7 +321,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         if (beens.size() == 0) {
             return beens;
         }
-        for(int i = 0; i < beens.size(); i ++) {
+        for (int i = 0; i < beens.size(); i++) {
             RoomBean bean = beens.get(i);
             bean = UserUtils.dealWithRoomStatus(bean, bean.getDollState());
             beens.set(i, bean);
@@ -320,9 +343,9 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
                                 typeTabLayout.addTab(typeTabLayout.newTab().
                                         setText(toyTypeBeanList.get(i).getTOY_TYPE()), i + 1);
                             }
-                            if(toyTypeBeanList.size()>5){
+                            if (toyTypeBeanList.size() > 5) {
                                 typeTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-                            }else {
+                            } else {
                                 typeTabLayout.setTabMode(TabLayout.MODE_FIXED);
                             }
 
@@ -359,9 +382,9 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
                         });
                         zwwAdapter.notify(currentRoomBeens);
                         currentSumPage = loginInfoResult.getData().getPd().getTotalPage();
-                        if(currentRoomBeens.size()>2){
+                        if (currentRoomBeens.size() > 2) {
                             mPullToRefreshView.setIsFooterView(true);
-                        }else {
+                        } else {
                             mPullToRefreshView.setIsFooterView(false);
                         }
                     }
@@ -380,7 +403,6 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             int pos = tab.getPosition();
-            MyToast.getToast(getContext(),"您点击了"+pos).show();
             currentPage = 1;
             if (pos == 0) {
                 currentType = "";
@@ -409,7 +431,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
             @Override
             public void run() {
                 if (Utils.isNetworkAvailable(getContext())) {
-                    currentPage ++;
+                    currentPage++;
                     if (currentPage > currentSumPage) {
                         //TODO 无更多了
                         MyToast.getToast(getContext(), "没有更多啦！").show();
@@ -441,4 +463,17 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder1.unbind();
+    }
 }

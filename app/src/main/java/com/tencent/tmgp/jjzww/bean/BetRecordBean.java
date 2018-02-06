@@ -42,6 +42,15 @@ public class BetRecordBean implements Serializable{
         private String APP_USER_ID;
         private String GUESS_ID;
         private String GUESS_TYPE;
+        private String GUSESS_Y_PEOPLE;
+
+        public String getGUSESS_Y_PEOPLE() {
+            return GUSESS_Y_PEOPLE;
+        }
+
+        public void setGUSESS_Y_PEOPLE(String GUSESS_Y_PEOPLE) {
+            this.GUSESS_Y_PEOPLE = GUSESS_Y_PEOPLE;
+        }
 
         public String getSETTLEMENT_FLAG() {
             return SETTLEMENT_FLAG;

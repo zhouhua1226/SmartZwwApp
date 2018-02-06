@@ -23,6 +23,7 @@ import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.model.http.HttpManager;
 import com.tencent.tmgp.jjzww.model.http.RequestSubscriber;
 import com.tencent.tmgp.jjzww.utils.SPUtils;
+import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.utils.YsdkUtils;
@@ -194,7 +195,7 @@ public class LoginActivity extends BaseActivity {
                 YsdkUtils.imageUrl = obj.optString("image_url").replace("\"", "");//用户头像(只有微信或QQ登录，并且用户有头像时才会有效)
                 Log.e(TAG, "uid=" + YsdkUtils.uid + "<<<<access_token=" + YsdkUtils.access_token);
                 Log.e(TAG, "imageUrl=" + YsdkUtils.imageUrl);
-                getYSDKLogin(YsdkUtils.uid, YsdkUtils.access_token, YsdkUtils.nickName, YsdkUtils.imageUrl);
+                getYSDKLogin(YsdkUtils.uid, YsdkUtils.access_token, YsdkUtils.nickName, YsdkUtils.imageUrl, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL);
             } else if (code == LoginCallback.FAIL) {
                 //登录失败
                 loginLoadingGv.setVisibility(View.GONE);
@@ -208,12 +209,13 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    private void getYSDKLogin(String uid, String accessToken, String nickName, String imageUrl) {
-        HttpManager.getInstance().getYSDKLogin(uid, accessToken, nickName, imageUrl, new RequestSubscriber<Result<HttpDataInfo>>() {
+    private void getYSDKLogin(String uid, String accessToken, String nickName, String imageUrl,String ctype,String channel) {
+        HttpManager.getInstance().getYSDKLogin(uid, accessToken, nickName, imageUrl,ctype,channel, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
             public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 if(loginInfoResult==null||loginInfoResult.getData()==null
                         ||loginInfoResult.getData().getAppUser()==null){
+                    loginLoadingGv.setVisibility(View.GONE);
                     MyToast.getToast(getApplicationContext(), "登录失败！").show();
                     return;
                 }
@@ -241,18 +243,20 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void _onError(Throwable e) {
-                MyToast.getToast(getApplicationContext(), "网络请求异常!").show();
+                loginLoadingGv.setVisibility(View.GONE);
+                MyToast.getToast(getApplicationContext(), "网络异常!").show();
             }
         });
     }
 
-    private void getYSDKAuthLogin(String userId, String accessToken) {
-        HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken, new RequestSubscriber<Result<HttpDataInfo>>() {
+    private void getYSDKAuthLogin(String userId, String accessToken,String ctype,String channel) {
+        HttpManager.getInstance().getYSDKAuthLogin(userId, accessToken,ctype,channel, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
             public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 if (loginInfoResult == null || loginInfoResult.getData() == null
                         || loginInfoResult.getData().getAppUser() == null) {
-                    MyToast.getToast(getApplicationContext(), "登录失败！").show();
+                    loginLoadingGv.setVisibility(View.GONE);
+                    MyToast.getToast(getApplicationContext(), "自动登录失败！").show();
                     return;
                 }
                 if (loginInfoResult.getMsg().equals("success")) {
@@ -263,12 +267,16 @@ public class LoginActivity extends BaseActivity {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
+                }else {
+                    loginLoadingGv.setVisibility(View.GONE);
+                    MyToast.getToast(getApplicationContext(), "自动登录失败!").show();
                 }
             }
 
             @Override
             public void _onError(Throwable e) {
-
+                loginLoadingGv.setVisibility(View.GONE);
+                MyToast.getToast(getApplicationContext(), "网络异常!").show();
             }
         });
     }
@@ -278,7 +286,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onSuccess(String accessToken) {
                 YsdkUtils.access_token = accessToken;
-                getYSDKAuthLogin(uid, accessToken);  //自动登录
+                getYSDKAuthLogin(uid, accessToken, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL);  //自动登录
             }
 
             @Override

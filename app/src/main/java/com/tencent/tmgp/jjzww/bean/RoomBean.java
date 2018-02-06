@@ -22,7 +22,24 @@ public class RoomBean implements Serializable{
     private String dollState;
     private String dollUrl;
     private String roomId;
+    private String prob;
+    private String reward;
 
+    public String getProb() {
+        return prob;
+    }
+
+    public void setProb(String prob) {
+        this.prob = prob;
+    }
+
+    public String getReward() {
+        return reward;
+    }
+
+    public void setReward(String reward) {
+        this.reward = reward;
+    }
 
     public List<CamerasBean> getCameras() {
         return cameras;

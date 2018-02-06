@@ -86,18 +86,21 @@ public class BetRecordActivity extends BaseActivity {
                             for (int i = 0; i < list.size(); i++) {
                                 if (list.get(i).getSETTLEMENT_FLAG().equals("Y")) {
                                     mylist.add(list.get(i));
-                                    if (mylist.size() > 0) {
-                                        betRecordAdapter.notify(mylist);
-                                    } else {
-                                        betrecodeRecyclerview.setVisibility(View.GONE);
-                                        betcecordFailTv.setVisibility(View.VISIBLE);
-                                    }
                                 }
+                            }
+                            if (mylist.size() > 0) {
+                                betRecordAdapter.notify(mylist);
+                            } else {
+                                betrecodeRecyclerview.setVisibility(View.GONE);
+                                betcecordFailTv.setVisibility(View.VISIBLE);
                             }
                         }else {
                             betrecodeRecyclerview.setVisibility(View.GONE);
                             betcecordFailTv.setVisibility(View.VISIBLE);
                         }
+                    }else {
+                        betrecodeRecyclerview.setVisibility(View.GONE);
+                        betcecordFailTv.setVisibility(View.VISIBLE);
                     }
                 }
 

@@ -454,7 +454,22 @@
         android:layout_alignParentBottom="true"
         >
 
+        <TextView
+            android:id="@+id/ctrl_betremark_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            tools:text="预计奖金100金币"
+            android:textColor="@color/apptheme_bg"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+
+            />
+
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ctrl_betting_number_layout"
             android:layout_width="89dp"
             android:layout_height="40dp"
@@ -506,7 +521,9 @@
             android:background="#00000000"
             android:text="中"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone"
+            />
 
 
         <ImageButton
@@ -520,7 +537,9 @@
             android:background="#00000000"
             android:text="不中"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone"
+            />
 
 
         <!--开始按钮-->
@@ -551,7 +570,145 @@
             android:background="@drawable/ctrl_guess_cancle_btn"
             />
 
+        <LinearLayout
+            android:id="@+id/ctrl_betsecondnum_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/ctrl_betfirstnum_layout"
+            >
+            <TextView
+                android:id="@+id/ctrl_betnum_five_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:background="@drawable/ctrl_betnum_unselect"
+                android:layout_marginRight="3dp"
+                />
+            <TextView
+                android:id="@+id/ctrl_betnum_six_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:background="@drawable/ctrl_betnum_unselect"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                />
+            <TextView
+                android:id="@+id/ctrl_betnum_seven_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:background="@drawable/ctrl_betnum_unselect"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                />
+            <TextView
+                android:id="@+id/ctrl_betnum_eight_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:background="@drawable/ctrl_betnum_unselect"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                />
+            <TextView
+                android:id="@+id/ctrl_betnum_nine_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:background="@drawable/ctrl_betnum_unselect"
+                android:layout_marginLeft="3dp"
 
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ctrl_betfirstnum_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_below="@+id/ctrl_betremark_tv"
+            >
+            <TextView
+                android:id="@+id/ctrl_betnum_zero_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:background="@drawable/ctrl_betnum_unselect"
+                android:layout_marginRight="3dp"
+                />
+            <TextView
+                android:id="@+id/ctrl_betnum_one_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:background="@drawable/ctrl_betnum_unselect"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                />
+            <TextView
+                android:id="@+id/ctrl_betnum_two_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:background="@drawable/ctrl_betnum_unselect"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                />
+            <TextView
+                android:id="@+id/ctrl_betnum_three_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:background="@drawable/ctrl_betnum_unselect"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                />
+            <TextView
+                android:id="@+id/ctrl_betnum_four_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:background="@drawable/ctrl_betnum_unselect"
+                android:layout_marginLeft="3dp"
+
+                />
+        </LinearLayout>
 
     </RelativeLayout>
 

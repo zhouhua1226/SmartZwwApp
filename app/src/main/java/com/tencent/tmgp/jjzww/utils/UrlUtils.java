@@ -49,6 +49,10 @@ public class UrlUtils {
     public static final String WXQQ_ACCESSTOKEN="accessToken";
     public static final String WXQQ_NICKNAME="nickName";
     public static final String WXQQ_IMAGEURL="imageUrl";
+    public static final String WXQQ_CTYPE="ctype";
+    public static final String WXQQ_CHANNEL="channel";
+    public static final String LOGIN_CTYPE="YSDK";
+    public static final String LOGIN_CHANNEL="ANDROID";
     //ysdk支付金额字段
     public static final String WXQQ_AMOUNT="amount";
     //签到接口

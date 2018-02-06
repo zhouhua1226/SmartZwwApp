@@ -31,6 +31,7 @@ public class UserUtils {
     public static String UserAddress="";
     public static String USER_ID="";
     public static String DOLL_ID="";
+    public static int UserBetNum;
     public static int id;
     public static SRStoken SRSToken;
     public static boolean isUserChanger = false;  //是否切换
@@ -98,9 +99,9 @@ public class UserUtils {
             String statu1 = bean.getCameras().get(0).getDeviceState();  //第一个摄像头状态 0可以  1不可以
             String statu2 = bean.getCameras().get(1).getDeviceState();  //第二个摄像头状态 0可以  1不可以
             if (stats.equals(Utils.FREE) && statu1.equals("0") && statu2.equals("0")) {
-                bean.setDollState("11");
-            } else if (stats.equals(Utils.BUSY) && statu1.equals("0") && statu2.equals("0")) {
                 bean.setDollState("10");
+            } else if (stats.equals(Utils.BUSY) && statu1.equals("0") && statu2.equals("0")) {
+                bean.setDollState("11");
             } else {
                 bean.setDollState("0");  //摄像头状态错误
             }

@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="70dp"
-    android:weightSum="4"
     >
 
     <TextView
         android:id="@+id/periodsNum_tv"
         android:gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="7"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:textColor="@color/black"
@@ -19,23 +18,27 @@
     <TextView
         android:id="@+id/results_tv"
         android:gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="4"
         android:layout_width="0dp"
         android:textColor="@color/black"
         android:layout_height="match_parent"
-        android:text="抓中"/>
+        tools:text="抓中"
+        android:visibility="visible"
+        />
 
     <RelativeLayout
-        android:layout_weight="1"
+        android:layout_weight="5"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="visible"
+        >
         <TextView
             android:id="@+id/bettingResults_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#e73640"
-            android:text="不中"/>
+            tools:text="不中"/>
 
         <TextView
             android:layout_toRightOf="@+id/bettingResults_tv"
@@ -43,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#e73640"
-            android:text="/对"/>
+            tools:text="/对"/>
 
 
     </RelativeLayout>
@@ -51,13 +54,22 @@
     <TextView
         android:id="@+id/amount_tv"
         android:gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="4"
         android:layout_width="0dp"
         android:textColor="#ff7f25"
         android:layout_height="match_parent"
         android:text="87"/>
 
-
+    <TextView
+        android:id="@+id/guessnum_tv"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:textColor="@color/black"
+        android:layout_height="match_parent"
+        android:text="87"
+        android:visibility="gone"
+        />
 
 
 </LinearLayout>

@@ -32,6 +32,15 @@ public class UserBean implements Serializable {
     private String CNEE_ADDRESS;
     private String GUESSID;
     private String RANK;
+    private int BET_NUM;
+
+    public int getBET_NUM() {
+        return BET_NUM;
+    }
+
+    public void setBET_NUM(int BET_NUM) {
+        this.BET_NUM = BET_NUM;
+    }
 
     public String getRANK() {
         return RANK;

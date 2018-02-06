@@ -4,13 +4,17 @@
  */
 package com.tencent.tmgp.jjzww.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import com.gatz.netty.global.ConnectResultEvent;
 import com.tencent.tmgp.jjzww.R;
@@ -64,6 +68,8 @@ public class Utils {
     public static final String TAG_DOLL_Id="doll_id";
     public static final String TAG_URL_MASTER = "url_master";
     public static final String TAG_URL_SECOND = "url_second";
+    public static final String TAG_ROOM_PROB="room_prob";   //房间概率
+    public static final String TAG_ROOM_REWARD="room_reward";  //房间竞猜预计奖金
 
     public static final int PROVINCE_TYPE = 2;
     public static final int CITY_TYPE = 3;
@@ -234,6 +240,40 @@ public class Utils {
         }
         return version;
     }
+
+    /**
+     * 获取当前手机系统版本号
+     * @return  系统版本号
+     */
+    public static String getSystemVersion() {
+        return android.os.Build.VERSION.RELEASE;
+    }
+
+    /**
+     * 获取手机型号
+     * @return  手机型号
+     */
+    public static String getSystemModel() {
+        return android.os.Build.MODEL;
+    }
+
+    /**
+     * 获取手机厂商
+     * @return  手机厂商
+     */
+    public static String getDeviceBrand() {
+        return android.os.Build.BRAND;
+    }
+
+    public static int getWidthSize(Context ctx) {
+        WindowManager wm = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        int x = dm.widthPixels;
+        int y = dm.heightPixels;
+        return x;
+    }
+
 
     /**
      * 收发货信息拆分

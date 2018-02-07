@@ -541,7 +541,7 @@ public class PullToRefreshView extends LinearLayout {
 		mHeaderImageView.clearAnimation();
 		mHeaderImageView.setImageDrawable(null);
 		mHeaderProgressBar.setVisibility(View.VISIBLE);
-		mHeaderTextView.setText("松开后加载");
+		mHeaderTextView.setText("刷新中...");
 		if (mOnHeaderRefreshListener != null) {
 			mOnHeaderRefreshListener.onHeaderRefresh(this);
 		}

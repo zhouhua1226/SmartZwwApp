@@ -52,23 +52,24 @@ public class BetRecordAdapter extends RecyclerView.Adapter<BetRecordAdapter.MyVi
                 //holder.periodsNum_tv.setText(s.substring(5,12));
                 holder.periodsNum_tv.setText(s);
                 //1 抓中   0没抓中   -流局判断标识，有-表示流局，无-标识不是流局
-                holder.results_tv.setText(bean.getGUESS_TYPE());
+                holder.results_tv.setText(bean.getGUESS_TYPE().replace("-",""));
                 holder.bettingResults_tv.setText(bean.getGUESS_KEY());
 
-                if (bean.getGUESS_KEY().equals(bean.getGUESS_TYPE())){
+                if (bean.getGUESS_KEY().equals(bean.getGUESS_TYPE().replace("-",""))){
                     holder.bettingResults_tv1.setText("/对");
                     holder.bettingResults_tv.setTextColor(mContext.getResources().getColor(R.color.betrecordcolor1));
                     holder.bettingResults_tv1.setTextColor(mContext.getResources().getColor(R.color.betrecordcolor1));
-                }else if(bean.getGUESS_TYPE().contains("-")) {
-                    holder.bettingResults_tv1.setText("/流局");
-                    holder.bettingResults_tv.setTextColor(mContext.getResources().getColor(R.color.apptheme_bg));
-                    holder.bettingResults_tv1.setTextColor(mContext.getResources().getColor(R.color.apptheme_bg));
                 }else {
                     holder.bettingResults_tv1.setText("/错");
                     holder.bettingResults_tv.setTextColor(mContext.getResources().getColor(R.color.betrecordcolor));
                     holder.bettingResults_tv1.setTextColor(mContext.getResources().getColor(R.color.betrecordcolor));
                 }
 
+//        else if(bean.getGUESS_TYPE().contains("-")) {
+//            holder.bettingResults_tv1.setText("/流局");
+//            holder.bettingResults_tv.setTextColor(mContext.getResources().getColor(R.color.apptheme_bg));
+//            holder.bettingResults_tv1.setTextColor(mContext.getResources().getColor(R.color.apptheme_bg));
+//        }
 
 
             }

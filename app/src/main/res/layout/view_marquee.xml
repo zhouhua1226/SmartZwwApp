@@ -12,6 +12,7 @@
                     android:id="@+id/tvMarquee"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
+                    android:layout_marginRight="55dp"
                     android:paddingTop="1dp"
                     android:paddingBottom="1dp"
                     android:paddingRight="10dp"

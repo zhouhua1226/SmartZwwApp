@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,8 +110,12 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
                 playBackBeanList = listRankBeanResult.getData().getPlayback();
                 for (int i = 0; i < playBackBeanList.size(); i++) {
                     Marquee marquee = new Marquee();
-                    String s = "恭喜" + "<font color='#FF0000'>" + playBackBeanList.get(i).getNICKNAME() + "</font>"
-                            + "用户抓中一个" + playBackBeanList.get(i).getDOLL_NAME();
+                    String nickname=playBackBeanList.get(i).getNICKNAME();
+                    if(nickname.length()>10){
+                        nickname.substring(0,10);
+                    }
+                    String s = "恭喜" + "<font color='#FF0000'>" + nickname + "</font>"
+                            + "抓中一个" + playBackBeanList.get(i).getDOLL_NAME();
                     marquee.setTitle(s);
                     marquee.setImgUrl(UrlUtils.APPPICTERURL + playBackBeanList.get(i).getIMAGE_URL());
                     marquees.add(marquee);

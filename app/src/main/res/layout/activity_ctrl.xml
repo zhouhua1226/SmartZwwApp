@@ -147,10 +147,12 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:orientation="horizontal"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/ctrl_guessrecord_tv"
                     >
                     <FrameLayout
                         android:layout_width="wrap_content"
@@ -158,9 +160,9 @@
                         <TextView
                             android:id="@+id/player_name_tv"
                             android:layout_width="wrap_content"
-                            android:layout_height="25dp"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="我可"
+                            android:text="热抓中"
                             android:paddingLeft="25dp"
                             android:layout_marginRight="15dp"
                             android:gravity="left|center_vertical"
@@ -169,6 +171,7 @@
                             android:background="@drawable/ctr_ty_bg"
                             android:layout_marginLeft="40dp"
                             android:paddingRight="7dp"
+                            android:maxLength="5"
                             />
 
                         <ImageView

@@ -144,13 +144,17 @@
         android:layout_height="1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="#ededed" />
+        android:background="#ededed"
+        android:visibility="gone"
+        />
 
     <RelativeLayout
         android:id="@+id/invitation_rl"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -395,6 +399,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/setting_logout_btn_bg"
         android:text="退出登录"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="14sp" />
 

@@ -13,7 +13,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.gatz.netty.global.ConnectResultEvent;

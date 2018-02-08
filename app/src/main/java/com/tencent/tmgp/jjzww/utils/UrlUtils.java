@@ -60,7 +60,12 @@ public class UrlUtils {
     //分类
     public static final String NEXTPAGE = "nextPage";
     public static final String CURRENTTYPE = "currentType";
-
+    //邀请码
+    public static final String USERAWARDCODE = "awardCode";
+    public static final String DEVICETYPE="deviceType";   //手机机型
+    public static final String OSVERSION="osVersion";     //系统版本
+    public static final String APPVERSION="appVersion";   //app版本
+    public static final String SFID="sfId";                //设备标识
 
     public static final String URL = "http://115.159.58.231:18081";
     //http://115.159.58.231:18081(壕鑫腾讯云)   http://47.100.15.18:8080(阿里云)
@@ -183,4 +188,14 @@ public class UrlUtils {
 
     //分类娃娃机
     public static final String GETTOYSBYTYPE = URL + "/pooh-web/app/doll/getDollPage";
+
+    //查询邀请码
+    public static final String USERAWARDCODEURL=URL+"/pooh-web/app/award/getUserAwardCode";
+
+    //兑换邀请码
+    public static final String DOAWARDBYUSERCODEURL=URL+"/pooh-web/app/award/doAwardByUserCode";
+
+    //竞猜跑马灯
+    public static final String GUESSERLASTTENURL=URL+"/pooh-web/app/getGuesserlast10";
+
 }

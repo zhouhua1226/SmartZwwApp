@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/ctrl_marquee_bg"/>
+    <corners android:radius="50dp"/>
+    <size android:height="30dp" android:width="400dp"/>
+
+
+</shape>

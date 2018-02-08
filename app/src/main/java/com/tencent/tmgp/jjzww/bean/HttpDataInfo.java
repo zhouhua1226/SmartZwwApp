@@ -25,7 +25,51 @@ public class HttpDataInfo implements Serializable{
     private List<BannerBean> runImage;
     private List<LogisticsBean> logistics;
     private List<ToyTypeBean> toyTypeList;
+    private String codeVale;
+    private AwardCodeBean awardPd;
+    private String awradFlag;
+    private AwardCodePdBean setPd;
+    private List<GuessLastBean> pondList;
 
+    public List<GuessLastBean> getPondList() {
+        return pondList;
+    }
+
+    public void setPondList(List<GuessLastBean> pondList) {
+        this.pondList = pondList;
+    }
+
+    public String getAwradFlag() {
+        return awradFlag;
+    }
+
+    public void setAwradFlag(String awradFlag) {
+        this.awradFlag = awradFlag;
+    }
+
+    public AwardCodePdBean getSetPd() {
+        return setPd;
+    }
+
+    public void setSetPd(AwardCodePdBean setPd) {
+        this.setPd = setPd;
+    }
+
+    public String getCodeVale() {
+        return codeVale;
+    }
+
+    public void setCodeVale(String codeVale) {
+        this.codeVale = codeVale;
+    }
+
+    public AwardCodeBean getAwardPd() {
+        return awardPd;
+    }
+
+    public void setAwardPd(AwardCodeBean awardPd) {
+        this.awardPd = awardPd;
+    }
 
     public List<LogisticsBean> getLogistics() {
         return logistics;

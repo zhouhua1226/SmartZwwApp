@@ -11,6 +11,8 @@ import com.tencent.tmgp.jjzww.bean.Token;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tencent.tmgp.jjzww.utils.UserUtils;
+import com.tencent.tmgp.jjzww.utils.Utils;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -258,7 +260,7 @@ public class HttpManager {
 
     //WXQQ登录
     public void getYSDKLogin(String uid,String accessToken,String nickName,String imageUrl,String ctype,String channel,Subscriber<Result<HttpDataInfo>> subscriber){
-        Observable<Result<HttpDataInfo>> o =smartService.getYSDKLogin(uid,accessToken,nickName,imageUrl);
+        Observable<Result<HttpDataInfo>> o =smartService.getYSDKLogin(uid,accessToken,nickName,imageUrl,ctype,channel);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -276,7 +278,7 @@ public class HttpManager {
 
     //YSDK自动登录接口
     public void getYSDKAuthLogin(String userId,String accessToken,String ctype,String channel,Subscriber<Result<HttpDataInfo>> subscriber){
-        Observable<Result<HttpDataInfo>> o =smartService.getYSDKAuthLogin(userId,accessToken);
+        Observable<Result<HttpDataInfo>> o =smartService.getYSDKAuthLogin(userId,accessToken,ctype,channel);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -368,6 +370,35 @@ public class HttpManager {
     //获取分类娃娃机
     public void getToyListByType(String type, int page, Subscriber<Result<RoomListBean>> subscriber) {
         Observable<Result<RoomListBean>> o = smartService.getToysByType(type, page);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //查询邀请码接口
+    public void getUserAwardCode(String userId, Subscriber<Result<HttpDataInfo>> subscriber) {
+        Observable<Result<HttpDataInfo>> o = smartService.getUserAwardCode(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL, userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //兑换邀请码接口
+    public void doAwardByUserCode(String userId,String awardCode, Subscriber<Result<HttpDataInfo>> subscriber) {
+        Observable<Result<HttpDataInfo>> o = smartService.doAwardByUserCode(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL, userId,awardCode);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //竞猜跑马灯
+    public void getGuesserlast10(Subscriber<Result<HttpDataInfo>> subscriber) {
+        Observable<Result<HttpDataInfo>> o =smartService.getGuesserlast10();
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

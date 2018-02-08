@@ -78,7 +78,7 @@
                     android:background="@drawable/ctr_backbtn_bg"
                     android:src="@drawable/white_x_bg"
                     android:padding="8dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
                     />
 
                 <TextView
@@ -160,25 +160,27 @@
                         <TextView
                             android:id="@+id/player_name_tv"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="27dp"
                             android:layout_gravity="center_vertical"
                             android:text="热抓中"
-                            android:paddingLeft="25dp"
+                            android:paddingLeft="20dp"
                             android:layout_marginRight="15dp"
                             android:gravity="left|center_vertical"
                             android:textColor="@android:color/white"
                             android:textSize="14sp"
                             android:background="@drawable/ctr_ty_bg"
-                            android:layout_marginLeft="40dp"
+                            android:layout_marginLeft="38dp"
                             android:paddingRight="7dp"
                             android:maxLength="5"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             />
 
                         <ImageView
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:id="@+id/main_player_iv"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="10dp"
                             android:src="@drawable/ctrl_default_user_bg" />
 
                         <ImageView
@@ -235,6 +237,17 @@
                     ></TextView>
 
             </RelativeLayout>
+
+            <com.tencent.tmgp.jjzww.view.RoomMarqueeView
+                android:id="@+id/ctrl_marqueeview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="107dp"
+                app:mvAnimDuration="500"
+                app:mvInterval="2000"
+                app:mvTextSize="13sp"
+                />
+
         </FrameLayout>
         <com.tencent.tmgp.jjzww.view.GifView
             android:id="@+id/ctrl_gif_view"

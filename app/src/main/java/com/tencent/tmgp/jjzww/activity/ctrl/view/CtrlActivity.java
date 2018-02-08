@@ -43,7 +43,9 @@ import com.tencent.tmgp.jjzww.activity.ctrl.presenter.CtrlCompl;
 import com.tencent.tmgp.jjzww.activity.home.BetRecordActivity;
 import com.tencent.tmgp.jjzww.activity.wechat.WeChatPayActivity;
 import com.tencent.tmgp.jjzww.bean.AppUserBean;
+import com.tencent.tmgp.jjzww.bean.GuessLastBean;
 import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
+import com.tencent.tmgp.jjzww.bean.Marquee;
 import com.tencent.tmgp.jjzww.bean.PondResponseBean;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.UserBean;
@@ -57,8 +59,10 @@ import com.tencent.tmgp.jjzww.view.CatchDollResultDialog;
 import com.tencent.tmgp.jjzww.view.FillingCurrencyDialog;
 import com.tencent.tmgp.jjzww.view.GifView;
 import com.tencent.tmgp.jjzww.view.GlideCircleTransform;
+import com.tencent.tmgp.jjzww.view.MarqueeView;
 import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.tmgp.jjzww.view.QuizInstrictionDialog;
+import com.tencent.tmgp.jjzww.view.RoomMarqueeView;
 import com.tencent.tmgp.jjzww.view.TimeCircleProgressView;
 import com.tencent.tmgp.jjzww.view.VibratorView;
 import com.umeng.analytics.game.UMGameAgent;
@@ -179,6 +183,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     TextView ctrlBetnumThreeTv;
     @BindView(R.id.ctrl_betnum_four_tv)
     TextView ctrlBetnumFourTv;
+    @BindView(R.id.ctrl_marqueeview)
+    RoomMarqueeView ctrlMarqueeview;
 
     private CtrlCompl ctrlCompl;
     private FillingCurrencyDialog fillingCurrencyDialog;
@@ -212,6 +218,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     private String reward = "";    //预计奖金
     private String showUserId = "";
     private List<TextView> betViewList;
+    private List<Marquee> marquees = new ArrayList<>();
 
     static {
         System.loadLibrary("SmartPlayer");
@@ -242,7 +249,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         initData();
         coinTv.setText("  " + UserUtils.UserBalance + " 充值");
         setVibrator();   //初始化振动器
-        Utils.showLogE("<<<<<<<<<<<<<", "userId=" + UserUtils.USER_ID);
+        getGuesserlast10();
     }
 
     protected void initView() {
@@ -281,10 +288,10 @@ public class CtrlActivity extends Activity implements IctrlView {
         ctrlConfirmLayout.setText(money + "/次");   //下注金额
         if (!Utils.isEmpty(reward)) {
             ctrlBetremarkTv.setText("预计奖金" + reward + "金币");
-        }else {
+        } else {
             ctrlBetremarkTv.setText("预计奖金0金币");
         }
-        playerNameTv.setText(UserUtils.NickName);
+        playerNameTv.setText(UserUtils.NickName+"...");
         setStartMode(getIntent().getBooleanExtra(Utils.TAG_ROOM_STATUS, true));
         ctrlQuizLayout.setEnabled(false);
         currentUrl = playUrlMain;
@@ -454,14 +461,14 @@ public class CtrlActivity extends Activity implements IctrlView {
     };
 
     @OnClick({R.id.image_back, R.id.recharge_button, R.id.ctrl_back_imag,
-              R.id.startgame_ll, R.id.ctrl_fail_iv, R.id.ctrl_quiz_layout,
-              R.id.ctrl_instruction_image, R.id.ctrl_betting_winning, R.id.ctrl_betting_fail,
-              R.id.ctrl_confirm_layout, R.id.ctrl_betting_back_button,
-              R.id.ctrl_change_camera_iv, R.id.ctrl_guessrecord_tv, R.id.coin_tv,
-              R.id.ctrl_betnum_zero_tv,R.id.ctrl_betnum_one_tv,R.id.ctrl_betnum_two_tv,
-              R.id.ctrl_betnum_three_tv,R.id.ctrl_betnum_four_tv,R.id.ctrl_betnum_five_tv,
-              R.id.ctrl_betnum_six_tv,R.id.ctrl_betnum_seven_tv,R.id.ctrl_betnum_eight_tv,
-              R.id.ctrl_betnum_nine_tv})
+            R.id.startgame_ll, R.id.ctrl_fail_iv, R.id.ctrl_quiz_layout,
+            R.id.ctrl_instruction_image, R.id.ctrl_betting_winning, R.id.ctrl_betting_fail,
+            R.id.ctrl_confirm_layout, R.id.ctrl_betting_back_button,
+            R.id.ctrl_change_camera_iv, R.id.ctrl_guessrecord_tv, R.id.coin_tv,
+            R.id.ctrl_betnum_zero_tv, R.id.ctrl_betnum_one_tv, R.id.ctrl_betnum_two_tv,
+            R.id.ctrl_betnum_three_tv, R.id.ctrl_betnum_four_tv, R.id.ctrl_betnum_five_tv,
+            R.id.ctrl_betnum_six_tv, R.id.ctrl_betnum_seven_tv, R.id.ctrl_betnum_eight_tv,
+            R.id.ctrl_betnum_nine_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.image_back:
@@ -552,7 +559,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                         ctrlQuizLayout.setEnabled(false);
                         moneyImage.setImageResource(R.drawable.ctrl_unbet_button);
                         isLottery = true;
-                        zt="";
+                        zt = "";
                         setBetNumBg(zt);
                     } else {
                         MyToast.getToast(getApplicationContext(), "请下注！").show();
@@ -562,7 +569,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 }
                 break;
             case R.id.ctrl_betting_back_button:
-                zt="";
+                zt = "";
                 setBetNumBg(zt);
                 ctrlBetingLayout.setVisibility(View.GONE);
                 ctrlButtomLayout.setVisibility(View.VISIBLE);
@@ -575,43 +582,43 @@ public class CtrlActivity extends Activity implements IctrlView {
                 startActivity(new Intent(this, BetRecordActivity.class));
                 break;
             case R.id.ctrl_betnum_zero_tv:
-                zt="0";
+                zt = "0";
                 setBetNumBg(zt);
                 break;
             case R.id.ctrl_betnum_one_tv:
-                zt="1";
+                zt = "1";
                 setBetNumBg(zt);
                 break;
             case R.id.ctrl_betnum_two_tv:
-                zt="2";
+                zt = "2";
                 setBetNumBg(zt);
                 break;
             case R.id.ctrl_betnum_three_tv:
-                zt="3";
+                zt = "3";
                 setBetNumBg(zt);
                 break;
             case R.id.ctrl_betnum_four_tv:
-                zt="4";
+                zt = "4";
                 setBetNumBg(zt);
                 break;
             case R.id.ctrl_betnum_five_tv:
-                zt="5";
+                zt = "5";
                 setBetNumBg(zt);
                 break;
             case R.id.ctrl_betnum_six_tv:
-                zt="6";
+                zt = "6";
                 setBetNumBg(zt);
                 break;
             case R.id.ctrl_betnum_seven_tv:
-                zt="7";
+                zt = "7";
                 setBetNumBg(zt);
                 break;
             case R.id.ctrl_betnum_eight_tv:
-                zt="8";
+                zt = "8";
                 setBetNumBg(zt);
                 break;
             case R.id.ctrl_betnum_nine_tv:
-                zt="9";
+                zt = "9";
                 setBetNumBg(zt);
                 break;
             default:
@@ -830,8 +837,8 @@ public class CtrlActivity extends Activity implements IctrlView {
         }
     }
 
-    private void setBetView(){
-        betViewList=new ArrayList<>();
+    private void setBetView() {
+        betViewList = new ArrayList<>();
         betViewList.add(ctrlBetnumZeroTv);
         betViewList.add(ctrlBetnumOneTv);
         betViewList.add(ctrlBetnumTwoTv);
@@ -844,20 +851,20 @@ public class CtrlActivity extends Activity implements IctrlView {
         betViewList.add(ctrlBetnumNineTv);
     }
 
-    private void setBetNumBg(String position){
-        if(position.equals("")){
-            for(int j=0;j<betViewList.size();j++) {
+    private void setBetNumBg(String position) {
+        if (position.equals("")) {
+            for (int j = 0; j < betViewList.size(); j++) {
                 betViewList.get(j).setTextColor(getResources().getColor(R.color.white));
                 betViewList.get(j).setBackgroundResource(R.drawable.ctrl_betnum_unselect);
             }
             return;
         }
-        int po= Integer.parseInt(position);
-        for(int i=0;i<betViewList.size();i++){
-            if(po==i){
+        int po = Integer.parseInt(position);
+        for (int i = 0; i < betViewList.size(); i++) {
+            if (po == i) {
                 betViewList.get(i).setTextColor(getResources().getColor(R.color.apptheme_bg));
                 betViewList.get(i).setBackgroundResource(R.drawable.ctrl_betnum_select);
-            }else {
+            } else {
                 betViewList.get(i).setTextColor(getResources().getColor(R.color.white));
                 betViewList.get(i).setBackgroundResource(R.drawable.ctrl_betnum_unselect);
             }
@@ -899,7 +906,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                     ctrlQuizLayout.setEnabled(false);
                     ctrlBetingLayout.setVisibility(View.GONE);
                     ctrlButtomLayout.setVisibility(View.VISIBLE);
-                    zt="";
+                    zt = "";
                     setBetNumBg(zt);
                 }
             } else {
@@ -1195,7 +1202,6 @@ public class CtrlActivity extends Activity implements IctrlView {
 
     //获取用户信息接口
     private void getUserDate(String userId) {
-
         HttpManager.getInstance().getUserDate(userId, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
             public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
@@ -1209,10 +1215,42 @@ public class CtrlActivity extends Activity implements IctrlView {
                             coinTv.setText("  " + balance + " 充值");
                             UserUtils.UserBalance = balance;
                         }
-
 //                        String showImage = UrlUtils.USERFACEIMAGEURL + bean.getIMAGE_URL();
 //                        Glide.with(getApplicationContext()).load(showImage)
 //                                .asBitmap().transform(new GlideCircleTransform(CtrlActivity.this)).into(playerSecondIv);
+                    }
+                }
+            }
+
+            @Override
+            public void _onError(Throwable e) {
+            }
+        });
+    }
+
+    private void getGuesserlast10() {
+        HttpManager.getInstance().getGuesserlast10(new RequestSubscriber<Result<HttpDataInfo>>() {
+            @Override
+            public void _onSuccess(Result<HttpDataInfo> httpDataInfoResult) {
+                if (httpDataInfoResult.getMsg().equals(Utils.HTTP_OK)) {
+                    HttpDataInfo httpDataInfo = httpDataInfoResult.getData();
+                    if (httpDataInfo != null) {
+                        List<GuessLastBean> list = httpDataInfo.getPondList();
+                        if (list.size() > 0) {
+                            for (int i = 0; i < list.size(); i++) {
+                                Marquee marquee = new Marquee();
+                                String nickname = list.get(i).getGUESSER_NAME();
+                                if (nickname.length() > 12) {
+                                    nickname.substring(0, 12);
+                                }
+                                String s = "恭喜" + "<font color='#fcf005'>" + nickname + "</font>"
+                                        + "...在第" + list.get(i).getGUESS_ID() + "期成功猜中";
+                                marquee.setTitle(s);
+                                marquees.add(marquee);
+                            }
+                            ctrlMarqueeview.setImage(true);
+                            ctrlMarqueeview.startWithList(marquees);
+                        }
                     }
                 }
             }
@@ -1223,6 +1261,7 @@ public class CtrlActivity extends Activity implements IctrlView {
             }
         });
     }
+
 
     private void playBGMusic() {
         mediaPlayer = MediaPlayer.create(this, R.raw.catchroom_bgm);

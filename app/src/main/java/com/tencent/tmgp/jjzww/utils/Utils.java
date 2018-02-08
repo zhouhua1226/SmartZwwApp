@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -82,6 +83,10 @@ public class Utils {
     public static String token = "";
     public static boolean isVibrator;  //是否开启震动  11/18 11:20
     public static final String HTTP_OK = "success";
+    public static String appVersion="";
+    public static String osVersion="";
+    public static String deviceType="";
+    public static String IMEI="";
 
     public static final int CATCH_TIME_OUT = 20;
     public static final long GET_STATUS_DELAY_TIME = 3*60*1000;
@@ -230,16 +235,20 @@ public class Utils {
      * 2017/11/30  15：55
      * i=0 获取版本号，i=1 获取版本名
      */
-    public static String getAppCodeOrName(Context context,int i) throws Exception {
-        // 获取packagemanager的实例
-        PackageManager packageManager = context.getPackageManager();
-        // getPackageName()是你当前类的包名，0代表是获取版本信息
-        PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+    public static String getAppCodeOrName(Context context,int i) {
         String version="";
-        if(i==0){
-            version=packInfo.versionCode+"";
-        }else {
-            version = packInfo.versionName;
+        try {
+            // 获取packagemanager的实例
+            PackageManager packageManager = context.getPackageManager();
+            // getPackageName()是你当前类的包名，0代表是获取版本信息
+            PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            if(i==0){
+                version=packInfo.versionCode+"";
+            }else {
+                version = packInfo.versionName;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
         return version;
     }
@@ -249,7 +258,7 @@ public class Utils {
      * @return  系统版本号
      */
     public static String getSystemVersion() {
-        return android.os.Build.VERSION.RELEASE;
+        return "Android "+android.os.Build.VERSION.RELEASE;
     }
 
     /**
@@ -261,11 +270,11 @@ public class Utils {
     }
 
     /**
-     * 获取手机厂商
-     * @return  手机厂商
+     * 获取手机品牌以及型号
+     * @return  手机品牌和型号
      */
     public static String getDeviceBrand() {
-        return android.os.Build.BRAND;
+        return android.os.Build.BRAND+" "+android.os.Build.MODEL;
     }
 
     public static int getWidthSize(Context ctx) {

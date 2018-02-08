@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:text="邀请码规则"
         android:textColor="@color/main_gray"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
         />
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         tools:text="1.每邀请一位好友，双方均可获得30金币"
         android:textColor="@color/main_gray"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         />
@@ -121,15 +121,43 @@
         android:layout_gravity="center_horizontal"
         />
 
-    <TextView
-        android:id="@+id/invitationcode_mycode_tv"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="AT46DU71"
-        android:textColor="@color/my_ranknumtv_bg"
-        android:textSize="15sp"
         android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal"
+        >
+        <TextView
+            android:id="@+id/invitationcode_mycode_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="AT46DU71"
+            android:textColor="@color/my_ranknumtv_bg"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+
+            />
+
+        <Button
+            android:id="@+id/invitationcode_copy_btn"
+            android:layout_width="50dp"
+            android:layout_height="27dp"
+            android:layout_toRightOf="@id/invitationcode_mycode_tv"
+            android:text="复制"
+            android:textSize="12sp"
+            android:textColor="@color/midle_black"
+            android:background="@drawable/gary_border"
+            android:layout_marginLeft="30dp"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/invitationcode_test_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1111"
+        android:visibility="gone"
         />
 
     <Button
@@ -142,6 +170,8 @@
         android:layout_marginTop="15dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/invitationcode_et_bg"
+        android:visibility="gone"
+
         />
 
 </LinearLayout>

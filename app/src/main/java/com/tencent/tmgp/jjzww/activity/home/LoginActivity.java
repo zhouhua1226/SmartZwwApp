@@ -65,6 +65,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
+        getAppVersion();
         initWelcome();
     }
 
@@ -77,6 +78,13 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         initSDK();
         super.onCreate(savedInstanceState);
+    }
+
+    private void getAppVersion(){
+        Utils.appVersion= Utils.getAppCodeOrName(this,0);
+        Utils.osVersion=Utils.getSystemVersion();
+        Utils.deviceType=Utils.getDeviceBrand();
+        Utils.IMEI=Utils.getIMEI(this);
     }
 
     private void initWelcome() {

@@ -248,9 +248,9 @@ public interface SmartService {
             @Field(UrlUtils.WXQQ_UID) String uid,
             @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken,
             @Field(UrlUtils.WXQQ_NICKNAME) String nickName,
-            @Field(UrlUtils.WXQQ_IMAGEURL) String imageUrl
-//            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
-//            @Field(UrlUtils.WXQQ_CHANNEL) String channel
+            @Field(UrlUtils.WXQQ_IMAGEURL) String imageUrl,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel
     );
 
     //YSDK支付接口
@@ -269,9 +269,9 @@ public interface SmartService {
     @POST(UrlUtils.YSDKAUTHLOGINURL)
     Observable<Result<HttpDataInfo>>getYSDKAuthLogin(
             @Field(UrlUtils.USERID) String userId,
-            @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken
-//            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
-//            @Field(UrlUtils.WXQQ_CHANNEL) String channel
+            @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel
     );
 
     //获取充值卡列表
@@ -342,4 +342,39 @@ public interface SmartService {
             @Field(UrlUtils.CURRENTTYPE) String currentType,
             @Field(UrlUtils.NEXTPAGE) Integer nextPage
     );
+
+    //查询邀请码接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.USERAWARDCODEURL)
+    Observable<Result<HttpDataInfo>> getUserAwardCode(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId
+    );
+
+    //兑换邀请码接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.DOAWARDBYUSERCODEURL)
+    Observable<Result<HttpDataInfo>> doAwardByUserCode(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.USERAWARDCODE) String awardCode
+    );
+
+    //竞猜跑马灯  /pooh-web/app/getGuesserlast10
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @GET(UrlUtils.GUESSERLASTTENURL)
+    Observable<Result<HttpDataInfo>> getGuesserlast10();
+
 }

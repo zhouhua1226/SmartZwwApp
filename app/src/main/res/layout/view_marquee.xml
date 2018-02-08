@@ -23,7 +23,7 @@
                     tools:text="内容"
                     android:layout_marginLeft="20dp"
                     android:gravity="center_vertical"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textColor="#323236"
                     android:background="@drawable/zww_marquee_bg"
                     />

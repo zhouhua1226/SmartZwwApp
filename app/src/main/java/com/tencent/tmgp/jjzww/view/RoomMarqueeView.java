@@ -21,13 +21,13 @@ import com.tencent.tmgp.jjzww.bean.Marquee;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * description: MarqueeView
- * author: lijun
- * date: 17/8/2 下午3:49
+ * Created by yincong on 2018/2/8 15:24
+ * 修改人：
+ * 修改时间：
+ * 类描述：
  */
-public class MarqueeView extends ViewFlipper {
+public class RoomMarqueeView extends ViewFlipper {
 
     private Context mContext;
     private List<Marquee> marquees;
@@ -36,10 +36,10 @@ public class MarqueeView extends ViewFlipper {
     private TextView tvMarquee;
     private int interval = 2000;//播放时间间隔
     private int animDuration = 500;
-    private int textSize = 14;
+    private int textSize = 12;
     private boolean isImage = true;
 
-    public MarqueeView(Context context, AttributeSet attrs) {
+    public RoomMarqueeView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0);
     }
@@ -147,7 +147,7 @@ public class MarqueeView extends ViewFlipper {
     // 创建ViewFlipper下的View
     private View createView(int position) {
         Marquee marquee = marquees.get(position);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.view_marquee, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.view_room_marquee, null);
         ImageView ivMarquee = (ImageView) view.findViewById(R.id.ivMarquee);
         tvMarquee = (TextView) view.findViewById(R.id.tvMarquee);
         tvMarquee.setText(Html.fromHtml(marquee.getTitle()));

@@ -89,11 +89,8 @@ public class SettingActivity extends BaseActivity {
         initView();
         setIsVibrator();
         setIsOpenMusic();
-        try {
-            settingUpdateTv.setText("当前版本：" + Utils.getAppCodeOrName(this, 1));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        settingUpdateTv.setText("当前版本：" + Utils.getAppCodeOrName(this, 1));
+
     }
 
     @Override

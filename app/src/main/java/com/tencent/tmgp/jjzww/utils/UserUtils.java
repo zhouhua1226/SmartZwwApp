@@ -21,6 +21,7 @@ public class UserUtils {
     public static final String SP_TAG_ISLOGOUT="SP_TAG_ISLOGOUT";
     public static final String SP_TAG_ISOPENMUSIC="SP_TAG_ISOPENMUSIC";
     public static final String SP_TAG_PROVINCECITY="SP_TAG_PROVINCECITY";
+    public static final String SP_TAG_ISEXCHANGE="SP_TAG_ISEXCHANGE";
 
     public static String NickName = "";
     public static String UserPhone="";    //用户手机号

@@ -27,5 +27,7 @@
     <color name="betrecordcolor1">#008c1a</color>
     <color name="midle_white">#f9f9f9</color>
     <color name="my_ranknumtv_bg">#26BAAF</color>
+    <color name="midle_black">#505050</color>
+    <color name="ctrl_marquee_bg">#50000000</color>
 
 </resources>

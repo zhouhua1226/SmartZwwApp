@@ -74,14 +74,16 @@
             android:layout_marginTop="50dp"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/user_image"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/user_name"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            tools:text="云梦一霸"
+            tools:text="云梦一霸云梦一霸云梦一霸云梦一霸"
             android:textSize="15sp"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
             />
 
 

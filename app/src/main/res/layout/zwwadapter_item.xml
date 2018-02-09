@@ -25,20 +25,23 @@
 
         <TextView
             android:id="@+id/moppet_name_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="11dp"
             android:paddingBottom="5dp"
             android:textColor="#683B20"
             android:textSize="12sp"
-            tools:text="未知" />
+            tools:text="未知未知未知未知未知"
+            android:layout_toLeftOf="@+id/monet_image"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
 
         <ImageView
             android:id="@+id/monet_image"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_centerVertical="true"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_marginTop="11dp"
             android:layout_toLeftOf="@+id/moppet_money_tv"
             android:src="@drawable/ctrl_money_icon" />

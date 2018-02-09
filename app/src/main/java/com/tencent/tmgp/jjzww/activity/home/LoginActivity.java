@@ -130,7 +130,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.login_qq_tv:
                 //MyToast.getToast(getApplicationContext(), "点击qq登录！").show();
                 if (Utils.isNetworkAvailable(this)) {
-                    loginLoadingGv.setVisibility(View.VISIBLE);
+                    setGifView(true);
                     qqLogin();
                 } else {
                     MyToast.getToast(getApplicationContext(), "请检查网络！").show();
@@ -139,7 +139,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.login_wx_tv:
                 //MyToast.getToast(getApplicationContext(), "点击微信登录！").show();
                 if (Utils.isNetworkAvailable(this)) {
-                    loginLoadingGv.setVisibility(View.VISIBLE);
+                    setGifView(true);
                     weixinLogin();
                 } else {
                     MyToast.getToast(getApplicationContext(), "请检查网络！").show();
@@ -206,11 +206,11 @@ public class LoginActivity extends BaseActivity {
                 getYSDKLogin(YsdkUtils.uid, YsdkUtils.access_token, YsdkUtils.nickName, YsdkUtils.imageUrl, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL);
             } else if (code == LoginCallback.FAIL) {
                 //登录失败
-                loginLoadingGv.setVisibility(View.GONE);
+                setGifView(false);
                 MyToast.getToast(getApplicationContext(), "拉取第三方登录失败!").show();
             } else {
                 //登录异常
-                loginLoadingGv.setVisibility(View.GONE);
+                setGifView(false);
                 MyToast.getToast(getApplicationContext(), "拉取第三方登录异常!").show();
             }
         }
@@ -223,14 +223,14 @@ public class LoginActivity extends BaseActivity {
             public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 if(loginInfoResult==null||loginInfoResult.getData()==null
                         ||loginInfoResult.getData().getAppUser()==null){
-                    loginLoadingGv.setVisibility(View.GONE);
+                    setGifView(false);
                     MyToast.getToast(getApplicationContext(), "登录失败！").show();
                     return;
                 }
                 if (loginInfoResult.getMsg().equals("success")) {
                     PayReviewer.reviewer();   //通知失败进行重发
                     //progressDialog.dismiss();
-                    loginLoadingGv.setVisibility(View.GONE);
+                    setGifView(false);
                     YsdkUtils.loginResult = loginInfoResult;
                     UserUtils.USER_ID = loginInfoResult.getData().getAppUser().getUSER_ID();
                     SPUtils.put(getApplicationContext(), YsdkUtils.AUTH_TOKEN, YsdkUtils.auth_token);
@@ -243,7 +243,7 @@ public class LoginActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    loginLoadingGv.setVisibility(View.GONE);
+                    setGifView(false);
                     MyToast.getToast(getApplicationContext(), "登录失败!").show();
                 }
 
@@ -251,7 +251,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void _onError(Throwable e) {
-                loginLoadingGv.setVisibility(View.GONE);
+                setGifView(false);
                 MyToast.getToast(getApplicationContext(), "网络异常!").show();
             }
         });
@@ -263,7 +263,7 @@ public class LoginActivity extends BaseActivity {
             public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 if (loginInfoResult == null || loginInfoResult.getData() == null
                         || loginInfoResult.getData().getAppUser() == null) {
-                    loginLoadingGv.setVisibility(View.GONE);
+                    setGifView(false);
                     MyToast.getToast(getApplicationContext(), "自动登录失败！").show();
                     return;
                 }
@@ -276,17 +276,32 @@ public class LoginActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 }else {
-                    loginLoadingGv.setVisibility(View.GONE);
+                    setGifView(false);
                     MyToast.getToast(getApplicationContext(), "自动登录失败!").show();
                 }
             }
 
             @Override
             public void _onError(Throwable e) {
-                loginLoadingGv.setVisibility(View.GONE);
+                setGifView(false);
                 MyToast.getToast(getApplicationContext(), "网络异常!").show();
             }
         });
+    }
+
+    /**
+     * 是否展示预加载
+     * @param isVisible
+     */
+    private void setGifView(boolean isVisible){
+        if(loginLoadingGv==null){
+            return;
+        }
+        if(isVisible){
+            loginLoadingGv.setVisibility(View.VISIBLE);
+        }else {
+            loginLoadingGv.setVisibility(View.GONE);
+        }
     }
 
     public void getAccessToken(String authToken) {

@@ -124,7 +124,7 @@ public class NewsWebActivity extends BaseActivity {
                 super.onPageFinished(view,url);
                 s.setBlockNetworkImage(false);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                    //webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
                 }
 
             }

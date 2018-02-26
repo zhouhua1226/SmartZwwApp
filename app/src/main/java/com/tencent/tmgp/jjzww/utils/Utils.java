@@ -28,7 +28,9 @@ import com.tencent.tmgp.jjzww.view.GuessingSuccessDialog;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -486,6 +488,108 @@ public class Utils {
         }
 
         return costNum;
+    }
+
+    /**
+     * 转码昵称中的表情
+     * @param source
+     * @return
+     */
+    public static String filterEmoji(String source) {
+        String string = null;
+        if (!containsEmoji(source)) {
+            return source;// 如果不包含，直接返回
+        }
+        StringBuilder buf = null;
+        int len = source.length();
+        System.out.println("filter running len = " + len);
+        for (int i = 0; i < len; i++) {
+            char codePoint = source.charAt(i);
+            if (buf == null) {
+                buf = new StringBuilder(source.length());
+            }
+            if (!isEmojiCharacter(codePoint)) {
+                string = String.valueOf(codePoint);
+            } else {
+                try {
+                    StringBuilder builder = new StringBuilder(2);
+                    byte[] str = builder.append(String.valueOf(codePoint))
+                            .append(String.valueOf(source.charAt(i+1)))
+                            .toString().getBytes("UTF-8");
+                    String strin = Arrays.toString(str);
+                    String newString = strin.substring(1, strin.length() - 1);
+                    string = ":"+newString+":";
+                    System.out.println("filters running newStr = " + string);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                i++;
+            }
+            buf.append(string+"%");
+        }
+        if (buf == null) {
+            return "";
+        } else {
+            if (buf.length() == len) {// 这里的意义在于尽可能少的toString，因为会重新生成字符串
+                buf = null;
+                return source;
+            } else {
+                System.out.println("filter running buf.toString() = " + buf.toString());
+                String bufStr = buf.toString();
+                String newBufStr= bufStr.substring(0, bufStr.length() - 1);
+                return newBufStr;
+            }
+        }
+    }
+
+    //得到服务器的数据之后进行解析，显示在UI上
+    public static String decodeEmoji(String string) {
+        String newsString;
+        StringBuilder stringBuilder = new StringBuilder();
+        String arrays[] = string.split("%");
+        for (int j = 0; j < arrays.length; j++) {
+            System.out.println("filter running arrays[] = "+arrays[j]);
+            String  ss = arrays[j];
+            char char_ss = ss.charAt(0);
+            System.out.println("filter running String.valueOf(char_ss) = "+String.valueOf(char_ss));
+            if (String.valueOf(char_ss).equals(":")){
+                String new_SS = ss.substring(1, ss.length() - 1);
+                String strArrays[] = new_SS.split(", ");
+                byte[] chars = new byte[strArrays.length];
+                for (int i = 0; i < strArrays.length; ++i) {
+                    System.out.println("strArrays[i]:" + strArrays[i]);
+                    chars[i] = Byte.decode(strArrays[i]);
+                }
+                newsString = new String(chars);
+            }else{
+                newsString =ss;
+            }
+            stringBuilder.append(newsString);
+            System.out.println("filter running stringBuilder.toString() = "+stringBuilder.toString());
+            //textView.setText(stringBuilder.toString());
+        }
+        return stringBuilder.toString();
+    }
+
+    // 判别是否包含Emoji表情
+    public static boolean containsEmoji(String str) {
+        int len = str.length();
+        for (int i = 0; i < len; i++) {
+            if (isEmojiCharacter(str.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isEmojiCharacter(char codePoint) {
+        return !((codePoint == 0x0) ||
+                (codePoint == 0x9) ||
+                (codePoint == 0xA) ||
+                (codePoint == 0xD) ||
+                ((codePoint >= 0x20) && (codePoint <= 0xD7FF)) ||
+                ((codePoint >= 0xE000) && (codePoint <= 0xFFFD)) ||
+                ((codePoint >= 0x10000) && (codePoint <= 0x10FFFF)));
     }
 
 

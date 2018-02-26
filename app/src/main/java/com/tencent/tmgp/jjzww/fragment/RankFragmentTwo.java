@@ -128,7 +128,7 @@ public class RankFragmentTwo extends BaseFragment {
                 list = listRankBeanResult.getData().getAppUser();
                 Utils.showLogE(TAG + "看看...", list.size() + "");
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getUSER_ID().equals(YsdkUtils.loginResult.getData().getAppUser().getUSER_ID())) {
+                    if (list.get(i).getUSER_ID().equals(UserUtils.USER_ID)) {
                         isOutTen=false;
                     }
                 }

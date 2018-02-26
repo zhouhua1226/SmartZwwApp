@@ -25,7 +25,11 @@ import com.tencent.tmgp.jjzww.utils.SPUtils;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
+import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.MyToast;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +69,8 @@ public class LnvitationCodeActivity extends BaseActivity {
     private String inviteAmount="";    //邀请人奖励金额
     private String exchangeAmount="";  //被邀请人奖励金额
     private String TAG = "LnvitationCodeActivity";
+    private String string;
+    String newsString;
 
     //邀请码
     @Override
@@ -77,11 +83,14 @@ public class LnvitationCodeActivity extends BaseActivity {
         initView();
         getViewDate();
         getUserAwardCode(UserUtils.USER_ID);
-        //setEmojiToTextView();
-        invitationcodeTestTv.setText("APP版本=" + Utils.appVersion +
-                "&手机IMEI=" + Utils.IMEI +
-                "&手机型号=" + Utils.deviceType +
-                "&系统版本=" + Utils.osVersion);
+//        invitationcodeTestTv.setText("APP版本=" + Utils.appVersion +
+//                "&手机IMEI=" + Utils.IMEI +
+//                "&手机型号=" + Utils.deviceType +
+//                "&系统版本=" + Utils.osVersion+
+//                "&昵称="+ YsdkUtils.nickName+
+//                "&是否包含表情="+containsEmoji(YsdkUtils.nickName)+
+//                "&转义后昵称="+filterEmoji(YsdkUtils.nickName)+
+//                "&解析后昵称="+setString(filterEmoji(YsdkUtils.nickName)));
     }
 
     @Override
@@ -152,16 +161,6 @@ public class LnvitationCodeActivity extends BaseActivity {
 
 
 
-    }
-
-    private void setEmojiToTextView(){
-        int unicodeJoy = 308;
-        String emojiString = getEmojiStringByUnicode(unicodeJoy);
-        invitationcodeTestTv.setText(emojiString+emojiString);
-    }
-
-    private String getEmojiStringByUnicode(int unicode){
-        return new String(Character.toChars(unicode));
     }
 
     /**

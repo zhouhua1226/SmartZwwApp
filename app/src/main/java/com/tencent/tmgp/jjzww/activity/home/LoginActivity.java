@@ -203,7 +203,7 @@ public class LoginActivity extends BaseActivity {
                 YsdkUtils.imageUrl = obj.optString("image_url").replace("\"", "");//用户头像(只有微信或QQ登录，并且用户有头像时才会有效)
                 Log.e(TAG, "uid=" + YsdkUtils.uid + "<<<<access_token=" + YsdkUtils.access_token);
                 Log.e(TAG, "imageUrl=" + YsdkUtils.imageUrl);
-                getYSDKLogin(YsdkUtils.uid, YsdkUtils.access_token, YsdkUtils.nickName, YsdkUtils.imageUrl, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL);
+                getYSDKLogin(YsdkUtils.uid, YsdkUtils.access_token,YsdkUtils.nickName , YsdkUtils.imageUrl, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL);
             } else if (code == LoginCallback.FAIL) {
                 //登录失败
                 setGifView(false);

@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/loginactivity_bg"
+        android:background="@drawable/login_jj_news_bg"
         android:orientation="vertical"
         >
         <RelativeLayout
@@ -19,7 +19,7 @@
                 android:id="@+id/login_logotext_imag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/app_textlarger_logo"
+                android:src="@drawable/app_jj_textlarger_logo"
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 />
@@ -28,87 +28,49 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="5"
             >
+
             <TextView
-                android:id="@+id/login_qq_tv"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:text="QQ登录"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择登录方式"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/login_wx_tv"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/login_wxqqbtn_bg"
                 />
 
-            <TextView
-                android:id="@+id/login_wx_tv"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:text="微信登录"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/login_wxqqbtn_bg"
-                />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                >
+                <TextView
+                    android:id="@+id/login_qq_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:background="@drawable/login_jj_qqbg"
+                    />
 
-            <TextView
-                android:id="@+id/login_fx_tv"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="170dp"
-                android:text="分    享"
-                android:textSize="15sp"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:visibility="gone"
-                />
+                <TextView
+                    android:id="@+id/login_wx_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginLeft="50dp"
+                    android:layout_toRightOf="@+id/login_qq_tv"
+                    android:background="@drawable/login_jj_wxbg"
+                    />
 
-            <TextView
-                android:id="@+id/login_zf_tv"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:text="支   付"
-                android:textSize="15sp"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="100dp"
-                android:visibility="gone"
-                />
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/login_logout_tv"
-                android:layout_width="110dp"
-                android:layout_height="40dp"
-                android:text="退出登录"
-                android:textSize="15sp"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="100dp"
-                android:visibility="gone"
-                />
 
-            <TextView
-                android:id="@+id/login_auth_tv"
-                android:layout_width="110dp"
-                android:layout_height="40dp"
-                android:text="自动登录"
-                android:textSize="15sp"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="170dp"
-                android:visibility="gone"
-                />
+
+
         </RelativeLayout>
 
     </LinearLayout>

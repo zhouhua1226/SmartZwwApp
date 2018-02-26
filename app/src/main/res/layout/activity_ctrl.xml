@@ -466,9 +466,69 @@
         android:visibility="gone"
         android:id="@+id/ctrl_beting_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/crtl_bottom_height"
+        android:layout_height="125dp"
         android:layout_alignParentBottom="true"
         >
+
+        <TextView
+            android:id="@+id/ctrl_bet_tenflod_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/ctrl_bet_twentyfold_tv"
+            android:layout_below="@+id/ctrl_betremark_tv"
+            android:layout_marginTop="15dp"
+            android:text="10倍"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:background="@drawable/ctrl_guess_unbetnum_bg"
+            android:layout_marginRight="5dp"
+            />
+
+        <TextView
+            android:id="@+id/ctrl_bet_twentyfold_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/ctrl_betremark_tv"
+            android:layout_marginTop="15dp"
+            android:text="20倍"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:background="@drawable/ctrl_guess_unbetnum_bg"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ctrl_bet_fiftyfold_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/ctrl_bet_hundredfold_tv"
+            android:layout_below="@+id/ctrl_bet_twentyfold_tv"
+            android:layout_marginTop="5dp"
+            android:text="50倍"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:background="@drawable/ctrl_guess_unbetnum_bg"
+            android:layout_marginRight="5dp"
+            />
+
+        <TextView
+            android:id="@+id/ctrl_bet_hundredfold_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/ctrl_bet_twentyfold_tv"
+            android:layout_marginTop="5dp"
+            android:text="100倍"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:background="@drawable/ctrl_guess_unbetnum_bg"
+            android:layout_marginRight="10dp"
+            />
 
         <TextView
             android:id="@+id/ctrl_betremark_tv"
@@ -479,9 +539,8 @@
             android:textColor="@color/apptheme_bg"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-
             />
 
         <LinearLayout
@@ -562,26 +621,24 @@
 
         <Button
             android:id="@+id/ctrl_confirm_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/ctrl_guess_sure_btn"
             android:text="50币/次"
             android:paddingTop="15dp"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:gravity="center"
             />
 
         <Button
             android:id="@+id/ctrl_betting_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_below="@+id/ctrl_confirm_layout"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/ctrl_confirm_layout"
             android:textColor="@color/white"
             android:background="@drawable/ctrl_guess_cancle_btn"
             />
@@ -591,7 +648,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_below="@+id/ctrl_betfirstnum_layout"
             >
@@ -661,8 +718,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
             android:layout_below="@+id/ctrl_betremark_tv"
             >
             <TextView

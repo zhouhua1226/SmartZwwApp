@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.tencent.tmgp.jjzww.R;
+import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.view.GuessingSuccessDialog;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
@@ -130,6 +131,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         //设置状态栏颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.apptheme_bg));
+            Utils.showLogE(TAG,"类名="+getClass().getSimpleName());
         }
 
     }

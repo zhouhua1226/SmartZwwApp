@@ -352,7 +352,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         userInfos = list;
         int counter = userInfos.size();
         if (counter > 0) {
-            String s = counter + "人在线";
+            String s  = counter + "人在线";
             playerCounterIv.setText(s);
             if (counter == 1) {
                 //显示自己
@@ -863,8 +863,8 @@ public class CtrlActivity extends Activity implements IctrlView {
             startgameTextImag.setImageResource(R.drawable.begin_game_text);
 //            moneyImage.setImageResource(R.drawable.ctrl_unbet_button);
 //            ctrlQuizLayout.setEnabled(false);
-            betChangeView(false);
             ctrlQuizLayout.setVisibility(View.VISIBLE);         //竞彩布局
+            betChangeView(false);
             return;
         }
         startgameLl.setBackgroundResource(R.drawable.ctrl_startgame_button);
@@ -1042,11 +1042,22 @@ public class CtrlActivity extends Activity implements IctrlView {
             Utils.showLogE(TAG, "=====" + appInRoomResponse.toString());
             String allUsers = appInRoomResponse.getAllUserInRoom(); //返回的UserId
             Boolean free = appInRoomResponse.getFree();
-            setStartMode(free);
             long seq = appInRoomResponse.getSeq();
             if ((seq != -2) && (!Utils.isEmpty(allUsers))) {
                 //TODO  我本人进来了
                 ctrlCompl.sendGetUserInfos(allUsers, true);
+                //是否能点击开始
+                startgameLl.setEnabled(free);
+                if (free) {
+                    startgameLl.setBackgroundResource(R.drawable.ctrl_startgame_button);
+                    startgameTextImag.setImageResource(R.drawable.begin_game_text);
+                } else {
+                    startgameLl.setBackgroundResource(R.drawable.ctrl_startgame_button);
+                    startgameTextImag.setImageResource(R.drawable.ctrl_begin_loading);
+                }
+                ctrlQuizLayout.setVisibility(View.VISIBLE);
+                moneyImage.setImageResource(R.drawable.ctrl_unbet_button);
+                ctrlQuizLayout.setEnabled(false);
             } else {
                 boolean is = false;
                 if (userInfos.size() == 1) {

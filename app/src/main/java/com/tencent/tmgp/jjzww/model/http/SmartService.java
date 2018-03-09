@@ -393,4 +393,16 @@ public interface SmartService {
             @Field(UrlUtils.USERID) String userId
     );
 
+    //新支付订单接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETPAYORDERURL)
+    Observable<Result<HttpDataInfo>>getTradeOrder(
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.WXQQ_ACCESSTOKEN) String accessToken,
+            @Field(UrlUtils.WXQQ_PID) String pid,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel
+    );
+
 }

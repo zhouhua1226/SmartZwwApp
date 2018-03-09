@@ -295,7 +295,6 @@ public class HttpManager {
     }
 
     //用户竞猜记录
-
     public void getGuessDetail(String userId,Subscriber<Result<BetRecordBean>>subscriber){
         Observable<Result<BetRecordBean>> o =smartService.getGuessDetail(userId);
         o.subscribeOn(Schedulers.newThread())
@@ -417,6 +416,16 @@ public class HttpManager {
     //抓娃娃排行榜
     public void getRankDollList(String userId,Subscriber<Result<ListRankBean>> subscriber){
         Observable<Result<ListRankBean>> o =smartService.getRankDollList(userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //获取支付订单号接口
+    public void getTradeOrder(String userId,String accessToken,String pid, Subscriber<Result<HttpDataInfo>> subscriber) {
+        Observable<Result<HttpDataInfo>> o = smartService.getTradeOrder(userId,accessToken,pid,
+                 UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

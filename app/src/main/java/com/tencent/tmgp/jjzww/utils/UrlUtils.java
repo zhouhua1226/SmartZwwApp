@@ -55,6 +55,7 @@ public class UrlUtils {
     public static final String LOGIN_CHANNEL="ANDROID";
     //ysdk支付金额字段
     public static final String WXQQ_AMOUNT="amount";
+    public static final String WXQQ_PID="pid";  // 充值卡编号: 1:6元  2:30元 3:68元  4:128元  5:328元  6:648元
     //签到接口
     public static final String SIGNTYPE="signType";
     //分类
@@ -156,6 +157,9 @@ public class UrlUtils {
 
     //YSDK支付创建订单接口
     public static final String YSDKPAYORDERURL=URL+"/pooh-web/pay/getTradeOrder";
+
+    //新版创建支付订单接口
+    public static final String GETPAYORDERURL=URL+"/pooh-web/pay/getTradeOrder_new";
 
     //YSDK版自动登录
     public static final String YSDKAUTHLOGINURL=URL+"/pooh-web/app/tencentAutoLogin";

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gatz.netty.utils.NettyUtils;
@@ -17,6 +18,7 @@ import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
 import com.tencent.tmgp.jjzww.activity.home.ExChangeShopActivity;
 import com.tencent.tmgp.jjzww.activity.home.JoinEarnActivity;
+import com.tencent.tmgp.jjzww.activity.home.MyCenterActivity;
 import com.tencent.tmgp.jjzww.activity.home.NewsWebActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
@@ -80,6 +82,8 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     TextView zwwExshopTv;
     @BindView(R.id.zww_earnmoney_tv)
     TextView zwwEarnmoneyTv;
+    @BindView(R.id.zww_mycenter_iv)
+    ImageView zwwMycenterIv;
 
 
     private List<RoomBean> currentRoomBeens = new ArrayList<>();
@@ -165,7 +169,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         mPullToRefreshView.setOnFooterRefreshListener(this);
     }
 
-    @OnClick({R.id.zww_exshop_tv, R.id.zww_guess_btn,R.id.zww_earnmoney_tv})
+    @OnClick({R.id.zww_exshop_tv, R.id.zww_guess_btn, R.id.zww_earnmoney_tv,R.id.zww_mycenter_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.zww_exshop_tv:
@@ -177,6 +181,9 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
             case R.id.zww_earnmoney_tv:
                 //MyToast.getToast(getContext(),"功能研发中！").show();
                 startActivity(new Intent(getContext(), JoinEarnActivity.class));
+                break;
+            case R.id.zww_mycenter_iv:
+                startActivity(new Intent(getContext(), MyCenterActivity.class));
                 break;
             default:
                 break;

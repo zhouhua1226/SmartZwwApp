@@ -32,7 +32,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="130dp"
         android:background="@drawable/mycenter_jj_bg"
         android:orientation="vertical"
         android:gravity="center">

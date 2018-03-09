@@ -19,7 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@drawable/main_shade_jj"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
 
         <LinearLayout
             android:id="@+id/layout_tab_list"

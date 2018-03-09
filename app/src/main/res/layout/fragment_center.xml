@@ -12,6 +12,15 @@
         android:background="@color/apptheme_bg">
 
         <ImageButton
+            android:id="@+id/image_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
+
+        <ImageButton
             android:id="@+id/image_kefu"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -76,7 +85,6 @@
             android:id="@+id/user_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/round"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             />
@@ -89,7 +97,7 @@
             android:id="@+id/user_name"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            tools:text="云梦一霸云梦一霸云梦一霸"
+            tools:text="用户名"
             android:textSize="15sp"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -135,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="1000"
+            tools:text="1000"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="15dp"

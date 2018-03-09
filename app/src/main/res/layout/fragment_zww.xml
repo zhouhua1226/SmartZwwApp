@@ -41,15 +41,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:padding="8dp"
+                        android:padding="9dp"
                         android:src="@drawable/app_text_logo" />
 
                     <TextView
                         android:id="@+id/zww_exshop_tv"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:text=""
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="12dp"
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         android:layout_alignParentRight="true"
@@ -70,6 +70,16 @@
                         android:visibility="gone"
                         />
 
+                    <ImageView
+                        android:id="@+id/zww_mycenter_iv"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:padding="4dp"
+                        android:src="@drawable/zww_mycenter"
+                        />
+
                 </RelativeLayout>
 
                 <com.youth.banner.Banner
@@ -81,8 +91,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="37dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="5dp"
                     android:background="@color/apptheme_bg"
                     android:orientation="horizontal">
 

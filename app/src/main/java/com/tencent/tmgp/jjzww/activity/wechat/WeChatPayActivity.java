@@ -156,7 +156,7 @@ public class WeChatPayActivity extends BaseActivity {
         //TODO 此交易号生成仅为测试，接入方应定义自己的 外部交易号规则，保证唯一 ↓↓↓
         payInfo.putString(PayKey.OUT_TRADE_NO, order);
         //payInfo.putString(PayKey.OUT_TRADE_NO, UUID.randomUUID().toString().replaceAll("-", ""));//调用方生成的交易号，作为查询订单的唯一依据，必须唯一(服务端回调会透传),最大长度32位
-        payInfo.putString(PayKey.SUBJECT, "街机抓娃娃支付测试");//订单主题
+        payInfo.putString(PayKey.SUBJECT, "街机抓娃娃支付");//订单主题
         payInfo.putString(PayKey.EXTRA, "透传参数");//附加透传参数，服务端回调会完整透传.没有可不传
 
         payInfo.putString(PayKey.ZONEID, "1");  //账户分区ID_角色ID。每个应用都有一个分区ID为1的默认分区，分区可以在cpay.qq.com/mpay上自助配置。如果应用选择支持角色，则角色ID接在分区ID号后用"_"连接，角色ID需要进行urlencode。

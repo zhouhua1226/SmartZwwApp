@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -26,11 +27,12 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatusBarColor();
         setContentView(getLayoutId());
         afterCreate(savedInstanceState);
         MyApplication.getInstance().activities.add(this);
         PushAgent.getInstance(this).onAppStart();
-        setStatusBarColor();
+
 //        RxBus.get().register(this);
 //        //initDialog();
 //        IntentFilter intentFilter = new IntentFilter();
@@ -131,9 +133,8 @@ public abstract class BaseActivity extends AppCompatActivity{
         //设置状态栏颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.apptheme_bg));
-            Utils.showLogE(TAG,"类名="+getClass().getSimpleName());
+            //Utils.showLogE(TAG,"类名="+getClass().getSimpleName());
         }
-
     }
 
 }

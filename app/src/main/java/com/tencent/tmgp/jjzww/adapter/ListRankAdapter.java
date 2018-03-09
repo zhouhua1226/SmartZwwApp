@@ -24,15 +24,17 @@ import java.util.List;
 public class ListRankAdapter extends RecyclerView.Adapter<ListRankAdapter.ListRankViewHolder> {
 
     private Context mContext;
+    private int mtype;
     private List<UserBean> mDatas=new ArrayList<>();
     private LayoutInflater mInflater;
     private OnItemClickListener mOnItemClickListener;
     private int picter[]={R.drawable.rank1,R.drawable.rank2,R.drawable.rank3,R.drawable.rank4,R.drawable.rank5,
             R.drawable.rank6,R.drawable.rank7,R.drawable.rank8,R.drawable.rank9,R.drawable.rank10};
 
-    public ListRankAdapter(Context context, List<UserBean>list){
+    public ListRankAdapter(Context context, List<UserBean>list,int type){
         this.mContext=context;
         this.mDatas=list;
+        this.mtype=type;
         mInflater=LayoutInflater.from(context);
 
     }
@@ -73,7 +75,11 @@ public class ListRankAdapter extends RecyclerView.Adapter<ListRankAdapter.ListRa
                 .dontAnimate()
                 .transform(new GlideCircleTransform(mContext))
                 .into(holder.rank_userImag);
-        holder.rank_number.setText(bean.getDOLLTOTAL());
+        if(mtype==1){
+            holder.rank_number.setText(bean.getDOLLTOTAL());
+        }else{
+            holder.rank_number.setText(bean.getBET_NUM()+"");
+        }
 
         if (bean.getNICKNAME().equals("")) {
             holder.rank_name.setText(bean.getUSERNAME());
@@ -83,8 +89,9 @@ public class ListRankAdapter extends RecyclerView.Adapter<ListRankAdapter.ListRa
 
     }
 
-    public void notify(List<UserBean> list) {
+    public void notify(List<UserBean> list,int type) {
         this.mDatas = list;
+        this.mtype=type;
         notifyDataSetChanged();
     }
 

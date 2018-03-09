@@ -405,4 +405,22 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
+    //竞猜排行榜
+    public void getRankBetList(String userId,Subscriber<Result<ListRankBean>> subscriber){
+        Observable<Result<ListRankBean>> o =smartService.getRankBetList(userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //抓娃娃排行榜
+    public void getRankDollList(String userId,Subscriber<Result<ListRankBean>> subscriber){
+        Observable<Result<ListRankBean>> o =smartService.getRankDollList(userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }

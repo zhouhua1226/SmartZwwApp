@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/joinearn_dialog_bg"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/dialog_joinearn_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的加盟码"
+                android:paddingTop="15dp"
+                android:textColor="#63553b"
+                android:textSize="15sp"
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:id="@+id/dialog_joinearn_code_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AS4F6YU"
+                android:textColor="#f7d447"
+                android:textSize="19sp"
+                android:layout_below="@+id/dialog_joinearn_title_tv"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                />
+
+            <TextView
+                android:id="@+id/dialog_joinearn_mark_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备注:用户输入兑换码可获得15金币，好友充值您即可获得对应提成"
+                android:layout_below="@+id/dialog_joinearn_code_tv"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/gray"
+                android:textSize="11sp"
+                android:layout_centerHorizontal="true"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/zww_gary_bg"
+                android:layout_below="@+id/dialog_joinearn_mark_tv"
+                android:layout_marginTop="10dp"
+                />
+
+            <View
+                android:id="@+id/dialog_joinearn_fg_view"
+                android:layout_width="1dp"
+                android:layout_height="35dp"
+                android:background="@color/zww_gary_bg"
+                android:layout_below="@+id/dialog_joinearn_mark_tv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                />
+            <TextView
+                android:id="@+id/dialog_joinearn_cancle_tv"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="取消"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@color/gray"
+                android:layout_marginTop="11dp"
+                android:layout_toLeftOf="@+id/dialog_joinearn_fg_view"
+                android:layout_below="@+id/dialog_joinearn_mark_tv"
+                />
+
+            <TextView
+                android:id="@+id/dialog_joinearn_copy_tv"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="复制"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@color/update_sure_color"
+                android:layout_marginTop="11dp"
+                android:layout_toRightOf="@+id/dialog_joinearn_fg_view"
+                android:layout_below="@+id/dialog_joinearn_mark_tv"
+                />
+
+
+        </RelativeLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/joinearn_dialog_top_bg"
+                />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

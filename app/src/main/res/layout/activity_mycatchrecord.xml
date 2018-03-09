@@ -132,24 +132,30 @@
             android:layout_height="1px"
             android:background="#d6d6d6"/>
 
-        <ImageView
+        <Button
             android:id="@+id/mycatchrecod_fhsure_image"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:text="确认发货"
+            android:textSize="15sp"
+            android:textColor="@color/white"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/mycatchrecord_fhsurebtn_bg"
+            android:background="@drawable/setting_logout_btn_bg"
             />
 
-        <ImageView
+        <Button
             android:id="@+id/mycatchrecod_dhsure_image"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:text="确认兑换"
+            android:textSize="15sp"
+            android:textColor="@color/white"
             android:layout_toLeftOf="@+id/mycatchrecod_fhsure_image"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/mycatchrecord_dhsurebtn_bg"
+            android:background="@drawable/setting_logout_btn_bg"
             />
         <TextView
             android:id="@+id/mycatchrecod_selectnum_tv"

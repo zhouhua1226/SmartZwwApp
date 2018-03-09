@@ -22,6 +22,7 @@ public class MyApplication extends MultiDexApplication {
 
     private static MyApplication myApplication;
     public static List<Activity> activities = new LinkedList<Activity>();
+    private String TAG="MyApplication--";
 
     @Override
     public void onCreate() {
@@ -46,7 +47,7 @@ public class MyApplication extends MultiDexApplication {
             @Override
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
-                Log.e("MyDeviceToken",deviceToken);
+                Log.e(TAG,"友盟deviceToken="+deviceToken);
             }
 
             @Override
@@ -54,6 +55,7 @@ public class MyApplication extends MultiDexApplication {
 
             }
         });
+        mPushAgent.setDisplayNotificationNumber(2);
         mPushAgent.setDebugMode(false);
     }
 

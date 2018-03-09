@@ -15,8 +15,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.home.BetRecordActivity;
+import com.tencent.tmgp.jjzww.activity.home.ExChangeShopActivity;
 import com.tencent.tmgp.jjzww.activity.home.GameCurrencyActivity;
 import com.tencent.tmgp.jjzww.activity.home.InformationActivity;
+import com.tencent.tmgp.jjzww.activity.home.LnvitationCodeActivity;
 import com.tencent.tmgp.jjzww.activity.home.MyCtachRecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.MyLogisticsOrderActivity;
 import com.tencent.tmgp.jjzww.activity.home.RecordActivity;
@@ -85,6 +87,10 @@ public class MyCenterFragment extends BaseFragment {
     RelativeLayout mycenterGuessrecordLayout;
     @BindView(R.id.mycenter_logisticsorder_layout)
     RelativeLayout mycenterLogisticsorderLayout;
+    @BindView(R.id.mycenter_lnvitationcode_tv)
+    TextView mycenterLnvitationcodeTv;
+    @BindView(R.id.mycenter_exshop_layout)
+    RelativeLayout mycenterExshopLayout;
 
     private List<VideoBackBean> videoList = new ArrayList<>();
 
@@ -169,7 +175,8 @@ public class MyCenterFragment extends BaseFragment {
     @OnClick({R.id.mycenter_kefu_layout, R.id.mycenter_setting_layout, R.id.user_image,
             R.id.mycenter_pay_layout, R.id.user_name, R.id.mycenter_catchrecord_layout,
             R.id.mycenter_videoback_layout, R.id.mycenter_currencyrecord_layout,
-            R.id.mycenter_guessrecord_layout,R.id.mycenter_logisticsorder_layout})
+            R.id.mycenter_guessrecord_layout, R.id.mycenter_logisticsorder_layout,
+            R.id.mycenter_lnvitationcode_tv,R.id.mycenter_exshop_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mycenter_kefu_layout:
@@ -205,6 +212,11 @@ public class MyCenterFragment extends BaseFragment {
             case R.id.mycenter_logisticsorder_layout:
                 startActivity(new Intent(getContext(), MyLogisticsOrderActivity.class));
                 break;
+            case R.id.mycenter_lnvitationcode_tv:
+                startActivity(new Intent(getContext(), LnvitationCodeActivity.class));
+                break;
+            case R.id.mycenter_exshop_layout:
+                startActivity(new Intent(getContext(), ExChangeShopActivity.class));
             default:
                 break;
         }

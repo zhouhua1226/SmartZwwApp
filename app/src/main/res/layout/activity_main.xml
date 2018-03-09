@@ -17,8 +17,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/main_shade"
+        android:layout_height="45dp"
+        android:background="@drawable/main_shade_jj"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -33,23 +33,23 @@
                 android:id="@+id/iv_tab_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rank_icon" />
+                android:layout_gravity="center"
+                android:background="@drawable/rank_icon_jj" />
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/layout_tab_zww"
-            android:layout_width="90dp"
-            android:layout_height="80dp"
+            android:layout_width="80dp"
+            android:layout_height="65dp"
             android:layout_gravity="bottom"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_tab_zww"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerInParent="true"
-                android:background="@drawable/zww_icon" />
+                android:background="@drawable/zww_icon_jj" />
         </RelativeLayout>
 
 
@@ -66,8 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/mycenter_icon" />
+                android:background="@drawable/mycenter_icon_jj" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

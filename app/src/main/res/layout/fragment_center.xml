@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/white">
+        android:background="@color/apptheme_bg">
 
         <ImageButton
             android:id="@+id/image_kefu"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="我的"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ImageButton
@@ -55,10 +55,21 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:orientation="vertical">-->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@drawable/mycenter_bg">
+        android:background="@color/apptheme_bg">
 
 
         <ImageView
@@ -78,7 +89,7 @@
             android:id="@+id/user_name"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            tools:text="云梦一霸云梦一霸云梦一霸云梦一霸"
+            tools:text="云梦一霸云梦一霸云梦一霸"
             android:textSize="15sp"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -136,6 +147,24 @@
             android:background="@drawable/mycenter_gamecurrency_bg"
             />
 
+        <TextView
+            android:id="@+id/mycenter_lnvitationcode_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/mycenter_mycurrency_tv"
+            android:text="邀请码"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:background="@drawable/mycenter_gamecurrency_bg"
+            />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -156,6 +185,42 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             android:drawableLeft="@drawable/mycenter_pay"
+            />
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed"
+        android:visibility="gone"/>
+    <RelativeLayout
+        android:id="@+id/mycenter_exshop_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="   兑换商城"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:drawableLeft="@drawable/mycenter_exshopping"
             />
 
         <ImageView
@@ -417,9 +482,8 @@
         android:gravity="center_horizontal"
         android:visibility="gone"
         />
-
-
-
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </LinearLayout>

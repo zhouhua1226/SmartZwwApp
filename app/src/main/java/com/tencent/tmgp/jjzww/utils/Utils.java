@@ -76,6 +76,7 @@ public class Utils {
     public static final String TAG_URL_SECOND = "url_second";
     public static final String TAG_ROOM_PROB="room_prob";   //房间概率
     public static final String TAG_ROOM_REWARD="room_reward";  //房间竞猜预计奖金
+    public static final String TAG_ROOM_DOLLURL="room_dollUrl";
 
     public static final int PROVINCE_TYPE = 2;
     public static final int CITY_TYPE = 3;

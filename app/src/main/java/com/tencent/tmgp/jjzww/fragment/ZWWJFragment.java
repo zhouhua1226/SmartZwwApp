@@ -6,15 +6,17 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
+import com.tencent.tmgp.jjzww.activity.home.ExChangeShopActivity;
+import com.tencent.tmgp.jjzww.activity.home.JoinEarnActivity;
 import com.tencent.tmgp.jjzww.activity.home.NewsWebActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
@@ -49,6 +51,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -73,6 +76,10 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     @BindView(R.id.zww_guess_btn)
     ImageButton zwwGuessBtn;
     Unbinder unbinder1;
+    @BindView(R.id.zww_exshop_tv)
+    TextView zwwExshopTv;
+    @BindView(R.id.zww_earnmoney_tv)
+    TextView zwwEarnmoneyTv;
 
 
     private List<RoomBean> currentRoomBeens = new ArrayList<>();
@@ -110,9 +117,9 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
                 playBackBeanList = listRankBeanResult.getData().getPlayback();
                 for (int i = 0; i < playBackBeanList.size(); i++) {
                     Marquee marquee = new Marquee();
-                    String nickname=playBackBeanList.get(i).getNICKNAME();
-                    if(nickname.length()>10){
-                        nickname.substring(0,10);
+                    String nickname = playBackBeanList.get(i).getNICKNAME();
+                    if (nickname.length() > 10) {
+                        nickname.substring(0, 10);
                     }
                     String s = "恭喜" + "<font color='#FF0000'>" + nickname + "</font>"
                             + "抓中一个" + playBackBeanList.get(i).getDOLL_NAME();
@@ -137,9 +144,9 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         zwwAdapter = new ZWWAdapter(getActivity(), currentRoomBeens);
         zwwAdapter.setmOnItemClickListener(onItemClickListener);
         zwwRecyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        if(Utils.getWidthSize(getContext())<720){
+        if (Utils.getWidthSize(getContext()) < 720) {
             zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(6));
-        }else {
+        } else {
             zwwRecyclerview.addItemDecoration(new SpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.PX_10)));
         }
         zwwRecyclerview.setHasFixedSize(true);
@@ -156,12 +163,24 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     private void onClick() {
         mPullToRefreshView.setOnHeaderRefreshListener(this);
         mPullToRefreshView.setOnFooterRefreshListener(this);
-        zwwGuessBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    }
+
+    @OnClick({R.id.zww_exshop_tv, R.id.zww_guess_btn,R.id.zww_earnmoney_tv})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.zww_exshop_tv:
+                startActivity(new Intent(getContext(), ExChangeShopActivity.class));
+                break;
+            case R.id.zww_guess_btn:
                 jumpRoom(0);
-            }
-        });
+                break;
+            case R.id.zww_earnmoney_tv:
+                //MyToast.getToast(getContext(),"功能研发中！").show();
+                startActivity(new Intent(getContext(), JoinEarnActivity.class));
+                break;
+            default:
+                break;
+        }
     }
 
     public void notifyAdapter(List<RoomBean> rooms, int page) {
@@ -192,7 +211,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
                 }
             };
 
-    private void enterNext(String name, String camera1, String camera2, boolean status, String gold, String id, String prob, String reward) {
+    private void enterNext(String name, String camera1, String camera2, boolean status, String gold, String id, String prob, String reward, String dollUrl) {
         Intent intent = new Intent(getActivity(), CtrlActivity.class);
         intent.putExtra(Utils.TAG_ROOM_NAME, name);
         intent.putExtra(Utils.TAG_URL_MASTER, camera1);
@@ -202,14 +221,16 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         intent.putExtra(Utils.TAG_DOLL_Id, id);
         intent.putExtra(Utils.TAG_ROOM_PROB, prob);
         intent.putExtra(Utils.TAG_ROOM_REWARD, reward);
+        intent.putExtra(Utils.TAG_ROOM_DOLLURL, dollUrl);
         startActivity(intent);
     }
 
     /**
      * 房间跳转方法
+     *
      * @param po
      */
-    private void jumpRoom(int po){
+    private void jumpRoom(int po) {
         if ((currentRoomBeens.size() > 0) && (!Utils.isEmpty(sessionId))) {
             String room_id = currentRoomBeens.get(po).getDollId();
             boolean room_status = false;
@@ -242,7 +263,8 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
                         String.valueOf(currentRoomBeens.get(po).getDollGold()),
                         currentRoomBeens.get(po).getDollId(),
                         currentRoomBeens.get(po).getProb(),
-                        currentRoomBeens.get(po).getReward());
+                        currentRoomBeens.get(po).getReward(),
+                        currentRoomBeens.get(po).getDollUrl());
             } else {
                 Utils.showLogE(TAG, "当前设备没有配置摄像头!");
             }
@@ -481,4 +503,6 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         super.onDestroyView();
         unbinder1.unbind();
     }
+
+
 }

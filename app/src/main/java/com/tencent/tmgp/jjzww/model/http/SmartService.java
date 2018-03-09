@@ -377,4 +377,20 @@ public interface SmartService {
     @GET(UrlUtils.GUESSERLASTTENURL)
     Observable<Result<HttpDataInfo>> getGuesserlast10();
 
+    //竞猜排行
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.RANKBETLISTURL)
+    Observable<Result<ListRankBean>> getRankBetList(
+            @Field(UrlUtils.USERID) String userId
+    );
+
+    //新抓娃娃排行
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.RANKDOLLLISTURL)
+    Observable<Result<ListRankBean>> getRankDollList(
+            @Field(UrlUtils.USERID) String userId
+    );
+
 }

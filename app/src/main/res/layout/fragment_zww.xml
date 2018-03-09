@@ -32,26 +32,45 @@
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/nextPage_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="10dp"
-                    android:src="@drawable/app_text_logo" />
-
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/type_tly"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    app:tabIndicatorColor="@color/common_red_text_color"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabSelectedTextColor="@color/common_red_text_color"
-                    app:tabTextAppearance="@style/MyTableyoutTextAppearance"
-                    app:tabTextColor="@color/black"
+                    android:layout_height="wrap_content">
 
-                    />
-                <!-- android:layout_height="?attr/actionBarSize"  @drawable/tablayout_select_bg -->
+                    <ImageView
+                        android:id="@+id/nextPage_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:padding="8dp"
+                        android:src="@drawable/app_text_logo" />
+
+                    <TextView
+                        android:id="@+id/zww_exshop_tv"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:text=""
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/zww_exshop_bg"
+                        />
+
+                    <TextView
+                        android:id="@+id/zww_earnmoney_tv"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:text=""
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/zww_earnmoney_bg"
+                        android:visibility="gone"
+                        />
+
+                </RelativeLayout>
 
                 <com.youth.banner.Banner
                     android:id="@+id/zww_banner"
@@ -84,14 +103,26 @@
                         android:layout_marginRight="8dp"
                         />
                 </RelativeLayout>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/type_tly"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    app:tabIndicatorColor="@color/common_red_text_color"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabSelectedTextColor="@color/common_red_text_color"
+                    app:tabTextAppearance="@style/MyTableyoutTextAppearance"
+                    app:tabTextColor="@color/black"
+                    />
+                <!-- android:layout_height="?attr/actionBarSize"  @drawable/tablayout_select_bg -->
+
+
             </LinearLayout>
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#dcdcdc" />
-
-
 
                 <com.tencent.tmgp.jjzww.view.EmptyLayout
                     android:id="@+id/zww_emptylayout"

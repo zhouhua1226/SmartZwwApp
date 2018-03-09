@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backcolor"
+    >
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/apptheme_bg">
+
+        <ImageButton
+            android:id="@+id/image_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="兑换商城"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:background="@color/white"
+            >
+            <ImageView
+                android:id="@+id/exshop_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="170dp"
+                android:src="@drawable/shop_test_iphone1"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/exshop_iv"
+                android:text="iPhoneX高配版"
+                android:paddingLeft="7dp"
+                android:textSize="12sp"
+                android:textColor="#683B20"
+                android:paddingBottom="7dp"
+                android:paddingTop="5dp"
+                />
+
+            <TextView
+                android:id="@+id/exshop_left_tv"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:background="@drawable/setting_logout_btn_bg"
+                android:text="兑换"
+                android:gravity="center"
+                android:padding="3dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/exshop_iv"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:background="@color/white"
+            >
+            <ImageView
+                android:id="@+id/exshop_iv_r"
+                android:layout_width="wrap_content"
+                android:layout_height="170dp"
+                android:src="@drawable/shop_test_iphone2"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/exshop_iv_r"
+                android:text="iPhoneX标配版"
+                android:paddingLeft="7dp"
+                android:textSize="12sp"
+                android:textColor="#683B20"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                />
+
+            <TextView
+                android:id="@+id/exshop_right_tv"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:background="@drawable/setting_logout_btn_bg"
+                android:text="兑换"
+                android:gravity="center"
+                android:padding="3dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/exshop_iv_r"
+                />
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

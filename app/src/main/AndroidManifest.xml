@@ -20,6 +20,12 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
+    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
+
+    <!--<uses-sdk-->
+        <!--android:minSdkVersion="14"-->
+        <!--android:targetSdkVersion="19" />-->
+    <!-- 14 19 -->
     <application
         android:name="com.tencent.tmgp.jjzww.base.MyApplication"
         android:allowBackup="true"
@@ -45,16 +51,16 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5a547230b27b0a6a19000132" />
-        <!-- Umeng 街机抓娃娃   5a547230b27b0a6a19000132-->
-        <!-- 打包value区分 360  tencent alibaba vivo  oppo  huawei  等各个渠道  Umeng   -->
+        <!-- Umeng 街机抓娃娃(应用宝版)   5a547230b27b0a6a19000132-->
+
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="tencent"></meta-data>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="d318f4fe099226d45d73978c710c1bb4">
+            android:value="d70bf19f71c773f2b72234a0966d12a4">
         </meta-data>
-
+        <!-- 街机抓娃娃(应用宝版) d70bf19f71c773f2b72234a0966d12a4   d318f4fe099226d45d73978c710c1bb4 -->
         <!--=============================友盟相关=============================================-->
         <activity
             android:name="com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity"
@@ -333,7 +339,17 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             />
 
-        <!-- ###################添加UmengAppkey ###################### -->
+        <activity android:name=".activity.home.ExChangeShopActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+        <activity android:name=".activity.home.JoinEarnActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
 
     </application>

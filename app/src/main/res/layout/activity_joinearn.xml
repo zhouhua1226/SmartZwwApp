@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#efefef"
+    android:id="@+id/joinearn_ll"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/apptheme_bg">
+
+        <ImageButton
+            android:id="@+id/image_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="加盟提成"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50元(625金币)"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/joinearn_fifty_tv"
+            android:layout_width="60dp"
+            android:layout_height="27dp"
+            android:text="加盟"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:background="@drawable/setting_logout_btn_bg"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100元(1250金币)"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/joinearn_onehundred_tv"
+            android:layout_width="60dp"
+            android:layout_height="27dp"
+            android:text="加盟"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:background="@drawable/setting_logout_btn_bg"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200元(2500金币)"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/joinearn_twohundred_tv"
+            android:layout_width="60dp"
+            android:layout_height="27dp"
+            android:text="加盟"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:background="@drawable/setting_logout_btn_bg"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:textSize="13sp"
+        android:textColor="#63553b"
+        android:text="1.50元加盟费，每成功邀请一位好友充值，可获得充值金额5%的现金返利，现金返利每月可提现。"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="25dp"
+        android:textSize="13sp"
+        android:textColor="#63553b"
+        android:text="2.100元加盟费，每成功邀请一位好友充值，可获得充值金额10%的现金返利，现金返利每月可提现。"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="25dp"
+        android:textSize="13sp"
+        android:textColor="#63553b"
+        android:text="3.200元加盟费，每成功邀请一位好友充值，可获得充值金额15%的现金返利，现金返利每月可提现。"
+        />
+
+</LinearLayout>

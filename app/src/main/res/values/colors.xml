@@ -22,12 +22,15 @@
     <color name="login_lolor_bg">#f16081</color>
     <color name="run_text_bg">#efefef</color>
     <color name="geren_bg">#ececec</color>
-    <color name="apptheme_bg">#fed201</color>
+    <color name="apptheme_bg">#bab9fe</color><!-- 旧版主题色：#fed201 -->
     <color name="betrecordcolor">#e73640</color>
     <color name="betrecordcolor1">#008c1a</color>
     <color name="midle_white">#f9f9f9</color>
     <color name="my_ranknumtv_bg">#26BAAF</color>
     <color name="midle_black">#505050</color>
     <color name="ctrl_marquee_bg">#50000000</color>
+    <color name="zww_marquee_text_bg">#d6d5ff</color>   <!-- #ffe980 -->
+    <color name="ctrl_textcolor">#fcf005</color>
+    <color name="zww_gary_bg">#eceaea</color>
 
 </resources>

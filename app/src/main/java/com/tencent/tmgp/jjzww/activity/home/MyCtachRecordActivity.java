@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -65,9 +66,9 @@ public class MyCtachRecordActivity extends BaseActivity {
     @BindView(R.id.mycatchrecod_qx_layout)
     LinearLayout mycatchrecodQxLayout;
     @BindView(R.id.mycatchrecod_fhsure_image)
-    ImageView mycatchrecodFhsureImage;
+    Button mycatchrecodFhsureImage;
     @BindView(R.id.mycatchrecod_dhsure_image)
-    ImageView mycatchrecodDhsureImage;
+    Button mycatchrecodDhsureImage;
     @BindView(R.id.mycatchrecod_selectnum_tv)
     TextView mycatchrecodSelectnumTv;
     @BindView(R.id.mycatchrecod_bottom_layout)

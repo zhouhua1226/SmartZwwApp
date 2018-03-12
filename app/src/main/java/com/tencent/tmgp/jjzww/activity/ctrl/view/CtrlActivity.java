@@ -231,7 +231,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     private int prob;         //抓取概率
     private String reward = "";    //预计奖金
     private String showUserId = "";
-    private int betFlodNum = 1;   //默认投注倍数1
+    private int betFlodNum = 5;   //默认投注倍数1
     private List<TextView> betViewList;
     private List<TextView> betFoldList;
     private List<Marquee> marquees = new ArrayList<>();
@@ -304,7 +304,8 @@ public class CtrlActivity extends Activity implements IctrlView {
         ctrlDollgoldTv.setText(money + "/次");
         ctrlConfirmLayout.setText(betMoney + "/次");   //下注金额
         if (!Utils.isEmpty(reward)) {
-            ctrlBetremarkTv.setText("预计奖金" + reward + "金币");
+            int bonus= Integer.parseInt(reward)*betFlodNum;
+            ctrlBetremarkTv.setText("预计奖金" + bonus + "金币");
         } else {
             ctrlBetremarkTv.setText("预计奖金0金币");
         }
@@ -641,7 +642,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 if (betFlodNum == 10) {
                     ctrlBetTenflodTv.setTextColor(getResources().getColor(R.color.white));
                     ctrlBetTenflodTv.setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
-                    betFlodNum = 1;
+                    betFlodNum = 5;
                 } else {
                     betFlodNum = 10;
                     setBetFoldBg(0);
@@ -652,7 +653,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 if (betFlodNum == 20) {
                     ctrlBetTwentyfoldTv.setTextColor(getResources().getColor(R.color.white));
                     ctrlBetTwentyfoldTv.setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
-                    betFlodNum = 1;
+                    betFlodNum = 5;
                 } else {
                     betFlodNum = 20;
                     setBetFoldBg(1);
@@ -663,7 +664,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 if (betFlodNum == 50) {
                     ctrlBetFiftyfoldTv.setTextColor(getResources().getColor(R.color.white));
                     ctrlBetFiftyfoldTv.setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
-                    betFlodNum = 1;
+                    betFlodNum = 5;
                 } else {
                     betFlodNum = 50;
                     setBetFoldBg(2);
@@ -674,7 +675,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 if (betFlodNum == 100) {
                     ctrlBetHundredfoldTv.setTextColor(getResources().getColor(R.color.white));
                     ctrlBetHundredfoldTv.setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
-                    betFlodNum = 1;
+                    betFlodNum = 5;
                 } else {
                     betFlodNum = 100;
                     setBetFoldBg(3);
@@ -971,7 +972,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     //竞猜归零
     private void initBet() {
         zt = "";
-        betFlodNum = 1;
+        betFlodNum = 5;
         setBetNumBg(zt);
         setBetRewardChange(betFlodNum);
         for (int i = 0; i < betFoldList.size(); i++) {

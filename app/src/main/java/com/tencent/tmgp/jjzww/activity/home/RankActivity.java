@@ -5,9 +5,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,7 +41,7 @@ import butterknife.Unbinder;
  * 修改时间：
  * 类描述：排行榜类
  */
-public class RankActivity extends BaseActivity{
+public class RankActivity extends BaseActivity {
 
     private static final String TAG = "RankActivity-";
     @BindView(R.id.ranktwo_recyclerbiew)
@@ -94,17 +93,19 @@ public class RankActivity extends BaseActivity{
     @BindView(R.id.ranktwo_guesstitle_tv)
     TextView ranktwoGuesstitleTv;
     Unbinder unbinder;
+    @BindView(R.id.image_back)
+    ImageButton imageBack;
 
     private ListRankAdapter listRankAdapter;
     private List<UserBean> list = new ArrayList<>();
     private List<UserBean> rankList = new ArrayList<>();
-    private UserBean myBean=new UserBean();
-    private UserBean firstBean=new UserBean();
-    private UserBean secondBean=new UserBean();
-    private UserBean thirdBean=new UserBean();
+    private UserBean myBean = new UserBean();
+    private UserBean firstBean = new UserBean();
+    private UserBean secondBean = new UserBean();
+    private UserBean thirdBean = new UserBean();
     private String myNum = "";
     private boolean isOutTen = true;
-    private int isShowType=1;  //1:展示娃娃榜  2:展示竞猜榜
+    private int isShowType = 1;  //1:展示娃娃榜  2:展示竞猜榜
 
     @Override
     protected int getLayoutId() {
@@ -125,7 +126,7 @@ public class RankActivity extends BaseActivity{
 
     private void initData() {
         setShowChangeView(isShowType);
-        listRankAdapter = new ListRankAdapter(this, rankList,isShowType);
+        listRankAdapter = new ListRankAdapter(this, rankList, isShowType);
         ranktwoRecyclerbiew.setAdapter(listRankAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         ranktwoRecyclerbiew.setLayoutManager(linearLayoutManager);
@@ -164,7 +165,7 @@ public class RankActivity extends BaseActivity{
                     rankList = list;
                 }
                 Utils.showLogE(TAG + "看看？？", rankList.size() + "我的=" + myNum);
-                listRankAdapter.notify(rankList,isShowType);
+                listRankAdapter.notify(rankList, isShowType);
                 if (isOutTen) {
                     getNumRankList(UserUtils.USER_ID);   //如果当前用户在前十以外，则查询当前用户排名
                 } else {
@@ -253,8 +254,8 @@ public class RankActivity extends BaseActivity{
                 .transform(new GlideCircleTransform(this))
                 .into(rankThirdtxImag);
 
-        int num= Integer.parseInt(myNum);
-        if (num>20) {
+        int num = Integer.parseInt(myNum);
+        if (num > 20) {
             rankMyLayout.setVisibility(View.VISIBLE);
             if (myBean.getNICKNAME().equals("")) {
                 rankName.setText(myBean.getPHONE());
@@ -275,47 +276,50 @@ public class RankActivity extends BaseActivity{
 
     }
 
-    private String getShowRankNum(UserBean userBean){
-        if(isShowType==1){
+    private String getShowRankNum(UserBean userBean) {
+        if (isShowType == 1) {
             return userBean.getDOLLTOTAL();
-        }else {
-            return userBean.getBET_NUM()+"";
+        } else {
+            return userBean.getBET_NUM() + "";
         }
     }
 
 
-    @OnClick({R.id.ranktwo_catchtitle_tv, R.id.ranktwo_guesstitle_tv})
+    @OnClick({R.id.ranktwo_catchtitle_tv, R.id.ranktwo_guesstitle_tv,R.id.image_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ranktwo_catchtitle_tv:
-                if(isShowType==1){
+                if (isShowType == 1) {
                     return;
                 }
-                isShowType=1;
+                isShowType = 1;
                 setShowChangeView(isShowType);
                 getRankDollList(UserUtils.USER_ID);
                 break;
             case R.id.ranktwo_guesstitle_tv:
-                if(isShowType==2){
+                if (isShowType == 2) {
                     return;
                 }
-                isShowType=2;
+                isShowType = 2;
                 setShowChangeView(isShowType);
                 getRankBetList(UserUtils.USER_ID);
+                break;
+            case R.id.image_back:
+                finish();
                 break;
             default:
                 break;
         }
     }
 
-    private void setShowChangeView(int i){
-        if(i==2){
+    private void setShowChangeView(int i) {
+        if (i == 2) {
             ranktwoGuesstitleTv.setBackgroundResource(R.drawable.white_circleborder);
             ranktwoGuesstitleTv.setTextColor(getResources().getColor(R.color.apptheme_bg));
             ranktwoCatchtitleTv.setBackgroundResource(R.color.apptheme_bg);
             ranktwoCatchtitleTv.setTextColor(getResources().getColor(R.color.white));
 
-        }else {
+        } else {
             ranktwoCatchtitleTv.setBackgroundResource(R.drawable.white_circleborder);
             ranktwoCatchtitleTv.setTextColor(getResources().getColor(R.color.apptheme_bg));
             ranktwoGuesstitleTv.setBackgroundResource(R.color.apptheme_bg);
@@ -323,11 +327,11 @@ public class RankActivity extends BaseActivity{
         }
     }
 
-    private void getRankBetList(String userId){
+    private void getRankBetList(String userId) {
         HttpManager.getInstance().getRankBetList(userId, new RequestSubscriber<Result<ListRankBean>>() {
             @Override
             public void _onSuccess(Result<ListRankBean> result) {
-                if(result.getMsg().equals(Utils.HTTP_OK)){
+                if (result.getMsg().equals(Utils.HTTP_OK)) {
                     dealData(result);
                 }
             }
@@ -339,11 +343,11 @@ public class RankActivity extends BaseActivity{
         });
     }
 
-    private void getRankDollList(String userId){
+    private void getRankDollList(String userId) {
         HttpManager.getInstance().getRankDollList(userId, new RequestSubscriber<Result<ListRankBean>>() {
             @Override
             public void _onSuccess(Result<ListRankBean> result) {
-                if(result.getMsg().equals(Utils.HTTP_OK)){
+                if (result.getMsg().equals(Utils.HTTP_OK)) {
                     dealData(result);
                 }
             }
@@ -357,15 +361,16 @@ public class RankActivity extends BaseActivity{
 
     /**
      * 接口数据处理
+     *
      * @param result
      */
-    private void dealData(Result<ListRankBean> result){
-        if(list.size()!=0){
+    private void dealData(Result<ListRankBean> result) {
+        if (list.size() != 0) {
             list.clear();
         }
         list = result.getData().getList();
-        myBean=result.getData().getAppUser();
-        myNum=myBean.getRANK();
+        myBean = result.getData().getAppUser();
+        myNum = myBean.getRANK();
         Utils.showLogE(TAG + "看看...", list.size() + "");
         int length = list.size();
         if (length >= 1)
@@ -387,9 +392,15 @@ public class RankActivity extends BaseActivity{
             rankList = list;
         }
         Utils.showLogE(TAG + "看看？？", rankList.size() + "我的=" + myNum);
-        listRankAdapter.notify(rankList,isShowType);
+        listRankAdapter.notify(rankList, isShowType);
         setViewDate(myNum);
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

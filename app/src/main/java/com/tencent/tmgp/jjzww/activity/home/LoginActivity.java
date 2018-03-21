@@ -1,11 +1,17 @@
 package com.tencent.tmgp.jjzww.activity.home;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +39,8 @@ import com.tencent.ysdk.framework.common.ePlatform;
 import org.json.JSONObject;
 
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -56,6 +64,8 @@ public class LoginActivity extends BaseActivity {
     private long mBackPressed;
     private String antuToken;
     private String uid;
+
+
 
 
     @Override
@@ -89,6 +99,9 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initWelcome() {
+        if(isFirstInto()){
+            startActivity(new Intent(this,NavigationPageActivity.class));
+        }
         boolean isLogin=(boolean) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_LOGIN, false);
         boolean isLogout=(boolean) SPUtils.get(getApplicationContext(), UserUtils.SP_TAG_ISLOGOUT, false);
         Log.e(TAG,"isLogin="+isLogin+"");
@@ -337,6 +350,16 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    private boolean isFirstInto(){
+        // 判断是否第一次打开app
+        SharedPreferences setting = getSharedPreferences("com.tencent.tmgp.jjzww", 0);
+        boolean user_first = setting.getBoolean("FIRST", true);
+        if (user_first) {
+            setting.edit().putBoolean("FIRST", false).commit();
+        }
+        Log.e(TAG,"是否第一次进入="+user_first);
+        return user_first;
+    }
 
     @Override
     protected void onResume() {

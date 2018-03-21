@@ -345,12 +345,26 @@
                 android:text="19/次"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_horizontal"
-                android:textColor="#FFE311"
+                android:textColor="#fcf005"
                 android:textSize="13sp"
                 android:layout_marginTop="3dp"
                 />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/ctrl_nowtime_tv"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/startgame_ll"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            tools:text="13:54:44:888"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#fcf005"
+            android:maxLines="1"
+            />
 
         <TextView
             android:id="@+id/ctrl_roomdetial_tv"

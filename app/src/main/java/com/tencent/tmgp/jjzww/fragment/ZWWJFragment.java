@@ -20,6 +20,7 @@ import com.tencent.tmgp.jjzww.activity.home.ExChangeShopActivity;
 import com.tencent.tmgp.jjzww.activity.home.JoinEarnActivity;
 import com.tencent.tmgp.jjzww.activity.home.MyCenterActivity;
 import com.tencent.tmgp.jjzww.activity.home.NewsWebActivity;
+import com.tencent.tmgp.jjzww.activity.home.RankActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.BannerBean;
@@ -84,6 +85,8 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     TextView zwwEarnmoneyTv;
     @BindView(R.id.zww_mycenter_iv)
     ImageView zwwMycenterIv;
+    @BindView(R.id.zww_rank_iv)
+    ImageView zwwRankIv;
 
 
     private List<RoomBean> currentRoomBeens = new ArrayList<>();
@@ -169,7 +172,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         mPullToRefreshView.setOnFooterRefreshListener(this);
     }
 
-    @OnClick({R.id.zww_exshop_tv, R.id.zww_guess_btn, R.id.zww_earnmoney_tv,R.id.zww_mycenter_iv})
+    @OnClick({R.id.zww_exshop_tv, R.id.zww_guess_btn, R.id.zww_earnmoney_tv, R.id.zww_mycenter_iv,R.id.zww_rank_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.zww_exshop_tv:
@@ -184,6 +187,9 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
                 break;
             case R.id.zww_mycenter_iv:
                 startActivity(new Intent(getContext(), MyCenterActivity.class));
+                break;
+            case R.id.zww_rank_iv:
+                startActivity(new Intent(getContext(), RankActivity.class));
                 break;
             default:
                 break;

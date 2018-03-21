@@ -8,6 +8,7 @@ import com.gatz.netty.AppClient;
 import com.gatz.netty.UserInfo;
 import com.gatz.netty.global.AppGlobal;
 import com.gatz.netty.utils.NettyUtils;
+import com.tencent.tmgp.jjzww.bean.BankCardBean;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
 import com.tencent.tmgp.jjzww.bean.SRStoken;
 
@@ -32,7 +33,9 @@ public class UserUtils {
     public static String UserAddress="";
     public static String USER_ID="";
     public static String DOLL_ID="";
-    public static int UserBetNum;
+    public static String IsBankInf="";   //是否绑定银行卡  0没绑定  1绑定
+    public static BankCardBean BankBean;   //银行卡信息类
+    public static String UserAmount="";
     public static int id;
     public static SRStoken SRSToken;
     public static boolean isUserChanger = false;  //是否切换

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -45,6 +44,7 @@ import com.iot.game.pooh.server.entity.json.enums.ReturnCode;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.presenter.CtrlCompl;
 import com.tencent.tmgp.jjzww.activity.home.BetRecordActivity;
+import com.tencent.tmgp.jjzww.activity.home.NavigationPageActivity;
 import com.tencent.tmgp.jjzww.activity.wechat.WeChatPayActivity;
 import com.tencent.tmgp.jjzww.bean.AppUserBean;
 import com.tencent.tmgp.jjzww.bean.GuessLastBean;
@@ -70,7 +70,9 @@ import com.tencent.tmgp.jjzww.view.VibratorView;
 import com.umeng.analytics.game.UMGameAgent;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -197,7 +199,8 @@ public class CtrlActivity extends Activity implements IctrlView {
     TextView ctrlBetHundredfoldTv;
     @BindView(R.id.ctrl_roomdetial_tv)
     TextView ctrlRoomdetialTv;
-
+    @BindView(R.id.ctrl_nowtime_tv)
+    TextView ctrlNowtimeTv;
 
     private CtrlCompl ctrlCompl;
     private FillingCurrencyDialog fillingCurrencyDialog;
@@ -235,6 +238,7 @@ public class CtrlActivity extends Activity implements IctrlView {
     private List<TextView> betViewList;
     private List<TextView> betFoldList;
     private List<Marquee> marquees = new ArrayList<>();
+    private Handler handler = new Handler();
 
     static {
         System.loadLibrary("SmartPlayer");
@@ -263,9 +267,11 @@ public class CtrlActivity extends Activity implements IctrlView {
         Utils.showLogE(TAG, "afterCreate");
         initView();
         initData();
-        coinTv.setText("  " + UserUtils.UserBalance + " 充值");
         setVibrator();   //初始化振动器
         getGuesserlast10();
+        //通过handler启动线程实现读秒
+        handler.post(mRunnable);
+        getUserDate(UserUtils.USER_ID);
     }
 
     protected void initView() {
@@ -304,7 +310,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         ctrlDollgoldTv.setText(money + "/次");
         ctrlConfirmLayout.setText(betMoney + "/次");   //下注金额
         if (!Utils.isEmpty(reward)) {
-            int bonus= Integer.parseInt(reward)*betFlodNum;
+            int bonus = Integer.parseInt(reward) * betFlodNum;
             ctrlBetremarkTv.setText("预计奖金" + bonus + "金币");
         } else {
             ctrlBetremarkTv.setText("预计奖金0金币");
@@ -339,6 +345,8 @@ public class CtrlActivity extends Activity implements IctrlView {
             btn_mediaPlayer.release();
             btn_mediaPlayer = null;
         }
+
+        handler.removeCallbacks(mRunnable);
     }
 
     @Override
@@ -359,7 +367,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         userInfos = list;
         int counter = userInfos.size();
         if (counter > 0) {
-            String s  = counter + "人在线";
+            String s = counter + "人在线";
             playerCounterIv.setText(s);
             if (counter == 1) {
                 //显示自己
@@ -439,6 +447,8 @@ public class CtrlActivity extends Activity implements IctrlView {
             btn_mediaPlayer.release();
             btn_mediaPlayer = null;
         }
+
+        handler.removeCallbacks(mRunnable);
     }
 
     @Override
@@ -451,6 +461,17 @@ public class CtrlActivity extends Activity implements IctrlView {
         ctrlGifView.setVisibility(View.VISIBLE);
         ctrlCompl.startPlayVideo(mRealPlaySv, currentUrl);
         NettyUtils.pingRequest();
+        handler.post(mRunnable);
+        if (!Utils.isEmpty(UserUtils.USER_ID)) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getUserDate(UserUtils.USER_ID);    //2秒后获取用户余额并更新UI
+                }
+            }, 2000);
+
+        }
+
     }
 
     @Override
@@ -487,7 +508,7 @@ public class CtrlActivity extends Activity implements IctrlView {
             R.id.ctrl_betnum_three_tv, R.id.ctrl_betnum_four_tv, R.id.ctrl_betnum_five_tv,
             R.id.ctrl_betnum_six_tv, R.id.ctrl_betnum_seven_tv, R.id.ctrl_betnum_eight_tv,
             R.id.ctrl_betnum_nine_tv, R.id.ctrl_bet_tenflod_tv, R.id.ctrl_bet_twentyfold_tv,
-            R.id.ctrl_bet_fiftyfold_tv, R.id.ctrl_bet_hundredfold_tv,R.id.ctrl_roomdetial_tv})
+            R.id.ctrl_bet_fiftyfold_tv, R.id.ctrl_bet_hundredfold_tv, R.id.ctrl_roomdetial_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.image_back:
@@ -539,10 +560,11 @@ public class CtrlActivity extends Activity implements IctrlView {
                 break;
             case R.id.ctrl_instruction_image:
                 //说明
-                quizInstrictionDialog = new QuizInstrictionDialog(this, R.style.easy_dialog_style);
-                quizInstrictionDialog.show();
-                quizInstrictionDialog.setTitle("竞猜游戏说明");
-                quizInstrictionDialog.setContent(Utils.readAssetsTxt(this, "guessintroduce"));
+                startActivity(new Intent(this, NavigationPageActivity.class));
+//                quizInstrictionDialog = new QuizInstrictionDialog(this, R.style.easy_dialog_style);
+//                quizInstrictionDialog.show();
+//                quizInstrictionDialog.setTitle("竞猜游戏说明");
+//                quizInstrictionDialog.setContent(Utils.readAssetsTxt(this, "guessintroduce"));
                 break;
 
             case R.id.ctrl_betting_winning:
@@ -683,7 +705,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 setBetRewardChange(betFlodNum);
                 break;
             case R.id.ctrl_roomdetial_tv:
-                String url=getIntent().getStringExtra(Utils.TAG_ROOM_DOLLURL);
+                String url = getIntent().getStringExtra(Utils.TAG_ROOM_DOLLURL);
                 showDetailDialog(url);
                 break;
             default:
@@ -1217,16 +1239,9 @@ public class CtrlActivity extends Activity implements IctrlView {
     protected void onResume() {
         super.onResume();
         UMGameAgent.onResume(this);
-        if (!Utils.isEmpty(UserUtils.USER_ID)) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getUserDate(UserUtils.USER_ID);    //2秒后获取用户余额并更新UI
-                }
-            }, 2000);
 
-        }
     }
+
 
     @Override
     protected void onPause() {
@@ -1334,8 +1349,9 @@ public class CtrlActivity extends Activity implements IctrlView {
                         String balance = bean.getBALANCE();
                         //UserUtils.UserBetNum = bean.getBET_NUM();
                         if (!TextUtils.isEmpty(balance)) {
-                            coinTv.setText("  " + balance + " 充值");
                             UserUtils.UserBalance = balance;
+                            coinTv.setText("  " + UserUtils.UserBalance + " 充值");
+
                         }
 //                        String showImage = UrlUtils.USERFACEIMAGEURL + bean.getIMAGE_URL();
 //                        Glide.with(getApplicationContext()).load(showImage)
@@ -1462,6 +1478,77 @@ public class CtrlActivity extends Activity implements IctrlView {
                 return false;
             }
         });
+    }
+
+//    public class TimeThread extends Thread {
+//        @Override
+//        public void run () {
+//            do {
+//                try {
+//                    Thread.sleep(1);
+//                    Message msg = new Message();
+//                    msg.what = msgKey1;
+//                    mHandler.sendMessage(msg);
+//                }
+//                catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            } while(true);
+//        }
+//    }
+//    private Handler mHandler = new Handler() {
+//        @Override
+//        public void handleMessage (Message msg) {
+//            super.handleMessage(msg);
+//            switch (msg.what) {
+//                case msgKey1:
+//                    ctrlNowtimeTv.setText(getTime());
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//    };
+
+    private Runnable mRunnable = new Runnable(){
+        @Override
+        public void run() {
+            // TODO Auto-generated method stub
+            ctrlNowtimeTv.setText(getTime());
+            //每两秒重启一下线程
+            handler.postDelayed(mRunnable, 1);
+        }
+    };
+
+    //获得当前年月日时分秒星期
+    public String getTime(){
+        final Calendar c = Calendar.getInstance();
+        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String mYear = String.valueOf(c.get(Calendar.YEAR)); // 获取当前年份
+        String mMonth = String.valueOf(c.get(Calendar.MONTH) + 1);// 获取当前月份
+        String mDay = String.valueOf(c.get(Calendar.DAY_OF_MONTH));// 获取当前月份的日期号码
+        String mWay = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
+        String mHour = String.valueOf(c.get(Calendar.HOUR_OF_DAY));//时
+        String mMinute = String.valueOf(c.get(Calendar.MINUTE));//分
+        String mSecond = String.valueOf(c.get(Calendar.SECOND));//秒
+        String millisecond= String.valueOf(c.get(Calendar.MILLISECOND));  //毫秒
+        if("1".equals(mWay)){
+            mWay ="天";
+        }else if("2".equals(mWay)){
+            mWay ="一";
+        }else if("3".equals(mWay)){
+            mWay ="二";
+        }else if("4".equals(mWay)){
+            mWay ="三";
+        }else if("5".equals(mWay)){
+            mWay ="四";
+        }else if("6".equals(mWay)){
+            mWay ="五";
+        }else if("7".equals(mWay)){
+            mWay ="六";
+        }
+        return mHour+":"+mMinute+":"+mSecond+":"+millisecond;
+        //return mYear + "." + mMonth + "." + mDay+" "+mHour+":"+mMinute+":"+mSecond+":"+millisecond;
     }
 
 }

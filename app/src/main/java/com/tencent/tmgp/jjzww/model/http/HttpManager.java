@@ -432,4 +432,129 @@ public class HttpManager {
                 .subscribe(subscriber);
     }
 
+    //查询可推广加盟的接口
+    public void getPromomoteManage( Subscriber<Result<HttpDataInfo>> subscriber) {
+        Observable<Result<HttpDataInfo>> o = smartService.getPromomoteManage(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //购买加盟接口
+    public void getPromomoteOrder(String userId,String proManageId,String payType,Subscriber<Result<HttpDataInfo>> subscriber){
+        Observable<Result<HttpDataInfo>> o = smartService.getPromomoteOrder(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,userId,proManageId,payType);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //查询已购买的加盟
+    public void getUserPromoteInf(String userId, Subscriber<Result<HttpDataInfo>> subscriber) {
+        Observable<Result<HttpDataInfo>> o = smartService.getUserPromoteInf(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //兑换推广码
+    public void getCommitUserPromoteCode(String userId,String promoteCode,Subscriber<Result<HttpDataInfo>> subscriber){
+        Observable<Result<HttpDataInfo>> o = smartService.getCommitUserPromoteCode(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,userId,promoteCode);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //查询账户余额
+    public void getUserAccBalCount(String userId,Subscriber<Result<HttpDataInfo>> subscriber){
+        Observable<Result<HttpDataInfo>> o = smartService.getUserAccBalCount(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //推广收益明细
+    public void getUserPromoteList(String userId,Subscriber<Result<HttpDataInfo>> subscriber){
+        Observable<Result<HttpDataInfo>> o = smartService.getUserPromoteList(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //新查询用户个人信息接口
+    public void getAppUserInf(String userId,Subscriber<Result<HttpDataInfo>> subscriber){
+        Observable<Result<HttpDataInfo>> o = smartService.getAppUserInf(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,userId);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //新获取验证码
+    public void getPhoneCode(String userId,String phoneNumber,String smsType,Subscriber<Result<HttpDataInfo>> subscriber){
+        Observable<Result<HttpDataInfo>> o = smartService.getPhoneCode(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,smsType,
+                userId,phoneNumber);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //用户绑定手机号
+    public void getEditUserPhone(String userId,String phoneNumber,String phoneCode,Subscriber<Result<HttpDataInfo>> subscriber){
+        Observable<Result<HttpDataInfo>> o = smartService.getEditUserPhone(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,UrlUtils.PHONE_SMS_TYPE_2000,
+                userId,phoneNumber,phoneCode);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //用户绑定银行卡
+    public void getRegBankInf(String userId,String smsType,String phoneNumber,String phoneCode,String bankAddress,String bankName,String bankBranch,String bankCardNo,String idNumber,String userName,Subscriber<Result<HttpDataInfo>> subscriber){
+        Observable<Result<HttpDataInfo>> o = smartService.getRegBankInf(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,
+                userId,smsType,phoneNumber,phoneCode,bankAddress,bankName,bankBranch,bankCardNo,idNumber,userName);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //提现接口
+    public void doWithdrawCash(String userId,String smsType,String orderAmt,String phoneCode,Subscriber<Result<HttpDataInfo>> subscriber){
+        Observable<Result<HttpDataInfo>> o = smartService.doWithdrawCash(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,
+                userId,smsType,orderAmt,phoneCode);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //账户收支流水  getUserAccountDetailPage
+    public void getUserAccountDetailPage(String userId,String nextPage,Subscriber<Result<HttpDataInfo>> subscriber){
+        Observable<Result<HttpDataInfo>> o = smartService.getUserAccountDetailPage(Utils.deviceType, Utils.osVersion,
+                Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,
+                userId,nextPage);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }

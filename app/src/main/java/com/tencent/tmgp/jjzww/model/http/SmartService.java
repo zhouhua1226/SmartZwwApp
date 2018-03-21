@@ -405,4 +405,192 @@ public interface SmartService {
             @Field(UrlUtils.WXQQ_CHANNEL) String channel
     );
 
+    //查询可推广加盟的接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETPROMOMOTEMANAGE)
+    Observable<Result<HttpDataInfo>> getPromomoteManage(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel
+    );
+
+    //购买推广加盟的接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.PROMOTEORDERTOGOLD)
+    Observable<Result<HttpDataInfo>> getPromomoteOrder(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.PROMOTEORDER_PROID) String proManageId,
+            @Field(UrlUtils.PROMOTEORDER_PAYTYPE) String payType
+    );
+
+    //查询用户已购买的加盟
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETUSERPROMOTEINF)
+    Observable<Result<HttpDataInfo>> getUserPromoteInf(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId
+    );
+
+    //兑换推广码
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.COMMITUSERPROMOTECODE)
+    Observable<Result<HttpDataInfo>> getCommitUserPromoteCode(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.PROMOTE_CODE) String promoteCode
+    );
+
+    //查询用户现金余额
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETUSERACCBALCOUNT)
+    Observable<Result<HttpDataInfo>> getUserAccBalCount(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId
+    );
+
+    //用户推广收益明细
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETUSERPROMOTELIST)
+    Observable<Result<HttpDataInfo>> getUserPromoteList(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId
+    );
+
+    //新查询用户个人信息接口
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETAPPUSERINFURL)
+    Observable<Result<HttpDataInfo>> getAppUserInf(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId
+    );
+
+    //新获取短信验证吗
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETPHONECODEURL)
+    Observable<Result<HttpDataInfo>> getPhoneCode(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.PHONE_SMSTYPE) String smsType,
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.PHONE_phoneNumber) String phoneNumber
+    );
+
+    //用户绑定手机号
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.EDITAPPUSERPHONE)
+    Observable<Result<HttpDataInfo>> getEditUserPhone(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.PHONE_SMSTYPE) String smsType,
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.PHONE_phoneNumber) String phoneNumber,
+            @Field(UrlUtils.PHONE_PHONECODE) String phoneCode
+    );
+
+    //用户绑定银行卡
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.REGBANKINFURL)
+    Observable<Result<HttpDataInfo>> getRegBankInf(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.PHONE_SMSTYPE) String smsType,
+            @Field(UrlUtils.PHONE_phoneNumber) String phoneNumber,
+            @Field(UrlUtils.PHONE_PHONECODE) String phoneCode,
+            @Field(UrlUtils.BANK_ADDRESS) String bankAddress,
+            @Field(UrlUtils.BANK_NAME) String bankName,
+            @Field(UrlUtils.BANK_BRANCH) String bankBranch,
+            @Field(UrlUtils.BANK_CARDNO) String bankCardNo,
+            @Field(UrlUtils.BANK_IDNUMBER) String idNumber,
+            @Field(UrlUtils.USERNAME) String userName
+    );
+
+    //用户提现申请
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.DOWITHDRAWCASHURL)
+    Observable<Result<HttpDataInfo>> doWithdrawCash(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.PHONE_SMSTYPE) String smsType,
+            @Field(UrlUtils.DRAW_ORDERAMT) String orderAmt,
+            @Field(UrlUtils.PHONE_PHONECODE) String phoneCode
+    );
+
+    //账户收支流水
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.ACCOUNTDETAILURL)
+    Observable<Result<HttpDataInfo>> getUserAccountDetailPage(
+            @Field(UrlUtils.DEVICETYPE) String deviceType,
+            @Field(UrlUtils.OSVERSION) String osVersion,
+            @Field(UrlUtils.APPVERSION) String appVersion,
+            @Field(UrlUtils.SFID) String sfId,
+            @Field(UrlUtils.WXQQ_CTYPE) String ctype,
+            @Field(UrlUtils.WXQQ_CHANNEL) String channel,
+            @Field(UrlUtils.USERID) String userId,
+            @Field(UrlUtils.NEXTPAGE) String nextPage
+    );
+
 }

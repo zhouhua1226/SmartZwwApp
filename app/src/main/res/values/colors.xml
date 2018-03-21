@@ -32,5 +32,6 @@
     <color name="zww_marquee_text_bg">#d6d5ff</color>   <!-- #ffe980 -->
     <color name="ctrl_textcolor">#fcf005</color>
     <color name="zww_gary_bg">#eceaea</color>
+    <color name="common_gary_bg">#ededed</color>
 
 </resources>

@@ -30,6 +30,87 @@ public class HttpDataInfo implements Serializable{
     private String awradFlag;
     private AwardCodePdBean setPd;
     private List<GuessLastBean> pondList;
+    private List<PromomoteBean> varList;
+    private PromomoteBean promoteInf;
+    private String promoteFlag;
+    private PromomoteBean proPd;
+    private String accBal;
+    private List<PromoteEarnBean> logList;
+    private String isBankInf;
+    private BankCardBean bankCard;
+    private PagesBean pd;
+
+    public PagesBean getPd() {
+        return pd;
+    }
+
+    public void setPd(PagesBean pd) {
+        this.pd = pd;
+    }
+
+    public String getIsBankInf() {
+        return isBankInf;
+    }
+
+    public void setIsBankInf(String isBankInf) {
+        this.isBankInf = isBankInf;
+    }
+
+    public BankCardBean getBankCard() {
+        return bankCard;
+    }
+
+    public void setBankCard(BankCardBean bankCard) {
+        this.bankCard = bankCard;
+    }
+
+    public List<PromoteEarnBean> getLogList() {
+        return logList;
+    }
+
+    public void setLogList(List<PromoteEarnBean> logList) {
+        this.logList = logList;
+    }
+
+    public String getAccBal() {
+        return accBal;
+    }
+
+    public void setAccBal(String accBal) {
+        this.accBal = accBal;
+    }
+
+    public String getPromoteFlag() {
+        return promoteFlag;
+    }
+
+    public void setPromoteFlag(String promoteFlag) {
+        this.promoteFlag = promoteFlag;
+    }
+
+    public PromomoteBean getProPd() {
+        return proPd;
+    }
+
+    public void setProPd(PromomoteBean proPd) {
+        this.proPd = proPd;
+    }
+
+    public PromomoteBean getPromoteInf() {
+        return promoteInf;
+    }
+
+    public void setPromoteInf(PromomoteBean promoteInf) {
+        this.promoteInf = promoteInf;
+    }
+
+    public List<PromomoteBean> getVarList() {
+        return varList;
+    }
+
+    public void setVarList(List<PromomoteBean> varList) {
+        this.varList = varList;
+    }
 
     public List<GuessLastBean> getPondList() {
         return pondList;

@@ -261,7 +261,7 @@ public class Utils {
      * @return  系统版本号
      */
     public static String getSystemVersion() {
-        return "Android "+android.os.Build.VERSION.RELEASE;
+        return "Android"+android.os.Build.VERSION.RELEASE;
     }
 
     /**
@@ -277,7 +277,7 @@ public class Utils {
      * @return  手机品牌和型号
      */
     public static String getDeviceBrand() {
-        return android.os.Build.BRAND+" "+android.os.Build.MODEL;
+        return android.os.Build.BRAND+android.os.Build.MODEL;
     }
 
     public static int getWidthSize(Context ctx) {

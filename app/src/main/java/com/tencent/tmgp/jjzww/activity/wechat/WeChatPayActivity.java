@@ -92,8 +92,9 @@ public class WeChatPayActivity extends BaseActivity {
             @Override
             public void onItemClick(int position) {
                 wechatpayGifView.setVisibility(View.VISIBLE);
-                int money = Integer.parseInt(mylist.get(position).getAMOUNT()) * 100;
-                getYSDKPay(UserUtils.USER_ID, YsdkUtils.access_token, String.valueOf(money));
+                double amount = Double.parseDouble(mylist.get(position).getAMOUNT());
+                int money= (int) (amount*100);
+                getTradeOrder(UserUtils.USER_ID, YsdkUtils.access_token, (position+1)+"");
             }
         });
     }
@@ -160,15 +161,15 @@ public class WeChatPayActivity extends BaseActivity {
         payInfo.putString(PayKey.EXTRA, "透传参数");//附加透传参数，服务端回调会完整透传.没有可不传
 
         payInfo.putString(PayKey.ZONEID, "1");  //账户分区ID_角色ID。每个应用都有一个分区ID为1的默认分区，分区可以在cpay.qq.com/mpay上自助配置。如果应用选择支持角色，则角色ID接在分区ID号后用"_"连接，角色ID需要进行urlencode。
-        payInfo.putInt(PayKey.PAY_ICON_RESID, R.drawable.app_jj_icon);  //支付时显示的icon
+        payInfo.putInt(PayKey.PAY_ICON_RESID, R.drawable.app_jjpay_icon);  //支付时显示的icon
         payInfo.putString(PayKey.ACCESS_TOKEN, accessToken);  //登录后获取到的用户访问token
         //调用支付接口
         RobustApi.getInstance().startPay(payInfo, new GamePayCallback());
 
     }
 
-    private void getYSDKPay(String userId, String accessToken, String amount) {
-        HttpManager.getInstance().getYSDKPay(userId, accessToken, amount, new RequestSubscriber<Result<HttpDataInfo>>() {
+    private void getTradeOrder(String userId, String accessToken, String pid) {
+        HttpManager.getInstance().getTradeOrder(userId, accessToken, pid, new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
             public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
                 Log.e(TAG, "订单生成结果=" + loginInfoResult.getMsg());

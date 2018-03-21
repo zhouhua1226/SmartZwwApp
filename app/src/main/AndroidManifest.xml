@@ -304,7 +304,7 @@
 
         <meta-data
             android:name="MANIFEST_META_CID"
-            android:value="d701017f820d4c94aee7d3bd3ca96edb" />
+            android:value="6f456783a0fe44e28771c08ab63a52f7" />
         <!-- 正式环境cid= 6f456783a0fe44e28771c08ab63a52f7-->
         <!-- 测试环境cid= d701017f820d4c94aee7d3bd3ca96edb-->
         <!--配置hx_ysdk组件——End-->

@@ -23,6 +23,8 @@ public class UrlUtils {
     public static final String TIME = "time";
     public static final String STATE = "state";
     public static final String GUESSID="guessId";
+    public static final String GUESSPRONUM="afterVoting";
+    public static final String GUESSMULTIPLE="multiple";
 
     public static final String USERID = "userId";
     public static final String WAGER = "wager";
@@ -201,7 +203,8 @@ public class UrlUtils {
     public static final String USERSIGNURL=URL+"/pooh-web/app/sign";
 
     //轮播接口
-    public static final String BANNERURL=URL+"/pooh-web/app/getRunImage";
+   // public static final String BANNERURL=URL+"/pooh-web/app/getRunImage";
+     public static final String BANNERURL="http://111.231.139.61:18081"+"/pooh-web/app/runimg/getRunImage";
 
     //排行榜当前用户排名接口
     public static final String RANKLISTURL=URL+"/pooh-web/rank/rankSelfList";

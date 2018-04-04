@@ -11,10 +11,8 @@
                 <TextView
                     android:id="@+id/tvMarquee"
                     android:layout_width="wrap_content"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="55dp"
-                    android:paddingTop="1dp"
-                    android:paddingBottom="1dp"
                     android:paddingRight="10dp"
                     android:paddingLeft="30dp"
                     android:ellipsize="end"
@@ -25,7 +23,6 @@
                     android:gravity="center_vertical"
                     android:textSize="14sp"
                     android:textColor="#323236"
-                    android:background="@drawable/zww_marquee_bg"
                     />
 
                 <LinearLayout
@@ -36,17 +33,11 @@
                     >
                         <ImageView
                             android:id="@+id/ivMarquee"
-                            android:layout_width="37dp"
-                            android:layout_height="37dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_marginLeft="10dp"
                             android:layout_centerVertical="true"
                             android:visibility="visible"/>
-
                 </LinearLayout>
-
         </FrameLayout>
-
-
-
-
 </RelativeLayout>

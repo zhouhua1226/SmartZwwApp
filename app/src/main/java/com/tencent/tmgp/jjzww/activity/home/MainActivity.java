@@ -76,6 +76,9 @@ public class MainActivity extends BaseActivity {
     private int signNumber = 0;
     private int[] signDayNum=new int[7];
     private String isSign="";
+    static {
+        System.loadLibrary("SmartPlayer");
+    }
 
     @Override
     protected int getLayoutId() {
@@ -299,7 +302,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void doServcerConnect() {
-        String ip = "123.206.120.46";    //123.206.120.46(壕鑫正式)   47.100.8.129(测试)   111.231.74.65 (第一抓娃娃)
+        String ip = "47.100.8.129";    //123.206.120.46(壕鑫正式)   47.100.8.129(测试)   111.231.74.65 (第一抓娃娃)
         AppClient.getInstance().setHost(ip);
         AppClient.getInstance().setPort(8580);
         if (!AppProperties.initProperties(getResources())) {

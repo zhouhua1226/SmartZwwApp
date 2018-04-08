@@ -7,6 +7,10 @@ public class UrlUtils {
     //视频url
     public static final String VIDEO_ROOT_URL = "https://open.ys7.com/";
     public static final String VIDEO_GET_TOKEN = "api/lapp/token/get";
+    //socket的IP   123.206.120.46(壕鑫正式)   47.100.8.129(测试)   111.231.74.65 (第一抓娃娃)
+    public static final String SOCKET_IP="47.100.8.129";
+    //ysdk密钥
+    public static final String YSDK_CKEY="2z8p1Wau1l9=";    //测试环境ckey="2z8p1Wau1l9="  正式环境ckey="y3WfBKF1FY4="
     //getToken
     public static final String APPKEY = "appKey";
     public static final String APPSECRET = "appSecret";

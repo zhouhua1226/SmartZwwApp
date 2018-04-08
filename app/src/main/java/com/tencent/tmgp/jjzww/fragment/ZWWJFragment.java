@@ -435,7 +435,6 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
 
             @Override
             public void _onError(Throwable e) {
-
             }
         });
     }

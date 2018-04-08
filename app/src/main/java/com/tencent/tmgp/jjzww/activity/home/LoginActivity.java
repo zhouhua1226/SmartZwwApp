@@ -189,7 +189,7 @@ public class LoginActivity extends BaseActivity {
 
         //add hx_ysdk  初始化
         Bundle initParams = new Bundle();
-        initParams.putString(RobustApi.InitParamsKey.CKEY, "y3WfBKF1FY4="); //测试环境ckey="2z8p1Wau1l9="  正式环境ckey="y3WfBKF1FY4="
+        initParams.putString(RobustApi.InitParamsKey.CKEY,UrlUtils.YSDK_CKEY); //测试环境ckey="2z8p1Wau1l9="  正式环境ckey="y3WfBKF1FY4="
         RobustApi.init(this, initParams);
 
         //分享初始化

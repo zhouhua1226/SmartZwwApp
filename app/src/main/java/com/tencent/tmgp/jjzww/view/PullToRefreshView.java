@@ -298,7 +298,7 @@ public class PullToRefreshView extends LinearLayout {
 			if(  diff >= longPressTime){ 	
 			    return true; 
 			} 
-			System.out.println("pppppppppp--------"+diff);
+			//System.out.println("pppppppppp--------"+diff);
 		return false; 
 
 	    }
@@ -315,7 +315,7 @@ public class PullToRefreshView extends LinearLayout {
 			mLastMotionX = x;
 			break;
 		case MotionEvent.ACTION_MOVE:
-			System.out.println("[[[[[[[[[[[[[[==========");
+			//System.out.println("[[[[[[[[[[[[[[==========");
 			// deltaY > 0 是向下运动,< 0是向上运动
 			int deltaY = y - mLastMotionY;
 			int deltaX = x - mLastMotionX;
@@ -440,13 +440,13 @@ public class PullToRefreshView extends LinearLayout {
 			// 子scroll view滑动到最顶端
 			View child = mScrollView.getChildAt(0);
 			if (deltaY > 0 && mScrollView.getScrollY() == 0) {
-				System.out.println("++++++++++down++++++++++pulltorefresh========");
+				//System.out.println("++++++++++down++++++++++pulltorefresh========");
 				mPullState = PULL_DOWN_STATE;
 				return true;
 			} else if (deltaY < 0
 					&& child.getMeasuredHeight() <= getHeight()
 							+ mScrollView.getScrollY()) {
-				System.out.println("+++++++++up+++++++++++pulltorefresh========");
+				//System.out.println("+++++++++up+++++++++++pulltorefresh========");
 				mPullState = PULL_UP_STATE;
 				return true;
 			}

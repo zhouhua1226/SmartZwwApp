@@ -303,7 +303,7 @@ public class MainActivity extends BaseActivity {
 
     private void doServcerConnect() {
         String ip = "47.100.8.129";    //123.206.120.46(壕鑫正式)   47.100.8.129(测试)   111.231.74.65 (第一抓娃娃)
-        AppClient.getInstance().setHost(ip);
+        AppClient.getInstance().setHost(UrlUtils.SOCKET_IP);
         AppClient.getInstance().setPort(8580);
         if (!AppProperties.initProperties(getResources())) {
             Utils.showLogE(TAG, "netty初始化配置信息出错");

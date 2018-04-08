@@ -145,7 +145,9 @@ public interface SmartService {
             @Field(UrlUtils.WAGER) Integer wager,
             @Field(UrlUtils.GUESSKEY) String guessKey,
             @Field(UrlUtils.GUESSID) String guessId,
-            @Field(UrlUtils.DOLLID) String dollID
+            @Field(UrlUtils.DOLLID) String dollID,
+            @Field(UrlUtils.GUESSPRONUM) int afterVoting,
+            @Field(UrlUtils.GUESSMULTIPLE) int multiple
     );
 
         //跑马灯

@@ -160,8 +160,8 @@ public class HttpManager {
 
     //下注
     public void getBets(String userId,int wager,String guessKey,String guessId,
-                        String dollID,Subscriber<Result<AppUserBean>> subscriber){
-        Observable<Result<AppUserBean>> o= smartService.getBets(userId,wager,guessKey,guessId,dollID);
+                        String dollID,int afterVoting,int multiple,Subscriber<Result<AppUserBean>> subscriber){
+        Observable<Result<AppUserBean>> o= smartService.getBets(userId,wager,guessKey,guessId,dollID,afterVoting,multiple);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

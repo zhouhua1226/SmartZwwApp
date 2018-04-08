@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -201,6 +202,18 @@ public class CtrlActivity extends Activity implements IctrlView {
     TextView ctrlRoomdetialTv;
     @BindView(R.id.ctrl_nowtime_tv)
     TextView ctrlNowtimeTv;
+    @BindView(R.id.ctrl_betpernum_tv)
+    TextView ctrlBetpernumTv;
+    @BindView(R.id.ctrl_bet_onepro_tv)
+    TextView ctrlBetOneproTv;
+    @BindView(R.id.ctrl_bet_fivepro_tv)
+    TextView ctrlBetFiveproTv;
+    @BindView(R.id.ctrl_bet_tenpro_tv)
+    TextView ctrlBetTenproTv;
+    @BindView(R.id.ctrl_bet_twentypro_tv)
+    TextView ctrlBetTwentyproTv;
+    @BindView(R.id.ctrl_betpernum_layout)
+    RelativeLayout ctrlBetpernumLayout;
 
     private CtrlCompl ctrlCompl;
     private FillingCurrencyDialog fillingCurrencyDialog;
@@ -234,11 +247,13 @@ public class CtrlActivity extends Activity implements IctrlView {
     private int prob;         //抓取概率
     private String reward = "";    //预计奖金
     private String showUserId = "";
-    private int betFlodNum = 5;   //默认投注倍数1
-    private List<TextView> betViewList;
-    private List<TextView> betFoldList;
+    private int betFlodNum = 5;   //默认投注倍数5
+    private List<TextView> betViewList;   //投注内容
+    private List<TextView> betFoldList;   //倍投
+    private List<TextView> betProList;    //追投
     private List<Marquee> marquees = new ArrayList<>();
     private Handler handler = new Handler();
+    private int betPro=0;   //追投期数   默认不追投0
 
     static {
         System.loadLibrary("SmartPlayer");
@@ -508,7 +523,9 @@ public class CtrlActivity extends Activity implements IctrlView {
             R.id.ctrl_betnum_three_tv, R.id.ctrl_betnum_four_tv, R.id.ctrl_betnum_five_tv,
             R.id.ctrl_betnum_six_tv, R.id.ctrl_betnum_seven_tv, R.id.ctrl_betnum_eight_tv,
             R.id.ctrl_betnum_nine_tv, R.id.ctrl_bet_tenflod_tv, R.id.ctrl_bet_twentyfold_tv,
-            R.id.ctrl_bet_fiftyfold_tv, R.id.ctrl_bet_hundredfold_tv, R.id.ctrl_roomdetial_tv})
+            R.id.ctrl_bet_fiftyfold_tv, R.id.ctrl_bet_hundredfold_tv, R.id.ctrl_roomdetial_tv,
+            R.id.ctrl_betpernum_tv,R.id.ctrl_bet_onepro_tv,R.id.ctrl_bet_fivepro_tv,
+            R.id.ctrl_bet_tenpro_tv,R.id.ctrl_bet_twentypro_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.image_back:
@@ -591,10 +608,11 @@ public class CtrlActivity extends Activity implements IctrlView {
                     getUserDate(UserUtils.USER_ID);
                     return;
                 }
-                if (Integer.parseInt(UserUtils.UserBalance) >= betMoney) {
+                int totalMoney=betMoney*(betPro+1);
+                if (Integer.parseInt(UserUtils.UserBalance) >= totalMoney) {
                     if (!zt.equals("")) {
-                        getBets(UserUtils.USER_ID, Integer.valueOf(betMoney).intValue(), zt, periodsNum, dollId);
-                        coinTv.setText("  " + (Integer.parseInt(UserUtils.UserBalance) - betMoney) + " 充值");
+                        getBets(UserUtils.USER_ID, Integer.valueOf(betMoney).intValue(), zt, periodsNum, dollId,betPro,betFlodNum);
+                        coinTv.setText("  " + (Integer.parseInt(UserUtils.UserBalance) - totalMoney) + " 充值");
                         ctrlButtomLayout.setVisibility(View.VISIBLE);
                         ctrlBetingLayout.setVisibility(View.GONE);
                         ctrlQuizLayout.setEnabled(false);
@@ -708,6 +726,64 @@ public class CtrlActivity extends Activity implements IctrlView {
                 String url = getIntent().getStringExtra(Utils.TAG_ROOM_DOLLURL);
                 showDetailDialog(url);
                 break;
+            case R.id.ctrl_betpernum_tv:
+                //显示隐藏追投期数逻辑
+                if(ctrlBetpernumLayout.getVisibility()==View.VISIBLE){
+                    ctrlBetpernumLayout.setVisibility(View.GONE);
+                    Drawable rightUp = getResources().getDrawable(R.drawable.ctrl_betpronum_up);
+                    rightUp.setBounds(0, 0, rightUp.getMinimumWidth(), rightUp.getMinimumHeight());
+                    ctrlBetpernumTv.setCompoundDrawables(null,null,rightUp,null);
+                }else {
+                    ctrlBetpernumLayout.setVisibility(View.VISIBLE);
+                    Drawable rightDown = getResources().getDrawable(R.drawable.ctrl_betpronum_down);
+                    rightDown.setBounds(0, 0, rightDown.getMinimumWidth(), rightDown.getMinimumHeight());
+                    ctrlBetpernumTv.setCompoundDrawables(null,null,rightDown,null);
+                }
+                break;
+            case R.id.ctrl_bet_onepro_tv:
+                if(betPro==1){
+                    ctrlBetOneproTv.setTextColor(getResources().getColor(R.color.white));
+                    ctrlBetOneproTv.setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
+                    betPro=0;
+                }else {
+                    betPro = 1;
+                    setBetProbg(0);
+                }
+                setBetRewardChange(betFlodNum);
+                break;
+            case R.id.ctrl_bet_fivepro_tv:
+                if(betPro==5){
+                    ctrlBetFiveproTv.setTextColor(getResources().getColor(R.color.white));
+                    ctrlBetFiveproTv.setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
+                    betPro=0;
+                }else {
+                    betPro = 5;
+                    setBetProbg(1);
+                }
+                setBetRewardChange(betFlodNum);
+                break;
+            case R.id.ctrl_bet_tenpro_tv:
+                if(betPro==10){
+                    ctrlBetTenproTv.setTextColor(getResources().getColor(R.color.white));
+                    ctrlBetTenproTv.setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
+                    betPro=0;
+                }else {
+                    betPro = 10;
+                    setBetProbg(2);
+                }
+                setBetRewardChange(betFlodNum);
+                break;
+            case R.id.ctrl_bet_twentypro_tv:
+                if(betPro==20){
+                    ctrlBetTwentyproTv.setTextColor(getResources().getColor(R.color.white));
+                    ctrlBetTwentyproTv.setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
+                    betPro=0;
+                }else {
+                    betPro = 20;
+                    setBetProbg(3);
+                }
+                setBetRewardChange(betFlodNum);
+                break;
             default:
                 break;
         }
@@ -724,6 +800,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         operationRl.setVisibility(View.VISIBLE);
         catchLl.setEnabled(true);
         ctrlCompl.startTimeCounter();
+        ctrlRoomdetialTv.setVisibility(View.GONE);
     }
 
     private void getStartstation() {
@@ -735,6 +812,7 @@ public class CtrlActivity extends Activity implements IctrlView {
         catchLl.setVisibility(View.GONE);
         operationRl.setVisibility(View.GONE);
         catchLl.setEnabled(true);
+        ctrlRoomdetialTv.setVisibility(View.VISIBLE);
     }
 
     private void getMoney() {
@@ -947,6 +1025,12 @@ public class CtrlActivity extends Activity implements IctrlView {
         betFoldList.add(ctrlBetTwentyfoldTv);
         betFoldList.add(ctrlBetFiftyfoldTv);
         betFoldList.add(ctrlBetHundredfoldTv);
+
+        betProList=new ArrayList<>();
+        betProList.add(ctrlBetOneproTv);
+        betProList.add(ctrlBetFiveproTv);
+        betProList.add(ctrlBetTenproTv);
+        betProList.add(ctrlBetTwentyproTv);
     }
 
     //竞猜投注UI变动
@@ -983,10 +1067,26 @@ public class CtrlActivity extends Activity implements IctrlView {
         }
     }
 
+    //竞猜追投UI变动
+    private void setBetProbg(int proNum){
+        for (int i = 0; i < betProList.size(); i++) {
+            if (i == proNum) {
+                betProList.get(i).setTextColor(getResources().getColor(R.color.ctrl_textcolor));
+                betProList.get(i).setBackgroundResource(R.drawable.ctrl_guess_betnum_bg);
+            } else {
+                betProList.get(i).setTextColor(getResources().getColor(R.color.white));
+                betProList.get(i).setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
+            }
+        }
+    }
+
+
     //竞猜奖金和金额UI变动
     private void setBetRewardChange(int num) {
         int re = Integer.parseInt(reward) * num;
-        betMoney = money * num;
+        int reward=re*(betPro+1);
+        betMoney = money * num ;
+        int showBetMoney= money*num;
         ctrlBetremarkTv.setText("预计奖金" + re + "金币");
         ctrlConfirmLayout.setText(betMoney + "/次");
     }
@@ -995,11 +1095,20 @@ public class CtrlActivity extends Activity implements IctrlView {
     private void initBet() {
         zt = "";
         betFlodNum = 5;
+        betPro=0;
         setBetNumBg(zt);
         setBetRewardChange(betFlodNum);
+        ctrlBetpernumLayout.setVisibility(View.GONE);
+        Drawable rightUp = getResources().getDrawable(R.drawable.ctrl_betpronum_up);
+        rightUp.setBounds(0, 0, rightUp.getMinimumWidth(), rightUp.getMinimumHeight());
+        ctrlBetpernumTv.setCompoundDrawables(null,null,rightUp,null);
         for (int i = 0; i < betFoldList.size(); i++) {
             betFoldList.get(i).setTextColor(getResources().getColor(R.color.white));
             betFoldList.get(i).setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
+        }
+        for(int i=0;i<betProList.size();i++){
+            betProList.get(i).setTextColor(getResources().getColor(R.color.white));
+            betProList.get(i).setBackgroundResource(R.drawable.ctrl_guess_unbetnum_bg);
         }
     }
 
@@ -1254,8 +1363,8 @@ public class CtrlActivity extends Activity implements IctrlView {
      ***************************************************/
     //下注接口
     private void getBets(String userID, Integer wager, String guessKey, String guessId,
-                         String dollID) {
-        HttpManager.getInstance().getBets(userID, wager, guessKey, guessId, dollID, new RequestSubscriber<Result<AppUserBean>>() {
+                         String dollID,int afterVoting,int multiple) {
+        HttpManager.getInstance().getBets(userID, wager, guessKey, guessId, dollID,afterVoting,multiple, new RequestSubscriber<Result<AppUserBean>>() {
             @Override
             public void _onSuccess(Result<AppUserBean> appUserBeanResult) {
                 if (appUserBeanResult.getData().getAppUser() != null) {
@@ -1480,48 +1589,19 @@ public class CtrlActivity extends Activity implements IctrlView {
         });
     }
 
-//    public class TimeThread extends Thread {
-//        @Override
-//        public void run () {
-//            do {
-//                try {
-//                    Thread.sleep(1);
-//                    Message msg = new Message();
-//                    msg.what = msgKey1;
-//                    mHandler.sendMessage(msg);
-//                }
-//                catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            } while(true);
-//        }
-//    }
-//    private Handler mHandler = new Handler() {
-//        @Override
-//        public void handleMessage (Message msg) {
-//            super.handleMessage(msg);
-//            switch (msg.what) {
-//                case msgKey1:
-//                    ctrlNowtimeTv.setText(getTime());
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//    };
-
-    private Runnable mRunnable = new Runnable(){
+    //房间读秒
+    private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
             // TODO Auto-generated method stub
             ctrlNowtimeTv.setText(getTime());
-            //每两秒重启一下线程
+            //每1毫秒重启一下线程
             handler.postDelayed(mRunnable, 1);
         }
     };
 
-    //获得当前年月日时分秒星期
-    public String getTime(){
+    //获得当前时间
+    public String getTime() {
         final Calendar c = Calendar.getInstance();
         c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         String mYear = String.valueOf(c.get(Calendar.YEAR)); // 获取当前年份
@@ -1531,23 +1611,8 @@ public class CtrlActivity extends Activity implements IctrlView {
         String mHour = String.valueOf(c.get(Calendar.HOUR_OF_DAY));//时
         String mMinute = String.valueOf(c.get(Calendar.MINUTE));//分
         String mSecond = String.valueOf(c.get(Calendar.SECOND));//秒
-        String millisecond= String.valueOf(c.get(Calendar.MILLISECOND));  //毫秒
-        if("1".equals(mWay)){
-            mWay ="天";
-        }else if("2".equals(mWay)){
-            mWay ="一";
-        }else if("3".equals(mWay)){
-            mWay ="二";
-        }else if("4".equals(mWay)){
-            mWay ="三";
-        }else if("5".equals(mWay)){
-            mWay ="四";
-        }else if("6".equals(mWay)){
-            mWay ="五";
-        }else if("7".equals(mWay)){
-            mWay ="六";
-        }
-        return mHour+":"+mMinute+":"+mSecond+":"+millisecond;
+        String millisecond = String.valueOf(c.get(Calendar.MILLISECOND));  //毫秒
+        return mHour + ":" + mMinute + ":" + mSecond + ":" + millisecond;
         //return mYear + "." + mMonth + "." + mDay+" "+mHour+":"+mMinute+":"+mSecond+":"+millisecond;
     }
 

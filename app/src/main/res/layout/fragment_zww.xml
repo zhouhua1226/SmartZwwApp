@@ -7,14 +7,11 @@
     android:orientation="vertical">
 
     <com.tencent.tmgp.jjzww.view.PullToRefreshView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mPullToRefreshView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:orientation="vertical"
-         >
-
+        android:orientation="vertical">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -98,17 +95,13 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="200dp">
-                    <SurfaceView
+                    <com.tencent.tmgp.jjzww.view.MySurfaceView
                         android:id="@+id/sfv_player"
                         android:layout_width="match_parent"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:layout_height="match_parent"/>
-                    <ProgressBar
-                        android:id="@+id/sfv_player_bar"
-                        android:layout_width="30dp"
-                        android:layout_centerInParent="true"
-                        android:layout_height="30dp" />
+                        android:layout_height="200dp"/>
+
                     <RelativeLayout
                         android:id="@+id/rl_marqueeview"
                         android:layout_width="match_parent"
@@ -116,7 +109,7 @@
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@color/select_pop_gv_bg"
+                        android:background="@color/backcolor"
                         android:visibility="invisible"
                         android:orientation="horizontal">
                         <com.tencent.tmgp.jjzww.view.MarqueeView
@@ -126,7 +119,6 @@
                             app:mvAnimDuration="500"
                             app:mvInterval="2000"
                             app:mvTextSize="13sp" />
-
                         <ImageButton
                             android:id="@+id/zww_guess_btn"
                             android:layout_width="20dp"
@@ -138,6 +130,8 @@
                             />
                     </RelativeLayout>
                 </RelativeLayout>
+
+
                 <android.support.design.widget.TabLayout
                     android:id="@+id/type_tly"
                     android:layout_width="match_parent"

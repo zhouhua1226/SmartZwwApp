@@ -1,7 +1,7 @@
 package com.tencent.tmgp.jjzww.base;
 
 
-import android.content.Context;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -26,15 +25,19 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().getWindow().setFormat(PixelFormat.TRANSLUCENT);
     }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(getLayoutId(), container, false);
+        if(rootView!=null){
+            ViewGroup parent =(ViewGroup)rootView.getParent();
+            parent.removeView(rootView);
+        }else {
+            rootView = inflater.inflate(getLayoutId(), container, false);
+        }
         return rootView;
     }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

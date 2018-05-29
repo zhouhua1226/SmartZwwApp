@@ -34,4 +34,6 @@
     <color name="zww_gary_bg">#eceaea</color>
     <color name="common_gary_bg">#ededed</color>
 
+    <color name="coin_bg">#ffd700</color>
+
 </resources>

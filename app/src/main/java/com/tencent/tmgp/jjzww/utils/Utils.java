@@ -64,6 +64,9 @@ public class Utils {
 
     public static final String TAG_LOTTERY_DRAW = "TAG_LOTTERY_DRAW";
 
+    public static final String TAG_COIN_RESPONSE = "TAG_COIN_RESPONSE";
+    public static final String TAG_COIN_DEVICE_STATE = "TAG_COIN_DEVICE_STATE";
+
     public static final String FREE  = "FREE";
     public static final String BUSY= "USING";
     public static final String OK = "正常";
@@ -176,6 +179,7 @@ public class Utils {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
+
 
     /**
      * 判断网络是否连接

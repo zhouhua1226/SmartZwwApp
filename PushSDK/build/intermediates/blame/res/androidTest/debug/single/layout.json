@@ -1,6 +1,10 @@
 [
     {
-        "merged": "D:\\smartzww\\workspace\\rtmp\\SmartZwwApp\\PushSDK\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\upush_notification.xml",
-        "source": "D:\\smartzww\\workspace\\rtmp\\SmartZwwApp\\PushSDK\\build\\intermediates\\bundles\\debug\\res\\layout\\upush_notification.xml"
+        "merged": "E:\\game_space\\workspace\\pushcoin\\SmartZwwApp\\PushSDK\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\upush_notification.xml",
+        "source": "E:\\game_space\\workspace\\pushcoin\\SmartZwwApp\\PushSDK\\build\\intermediates\\bundles\\debug\\res\\layout\\upush_notification.xml"
+    },
+    {
+        "merged": "D:\\zww\\pushcoin\\SmartZwwApp\\PushSDK\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\upush_notification.xml",
+        "source": "D:\\zww\\pushcoin\\SmartZwwApp\\PushSDK\\build\\intermediates\\bundles\\debug\\res\\layout\\upush_notification.xml"
     }
 ]

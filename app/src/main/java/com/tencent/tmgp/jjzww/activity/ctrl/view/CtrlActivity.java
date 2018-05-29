@@ -290,7 +290,6 @@ public class CtrlActivity extends Activity implements IctrlView {
     }
 
     protected void initView() {
-        ButterKnife.bind(this);
         RxBus.get().register(this);
         Utils.showLogE(TAG, "=====" + UserUtils.UserPhone);
         NettyUtils.sendRoomInCmd();
@@ -389,6 +388,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                 Glide.with(this).load(UserUtils.UserImage).asBitmap().
                         transform(new GlideCircleTransform(this)).into(playerSecondIv);
             } else {
+
                 if (is) {
                     //显示另外一个人
                     for (int i = 0; i < counter; i++) {
@@ -1144,7 +1144,7 @@ public class CtrlActivity extends Activity implements IctrlView {
                     }
                 } else if (moveControlResponse.getMoveType().name().equals(MoveType.CATCH.name())) {
                     //TODO 其他用户下爪了 观看者
-                    Utils.showLogE(TAG, "观看者观察到下爪了......");
+                    Utils.showLogE(TAG, "观看者观察到下爪了......" + moveControlResponse.toString());
                     moneyImage.setImageResource(R.drawable.ctrl_unbet_button);
                     ctrlQuizLayout.setEnabled(false);
                     ctrlBetingLayout.setVisibility(View.GONE);

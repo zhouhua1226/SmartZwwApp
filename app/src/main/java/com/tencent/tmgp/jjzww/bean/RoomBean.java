@@ -24,6 +24,7 @@ public class RoomBean implements Serializable{
     private String roomId;
     private String prob;
     private String reward;
+    private String deviceType; //1 娃娃机  2 推币器
 
     public String getProb() {
         return prob;
@@ -127,5 +128,13 @@ public class RoomBean implements Serializable{
 
     public void setRoomId(String roomId) {
         this.roomId = roomId;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
+    }
+
+    public String getDeviceType() {
+        return deviceType;
     }
 }

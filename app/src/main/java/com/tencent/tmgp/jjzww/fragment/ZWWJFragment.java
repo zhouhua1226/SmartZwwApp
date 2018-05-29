@@ -22,6 +22,7 @@ import com.tencent.tmgp.jjzww.activity.home.ExChangeShopActivity;
 import com.tencent.tmgp.jjzww.activity.home.JoinEarnActivity;
 import com.tencent.tmgp.jjzww.activity.home.MyCenterActivity;
 import com.tencent.tmgp.jjzww.activity.home.RankActivity;
+import com.tencent.tmgp.jjzww.activity.ctrl.view.PushCoinActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.BannerBean;
@@ -226,7 +227,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
                 }
             };
 
-    private void enterNext(String name, String camera1, String camera2, boolean status, String gold, String id, String prob, String reward, String dollUrl) {
+    private void enterZwwNext(String name, String camera1, String camera2, boolean status, String gold, String id, String prob, String reward, String dollUrl) {
         Intent intent = new Intent(getActivity(), CtrlActivity.class);
         intent.putExtra(Utils.TAG_ROOM_NAME, name);
         intent.putExtra(Utils.TAG_URL_MASTER, camera1);
@@ -237,6 +238,14 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         intent.putExtra(Utils.TAG_ROOM_PROB, prob);
         intent.putExtra(Utils.TAG_ROOM_REWARD, reward);
         intent.putExtra(Utils.TAG_ROOM_DOLLURL, dollUrl);
+        startActivity(intent);
+    }
+
+    //TODO 正式环境统一处理
+    private void enterCoinNext(String camera1, String camera2) {
+        Intent intent = new Intent(getActivity(), PushCoinActivity.class);
+        intent.putExtra(Utils.TAG_URL_MASTER, camera1);
+        intent.putExtra(Utils.TAG_URL_SECOND, camera2);
         startActivity(intent);
     }
 
@@ -272,7 +281,12 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
             Utils.showLogE(TAG, "房间推流地址1=" + url1);
             Utils.showLogE(TAG, "房间推流地址2=" + url2);
             if (!TextUtils.isEmpty(url2) && !TextUtils.isEmpty(url1)) {
-                enterNext(currentRoomBeens.get(po).getDollName(),
+                String type = currentRoomBeens.get(po).getDeviceType();
+                if (type.equals("2")) {
+                    enterCoinNext(url1, url2);
+                    return;
+                }
+                enterZwwNext(currentRoomBeens.get(po).getDollName(),
                         url1, url2,
                         room_status,
                         String.valueOf(currentRoomBeens.get(po).getDollGold()),

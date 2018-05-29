@@ -83,6 +83,11 @@ public class CtrlCompl implements BasePresenter, ICtrlPresenter {
 
     }
 
+    public CtrlCompl(Context context) {
+        ctx = context;
+        ctrlModel = new CtrlModel(context, callBack);
+    }
+
     public CtrlCompl(IctrlView ctrlView, Context context) {
         ictrlView = ctrlView;
         ctx = context;

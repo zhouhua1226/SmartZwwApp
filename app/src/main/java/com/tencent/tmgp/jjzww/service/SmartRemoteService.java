@@ -8,6 +8,7 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 
 
+import com.iot.game.pooh.server.entity.json.CoinControlResponse;
 import com.iot.game.pooh.server.entity.json.announce.LotteryDrawAnnounceMessage;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.gatz.netty.global.ConnectResultEvent;
@@ -116,6 +117,14 @@ public class SmartRemoteService extends Service {
             } else if (tag.equals(ConnectResultEvent.LOTTERY_DRAW_ANNOUNCE)) {
                 LotteryDrawAnnounceMessage message = (LotteryDrawAnnounceMessage) objs[0];
                 RxBus.get().post(Utils.TAG_LOTTERY_DRAW, message);
+            } else if (tag.equals(ConnectResultEvent.PUSH_COIN_RESPONESE)) {
+                CoinControlResponse coinControlResponse = (CoinControlResponse) objs[0];
+                RxBus.get().post(Utils.TAG_COIN_RESPONSE, coinControlResponse);
+            }
+            else if (tag.equals(ConnectResultEvent.PUSH_COIN_BUSY)) {
+                RxBus.get().post(Utils.TAG_COIN_DEVICE_STATE, "cbusy");
+            } else if (tag.equals(ConnectResultEvent.PUSH_COIN_FREE)) {
+                RxBus.get().post(Utils.TAG_COIN_DEVICE_STATE, "cfree");
             }
         }
 

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
+import com.tencent.tmgp.jjzww.utils.Utils;
 
 import java.util.List;
 

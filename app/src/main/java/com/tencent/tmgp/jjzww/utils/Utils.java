@@ -4,19 +4,14 @@
  */
 package com.tencent.tmgp.jjzww.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.WindowManager;
 
 import com.gatz.netty.global.ConnectResultEvent;
@@ -31,7 +26,6 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -137,7 +131,17 @@ public class Utils {
         Matcher m = p.matcher(value);
         return m.find();
     }
-
+   /*
+    * 判断是否为整数
+   * @param str 传入的字符串
+   * @return 是整数返回true,否则返回false
+  */
+    public final static boolean isNumeric(String s) {
+        if (s != null && !"".equals(s.trim()))
+            return s.matches("^[0-9]*$");
+        else
+            return false;
+    }
     /**
      * 得到手机识别码
      */

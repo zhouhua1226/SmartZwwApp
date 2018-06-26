@@ -26,10 +26,15 @@
         android:normalScreens="true" />
 
     <!-- <uses-permission android:name="android.permission.GET_TASKS" /> -->
+
     <!-- <uses-sdk -->
+
     <!-- android:minSdkVersion="14" -->
+
     <!-- android:targetSdkVersion="19" /> -->
+
     <!-- 14 19 -->
+
     <application
         android:name=".base.MyApplication"
         android:allowBackup="true"
@@ -49,8 +54,10 @@
             android:name="com.videogo.main.EzvizWebViewActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
+
         -->
         <!-- =============================友盟相关============================================= -->
+
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5a547230b27b0a6a19000132" />
@@ -62,14 +69,18 @@
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="d70bf19f71c773f2b72234a0966d12a4"></meta-data>
+
         <!-- 街机抓娃娃(应用宝版) d70bf19f71c773f2b72234a0966d12a4   d318f4fe099226d45d73978c710c1bb4 -->
+
         <!-- =============================友盟相关============================================= -->
+
         <activity
             android:name=".activity.ctrl.view.CtrlActivity"
             android:configChanges="orientation|keyboardHidden"
             android:resizeableActivity="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.InformationActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -94,12 +105,14 @@
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.FeedBackActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.LnvitationCodeActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -112,18 +125,21 @@
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.ChangNicknameAvtivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.TakePhotoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/activitystyle" />
+
         <activity
             android:name=".activity.wechat.WeChatPayActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -142,42 +158,42 @@
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".activity.home.RecordGameTwoActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:launchMode="standard"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.ConsignmentActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.NewAddressActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.CtrlTextActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.SelectRechargeTypeActiivty"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.VideoPlayBackActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.BetRecordActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -194,30 +210,27 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/jjLoginTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+
         <!-- 米大师支付接入需要 -->
 
-
         <!-- TODO GAME SDK Midas接入配置 设置屏幕兼容声明 END -->
-
-
         <!-- TODO SDK接入 QQ接入配置 START -->
+
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="tencent1106514672" />
                 <!-- tencent游戏的手Q appid -->
             </intent-filter>
@@ -228,10 +241,10 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- TODO SDK接入 QQ接入配置 END -->
-
-
         <!-- TODO SDK接入 微信接入配置 START -->
+
         <!-- 注意：此处应改为 游戏包名.wxapi.WXEntryActivity -->
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:excludeFromRecents="true"
@@ -242,26 +255,27 @@
             <intent-filter>
                 <!-- 注意：此处应改为 游戏包名.diff -->
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <!-- 注意：此处应改为 游戏的微信appid -->
                 <data android:scheme="wxe7e60e79f7e7a25e" />
             </intent-filter>
+
         </activity>
+
         <!-- TODO SDK接入 微信接入配置 END -->
-
-
         <!-- TODO GAME SDK接入YSDK实名制接入配置 START -->
+
         <activity
             android:name="com.tencent.ysdk.module.realName.impl.RegisterRealNameActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="sensor"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-        <!-- TODO GAME SDK接入YSDK实名制接入配置 END -->
 
+        <!-- TODO GAME SDK接入YSDK实名制接入配置 END -->
 
         <!-- 米大师支付接入配置组件——Start -->
         <!-- TODO GAME SDK Midas接入配置 START -->
+
         <activity
             android:name="com.tencent.midas.proxyactivity.APMidasPayProxyActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -271,6 +285,7 @@
             android:name="com.tencent.midas.wx.APMidasWXPayActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <activity
             android:name="com.tencent.midas.qq.APMidasQQWalletActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -278,21 +293,23 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:scheme="qwallet100703379" />
                 <!-- TODO GAME 这里为米大师的默认配置，游戏不要修改 -->
             </intent-filter>
+
         </activity>
+
         <activity
             android:name="com.tencent.midas.jsbridge.APWebJSBridgeActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <!-- TODO GAME SDK Midas接入配置 END -->
+
         <!-- 米大师支付接入配置组件——End -->
 
         <receiver
@@ -302,16 +319,16 @@
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
 
+
         <!-- 配置hx_ysdk组件——Start -->
+
         <activity
             android:name="com.robust.sdk.ui.CommonActivity"
             android:configChanges="orientation|keyboardHidden|navigation" />
-
         <meta-data
             android:name="MANIFEST_META_CHID"
             android:value="tencent" />
@@ -328,42 +345,49 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.MyCtachRecordActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.NewsWebActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.MyLogisticsOrderActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.ExChangeShopActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.JoinEarnActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.MyCenterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.NavigationPageActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -376,6 +400,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.AgencyActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -394,31 +419,47 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.MyJoinCodeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.SettingMobileActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.AccountDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity
             android:name=".activity.home.RankActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".activity.ctrl.view.PushCoinActivity"></activity>
-    </application>
+        <activity android:name=".activity.ctrl.view.PushCoinActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".activity.home.CoinRecordActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
 </manifest>

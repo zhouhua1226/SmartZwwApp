@@ -49,7 +49,7 @@ public class UrlUtils {
     public static final String SENDGOODSUSERID="userId";
     public static final String SENDGOODSMODE="mode";
     public static final String SENDGOODSCOSTNUM="costNum";
-
+    public static final String FLAG = "flag";
     //微信QQ登录接口
     public static final String WXQQ_UID="uid";
     public static final String WXQQ_ACCESSTOKEN="accessToken";
@@ -273,4 +273,6 @@ public class UrlUtils {
     //查询账户收支流水  /pooh-web/app/account/getUserAccountDetailPage.do
     public static final String ACCOUNTDETAILURL=URL+"/pooh-web/app/account/getUserAccountDetailPage.do";
 
+    //推币机个人信息投币记录
+    public static final String GETCOINPUSHERRECONDLIST =URL+"/pooh-web/app/coinPusher/getCoinPusherRecondList" ;
 }

@@ -1,7 +1,10 @@
 package com.tencent.tmgp.jjzww.model.http;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tencent.tmgp.jjzww.bean.AppUserBean;
 import com.tencent.tmgp.jjzww.bean.BetRecordBean;
+import com.tencent.tmgp.jjzww.bean.CoinListBean;
 import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.ListRankBean;
 import com.tencent.tmgp.jjzww.bean.PondResponseBean;
@@ -9,9 +12,6 @@ import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.RoomListBean;
 import com.tencent.tmgp.jjzww.bean.Token;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 
 import retrofit2.Retrofit;
@@ -159,9 +159,9 @@ public class HttpManager {
     }
 
     //下注
-    public void getBets(String userId,int wager,String guessKey,String guessId,
-                        String dollID,int afterVoting,int multiple,Subscriber<Result<AppUserBean>> subscriber){
-        Observable<Result<AppUserBean>> o= smartService.getBets(userId,wager,guessKey,guessId,dollID,afterVoting,multiple);
+    public void getBets(String userId, int wager, String guessKey, String guessId,
+                        String dollID, int afterVoting, int multiple, boolean flag, Subscriber<Result<AppUserBean>> subscriber){
+        Observable<Result<AppUserBean>> o= smartService.getBets(userId,wager,guessKey,guessId,dollID,afterVoting,multiple,flag+"");
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -551,6 +551,15 @@ public class HttpManager {
         Observable<Result<HttpDataInfo>> o = smartService.getUserAccountDetailPage(Utils.deviceType, Utils.osVersion,
                 Utils.appVersion,Utils.IMEI, UrlUtils.LOGIN_CTYPE,UrlUtils.LOGIN_CHANNEL,
                 userId,nextPage);
+        o.subscribeOn(Schedulers.newThread())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    //投币记录
+    public void getCoinRecord(String userId, Subscriber<Result<CoinListBean>> subscriber){
+        Observable<Result<CoinListBean>> o = smartService.getCoinRecord(userId);
         o.subscribeOn(Schedulers.newThread())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

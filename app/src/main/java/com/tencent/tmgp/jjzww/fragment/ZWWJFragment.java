@@ -18,11 +18,11 @@ import android.widget.TextView;
 import com.gatz.netty.utils.NettyUtils;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.activity.ctrl.view.CtrlActivity;
+import com.tencent.tmgp.jjzww.activity.ctrl.view.PushCoinActivity;
 import com.tencent.tmgp.jjzww.activity.home.ExChangeShopActivity;
 import com.tencent.tmgp.jjzww.activity.home.JoinEarnActivity;
 import com.tencent.tmgp.jjzww.activity.home.MyCenterActivity;
 import com.tencent.tmgp.jjzww.activity.home.RankActivity;
-import com.tencent.tmgp.jjzww.activity.ctrl.view.PushCoinActivity;
 import com.tencent.tmgp.jjzww.adapter.ZWWAdapter;
 import com.tencent.tmgp.jjzww.base.BaseFragment;
 import com.tencent.tmgp.jjzww.bean.BannerBean;
@@ -55,6 +55,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static android.R.attr.name;
 
 /**
  * Created by hongxiu on 2017/9/25.
@@ -112,7 +113,6 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         initData();
         onClick();
         getUserList();
-        NettyUtils.sendRoomInCmd();
         getBannerList();
         getToyType();
     }
@@ -242,10 +242,12 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     }
 
     //TODO 正式环境统一处理
-    private void enterCoinNext(String camera1, String camera2) {
+    private void enterCoinNext(String dollName,  String camera1, String camera2,String roomId) {
         Intent intent = new Intent(getActivity(), PushCoinActivity.class);
         intent.putExtra(Utils.TAG_URL_MASTER, camera1);
         intent.putExtra(Utils.TAG_URL_SECOND, camera2);
+        intent.putExtra(Utils.TAG_ROOM_NAME, name);
+        intent.putExtra(Utils.TAG_DOLL_Id, roomId);
         startActivity(intent);
     }
 
@@ -282,8 +284,8 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
             Utils.showLogE(TAG, "房间推流地址2=" + url2);
             if (!TextUtils.isEmpty(url2) && !TextUtils.isEmpty(url1)) {
                 String type = currentRoomBeens.get(po).getDeviceType();
-                if (type.equals("2")) {
-                    enterCoinNext(url1, url2);
+                if (type!=null&&type.equals("2")) {
+                    enterCoinNext(currentRoomBeens.get(po).getDollName(),url1, url2,currentRoomBeens.get(po).getDollId());
                     return;
                 }
                 enterZwwNext(currentRoomBeens.get(po).getDollName(),
@@ -336,8 +338,6 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     }
 
     private void getBannerList() {
-        // ctrlCompl = new CtrlCompl(this,getActivity());
-        NettyUtils.pingRequest(); //判断连接
         HttpManager.getInstance().getBannerList(new RequestSubscriber<Result<HttpDataInfo>>() {
             @Override
             public void _onSuccess(Result<HttpDataInfo> loginInfoResult) {
@@ -371,7 +371,6 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     }
 
     //如果你需要考虑更好的体验，可以这么操作
-
 
     private List<RoomBean> dealWithRoomStats(List<RoomBean> beens) {
         if (beens.size() == 0) {
@@ -472,14 +471,11 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
         public void onTabUnselected(TabLayout.Tab tab) {
 
         }
-
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
 
         }
     };
-
-
     @Override
     public void onFooterRefresh(PullToRefreshView view) {
         mPullToRefreshView.postDelayed(new Runnable() {
@@ -530,9 +526,5 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     public void onDestroyView() {
         super.onDestroyView();
         unbinder1.unbind();
-        mSurfaceView.getCtrlCompl().stopPlayVideo();
-        mSurfaceView.getCtrlCompl().stopRecordView();
-        mSurfaceView.getCtrlCompl().stopTimeCounter();
-        mSurfaceView.getCtrlCompl().sendCmdOutRoom();
     }
 }

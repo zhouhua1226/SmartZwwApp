@@ -2,6 +2,7 @@ package com.tencent.tmgp.jjzww.model.http;
 
 import com.tencent.tmgp.jjzww.bean.AppUserBean;
 import com.tencent.tmgp.jjzww.bean.BetRecordBean;
+import com.tencent.tmgp.jjzww.bean.CoinListBean;
 import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.ListRankBean;
 import com.tencent.tmgp.jjzww.bean.PondResponseBean;
@@ -147,7 +148,8 @@ public interface SmartService {
             @Field(UrlUtils.GUESSID) String guessId,
             @Field(UrlUtils.DOLLID) String dollID,
             @Field(UrlUtils.GUESSPRONUM) int afterVoting,
-            @Field(UrlUtils.GUESSMULTIPLE) int multiple
+            @Field(UrlUtils.GUESSMULTIPLE) int multiple,
+            @Field(UrlUtils.FLAG) String flag
     );
 
         //跑马灯
@@ -594,5 +596,9 @@ public interface SmartService {
             @Field(UrlUtils.USERID) String userId,
             @Field(UrlUtils.NEXTPAGE) String nextPage
     );
-
+    //投币记录
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST(UrlUtils.GETCOINPUSHERRECONDLIST)
+    Observable<Result<CoinListBean>> getCoinRecord(  @Field(UrlUtils.USERID) String userId);
 }

@@ -318,7 +318,6 @@
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
-
         </RelativeLayout>
         <ImageView
             android:id="@+id/ctrl_instruction_image"

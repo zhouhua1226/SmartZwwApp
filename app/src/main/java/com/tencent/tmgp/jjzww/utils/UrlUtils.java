@@ -207,8 +207,8 @@ public class UrlUtils {
     public static final String USERSIGNURL=URL+"/pooh-web/app/sign";
 
     //轮播接口
-   // public static final String BANNERURL=URL+"/pooh-web/app/getRunImage";
-     public static final String BANNERURL="http://111.231.139.61:18081"+"/pooh-web/app/runimg/getRunImage";
+   public static final String BANNERURL=URL+"/pooh-web/app/getRunImage";
+    // public static final String BANNERURL=URL+"/pooh-web/app/runimg/getRunImage";
 
     //排行榜当前用户排名接口
     public static final String RANKLISTURL=URL+"/pooh-web/rank/rankSelfList";

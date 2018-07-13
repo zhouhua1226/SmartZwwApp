@@ -12,9 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.gatz.netty.AppClient;
+import com.gatz.netty.utils.AppProperties;
+import com.gatz.netty.utils.NettyUtils;
 import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.base.BaseActivity;
+import com.tencent.tmgp.jjzww.base.MyApplication;
 import com.tencent.tmgp.jjzww.bean.HttpDataInfo;
 import com.tencent.tmgp.jjzww.bean.Result;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
@@ -28,15 +35,8 @@ import com.tencent.tmgp.jjzww.utils.UrlUtils;
 import com.tencent.tmgp.jjzww.utils.UserUtils;
 import com.tencent.tmgp.jjzww.utils.Utils;
 import com.tencent.tmgp.jjzww.utils.YsdkUtils;
-import com.gatz.netty.AppClient;
-import com.gatz.netty.utils.AppProperties;
-import com.gatz.netty.utils.NettyUtils;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
 import com.tencent.tmgp.jjzww.view.SignInDialog;
 import com.tencent.tmgp.jjzww.view.SignSuccessDialog;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,6 +46,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 
 public class MainActivity extends BaseActivity {
@@ -76,15 +77,14 @@ public class MainActivity extends BaseActivity {
     private int signNumber = 0;
     private int[] signDayNum=new int[7];
     private String isSign="";
-    static {
-        System.loadLibrary("SmartPlayer");
-    }
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
     }
-
+    static {
+        System.loadLibrary("SmartPlayer");
+    }
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
         initView();
@@ -130,11 +130,16 @@ public class MainActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         getLoginBackDate();             //登录信息返回
+
     }
 
     @Override
@@ -295,15 +300,13 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
             mExitTime = System.currentTimeMillis();
         } else {
-            MobclickAgent.onKillProcess(this);
-            finish();
-            System.exit(0);
+            MyApplication.getInstance().exit();
         }
     }
 
     private void doServcerConnect() {
         String ip = "47.100.8.129";    //123.206.120.46(壕鑫正式)   47.100.8.129(测试)   111.231.74.65 (第一抓娃娃)
-        AppClient.getInstance().setHost(UrlUtils.SOCKET_IP);
+        AppClient.getInstance().setHost(ip);
         AppClient.getInstance().setPort(8580);
         if (!AppProperties.initProperties(getResources())) {
             Utils.showLogE(TAG, "netty初始化配置信息出错");
@@ -340,11 +343,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //stopTimer();
-    }
+
 
     //监控网关区
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = {
@@ -575,4 +574,5 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
 }

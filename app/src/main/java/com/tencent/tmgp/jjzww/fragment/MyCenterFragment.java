@@ -14,14 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
-import com.tencent.tmgp.jjzww.activity.home.BetRecordActivity;
-import com.tencent.tmgp.jjzww.activity.home.ExChangeShopActivity;
-import com.tencent.tmgp.jjzww.activity.home.GameCurrencyActivity;
 import com.tencent.tmgp.jjzww.activity.home.InformationActivity;
-import com.tencent.tmgp.jjzww.activity.home.LnvitationCodeActivity;
 import com.tencent.tmgp.jjzww.activity.home.MyCtachRecordActivity;
-import com.tencent.tmgp.jjzww.activity.home.MyLogisticsOrderActivity;
-import com.tencent.tmgp.jjzww.activity.home.RecordActivity;
 import com.tencent.tmgp.jjzww.activity.home.ServiceActivity;
 import com.tencent.tmgp.jjzww.activity.home.SettingActivity;
 import com.tencent.tmgp.jjzww.activity.wechat.WeChatPayActivity;
@@ -44,14 +38,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-
 /**
  * Created by hongxiu on 2017/9/25.
  */
 public class MyCenterFragment extends BaseFragment {
 
     private static final String TAG = "MyCenterFragment";
-    Unbinder unbinder;
     @BindView(R.id.image_kefu)
     ImageButton imageKefu;
     @BindView(R.id.image_setting)
@@ -78,17 +70,7 @@ public class MyCenterFragment extends BaseFragment {
     RelativeLayout mycenterKefuLayout;
     @BindView(R.id.mycenter_mycurrency_tv)
     TextView mycenterMycurrencyTv;
-    @BindView(R.id.mycenter_videoback_layout)
-    RelativeLayout mycenterVideobackLayout;
     Unbinder unbinder2;
-    @BindView(R.id.mycenter_currencyrecord_layout)
-    RelativeLayout mycenterCurrencyrecordLayout;
-    @BindView(R.id.mycenter_guessrecord_layout)
-    RelativeLayout mycenterGuessrecordLayout;
-    @BindView(R.id.mycenter_logisticsorder_layout)
-    RelativeLayout mycenterLogisticsorderLayout;
-    @BindView(R.id.mycenter_lnvitationcode_tv)
-    TextView mycenterLnvitationcodeTv;
     @BindView(R.id.mycenter_exshop_layout)
     RelativeLayout mycenterExshopLayout;
 
@@ -112,7 +94,6 @@ public class MyCenterFragment extends BaseFragment {
         if (!Utils.isEmpty(UserUtils.USER_ID))
             getUserDate(UserUtils.USER_ID);
     }
-
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -174,9 +155,7 @@ public class MyCenterFragment extends BaseFragment {
 
     @OnClick({R.id.mycenter_kefu_layout, R.id.mycenter_setting_layout, R.id.user_image,
             R.id.mycenter_pay_layout, R.id.user_name, R.id.mycenter_catchrecord_layout,
-            R.id.mycenter_videoback_layout, R.id.mycenter_currencyrecord_layout,
-            R.id.mycenter_guessrecord_layout, R.id.mycenter_logisticsorder_layout,
-            R.id.mycenter_lnvitationcode_tv,R.id.mycenter_exshop_layout})
+            R.id.mycenter_exshop_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mycenter_kefu_layout:
@@ -195,28 +174,16 @@ public class MyCenterFragment extends BaseFragment {
             case R.id.mycenter_catchrecord_layout:
                 startActivity(new Intent(getContext(), MyCtachRecordActivity.class));
                 break;
-            case R.id.mycenter_videoback_layout:
-                startActivity(new Intent(getContext(), RecordActivity.class));
-                break;
+
             case R.id.user_name:
                 //此处添加登录dialog
                 break;
-            case R.id.mycenter_currencyrecord_layout:
-                //金币记录
-                //MyToast.getToast(getContext(),"金币记录").show();
-                startActivity(new Intent(getContext(), GameCurrencyActivity.class));
-                break;
-            case R.id.mycenter_guessrecord_layout:
-                startActivity(new Intent(getContext(), BetRecordActivity.class));
-                break;
-            case R.id.mycenter_logisticsorder_layout:
-                startActivity(new Intent(getContext(), MyLogisticsOrderActivity.class));
-                break;
-            case R.id.mycenter_lnvitationcode_tv:
-                startActivity(new Intent(getContext(), LnvitationCodeActivity.class));
-                break;
+
             case R.id.mycenter_exshop_layout:
-                startActivity(new Intent(getContext(), ExChangeShopActivity.class));
+                //startActivity(new Intent(getContext(), ExChangeShopActivity.class));
+                startActivity(new Intent(getContext(), MyCtachRecordActivity.class));
+                break;
+
             default:
                 break;
         }
@@ -235,6 +202,4 @@ public class MyCenterFragment extends BaseFragment {
         super.onDestroyView();
         unbinder2.unbind();
     }
-
-
 }

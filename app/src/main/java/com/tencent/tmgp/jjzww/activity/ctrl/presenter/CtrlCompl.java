@@ -143,7 +143,6 @@ public class CtrlCompl implements BasePresenter, ICtrlPresenter {
     public void stopPlayVideo() {
         ctrlModel.stopPlayer();
     }
-
     @Override
     public void startPlaySwitchUrlVideo(String url) {
         ctrlModel.startPlaySwitchUrl(url);

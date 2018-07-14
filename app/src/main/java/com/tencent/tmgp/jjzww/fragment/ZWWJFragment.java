@@ -89,6 +89,7 @@ public class ZWWJFragment extends BaseFragment implements PullToRefreshView.OnHe
     @BindView(R.id.rl_marqueeview)
     RelativeLayout mArqueeView;
 
+
     private List<RoomBean> currentRoomBeens = new ArrayList<>();
     private ZWWAdapter zwwAdapter;
     private String sessionId;

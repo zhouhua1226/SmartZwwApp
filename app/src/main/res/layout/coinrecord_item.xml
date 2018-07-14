@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="60dp">
+    <TextView
+        android:id="@+id/periodsNum_tv"
+        android:gravity="center"
+        android:layout_weight="7"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:text="1227001"/>
+    <TextView
+        android:id="@+id/cost_gold_tv"
+        android:gravity="center"
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:textColor="#ff7f25"
+        android:layout_height="match_parent"
+        tools:text="-50"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/return_gold_tv"
+        android:gravity="center"
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:textColor="@color/betrecordcolor1"
+        android:layout_height="match_parent"
+        android:text="+20"/>
+</LinearLayout>

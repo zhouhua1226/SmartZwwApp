@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ededed"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/apptheme_bg">
+
+        <ImageButton
+            android:id="@+id/image_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="加盟码"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+        />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/zww_gary_bg"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加盟码兑换\n输入好友给您的加盟码"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/gray"
+                android:layout_marginTop="15dp"
+                android:textSize="15sp"
+                android:lineSpacingExtra="5dp"
+                />
+
+            <EditText
+                android:id="@+id/exchangecenter_code_et"
+                android:layout_width="180dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:singleLine="true"
+                android:maxLength="15"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:background="@drawable/gary_border_corners"
+                android:hint="输入加盟码获取金币"
+                android:textColorHint="@color/gray"
+                />
+
+            <Button
+                android:id="@+id/myjoincode_submit_btn"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/setting_logout_btn_bg"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="30dp"
+                android:textColor="@color/gray"
+                android:layout_marginBottom="10dp"
+                android:text="备注:用户输入加盟码可获得15金币,用户充值你可获得相应提成"
+                />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/myjoincode_mycode_layout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/common_gary_bg"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的加盟码:"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:paddingLeft="15dp"
+
+                />
+
+            <TextView
+                android:id="@+id/myjoincode_code_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                tools:text="S4T57U"
+                android:textColor="#ff9700"
+                android:textSize="25sp"
+                android:layout_marginLeft="100dp"
+                />
+
+            <Button
+                android:id="@+id/myjoincode_copy_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="复制"
+                android:layout_centerVertical="true"
+                android:background="@drawable/setting_logout_btn_bg"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/white"
+                />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/myjoincode_gotojoin_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="我要加盟"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/apptheme_bg"
+            android:visibility="gone"
+            />
+
+    </RelativeLayout>
+
+
+
+
+
+
+</LinearLayout>

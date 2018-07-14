@@ -31,98 +31,103 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/joinearn_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/white"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="50元(625金币)"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            />
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
-        <TextView
-            android:id="@+id/joinearn_fifty_tv"
-            android:layout_width="60dp"
-            android:layout_height="27dp"
-            android:text="加盟"
-            android:gravity="center"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:background="@drawable/setting_logout_btn_bg"
-            />
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:background="@color/white"-->
+        <!--&gt;-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="50元(625金币)"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--/>-->
 
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/joinearn_fifty_tv"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="27dp"-->
+            <!--android:text="加盟"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:background="@drawable/setting_logout_btn_bg"-->
+            <!--/>-->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="1px"
-        android:background="@color/white"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="100元(1250金币)"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            />
+    <!--</RelativeLayout>-->
 
-        <TextView
-            android:id="@+id/joinearn_onehundred_tv"
-            android:layout_width="60dp"
-            android:layout_height="27dp"
-            android:text="加盟"
-            android:gravity="center"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:background="@drawable/setting_logout_btn_bg"
-            />
-    </RelativeLayout>
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_marginTop="1px"-->
+        <!--android:background="@color/white"-->
+        <!--&gt;-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="100元(1250金币)"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--/>-->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="1px"
-        android:background="@color/white"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="200元(2500金币)"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            />
+        <!--<TextView-->
+            <!--android:id="@+id/joinearn_onehundred_tv"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="27dp"-->
+            <!--android:text="加盟"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:background="@drawable/setting_logout_btn_bg"-->
+            <!--/>-->
+    <!--</RelativeLayout>-->
 
-        <TextView
-            android:id="@+id/joinearn_twohundred_tv"
-            android:layout_width="60dp"
-            android:layout_height="27dp"
-            android:text="加盟"
-            android:gravity="center"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:background="@drawable/setting_logout_btn_bg"
-            />
-    </RelativeLayout>
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_marginTop="1px"-->
+        <!--android:background="@color/white"-->
+        <!--&gt;-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="200元(2500金币)"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/joinearn_twohundred_tv"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="27dp"-->
+            <!--android:text="加盟"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:background="@drawable/setting_logout_btn_bg"-->
+            <!--/>-->
+    <!--</RelativeLayout>-->
 
     <TextView
         android:layout_width="match_parent"
@@ -130,10 +135,11 @@
         android:padding="25dp"
         android:textSize="13sp"
         android:textColor="#63553b"
-        android:text="1.50元加盟费，每成功邀请一位好友充值，可获得充值金额5%的现金返利，现金返利每月可提现。"
+        android:text="加盟规则说明：每成功邀请一位好友充值，可获得充值金额提成比的现金返利，现金返利每月可提现。"
         />
 
     <TextView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="25dp"
@@ -145,6 +151,7 @@
         />
 
     <TextView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="25dp"

@@ -40,7 +40,6 @@ public class InformationActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
 
-
     }
 
     @Override

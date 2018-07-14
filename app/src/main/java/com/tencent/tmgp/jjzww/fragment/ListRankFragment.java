@@ -21,7 +21,7 @@ public class ListRankFragment extends BaseFragment {
     RecyclerView listrankRecycrview;
     Unbinder unbinder;
     private ListRankAdapter listRankAdapter;
-    private List<String>list;
+    private List<String> list;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_listrank;

@@ -3,15 +3,9 @@ package com.tencent.tmgp.jjzww.activity.home;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,10 +30,8 @@ import com.tencent.tmgp.jjzww.utils.YsdkUtils;
 import com.tencent.tmgp.jjzww.view.GifView;
 import com.tencent.tmgp.jjzww.view.MyToast;
 import com.tencent.ysdk.framework.common.ePlatform;
+
 import org.json.JSONObject;
-
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

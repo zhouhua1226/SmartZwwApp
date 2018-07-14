@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.tencent.tmgp.jjzww.R;
 import com.tencent.tmgp.jjzww.bean.RoomBean;
 import com.tencent.tmgp.jjzww.utils.UrlUtils;
-import com.tencent.tmgp.jjzww.utils.Utils;
 
 import java.util.List;
 
@@ -45,9 +44,9 @@ public class ZWWAdapter extends RecyclerView.Adapter<ZWWAdapter.ZWWViewHolder> {
         RoomBean bean = mDatas.get(position);
         holder.money.setText(bean.getDollGold()+"");
         holder.name.setText(bean.getDollName());
-        Glide.with(mContext).load(UrlUtils.APPPICTERURL + bean.getDollUrl())
-                .error(R.drawable.loading)
-                .into(holder.imageView);
+       Glide.with(mContext).load(UrlUtils.APPPICTERURL + bean.getDollUrl()).
+               error(R.drawable.loading)
+               .into(holder.imageView);
         holder.itemView.setEnabled(true);
         if (bean.getDollState().equals("10")) {
             holder.connectIv.setImageResource(R.drawable.ctrl_work_icon);
